@@ -821,8 +821,8 @@ button,input,textarea,select{font-family:inherit}
 .rx-sig-right{font-size:.65rem;color:var(--muted);text-align:right}
 .rx-actions{display:flex;gap:7px;margin-top:12px}
 .rxa{flex:1;padding:8px;border-radius:8px;border:none;font-family:var(--sans);font-size:.75rem;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px}
-.rxa-copy{background:var(--bg);color:var(--body);border:1px solid var(--border2)}.rxa-wa{background:#25D366;color:white}.rxa-print{background:var(--bark);color:#F8F6F3}
-.rxa-copy:hover{background:var(--bg2)}.rxa-wa:hover{opacity:.9}.rxa-print:hover{background:var(--sienna)}
+.rxa-copy{background:var(--bg);color:var(--body);border:1px solid var(--border2)}.rxa-wa{background:#25D366;color:white}.rxa-email{background:#0072C6;color:white}.rxa-print{background:var(--bark);color:#F8F6F3}
+.rxa-copy:hover{background:var(--bg2)}.rxa-wa:hover{opacity:.9}.rxa-email:hover{opacity:.9}.rxa-print:hover{background:var(--sienna)}
 
 /* modal */
 .modal-overlay{position:fixed;inset:0;background:rgba(27,16,8,.55);backdrop-filter:blur(4px);z-index:500;display:none;align-items:center;justify-content:center;padding:20px}
@@ -1098,6 +1098,12 @@ button,input,textarea,select{font-family:inherit}
             <div class="ic-body" id="partner-body"></div>
           </div>
 
+          <!-- Hospitalisation History -->
+          <div class="info-card" id="info-hosp" style="display:none">
+            <div class="ic-head">Past Hospitalisations</div>
+            <div class="ic-body" id="hosp-body"></div>
+          </div>
+
           <div class="info-card" id="info-vitals"><div class="ic-head">Vitals & Exam <span class="patient-label" id="vitals-label"></span></div><div class="ic-body" id="vitals-body"><span style="font-size:.75rem;color:var(--muted)">Load a patient.</span></div></div>
           <div class="info-card" id="info-labs"><div class="ic-head">Investigations <span class="patient-label" id="labs-label"></span></div><div class="ic-body" id="labs-body"><span style="font-size:.75rem;color:var(--muted)">Load a patient.</span></div></div>
           <div class="info-card" id="info-meds"><div class="ic-head">Current Medications <span class="patient-label" id="meds-label"></span></div><div class="ic-body" id="meds-body"><span style="font-size:.75rem;color:var(--muted)">Load a patient.</span></div></div>
@@ -1148,6 +1154,15 @@ button,input,textarea,select{font-family:inherit}
               </div>
             </div>
           </div>
+
+          <!-- INSURANCE / ABHA PANEL -->
+          <div class="nava-panel" id="insurance-panel" style="display:none">
+            <div class="np-header">
+              <div class="np-title">Insurance &amp; Coverage</div>
+              <div id="ins-abha-badge" style="font-size:.65rem;font-weight:600;padding:2px 8px;border-radius:4px;background:var(--glt);color:var(--green)">ABHA Linked</div>
+            </div>
+            <div class="np-body" id="insurance-body" style="padding:0"></div>
+          </div>
         </div>
 
       </div>
@@ -1168,6 +1183,10 @@ button,input,textarea,select{font-family:inherit}
               <label class="field-label">Diagnosis</label><input class="field-input" id="rx-dx" value="Exertional chest pain — cardiac cause, pending cardiology">
               <label class="field-label">Key findings</label><textarea class="field-textarea" id="rx-findings">LDL 168 HIGH, HDL 38 LOW, Hb 11.2, Ferritin 8, BP 148/94</textarea>
               <label class="field-label">Allergies / contraindications</label><input class="field-input" id="rx-allergy" value="No known allergies. Lactose intolerant.">
+              <div class="field-row">
+                <div><label class="field-label">Patient Mobile</label><input class="field-input" id="rx-phone" placeholder="98xxxxxxxx" type="tel"></div>
+                <div><label class="field-label">Patient Email</label><input class="field-input" id="rx-email" placeholder="patient@email.com" type="email"></div>
+              </div>
               <button class="gen-btn" onclick="generateRx()">⚕ Generate Prescription + Alternatives</button>
             </div>
           </div>
@@ -1833,6 +1852,17 @@ const CASES_DATA = [
     {type:'diff-class',name:'Furosemide 1–2 mg/kg/day',salt:'Furosemide',class:'Loop Diuretic',dose:'Adjunct, typically 1–2 mg/kg OD',price:'₹15–30 / 10 tabs',reason:'Different mechanism — reduces CSF via systemic diuresis. Used as add-on when Acetazolamide alone does not adequately reduce CSF pressure. Rarely used as monotherapy.',switchNote:'Requires K+ monitoring and may worsen Acetazolamide-induced hypokalaemia — add K+ supplementation.',evidence:'Older literature supports adjunct use. Not first- or second-line per current IIH guidelines.'},
     {type:'adjunct',name:'Calcirol 60,000 IU + Portfolio diet',salt:'Vit D3 + low-sodium diet',class:'Risk-factor modification',dose:'Vit D 60K weekly × 8 wks; <2g Na/day',price:'₹400–700 (Vit D course)',reason:'Addresses documented IIH risk factors: Vit D deficiency (18 ng/mL in this patient) and high dietary sodium. Evidence-based non-pharmacological adjunct — not a replacement for Acetazolamide.',switchNote:'Always prescribed alongside primary therapy, not instead of it. Reduces relapse risk long-term.',evidence:'AAP paediatric IIH review: Vit D sufficiency associated with better outcomes. Na restriction has small RCT support.'}
   ],
+  hospitalisations:[
+    {date:'Mar 2023',duration:'3 days',facility:'Max Hospital, Saket',reason:'URTI with febrile seizure',summary:'First febrile convulsion. EEG normal. Discharged on prophylactic Phenobarbitone — stopped after 6 months uneventful.',discharge:'Phenobarbitone 30mg OD × 6mo',emergency:true},
+    {date:'Jul 2022',duration:'1 day',facility:'Local clinic, Delhi',reason:'Gastroenteritis + dehydration',summary:'IV fluids, oral ORS. Recovered fully.',discharge:'ORS + probiotics × 5 days',emergency:false}
+  ],
+  insurance:{
+    abha:'4782-1394-2201-5567', scheme:'CGHS (Central Govt)', status:'active',
+    covered:['MRI Brain (covered up to ₹12,000)','Paediatric Neurology OPD','LP procedure (covered up to ₹8,000)','Ophthalmology consultation'],
+    notCovered:['Phase-contrast CSF flow MRI (non-standard protocol — needs pre-auth)','Calcirol 60K (OTC — not reimbursed)'],
+    preAuthNeeded:['LP — submit CGHS pre-auth form 4 days in advance','MRI with special protocol — attach referral letter'],
+    annualLimit:'₹5,00,000',utilised:'₹38,200',remaining:'₹4,61,800'
+  },
   en:`*Health update — Aryan's headache*\n\nAfter careful review:\n\nThe current diagnosis (sinusitis) may not explain 14 weeks of constant headache that has not responded to three antibiotic and three ibuprofen courses.\n\nNAVA's concern: raised brain pressure (IIH) — where the brain scan looks completely normal but pressure is elevated.\n\n*What must happen immediately:*\nEye specialist — to check behind the eye (quick and painless)\nBrain specialist (Paediatric Neurologist)\n\n*Medicine changes:*\n✓ Paracetamol — dose corrected (was too low)\n✓ Vitamin D — switching to weekly high dose (Calcirol)\n✗ Stop all Ibuprofen — has not worked in 3 separate trials\n\nURGENT — Emergency if: sudden severe headache, any vision changes, vomiting with headache\n\n⚕ Advisory — Dr Priya Nair · NAVA Clinical Intelligence`,
   hi:`*Aryan ke sar dard ke baare mein update*\n\nPoori history dekh ke:\n\nAbhi jo diagnosis hai (sinusitis) — 14 hafte ke lagatar dard ko explain nahi karta jo teen antibiotic aur teen ibuprofen se bhi theek nahi hua.\n\nNAVA ki chinta: brain pressure badh sakta hai (IIH) — jisme brain ka scan normal dikhta hai.\n\n*Aaj hi karna hai:*\nAankh ke doctor — aankhon ke peeche check (jaldi aur dard nahi)\nDimag ke specialist\n\n*Dawai mein badlav:*\n✓ Paracetamol — sahi dose (pehle kam thi)\n✓ Vitamin D — weekly high dose (Calcirol)\n✗ Ibuprofen bilkul band karo\n\nURGENT — Emergency: achanak tez dard, aankhon mein dikkat, ulti ke saath dard\n\n⚕ Advisory — Dr Priya Nair`
 },
@@ -1935,6 +1965,18 @@ const CASES_DATA = [
     {type:'diff-class',name:'Inclisiran 284mg (Leqvio)',salt:'Inclisiran',class:'PCSK9-targeting siRNA',dose:'Subcutaneous — day 0, 90, then 6-monthly',price:'₹45,000–60,000 per dose (limited Indian availability)',reason:'Different mechanism — silences PCSK9 production at RNA level. Reserved for true statin intolerance OR familial hypercholesterolaemia where LDL remains very high despite maximum conventional therapy.',switchNote:'NOT first-line alternative. Consider only after statin + ezetimibe have failed or are contraindicated. Cost-prohibitive for most Indian patients without insurance.',evidence:'ORION-10/11 trials: ~50% sustained LDL reduction with twice-yearly dosing. Approved in India 2023.'},
     {type:'adjunct',name:'Omega-3 EPA (Icosapent Ethyl / Vascepa)',salt:'Icosapent Ethyl 2g',class:'Triglyceride-lowering',dose:'2g BD',price:'₹900–1,400 / month (limited availability)',reason:'Adjunct — added to a statin when triglycerides remain elevated OR in patients with residual CV risk despite LDL at target. Does not replace statin.',switchNote:'Complementary, not substitutive. Only add after Atorvastatin is established and LDL trend is known.',evidence:'REDUCE-IT trial: icosapent ethyl reduced MACE by 25% in statin-treated patients with elevated TG.'}
   ],
+  hospitalisations:[
+    {date:'Nov 2021',duration:'5 days',facility:'Apollo Hospitals, Chennai',reason:'Hypertensive crisis — BP 192/110',summary:'IV Labetalol, BP stabilised. Echo at that time: normal LV function. Discharged on Amlodipine 2.5mg. Statin not started despite LDL noted at 162.',discharge:'Amlodipine 2.5mg OD, dietary advice',emergency:true},
+    {date:'Mar 2019',duration:'2 days',facility:'MIOT International, Chennai',reason:'Chest pain — ruled out MI',summary:'Troponin negative × 2. Resting ECG normal. Diagnosed as musculoskeletal. Discharged without stress test or lipid management.',discharge:'Ibuprofen PRN, follow-up advised (not attended)',emergency:true}
+  ],
+  insurance:{
+    abha:'3391-8820-4410-7723', scheme:'Aarogya Karnataka (State)', status:'active',
+    covered:['2D Echocardiogram (covered ₹4,000)','Cardiology OPD × 2 per year','Stress test TMT (covered ₹2,500)','Basic labs (lipids, HbA1c, CBC — covered)','Atorvastatin (Jan Aushadhi equivalent — reimbursed)'],
+    notCovered:['Coronary angiography — requires PMJAY (not enrolled)','PTCA/stenting — not covered under state scheme','Private hospital room charges above ward rate'],
+    preAuthNeeded:['Cardiology referral letter required for Echo + TMT reimbursement'],
+    annualLimit:'₹1,50,000',utilised:'₹12,400',remaining:'₹1,37,600',
+    pmjayEligible:false, pmjayNote:'Income above threshold. Consider ESI if employed.'
+  },
   en:`*Health update — Meena Iyer*\n\nAfter careful review:\n\nYour chest tightness on stairs needs your heart checked first. This pattern does not fit acid reflux.\n\nYou have a strong family history (father's heart attack at 55) and high cholesterol. Both must be addressed now.\n\n*What must happen this week:*\nHeart specialist (Cardiologist) — urgent\n Heart scan (2D Echo) + Exercise stress test (TMT)\n\n*Medicine changes:*\n✓ Amlodipine — continue\n✓ Atorvastatin 40mg (Storvas/Atorva) — start tonight for cholesterol\n✓ Iron tablets — for mild anaemia\n✗ Stop Pan-D — it is not helping and is treating the wrong problem\n\nURGENT — Emergency: chest pain at rest, arm or jaw pain, sudden breathlessness\n\n⚕ Advisory — Dr Priya Nair · NAVA Clinical Intelligence`,
   hi:`*Meena Iyer ke liye update*\n\nSeedhi pe chest mein tightness — pehle dil check karna zaroori hai. Yeh acidity nahi lagta.\n\nPapa ko 55 mein heart attack tha. Cholesterol bhi zyada hai. Dono abhi theek karne hain.\n\n*Is hafte karna hai:*\nDil ke doctor — urgent\n 2D Echo + TMT\n\n*Dawai:*\n✓ Amlodipine — jaari\n✓ Atorvastatin 40mg — aaj raat se shuru\n✓ Iron tablets — khoon ke liye\n✗ Pan-D band karo\n\nURGENT — Emergency: aaaram mein dard, haath/jaad mein dard, sans ki takleef\n\n⚕ Advisory — Dr Priya Nair`
 },
@@ -2706,9 +2748,125 @@ function loadCase(i){
     flagEl.textContent = 'No Flags';
   }
 
+  // hospitalisation history
+  const hospPanel = document.getElementById('info-hosp');
+  const hospBody = document.getElementById('hosp-body');
+  if(d.hospitalisations && d.hospitalisations.length){
+    hospPanel.style.display='block';
+    hospBody.innerHTML = d.hospitalisations.map(h=>`
+      <div style="padding:8px 0;border-bottom:1px solid var(--border2);display:flex;gap:10px;align-items:flex-start">
+        <div style="flex-shrink:0;width:36px;height:36px;border-radius:8px;background:${h.emergency?'var(--rlt)':'var(--glt)'};display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:${h.emergency?'var(--red)':'var(--green)'}">H</div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:.78rem;font-weight:600;color:var(--ink)">${h.facility}</div>
+          <div style="font-size:.72rem;color:var(--muted);margin-top:1px">${h.date} · ${h.duration} · ${h.reason}</div>
+          <div style="font-size:.72rem;color:var(--body);margin-top:3px">${h.summary}</div>
+          ${h.discharge?`<div style="font-size:.68rem;color:var(--muted);margin-top:2px;font-style:italic">DC: ${h.discharge}</div>`:''}
+        </div>
+        ${h.emergency?`<span style="font-size:.63rem;font-weight:700;background:var(--rlt);color:var(--red);padding:2px 6px;border-radius:4px;flex-shrink:0">Emergency</span>`:''}
+      </div>`).join('').replace(/<div[^>]*style="[^"]*border-bottom[^"]*"[^>]*>(?![\s\S]*border-bottom)/,'').replace(/border-bottom:[^;]+;([^"]*last)/g,'$1');
+  } else {
+    hospPanel.style.display='none';
+  }
+
+  // insurance / ABHA
+  renderInsurancePanel(d);
+
   showView('workspace');
   // refresh the demo picker so the active case shows highlighted
   renderDemoCasePicker();
+}
+
+// ─── VISUAL TEMPORAL TIMELINE ───
+function renderVisualTimeline(d){
+  const events = d.history || [];
+  if(!events.length) return `<div style="font-size:.75rem;color:var(--muted);padding:8px 0">No history recorded.</div>`;
+  const typeColors = {chronic:'var(--amber)',surgery:'var(--red)',diagnosis:'var(--sienna)',medication:'var(--green)',default:'var(--muted)'};
+  const typeBg = {chronic:'var(--alt)',surgery:'var(--rlt)',diagnosis:'var(--sien3)',medication:'var(--glt)',default:'var(--bg2)'};
+
+  // Summary bar
+  const total = events.length;
+  const surgeries = events.filter(e=>e.type==='surgery').length;
+  const chronic = events.filter(e=>e.type==='chronic').length;
+  const summaryHtml = `<div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+    <div style="font-size:.68rem;background:var(--bg2);border-radius:6px;padding:3px 9px;color:var(--muted)">${total} event${total!==1?'s':''}</div>
+    ${surgeries?`<div style="font-size:.68rem;background:var(--rlt);border-radius:6px;padding:3px 9px;color:var(--red)">${surgeries} procedure${surgeries!==1?'s':''}</div>`:''}
+    ${chronic?`<div style="font-size:.68rem;background:var(--alt);border-radius:6px;padding:3px 9px;color:var(--amber)">${chronic} chronic condition${chronic!==1?'s':''}</div>`:''}
+  </div>`;
+
+  // Horizontal ribbon
+  const ribbonNodes = events.map((e,i)=>{
+    const pct = events.length > 1 ? (i/(events.length-1)*82+6) : 50;
+    const col = typeColors[e.type] || typeColors.default;
+    return `<div style="position:absolute;left:${pct}%;top:50%;transform:translate(-50%,-50%);cursor:default" title="${e.label}: ${e.detail}">
+      <div style="width:10px;height:10px;border-radius:50%;background:${col};border:2px solid var(--card);box-shadow:0 0 0 1px ${col}"></div>
+      <div style="position:absolute;top:14px;left:50%;transform:translateX(-50%);font-size:.58rem;color:var(--muted);white-space:nowrap;max-width:60px;overflow:hidden;text-overflow:ellipsis;text-align:center">${e.date||''}</div>
+    </div>`;
+  }).join('');
+  const ribbonHtml = events.length > 1 ? `<div style="position:relative;height:36px;margin:4px 0 16px;background:var(--bg2);border-radius:100px;overflow:visible">
+    <div style="position:absolute;top:50%;left:6%;right:6%;height:2px;background:var(--border);transform:translateY(-50%)"></div>
+    ${ribbonNodes}
+  </div>` : '';
+
+  // Event cards
+  const cardsHtml = events.map(e=>{
+    const col = typeColors[e.type] || typeColors.default;
+    const bg = typeBg[e.type] || typeBg.default;
+    const tag = e.type ? `<span style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:${col};background:${bg};padding:1px 6px;border-radius:4px;margin-left:6px">${e.type}</span>` : '';
+    return `<div style="padding:7px 0;border-bottom:1px solid var(--border2);display:flex;gap:8px">
+      <div style="width:8px;flex-shrink:0;padding-top:5px"><div style="width:8px;height:8px;border-radius:50%;background:${col}"></div></div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:.73rem;font-weight:600;color:var(--ink)">${e.label||''}${tag}</div>
+        <div style="font-size:.68rem;color:var(--muted);margin-top:1px">${e.date||''}</div>
+        <div style="font-size:.71rem;color:var(--body);margin-top:2px;line-height:1.55">${e.detail||''}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  return summaryHtml + ribbonHtml + `<div style="margin-top:2px">${cardsHtml}</div>`;
+}
+
+// ─── INSURANCE / ABHA PANEL ───
+function renderInsurancePanel(d){
+  const panel = document.getElementById('insurance-panel');
+  const body = document.getElementById('insurance-body');
+  if(!d || !d.insurance){ panel.style.display='none'; return; }
+  panel.style.display='block';
+  const ins = d.insurance;
+  const badge = document.getElementById('ins-abha-badge');
+  if(badge){ badge.textContent = ins.abha ? 'ABHA: '+ins.abha : 'No ABHA'; badge.style.background = ins.abha?'var(--glt)':'var(--alt)'; badge.style.color = ins.abha?'var(--green)':'var(--amber)'; }
+  const utilPct = ins.annualLimit ? Math.round(parseInt((ins.utilised||'0').replace(/[^\d]/g,'')) / parseInt(ins.annualLimit.replace(/[^\d]/g,'')) * 100) : 0;
+  body.innerHTML = `
+    <div style="padding:12px 14px;border-bottom:1px solid var(--border2)">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <div style="font-size:.8rem;font-weight:600;color:var(--ink)">${ins.scheme}</div>
+        <span style="font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:4px;background:${ins.status==='active'?'var(--glt)':'var(--rlt)'};color:${ins.status==='active'?'var(--green)':'var(--red)'};text-transform:uppercase;letter-spacing:.06em">${ins.status}</span>
+      </div>
+      <div style="font-size:.7rem;color:var(--muted);margin-bottom:8px">Annual limit: <strong style="color:var(--ink)">${ins.annualLimit}</strong> &nbsp;·&nbsp; Used: <strong style="color:var(--amber)">${ins.utilised}</strong> &nbsp;·&nbsp; Remaining: <strong style="color:var(--green)">${ins.remaining}</strong></div>
+      <div style="background:var(--bg2);border-radius:100px;height:5px;overflow:hidden"><div style="height:100%;background:var(--sienna);border-radius:100px;width:${utilPct}%"></div></div>
+    </div>
+    ${ins.covered&&ins.covered.length?`
+    <div style="padding:10px 14px;border-bottom:1px solid var(--border2)">
+      <div style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:6px">Covered for this patient</div>
+      ${ins.covered.map(c=>`<div style="font-size:.75rem;color:var(--body);padding:3px 0;display:flex;gap:6px"><span style="color:var(--green);flex-shrink:0">✓</span>${c}</div>`).join('')}
+    </div>`:''}
+    ${ins.notCovered&&ins.notCovered.length?`
+    <div style="padding:10px 14px;border-bottom:1px solid var(--border2)">
+      <div style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:6px">Not covered / exclusions</div>
+      ${ins.notCovered.map(c=>`<div style="font-size:.75rem;color:var(--body);padding:3px 0;display:flex;gap:6px"><span style="color:var(--red);flex-shrink:0">✗</span>${c}</div>`).join('')}
+    </div>`:''}
+    ${ins.preAuthNeeded&&ins.preAuthNeeded.length?`
+    <div style="padding:10px 14px;border-bottom:1px solid var(--border2)">
+      <div style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);margin-bottom:6px">Pre-authorisation required</div>
+      ${ins.preAuthNeeded.map(c=>`<div style="font-size:.75rem;color:var(--body);padding:3px 0;display:flex;gap:6px"><span style="color:var(--amber);flex-shrink:0">!</span>${c}</div>`).join('')}
+    </div>`:''}
+    ${ins.pmjayEligible===false&&ins.pmjayNote?`
+    <div style="padding:8px 14px;background:var(--alt)">
+      <div style="font-size:.72rem;color:var(--amber)">PMJAY: Not enrolled — ${ins.pmjayNote}</div>
+    </div>`:''}
+    ${ins.pmjayEligible===true?`
+    <div style="padding:8px 14px;background:var(--glt)">
+      <div style="font-size:.72rem;font-weight:600;color:var(--green)">PMJAY / Ayushman Bharat eligible — up to ₹5,00,000 cover for hospitalisation</div>
+    </div>`:''}`;
 }
 
 // ─── DEMO CASE PICKER (in workspace left panel) ───
@@ -3325,11 +3483,42 @@ function generateRx(){
     <div class="rx-pt-row"><div class="rx-pt-field"><strong>${name}</strong>Patient</div><div class="rx-pt-field"><strong>${age}</strong>Age</div><div class="rx-pt-field"><strong>${wt} kg</strong>Weight</div></div>
     ${drugsH}${stopsH}${altsH}
     <div class="rx-sig"><div><div class="rx-sig-name">Dr Priya Nair</div><div class="rx-sig-sub">MD Paediatrics · MCI 48820</div></div><div class="rx-sig-right"><div>${DS()}</div><div>NAVA Clinical Intelligence</div></div></div>
-    <div class="rx-actions"><button class="rxa rxa-copy" onclick="copyRx()">Copy</button><button class="rxa rxa-wa" onclick="waRx()">WhatsApp</button><button class="rxa rxa-print" onclick="window.print()">Print</button></div>
+    <div class="rx-actions"><button class="rxa rxa-copy" onclick="copyRx()">Copy</button><button class="rxa rxa-wa" onclick="waRx()">WhatsApp</button><button class="rxa rxa-email" onclick="emailRx()">Email</button><button class="rxa rxa-print" onclick="window.print()">Print</button></div>
   </div>`;
 }
 function copyRx(){const t=document.getElementById('rx-print').innerText;navigator.clipboard.writeText(t).then(()=>{const b=document.querySelector('.rxa-copy');b.textContent='✓ Copied';setTimeout(()=>b.textContent='Copy',2000)})}
-function waRx(){window.open('https://wa.me/?text='+encodeURIComponent(document.getElementById('rx-print').innerText))}
+
+function buildRxText(){
+  const name=document.getElementById('rx-name')?.value||'Patient';
+  const age=document.getElementById('rx-age')?.value||'';
+  const dx=document.getElementById('rx-dx')?.value||'';
+  const allergy=document.getElementById('rx-allergy')?.value||'';
+  const drugs=Array.from(document.querySelectorAll('.rx-drug-item')).map(el=>{
+    const n=el.querySelector('.rx-drug-name')?.textContent||'';
+    const d=el.querySelector('.rx-drug-dose')?.textContent||'';
+    const note=el.querySelector('.rx-drug-note')?.textContent||'';
+    return `${n}\n  ${d}${note?' — '+note:''}`;
+  }).join('\n');
+  const stops=Array.from(document.querySelectorAll('.rx-stop')).map(el=>el.textContent).join('\n');
+  return `*PRESCRIPTION — NAVA Clinical Intelligence*\n*Apollo Hospitals OPD | Dr Priya Nair, MD*\n*Date: ${DS()}*\n\n*Patient:* ${name}${age?' | '+age:''}\n*Diagnosis:* ${dx}\n*Allergies:* ${allergy||'None known'}\n\n*Medications:*\n${drugs||'—'}${stops?'\n\n*Discontinue:*\n'+stops:''}\n\n_Please show this message at the pharmacy. For queries contact the clinic._`;
+}
+
+function waRx(){
+  const phone=(document.getElementById('rx-phone')?.value||'').replace(/\D/g,'');
+  const msg=buildRxText();
+  const url=phone
+    ?`https://wa.me/91${phone}?text=`+encodeURIComponent(msg)
+    :`https://wa.me/?text=`+encodeURIComponent(msg);
+  window.open(url,'_blank');
+}
+
+function emailRx(){
+  const email=document.getElementById('rx-email')?.value||'';
+  const name=document.getElementById('rx-name')?.value||'Patient';
+  const subject=encodeURIComponent(`Prescription — ${name} — ${DS()}`);
+  const body=encodeURIComponent(buildRxText().replace(/\*/g,'').replace(/_/g,''));
+  window.open(`mailto:${email}?subject=${subject}&body=${body}`,'_blank');
+}
 
 const DRUGS=[
   {n:'Paracetamol (Crocin / Dolo)',mk:15,mx:1000,fr:'Every 6hrs · Max 4×/day',ok:1,note:'Safe. With food.'},
