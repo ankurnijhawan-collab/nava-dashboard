@@ -1235,14 +1235,24 @@ button,input,textarea,select{font-family:inherit}
           <div class="form-card">
             <div class="fc-head">Patient Details</div>
             <div class="fc-body">
-              <label class="field-label">Name</label><input class="field-input" id="rx-name" value="Meena Iyer">
+              <label class="field-label" id="rx-lbl-name">Name</label><input class="field-input" id="rx-name" placeholder="Patient name">
               <div class="field-row">
-                <div><label class="field-label">Age</label><input class="field-input" id="rx-age" value="42 years"></div>
-                <div><label class="field-label">Weight (kg)</label><input class="field-input" id="rx-wt" value="68" type="number" oninput="updateDosing()"></div>
+                <div><label class="field-label" id="rx-lbl-age">Age</label><input class="field-input" id="rx-age" placeholder="e.g. 8 years / 14 months"></div>
+                <div><label class="field-label">Weight (kg)</label><input class="field-input" id="rx-wt" placeholder="—" type="number" min="1" max="300" inputmode="numeric" oninput="updateDosing()"></div>
               </div>
-              <label class="field-label">Diagnosis</label><input class="field-input" id="rx-dx" value="Exertional chest pain — cardiac cause, pending cardiology">
-              <label class="field-label">Key findings</label><textarea class="field-textarea" id="rx-findings">LDL 168 HIGH, HDL 38 LOW, Hb 11.2, Ferritin 8, BP 148/94</textarea>
-              <label class="field-label">Allergies / contraindications</label><input class="field-input" id="rx-allergy" value="No known allergies. Lactose intolerant.">
+              <!-- Paediatrics extras -->
+              <div id="rx-paed-row" style="display:none" class="field-row">
+                <div><label class="field-label">Height (cm)</label><input class="field-input" id="rx-ht" placeholder="—" type="number" min="1" max="250" inputmode="numeric"></div>
+                <div><label class="field-label">Vaccination status</label><input class="field-input" id="rx-vax" placeholder="Up to date / Behind"></div>
+              </div>
+              <!-- Gynaecology / Fertility extras -->
+              <div id="rx-gynae-row" style="display:none" class="field-row">
+                <div><label class="field-label">LMP</label><input class="field-input" id="rx-lmp" placeholder="DD/MM/YYYY"></div>
+                <div><label class="field-label" id="rx-lbl-gpa">G / P / A</label><input class="field-input" id="rx-gpa" placeholder="G2 P1 A0"></div>
+              </div>
+              <label class="field-label" id="rx-lbl-dx">Diagnosis</label><input class="field-input" id="rx-dx" placeholder="Primary diagnosis">
+              <label class="field-label" id="rx-lbl-findings">Key findings</label><textarea class="field-textarea" id="rx-findings" placeholder="Relevant labs, vitals, examination findings"></textarea>
+              <label class="field-label">Allergies / contraindications</label><input class="field-input" id="rx-allergy" placeholder="No known allergies / specify">
               <div class="field-row">
                 <div><label class="field-label">Patient Mobile</label><input class="field-input" id="rx-phone" placeholder="98xxxxxxxx" type="tel"></div>
                 <div><label class="field-label">Patient Email</label><input class="field-input" id="rx-email" placeholder="patient@email.com" type="email"></div>
@@ -3822,29 +3832,31 @@ function copyReport(){
 // ─── SUMMARY ───
 // ─── POPULATE RX FROM ACTIVE CASE / SCRIBE ───
 function populateRxFromScribe(){
-  const d = activeCase || CASES_DATA[1];
-  // Patient fields from active case
+  const d = getContextCase();
+  adaptRxForSpecialty(activeOPD || 'general');
   if(d){
     document.getElementById('rx-name').value = d.name || '';
     const ageMatch = (d.meta||'').match(/(\d+)yr/);
     if(ageMatch) document.getElementById('rx-age').value = ageMatch[1] + ' years';
     const wtMatch = (d.meta||'').match(/(\d+)\s*kg/);
     if(wtMatch){ document.getElementById('rx-wt').value = wtMatch[1]; updateDosing(); }
-    // Allergies from meds list
     const allergyEntry = (d.meds||[]).find(m=>(m.l||'').toLowerCase().includes('allerg'));
     if(allergyEntry) document.getElementById('rx-allergy').value = allergyEntry.v;
+    // Specialty-specific extras
+    if(d.specialty==='paediatrics' && d.growth){
+      const ht = document.getElementById('rx-ht'); if(ht) ht.value = d.growth.height||'';
+    }
+    if((d.specialty==='gynaecology'||d.specialty==='fertility') && d.obsGynae){
+      const lmpEl=document.getElementById('rx-lmp'); if(lmpEl) lmpEl.value=d.obsGynae.lmp||'';
+      const gpaEl=document.getElementById('rx-gpa'); if(gpaEl) gpaEl.value=d.obsGynae.gpa||'';
+    }
   }
-  // Diagnosis from SOAP assessment if available, otherwise from case chief
   const dx = (SOAP.a && SOAP.a !== '—') ? SOAP.a.split('\n')[0].substring(0,120) : (d?.chief||'');
   document.getElementById('rx-dx').value = dx;
-  // Findings from SOAP objective
   if(SOAP.o && SOAP.o !== '—') document.getElementById('rx-findings').value = SOAP.o.substring(0,300);
-  // Flash highlight on auto-filled fields
   ['rx-name','rx-age','rx-wt','rx-dx'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(!el)return;
-    el.style.transition='background .15s';
-    el.style.background='var(--glt)';
+    const el=document.getElementById(id); if(!el)return;
+    el.style.transition='background .15s'; el.style.background='var(--glt)';
     setTimeout(()=>{ el.style.background=''; }, 800);
   });
   showView('rx');
@@ -3858,12 +3870,12 @@ function qaLoadAndRun(){
   setTimeout(()=>runNava(), 350);
 }
 function qaOpenRx(){
-  if(!activeCase) activeCase = CASES_DATA[1];
+  if(!activeCase) activeCase = getContextCase();
   populateRxFromScribe();
   setTimeout(()=>generateRx(), 100);
 }
 function qaOpenSummary(){
-  if(!activeCase) activeCase = CASES_DATA[1];
+  if(!activeCase) activeCase = getContextCase();
   openSummaryDirect();
 }
 
@@ -3980,23 +3992,89 @@ function emailRx(){
   window.open(`mailto:${email}?subject=${subject}&body=${body}`,'_blank');
 }
 
-const DRUGS=[
-  {n:'Paracetamol (Crocin / Dolo)',mk:15,mx:1000,fr:'Every 6hrs · Max 4×/day',ok:1,note:'Safe. With food.'},
-  {n:'Amoxicillin (Mox / Novamox)',mk:25,mx:500,fr:'TDS × 5-7 days',ok:1,note:'Bacterial only.'},
-  {n:'Azithromycin (Azee)',mk:10,mx:500,fr:'OD × 3-5 days',ok:1,note:'Not for neuro.'},
-  {n:'Ibuprofen / Combiflam',mk:0,mx:0,fr:'',ok:0,note:'BLOCKED — IIH risk, non-responder.'},
-  {n:'Vit D3 60,000 IU (Calcirol)',mk:0,mx:0,fr:'Weekly × 8 wks + Vit K2',ok:2,note:'Add K2. Recheck 8wks.'},
-];
+const DRUGS_BY_SPECIALTY = {
+  general: [
+    {n:'Paracetamol (Crocin / Dolo)',mk:15,mx:1000,fr:'Every 6hrs · Max 4×/day',ok:1,note:'Safe. With food.'},
+    {n:'Amoxicillin (Mox / Novamox)',mk:25,mx:500,fr:'TDS × 5-7 days',ok:1,note:'Bacterial only.'},
+    {n:'Azithromycin (Azee)',mk:10,mx:500,fr:'OD × 3-5 days',ok:1,note:'Not for neuro.'},
+    {n:'Ibuprofen / Combiflam',mk:0,mx:0,fr:'',ok:0,note:'BLOCKED — renal/GI risk.'},
+    {n:'Vit D3 60,000 IU (Calcirol)',mk:0,mx:0,fr:'Weekly × 8 wks + Vit K2',ok:2,note:'Add K2. Recheck 8wks.'},
+  ],
+  paediatrics: [
+    {n:'Paracetamol syrup 250mg/5ml',mk:15,mx:1000,fr:'Every 6hrs · Max 4×/day',ok:1,note:'Safe from birth. With/without food.'},
+    {n:'Amoxicillin syrup 125mg/5ml',mk:40,mx:500,fr:'TDS × 5-7 days',ok:1,note:'Standard IAP first-line. Bacterial only.'},
+    {n:'Azithromycin syrup 200mg/5ml',mk:10,mx:500,fr:'OD × 3 days',ok:1,note:'Atypicals / Strep. Not <6mo.'},
+    {n:'Ibuprofen syrup 100mg/5ml',mk:10,mx:400,fr:'TDS (with food)',ok:2,note:'⚠ Avoid <6 months. Use sparingly.'},
+    {n:'Cetirizine syrup 5mg/5ml',mk:0.25,mx:10,fr:'OD at night',ok:1,note:'Allergic rhinitis. >2 yrs.'},
+    {n:'ORS + Zinc 20mg',mk:0,mx:0,fr:'ORS ad lib · Zinc OD × 14 days',ok:1,note:'WHO protocol for diarrhoea. Zinc reduces duration.'},
+    {n:'Salbutamol nebulisation',mk:0.15,mx:5,fr:'Every 20 min × 3 (acute)',ok:1,note:'mg/kg per nebule. Dilute to 3ml NS.'},
+  ],
+  gynaecology: [
+    {n:'Norethisterone 5mg',mk:0,mx:0,fr:'TDS × 5-10 days (luteal phase)',ok:1,note:'Dysfunctional uterine bleeding. Avoid if thrombosis risk.'},
+    {n:'Tranexamic acid 500mg',mk:0,mx:0,fr:'TDS during heavy days · Max 5 days',ok:1,note:'Heavy menstrual bleeding. Avoid in haematuria.'},
+    {n:'Mefenamic acid 500mg',mk:0,mx:0,fr:'TDS with food (day 1-3)',ok:1,note:'Dysmenorrhoea + mild anti-fibrinolytic.'},
+    {n:'Iron + Folic Acid (Dexorange / Autrin)',mk:0,mx:0,fr:'OD after food',ok:1,note:'Menorrhagia-related iron deficiency.'},
+    {n:'Fluconazole 150mg (Forcan)',mk:0,mx:0,fr:'Single dose (vulvovaginal candidiasis)',ok:1,note:'Avoid in pregnancy. Recurrence: 3 weekly doses.'},
+    {n:'Metronidazole 400mg (Flagyl)',mk:0,mx:0,fr:'BD × 7 days (BV)',ok:1,note:'Avoid alcohol. Safe in 2nd/3rd trimester.'},
+    {n:'Dydrogesterone 10mg (Duphaston)',mk:0,mx:0,fr:'BD × 10 days (luteal support)',ok:2,note:'Progesterone support. Check indication carefully.'},
+  ],
+  fertility: [
+    {n:'Clomiphene citrate 50mg (Fertyl/Clofert)',mk:0,mx:0,fr:'Days 2-6 of cycle',ok:1,note:'First-line ovulation induction. Monitor for OHSS, twins.'},
+    {n:'Letrozole 2.5mg (Femara/Letoval)',mk:0,mx:0,fr:'Days 2-6 (PCOS preferred)',ok:1,note:'Preferred over Clomiphene in PCOS per ESHRE 2023.'},
+    {n:'Progesterone 200mg vaginal (Susten/Crinone)',mk:0,mx:0,fr:'BD vaginally (luteal support)',ok:1,note:'Luteal phase support in IUI/IVF cycles.'},
+    {n:'Folic acid 5mg',mk:0,mx:0,fr:'OD pre-conception',ok:1,note:'Start 3 months before conception attempt.'},
+    {n:'Gonadotropins — FSH/HMG (Gonal-F / Folisurge)',mk:0,mx:0,fr:'Per stimulation protocol (75–300 IU/day)',ok:2,note:'⚠ Specialist only. Dose titrated by ultrasound + E2 monitoring.'},
+    {n:'hCG trigger (Ovitrelle / Fertigyn)',mk:0,mx:0,fr:'Single IM/SC trigger injection',ok:2,note:'⚠ Specialist only. 36h before OPU/IUI.'},
+  ],
+};
+
+function getContextCase(){
+  if(activeCase) return activeCase;
+  const sp = activeOPD || 'general';
+  return CASES_DATA.find(c=>c.specialty===sp) || null;
+}
+
 function updateDosing(){
-  const w=Number(document.getElementById('rx-wt').value)||31;
-  document.getElementById('wt-display').textContent=w+' kg';
-  document.getElementById('dosing-table').innerHTML=`<tr><th>Drug</th><th>Calculated Dose</th><th>Frequency / Note</th></tr>`+
-    DRUGS.map(d=>{
-      const dose=d.ok===1&&d.mk?Math.min(Math.round(d.mk*w),d.mx):null;
-      const cls=d.ok===0?'blocked':d.ok===2?'warn-row':'';
-      return `<tr class="${cls}"><td>${d.n}</td><td>${dose?dose+' mg':d.ok===0?'✗ DO NOT USE':d.fr}</td><td>${d.ok===1&&d.mk?d.fr:d.note}</td></tr>`;
+  const w = Number(document.getElementById('rx-wt').value) || 0;
+  document.getElementById('wt-display').textContent = w ? w+' kg' : '— kg';
+  const sp = activeOPD || 'general';
+  const drugs = DRUGS_BY_SPECIALTY[sp] || DRUGS_BY_SPECIALTY.general;
+  document.getElementById('dosing-table').innerHTML =
+    `<tr><th>Drug</th><th>Calculated Dose</th><th>Frequency / Note</th></tr>` +
+    drugs.map(d=>{
+      const dose = d.ok!==0 && d.mk && w ? Math.min(Math.round(d.mk*w), d.mx) : null;
+      const cls = d.ok===0?'blocked':d.ok===2?'warn-row':'';
+      const doseCell = dose ? dose+' mg' : (d.ok===0?'✗ DO NOT USE': d.fr||'—');
+      const freqCell = (d.ok!==0 && d.mk && w) ? d.fr : d.note;
+      return `<tr class="${cls}"><td>${d.n}</td><td>${doseCell}</td><td>${freqCell}</td></tr>`;
     }).join('');
 }
+
+function adaptRxForSpecialty(sp){
+  const isPaeds = sp==='paediatrics', isGynae=sp==='gynaecology', isFertility=sp==='fertility';
+  // Show/hide specialty rows
+  document.getElementById('rx-paed-row').style.display  = isPaeds  ? '' : 'none';
+  document.getElementById('rx-gynae-row').style.display = (isGynae||isFertility) ? '' : 'none';
+  // Relabel age field
+  document.getElementById('rx-lbl-age').textContent = isPaeds ? 'Age (years / months)' : 'Age';
+  // Relabel diagnosis
+  const dxLabels = {paediatrics:'Presenting complaint / Diagnosis', gynaecology:'Gynaecological Diagnosis', fertility:'Clinical Indication (Her + His)'};
+  document.getElementById('rx-lbl-dx').textContent = dxLabels[sp] || 'Diagnosis';
+  // Relabel findings
+  const findLabels = {paediatrics:'Growth, vaccination, exam findings', gynaecology:'Cycle, LMP, relevant investigations', fertility:'AMH, AFC, semen analysis, prior cycles'};
+  document.getElementById('rx-lbl-findings').textContent = findLabels[sp] || 'Key findings';
+  // Dosing card heading
+  const headLabels = {paediatrics:'Paediatric Weight-Based Dosing', gynaecology:'Gynaecology Drug Reference', fertility:'Fertility Drug Reference'};
+  const wtEl = document.getElementById('wt-display').closest('.fc-head');
+  if(wtEl) wtEl.firstChild.textContent = (headLabels[sp] || 'Weight-Based Dosing') + ' — ';
+  // Generate button label
+  const genBtn = document.querySelector('.gen-btn');
+  const btnLabels = {paediatrics:'⚕ Generate Paediatric Prescription', gynaecology:'⚕ Generate Gynaecology Prescription', fertility:'⚕ Generate Fertility Protocol'};
+  if(genBtn) genBtn.textContent = btnLabels[sp] || '⚕ Generate Prescription + Alternatives';
+  // Refresh dosing table for this specialty
+  updateDosing();
+}
+
 updateDosing();
 
 // ─── SCRIBE ───
@@ -4988,6 +5066,32 @@ showView = function(id, btn){
   if(id === 'history'){ renderCaseHistory(); }
   if(id === 'today'){ renderTodayView(); }
   if(id === 'workspace' && typeof renderDemoCasePicker === 'function'){ renderDemoCasePicker(); }
+  if(id === 'rx'){
+    adaptRxForSpecialty(activeOPD || 'general');
+    const d = getContextCase();
+    // Always clear then re-populate so switching OPDs never shows the wrong patient
+    ['rx-name','rx-age','rx-wt','rx-dx','rx-findings','rx-allergy','rx-lmp','rx-gpa','rx-ht','rx-vax'].forEach(fid=>{
+      const el=document.getElementById(fid); if(el) el.value='';
+    });
+    if(d){
+      document.getElementById('rx-name').value = d.name || '';
+      const ageMatch = (d.meta||'').match(/(\d+)yr/);
+      if(ageMatch) document.getElementById('rx-age').value = ageMatch[1] + ' years';
+      const wtMatch = (d.meta||'').match(/(\d+)\s*kg/);
+      if(wtMatch){ document.getElementById('rx-wt').value = wtMatch[1]; }
+      document.getElementById('rx-dx').value = d.chief || '';
+      const allergyEntry = (d.meds||[]).find(m=>(m.l||'').toLowerCase().includes('allerg'));
+      if(allergyEntry) document.getElementById('rx-allergy').value = allergyEntry.v;
+      if(d.specialty==='paediatrics' && d.growth){
+        const ht=document.getElementById('rx-ht'); if(ht) ht.value=d.growth.height||'';
+      }
+      if((d.specialty==='gynaecology'||d.specialty==='fertility') && d.obsGynae){
+        const lmpEl=document.getElementById('rx-lmp'); if(lmpEl) lmpEl.value=d.obsGynae.lmp||'';
+        const gpaEl=document.getElementById('rx-gpa'); if(gpaEl) gpaEl.value=d.obsGynae.gpa||'';
+      }
+    }
+    updateDosing();
+  }
   // Toggle "Back to [OPD]" affordance — only appears on non-OPD (non-today) views
   updateBackButton(id);
 };
