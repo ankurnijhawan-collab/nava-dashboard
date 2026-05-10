@@ -681,6 +681,63 @@ button,input,textarea,select{font-family:inherit}
 /* First-load hint */
 .run-hint{font-size:.72rem;color:var(--sienna);text-align:center;margin-bottom:4px;opacity:0;animation:hintFade 4s ease 1s forwards}
 @keyframes hintFade{0%{opacity:0}15%{opacity:1}80%{opacity:1}100%{opacity:0}}
+/* ═══ SKELETON SHIMMER ═══ */
+@keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+.skeleton-line{height:12px;border-radius:6px;background:linear-gradient(90deg,var(--border2) 25%,var(--surface) 50%,var(--border2) 75%);background-size:800px 100%;animation:shimmer 1.4s infinite;margin-bottom:8px}
+.skeleton-line.wide{width:85%}
+.skeleton-line.mid{width:60%}
+.skeleton-line.short{width:40%}
+.skeleton-block{height:56px;border-radius:8px;background:linear-gradient(90deg,var(--border2) 25%,var(--surface) 50%,var(--border2) 75%);background-size:800px 100%;animation:shimmer 1.4s infinite;margin-bottom:10px}
+
+/* ═══ SECTION SLIDE-IN ═══ */
+@keyframes slideUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.nv-card{animation:slideUp .35s ease both}
+.nv-card:nth-child(2){animation-delay:.05s}
+.action-strip{animation:slideUp .35s .08s ease both}
+.delta-card{animation:slideUp .35s .08s ease both}
+.nv-section{animation:slideUp .35s ease both}
+.nv-section:nth-child(3){animation-delay:.12s}
+.nv-section:nth-child(4){animation-delay:.18s}
+.nv-section:nth-child(5){animation-delay:.24s}
+.nv-section:nth-child(6){animation-delay:.30s}
+
+/* ═══ AI MODE BADGE ═══ */
+.ai-mode-badge{display:none;font-size:.63rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:linear-gradient(135deg,#6B48FF,#A67BFF);color:#fff;padding:3px 9px;border-radius:100px;margin-left:8px;vertical-align:middle}
+.ai-mode-active .ai-mode-badge{display:inline-block}
+
+/* ═══ PATIENT MODE TOGGLE ═══ */
+.patient-mode-bar{display:none;align-items:center;gap:8px;padding:7px 14px;background:linear-gradient(90deg,rgba(139,109,69,.08),transparent);border-bottom:1px solid var(--border2);font-size:.72rem;color:var(--sienna)}
+.patient-mode-bar.show{display:flex}
+.patient-mode-close{margin-left:auto;background:none;border:none;font-size:.75rem;cursor:pointer;color:var(--muted);padding:2px 6px;border-radius:4px}
+.patient-mode-close:hover{color:var(--bark)}
+
+/* ═══ DDX RANK NUMBERS ═══ */
+.de-rank{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;flex-shrink:0;margin-top:2px}
+.de-rank.r1{background:var(--rlt);color:var(--red)}
+.de-rank.r2{background:var(--wlt);color:var(--amber)}
+.de-rank.r3{background:var(--glt);color:var(--green)}
+.de-rank.r4,.de-rank.r5{background:var(--bg2);color:var(--muted)}
+
+/* ═══ EXPLAIN BTN ON DDX ═══ */
+.de-explain-btn{font-size:.65rem;color:var(--sienna);background:none;border:1px solid var(--border);border-radius:4px;padding:2px 7px;cursor:pointer;margin-top:5px;font-family:var(--sans)}
+.de-explain-btn:hover{background:var(--bg2)}
+.de-explain-box{display:none;font-size:.72rem;color:var(--body);line-height:1.55;background:var(--surface);border-radius:6px;padding:8px 10px;margin-top:6px;border:1px solid var(--border2)}
+.de-explain-box.open{display:block}
+
+/* ═══ GUIDED TOUR ═══ */
+.tour-overlay{position:fixed;inset:0;z-index:2000;pointer-events:none}
+.tour-highlight{position:absolute;border-radius:10px;box-shadow:0 0 0 4000px rgba(26,24,22,.55);pointer-events:none;transition:all .3s ease}
+.tour-bubble{position:absolute;background:var(--card);border-radius:12px;padding:16px 20px;box-shadow:0 12px 40px rgba(0,0,0,.25);min-width:240px;max-width:300px;pointer-events:all;z-index:2001}
+.tour-bubble-title{font-size:.82rem;font-weight:700;color:var(--ink);margin-bottom:4px}
+.tour-bubble-body{font-size:.74rem;color:var(--muted);line-height:1.55}
+.tour-bubble-footer{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+.tour-step-dots{display:flex;gap:5px}
+.tour-dot{width:6px;height:6px;border-radius:50%;background:var(--border);transition:.2s}
+.tour-dot.active{background:var(--bark);width:16px;border-radius:3px}
+.tour-btn{background:var(--bark);color:#F8F6F3;border:none;border-radius:100px;padding:5px 16px;font-size:.72rem;font-weight:600;cursor:pointer;font-family:var(--sans)}
+.tour-skip{background:none;border:none;font-size:.7rem;color:var(--muted);cursor:pointer;font-family:var(--sans)}
+.tour-skip:hover{color:var(--bark)}
+
 /* ═══ ROLE SWITCHER ═══ */
 .role-switcher{display:flex;gap:2px;background:var(--bg2);border-radius:100px;padding:3px;flex-shrink:0}
 .role-btn{background:none;border:none;border-radius:100px;padding:5px 13px;font-size:.72rem;font-weight:500;cursor:pointer;color:var(--muted);transition:all .15s;font-family:var(--sans);white-space:nowrap}
@@ -1283,6 +1340,7 @@ button,input,textarea,select{font-family:inherit}
       <button class="role-btn" data-role="pharmacist" onclick="switchRole('pharmacist',this)">Pharmacist</button>
       <button class="role-btn" data-role="admin" onclick="switchRole('admin',this)">Admin</button>
     </div>
+    <button class="tb-btn ghost" onclick="startGuidedTour()" title="Take a quick guided tour">Tour</button>
     <button class="tb-btn ghost" onclick="showView('scribe')">Record</button>
     <button class="tb-btn primary" id="new-patient-btn" onclick="startBlankCase()">+ New Patient</button>
   </div>
@@ -1477,9 +1535,16 @@ button,input,textarea,select{font-family:inherit}
         <!-- RIGHT PANEL -->
         <div class="ws-right">
           <div class="nava-panel">
-            <div class="np-header">
-              <div class="np-title">NAVA Analysis</div>
-              <button class="ck-toggle" id="ck-toggle-btn" onclick="toggleClaudeKeyBar()">+ Claude AI</button>
+            <div class="np-header" id="nava-panel-header">
+              <div class="np-title">NAVA Analysis<span class="ai-mode-badge">Claude AI</span></div>
+              <div style="display:flex;gap:6px;align-items:center">
+                <button class="ck-toggle" id="pt-mode-btn" onclick="togglePatientMode()" title="Rewrite in plain language for the patient">Plain language</button>
+                <button class="ck-toggle" id="ck-toggle-btn" onclick="toggleClaudeKeyBar()">+ Claude AI</button>
+              </div>
+            </div>
+            <div class="patient-mode-bar" id="patient-mode-bar">
+              <span>Showing patient-friendly version — medical terms simplified</span>
+              <button class="patient-mode-close" onclick="togglePatientMode()">Back to clinical view</button>
             </div>
             <div class="claude-key-bar hidden" id="claude-key-bar">
               <span class="ck-label">Claude API Key</span>
@@ -3934,13 +3999,25 @@ async function runNava(){
   // brief pause so the user sees the final ✓
   await new Promise(r=>setTimeout(r, 240));
 
-  // If Claude key exists, call real API
+  // If Claude key exists, call real API (streaming)
   const claudeKey = getClaudeKey();
   if(claudeKey){
-    const statusDiv = document.createElement('div');
-    statusDiv.style.cssText='text-align:center;padding:14px;font-size:.78rem;color:var(--muted)';
-    statusDiv.textContent='Sending to Claude AI…';
-    out.appendChild(statusDiv);
+    // Show AI mode badge
+    document.getElementById('nava-panel-header')?.classList.add('ai-mode-active');
+    // Streaming skeleton while tokens arrive
+    out.innerHTML = `
+      <div style="padding:16px">
+        <div style="font-size:.72rem;color:var(--sienna);font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:6px">
+          <span class="spin" style="width:10px;height:10px;border-width:2px"></span> Claude AI is thinking…
+        </div>
+        <div id="stream-preview" style="font-size:.78rem;color:var(--muted);line-height:1.6;min-height:48px;white-space:pre-wrap;font-family:monospace;background:var(--surface);border-radius:6px;padding:10px;border:1px solid var(--border2)"></div>
+        <div style="margin-top:12px">
+          <div class="skeleton-block"></div>
+          <div class="skeleton-line wide"></div>
+          <div class="skeleton-line mid"></div>
+          <div class="skeleton-line short"></div>
+        </div>
+      </div>`;
     try {
       const resp = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
@@ -3952,19 +4029,38 @@ async function runNava(){
         },
         body: JSON.stringify({
           model: 'claude-opus-4-7',
-          max_tokens: 1500,
+          max_tokens: 2000,
+          stream: true,
           messages: [{ role: 'user', content: buildClaudePrompt(d) }]
         })
       });
       if(!resp.ok){ const err=await resp.text(); throw new Error(err); }
-      const data = await resp.json();
-      const raw  = data.content?.[0]?.text || '';
-      // Strip any accidental markdown fences
-      const cleaned = raw.replace(/^```[a-z]*\n?/i,'').replace(/```$/,'').trim();
+      // Stream tokens into preview div
+      let fullText = '';
+      const streamEl = document.getElementById('stream-preview');
+      const reader = resp.body.getReader();
+      const decoder = new TextDecoder();
+      while(true){
+        const {done, value} = await reader.read();
+        if(done) break;
+        const chunk = decoder.decode(value, {stream:true});
+        const lines = chunk.split('\n');
+        for(const line of lines){
+          if(!line.startsWith('data: ')) continue;
+          const data = line.slice(6);
+          if(data === '[DONE]') break;
+          try {
+            const ev = JSON.parse(data);
+            if(ev.type === 'content_block_delta' && ev.delta?.type === 'text_delta'){
+              fullText += ev.delta.text;
+              if(streamEl) streamEl.textContent = fullText.slice(-300); // show tail
+            }
+          } catch(_){}
+        }
+      }
+      const cleaned = fullText.replace(/^```[a-z]*\n?/i,'').replace(/```$/,'').trim();
       const json = JSON.parse(cleaned);
-      // Update case flag level
       if(json.flagLevel) d.flagLevel = json.flagLevel;
-      // Gate critical
       if(json.flagLevel==='crit' && (json.cantMiss||[]).length){
         const synth = {...d, cantmiss: json.cantMiss||[] };
         showCriticalAckModal(synth, ()=>{ renderClaudeNavaOutput(json,d); btn.disabled=false; btxt.textContent='Run Analysis →'; });
@@ -3975,6 +4071,7 @@ async function runNava(){
       return;
     } catch(e){
       console.error('Claude API error:', e);
+      document.getElementById('nava-panel-header')?.classList.remove('ai-mode-active');
       out.innerHTML += `<div style="font-size:.75rem;color:var(--red);padding:8px 12px;background:var(--rlt);border-radius:8px;margin-top:8px">Claude error: ${e.message}. Showing demo analysis.</div>`;
     }
   }
@@ -4016,6 +4113,51 @@ const JARGON_MAP = [
   ['IPD','Hospital admission (IPD)','Inpatient Department — the patient is admitted and stays in hospital'],
   ['s/c','Under the skin (subcutaneous)','Subcutaneous injection — given under the skin, not into a vein'],
   ['i/v','Into a vein (IV)','Intravenous — medication or fluid delivered directly into a vein'],
+  ['URTI','Upper respiratory infection (URTI)','Upper Respiratory Tract Infection — common cold, throat, or sinus infection'],
+  ['UTI','Urinary tract infection (UTI)','Urinary Tract Infection — bacterial infection of the bladder or kidneys'],
+  ['LFT','Liver function test (LFT)','Liver Function Test — blood test measuring liver enzymes and proteins'],
+  ['RFT','Kidney function test (RFT)','Renal Function Test — checks how well the kidneys are working'],
+  ['eGFR','Kidney filtration rate (eGFR)','Estimated Glomerular Filtration Rate — measures how well kidneys filter waste'],
+  ['CKD','Chronic kidney disease (CKD)','Chronic Kidney Disease — kidneys are permanently damaged and working below normal'],
+  ['COPD','Chronic lung disease (COPD)','Chronic Obstructive Pulmonary Disease — long-term breathing difficulty, usually from smoking'],
+  ['SOB','Shortness of breath (SOB)','Dyspnoea — difficulty breathing or feeling breathless'],
+  ['ECG','Heart tracing (ECG)','Electrocardiogram — records the heart\'s electrical activity via chest stickers'],
+  ['Echo','Heart ultrasound (Echo)','Echocardiogram — ultrasound scan of the heart showing its structure and movement'],
+  ['EF','Heart pumping strength (EF)','Ejection Fraction — percentage of blood the heart pumps out with each beat; normal >55%'],
+  ['LVEF','Heart pumping strength (LVEF)','Left Ventricular Ejection Fraction — how well the main pumping chamber of the heart is working'],
+  ['ACS','Acute coronary syndrome (ACS)','A group of urgent heart conditions including unstable angina and heart attack'],
+  ['STEMI','Major heart attack (STEMI)','ST-Elevation Myocardial Infarction — a severe heart attack caused by a completely blocked artery'],
+  ['NSTEMI','Partial heart attack (NSTEMI)','Non-STEMI — a heart attack caused by a partially blocked artery; serious but less immediately dangerous'],
+  ['AF','Irregular heart rhythm (AF)','Atrial Fibrillation — the heart beats irregularly, raising stroke risk'],
+  ['HF','Heart failure (HF)','Heart Failure — the heart cannot pump blood as efficiently as it should'],
+  ['T2DM','Type 2 diabetes (T2DM)','Type 2 Diabetes Mellitus — blood sugar stays too high because the body resists insulin'],
+  ['T1DM','Type 1 diabetes (T1DM)','Type 1 Diabetes Mellitus — the immune system attacks insulin-producing cells'],
+  ['LDL','Bad cholesterol (LDL)','Low-Density Lipoprotein — the type of cholesterol that can build up in artery walls'],
+  ['HDL','Good cholesterol (HDL)','High-Density Lipoprotein — the protective cholesterol that removes LDL from blood vessels'],
+  ['FBS','Fasting blood sugar (FBS)','Fasting Blood Sugar — blood glucose level measured after at least 8 hours without eating'],
+  ['PPBS','Post-meal blood sugar (PPBS)','Post-Prandial Blood Sugar — blood glucose measured 2 hours after eating'],
+  ['USS','Ultrasound scan (USS)','Ultrasound — uses sound waves to create images of organs inside the body'],
+  ['CT','CT scan','Computed Tomography — an X-ray that creates detailed cross-sectional images'],
+  ['PET','PET scan','Positron Emission Tomography — shows metabolic activity, often used in cancer staging'],
+  ['FNAC','Fine needle test (FNAC)','Fine Needle Aspiration Cytology — a thin needle draws out cells from a lump for testing'],
+  ['TB','Tuberculosis (TB)','Tuberculosis — a bacterial infection that mainly affects the lungs; endemic in India'],
+  ['AFB','TB bacteria test (AFB)','Acid-Fast Bacilli — a test specifically checking for TB bacteria in sputum or tissue'],
+  ['MDR-TB','Drug-resistant TB (MDR-TB)','Multi-Drug Resistant TB — tuberculosis that does not respond to the two main antibiotics'],
+  ['INR','Blood clotting test (INR)','International Normalised Ratio — measures how quickly blood clots; used to monitor blood thinners'],
+  ['PTT','Clotting time test (PTT)','Partial Thromboplastin Time — checks how quickly blood clots through the internal pathway'],
+  ['ANA','Autoimmune screen (ANA)','Anti-Nuclear Antibody — a marker found in blood that suggests possible autoimmune disease'],
+  ['RA','Rheumatoid arthritis (RA)','Rheumatoid Arthritis — an autoimmune condition causing painful, swollen joints'],
+  ['SLE','Lupus (SLE)','Systemic Lupus Erythematosus — an autoimmune disease that can affect many organs'],
+  ['OA','Osteoarthritis (OA)','Osteoarthritis — wear-and-tear arthritis causing pain and stiffness, especially in knees and hips'],
+  ['PUD','Stomach ulcer (PUD)','Peptic Ulcer Disease — sores in the stomach or small intestine lining'],
+  ['GERD','Acid reflux (GERD)','Gastro-Oesophageal Reflux Disease — stomach acid regularly flows back into the gullet, causing heartburn'],
+  ['NAFLD','Fatty liver (NAFLD)','Non-Alcoholic Fatty Liver Disease — excess fat in the liver not caused by alcohol'],
+  ['IBS','Irritable bowel (IBS)','Irritable Bowel Syndrome — chronic gut disorder causing cramps, bloating, and altered bowel habit'],
+  ['LMWH','Blood thinner injection (LMWH)','Low Molecular Weight Heparin — a blood-thinning injection used to treat or prevent clots'],
+  ['ACE-I','Blood pressure tablet (ACE-I)','ACE Inhibitor — a medication that lowers blood pressure and protects kidneys'],
+  ['ARB','Blood pressure tablet (ARB)','Angiotensin Receptor Blocker — another type of blood pressure medicine that protects the kidneys'],
+  ['PPI','Acid-reducing tablet (PPI)','Proton Pump Inhibitor — reduces stomach acid; examples include omeprazole and pantoprazole'],
+  ['SSRI','Antidepressant (SSRI)','Selective Serotonin Reuptake Inhibitor — a common type of antidepressant medication'],
 ];
 function deJargon(text){
   if(!text) return text;
@@ -4100,19 +4242,26 @@ function renderNavaOutput(d){
       </div>
     </div>`;
 
-  const ddxH = d.ddx.map(x=>`
+  const ddxH = d.ddx.map((x,i)=>{
+    const rankCls = i===0?'r1':i===1?'r2':i===2?'r3':'r4';
+    const explainId = `ddx-explain-${i}`;
+    return `
     <div class="ddx-entry">
+      <div class="de-rank ${rankCls}">${i+1}</div>
       <div class="de-pct ${x.t==='likely'?'hi':x.t==='possible'?'md':'lo'}">${x.p}<sup style="font-size:.65rem">%</sup></div>
       <div class="de-info">
         <div class="de-name">${deJargon(x.n)}</div>
         <div class="de-why">${deJargon(x.w)}</div>
         <div class="de-bar"><div class="de-bar-fill" style="width:${x.b};background:${x.c}"></div></div>
+        <button class="de-explain-btn" onclick="explainDdx('${x.n}','${explainId}',this)">Explain this →</button>
+        <div class="de-explain-box" id="${explainId}"></div>
       </div>
       <div class="de-right">
         <div class="de-tag dt-${x.t}">${x.t==='likely'?'Most Likely':x.t==='possible'?'Possible':'Unlikely'}</div>
         <button class="de-alt-btn" onclick="openAlt()">Alt. Rx</button>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 
   const cantH = d.cantmiss.map(c=>`<div class="cm-block"><div class="cm-dot"></div><div class="cm-text">${c}</div></div>`).join('');
 
@@ -4182,7 +4331,8 @@ function renderNavaOutput(d){
       <button class="tool-btn primary" onclick="openSummaryDirect()">Patient Summary</button>
       <button class="tool-btn gold" onclick="openAlt()">℞ Alt. Medications</button>
       <button class="tool-btn" onclick="showView('rx')">℞ Generate Rx</button>
-      <button class="tool-btn" onclick="copyReport()"> Copy Report</button>
+      <button class="tool-btn" onclick="openReferralLetter()">Referral Letter</button>
+      <button class="tool-btn" onclick="copyReport()">Copy Report</button>
       <button class="tool-btn" onclick="window.print()">Print</button>
     </div>`;
   // Collapse sections that start closed
@@ -4720,7 +4870,19 @@ function renderClaudeNavaOutput(json, d){
   // DDx
   const ddxH = (json.ddx||[]).map((r,i)=>{
     const pct = r.probability||0;
-    return `<div class="ddx-row"><div class="ddx-rank">${i+1}</div><div class="ddx-info"><div class="ddx-name">${r.name}</div><div class="ddx-why">${r.reasoning||''}</div><div class="ddx-bar-wrap"><div class="ddx-bar" style="width:${pct}%;background:${pct>=75?'var(--red)':pct>=55?'var(--amber)':'var(--green)'}"></div></div></div><div class="ddx-pct" style="color:${pct>=75?'var(--red)':pct>=55?'var(--amber)':'var(--muted)'}">${pct}%</div></div>`;
+    const rankCls = i===0?'r1':i===1?'r2':i===2?'r3':'r4';
+    const explainId = `cdx-explain-${i}`;
+    return `<div class="ddx-entry" style="margin-bottom:6px">
+      <div class="de-rank ${rankCls}">${i+1}</div>
+      <div class="de-info" style="flex:1">
+        <div class="de-name">${deJargon(r.name)}</div>
+        <div class="de-why">${deJargon(r.reasoning||'')}</div>
+        <div class="de-bar"><div class="de-bar-fill" style="width:${pct}%;background:${pct>=75?'var(--red)':pct>=55?'var(--amber)':'var(--green)'}"></div></div>
+        <button class="de-explain-btn" onclick="explainDdx('${r.name}','${explainId}',this)">Explain this →</button>
+        <div class="de-explain-box" id="${explainId}"></div>
+      </div>
+      <div style="font-size:.85rem;font-weight:700;color:${pct>=75?'var(--red)':pct>=55?'var(--amber)':'var(--muted)'};">${pct}%</div>
+    </div>`;
   }).join('');
 
   // Treatment
@@ -4744,7 +4906,8 @@ function renderClaudeNavaOutput(json, d){
     <div class="tools-row">
       <button class="tool-btn primary" onclick="openSummaryDirect()">Patient Summary</button>
       <button class="tool-btn" onclick="showView('rx')">℞ Generate Rx</button>
-      <button class="tool-btn" onclick="copyReport()"> Copy Report</button>
+      <button class="tool-btn" onclick="openReferralLetter()">Referral Letter</button>
+      <button class="tool-btn" onclick="copyReport()">Copy Report</button>
       <button class="tool-btn" onclick="window.print()">Print</button>
     </div>`;
   ['carepath','cost'].forEach(id=>{
@@ -4752,6 +4915,216 @@ function renderClaudeNavaOutput(json, d){
     if(s) s.classList.add('nv-sec-collapsed');
   });
 }
+
+// ─── Explain DDx (Claude-powered) ───
+async function explainDdx(diagnosisName, boxId, btn){
+  const box = document.getElementById(boxId);
+  if(!box) return;
+  if(box.classList.contains('open')){ box.classList.remove('open'); btn.textContent='Explain this →'; return; }
+  box.classList.add('open');
+  btn.textContent='Loading…';
+  btn.disabled = true;
+
+  const claudeKey = getClaudeKey();
+  if(!claudeKey){
+    const d = activeCase;
+    const patientCtx = d ? `Patient: ${d.name}, ${d.meta||''}, chief complaint: ${d.chief||''}` : 'general patient';
+    // Demo fallback explanation
+    const demos = {
+      default: `This diagnosis fits because the patient's symptom pattern, risk factors, and test results are consistent with how this condition typically presents in Indian clinical practice. Key features to watch: worsening over time, response to initial treatment, and any red-flag symptoms that might suggest a more serious underlying cause.`
+    };
+    box.innerHTML = demos.default;
+    btn.textContent='Explain this →';
+    btn.disabled = false;
+    return;
+  }
+
+  try {
+    const d = activeCase;
+    const context = d ? `Patient: ${d.name}, ${d.meta||''}. Chief: ${d.chief||''}. Key labs: ${(d.labs||[]).slice(0,3).map(l=>`${l.l} ${l.v}`).join(', ')}.` : '';
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':claudeKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body: JSON.stringify({
+        model:'claude-haiku-4-5-20251001', max_tokens:300,
+        messages:[{role:'user',content:`Explain in 3 plain sentences why "${diagnosisName}" is being considered for this patient. ${context} Be direct, avoid jargon, write for a busy doctor who wants the key reasoning.`}]
+      })
+    });
+    const data = await resp.json();
+    box.innerHTML = data.content?.[0]?.text || 'No explanation returned.';
+  } catch(e){
+    box.innerHTML = `Could not load explanation: ${e.message}`;
+  }
+  btn.textContent='Hide explanation';
+  btn.disabled = false;
+}
+
+// ─── Referral Letter Generator ───
+function openReferralLetter(){
+  const d = activeCase;
+  if(!d){ alert('Load a patient first.'); return; }
+
+  const topDdx = d.ddx?.[0]?.n || 'Condition under investigation';
+  const vitals = (d.vitals||[]).slice(0,4).map(v=>`${v.l}: ${v.v}`).join(', ');
+  const labs = (d.labs||[]).slice(0,4).map(l=>`${l.l}: ${l.v}`).join(', ');
+  const meds = (d.meds||[]).map(m=>m.v).join(', ') || 'None';
+  const today = new Date().toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
+
+  const letter = `Date: ${today}
+
+To,
+The Consultant,
+[Specialist Department / Hospital Name]
+
+Dear Doctor,
+
+Re: ${d.name} | ${d.meta||'—'}
+
+I am referring this patient for your expert opinion and management.
+
+REASON FOR REFERRAL:
+${d.chief || topDdx} — NAVA's working diagnosis is <strong>${topDdx}</strong>. The clinical picture warrants specialist evaluation.
+
+CLINICAL SUMMARY:
+${d.history ? (Array.isArray(d.history)?d.history.join('. '):d.history) : 'As detailed below.'}
+
+RELEVANT VITALS:
+${vitals || 'See attached records'}
+
+RELEVANT INVESTIGATIONS:
+${labs || 'Pending / see attached'}
+
+CURRENT MEDICATIONS:
+${meds}
+
+NAVA FLAGS:
+${(d.cantmiss||[]).join('; ') || 'None at this time'}
+
+Please review and advise on further management. I will be grateful for your opinion.
+
+Yours sincerely,
+Dr. ___________________
+[Designation] | NAVA Clinical Intelligence
+[Contact / NABH No.]`;
+
+  const modal = document.createElement('div');
+  modal.style.cssText='position:fixed;inset:0;background:rgba(26,24,22,.55);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px';
+  modal.innerHTML=`
+    <div style="background:var(--card);border-radius:16px;padding:28px 32px;max-width:600px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 24px 60px rgba(0,0,0,.2)">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+        <div style="font-size:.88rem;font-weight:700;color:var(--ink)">Referral Letter — ${d.name}</div>
+        <button onclick="this.closest('[style*=fixed]').remove()" style="background:none;border:none;font-size:1.1rem;cursor:pointer;color:var(--muted)">✕</button>
+      </div>
+      <div id="referral-body" contenteditable="true" style="font-size:.78rem;line-height:1.7;color:var(--body);white-space:pre-wrap;outline:none;border:1px solid var(--border2);border-radius:8px;padding:14px;min-height:200px;font-family:var(--sans)">${letter}</div>
+      <div style="display:flex;gap:8px;margin-top:16px">
+        <button onclick="navigator.clipboard.writeText(document.getElementById('referral-body').innerText).then(()=>alert('Copied!'))" style="background:var(--bark);color:#F8F6F3;border:none;border-radius:100px;padding:8px 20px;font-size:.78rem;font-weight:600;cursor:pointer;font-family:var(--sans)">Copy Letter</button>
+        <button onclick="window.print()" style="background:none;border:1px solid var(--border);border-radius:100px;padding:8px 18px;font-size:.78rem;cursor:pointer;font-family:var(--sans)">Print</button>
+        <button onclick="this.closest('[style*=fixed]').remove()" style="background:none;border:none;font-size:.75rem;color:var(--muted);cursor:pointer;margin-left:auto;font-family:var(--sans)">Close</button>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', e=>{ if(e.target===modal) modal.remove(); });
+}
+
+// ─── Patient-Friendly Mode ───
+let _patientModeActive = false;
+let _patientModeOrigHTML = '';
+function togglePatientMode(){
+  const bar = document.getElementById('patient-mode-bar');
+  const btn = document.getElementById('pt-mode-btn');
+  const out = document.getElementById('nava-output');
+  if(!out || !out.innerHTML.trim() || out.innerHTML.includes('Load a patient')) return;
+
+  _patientModeActive = !_patientModeActive;
+  if(_patientModeActive){
+    _patientModeOrigHTML = out.innerHTML;
+    bar.classList.add('show');
+    btn.style.background='var(--bark)';btn.style.color='#F8F6F3';
+    // Rewrite: strip tags from key text nodes, replace jargon, simplify
+    const clone = out.cloneNode(true);
+    // Remove technical sections: research, cost
+    clone.querySelectorAll('#nvsec-research,#nvsec-cost').forEach(el=>el.remove());
+    // Replace section titles
+    clone.querySelectorAll('.nv-sec-head span:first-child').forEach(el=>{
+      const t = el.textContent;
+      if(t.includes('Differential') || t.includes('Diagnoses')) el.textContent='What NAVA thinks this could be';
+      if(t.includes('Treatment')) el.textContent='Suggested treatment';
+      if(t.includes('What to Do')) el.textContent='Next steps';
+    });
+    // Add plain intro banner
+    const banner = document.createElement('div');
+    banner.style.cssText='background:rgba(139,109,69,.08);border-radius:8px;padding:10px 14px;margin-bottom:10px;font-size:.78rem;color:var(--bark);line-height:1.55;border:1px solid var(--border2)';
+    banner.innerHTML = `<strong>Patient-friendly view</strong> — technical terms simplified. Share this with your patient or use it to explain findings in plain English.`;
+    clone.prepend(banner);
+    out.innerHTML = clone.innerHTML;
+  } else {
+    bar.classList.remove('show');
+    btn.style.background='';btn.style.color='';
+    out.innerHTML = _patientModeOrigHTML;
+  }
+}
+
+// ─── Guided Tour ───
+const TOUR_STEPS = [
+  { selector:'#demo-case-grid', title:'1 — Load a patient', body:'Click any patient card here to load their full clinical record into the workspace.', placement:'right' },
+  { selector:'.ws-left', title:'2 — Review the case', body:'Vitals, labs, meds, and history appear here. Tap any section to expand it.', placement:'right' },
+  { selector:'#run-nava-btn', title:'3 — Run analysis', body:'Click this button (or press Cmd + Enter) to trigger NAVA\'s multi-agent clinical reasoning.', placement:'top' },
+  { selector:'.nava-panel', title:'4 — Read NAVA\'s output', body:'Differential diagnosis, can\'t-miss flags, treatment suggestion, and cost estimate appear here.', placement:'left' },
+  { selector:'.role-switcher', title:'5 — Switch roles', body:'Change your view to Nurse, Pharmacist, or Admin to see role-specific workflows.', placement:'bottom' },
+];
+let _tourStep = 0;
+let _tourOverlay = null;
+function startGuidedTour(){
+  if(_tourOverlay) _tourOverlay.remove();
+  _tourStep = 0;
+  _tourOverlay = document.createElement('div');
+  _tourOverlay.className = 'tour-overlay';
+  _tourOverlay.id = 'tour-overlay';
+  document.body.appendChild(_tourOverlay);
+  renderTourStep();
+}
+function renderTourStep(){
+  if(!_tourOverlay) return;
+  _tourOverlay.innerHTML = '';
+  if(_tourStep >= TOUR_STEPS.length){ endTour(); return; }
+  const step = TOUR_STEPS[_tourStep];
+  const target = document.querySelector(step.selector);
+  if(!target){ _tourStep++; renderTourStep(); return; }
+  const rect = target.getBoundingClientRect();
+  const pad = 6;
+  // Highlight
+  const hl = document.createElement('div');
+  hl.className = 'tour-highlight';
+  hl.style.cssText=`top:${rect.top-pad}px;left:${rect.left-pad}px;width:${rect.width+pad*2}px;height:${rect.height+pad*2}px`;
+  _tourOverlay.appendChild(hl);
+  // Bubble
+  const bubble = document.createElement('div');
+  bubble.className = 'tour-bubble';
+  const dots = TOUR_STEPS.map((_,i)=>`<span class="tour-dot${i===_tourStep?' active':''}"></span>`).join('');
+  bubble.innerHTML=`
+    <div class="tour-bubble-title">${step.title}</div>
+    <div class="tour-bubble-body">${step.body}</div>
+    <div class="tour-bubble-footer">
+      <div class="tour-step-dots">${dots}</div>
+      <div style="display:flex;gap:6px">
+        <button class="tour-skip" onclick="endTour()">Skip</button>
+        <button class="tour-btn" onclick="advanceTour()">${_tourStep < TOUR_STEPS.length-1 ? 'Next →' : 'Done'}</button>
+      </div>
+    </div>`;
+  // Position bubble
+  let top = rect.bottom + 12;
+  let left = rect.left;
+  if(step.placement==='top') top = rect.top - 140;
+  if(step.placement==='left') { left = rect.left - 320; top = rect.top; }
+  if(step.placement==='right') { left = rect.right + 12; top = rect.top; }
+  // Clamp within viewport
+  left = Math.max(8, Math.min(left, window.innerWidth - 320));
+  top  = Math.max(8, Math.min(top,  window.innerHeight - 180));
+  bubble.style.cssText=`top:${top}px;left:${left}px;`;
+  _tourOverlay.appendChild(bubble);
+}
+function advanceTour(){ _tourStep++; renderTourStep(); }
+function endTour(){ if(_tourOverlay){ _tourOverlay.remove(); _tourOverlay=null; } }
 
 // ─── Onboarding ───
 let _obStep = 0;
@@ -6192,6 +6565,15 @@ function onSearchKey(e) {
 document.addEventListener('click', function(e) {
   const wrap = document.getElementById('topbar-search-wrap');
   if (wrap && !wrap.contains(e.target)) closeSearchDropdown();
+});
+
+// Cmd+Enter / Ctrl+Enter → Run Analysis
+document.addEventListener('keydown', function(e){
+  if((e.metaKey || e.ctrlKey) && e.key === 'Enter'){
+    e.preventDefault();
+    const btn = document.getElementById('run-nava-btn');
+    if(btn && !btn.disabled) btn.click();
+  }
 });
 
 // ═══════════════════════════════════════════════════
