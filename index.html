@@ -1737,6 +1737,8 @@ let activeOPD = 'general';
 
 function switchOPD(opd, btn){
   activeOPD = opd;
+  // Clear active case when switching OPDs — avoids General patients leaking into Paediatrics etc.
+  activeCase = null;
   document.querySelectorAll('.opd-item').forEach(n=>n.classList.remove('active'));
   if(btn) btn.classList.add('active');
   // navigate to Today view if not already
@@ -4029,8 +4031,9 @@ const DRUGS_BY_SPECIALTY = {
 };
 
 function getContextCase(){
-  if(activeCase) return activeCase;
   const sp = activeOPD || 'general';
+  // Only use activeCase if it belongs to the current OPD specialty
+  if(activeCase && activeCase.specialty === sp) return activeCase;
   return CASES_DATA.find(c=>c.specialty===sp) || null;
 }
 
