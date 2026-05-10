@@ -3216,6 +3216,7 @@ function startBlankCase(){
         <input id="nc-lmp" placeholder="LMP" style="${fieldStyle()}" />
         <input id="nc-gpa" placeholder="G  P  A" style="${fieldStyle()}" />
       </div>` : ''}
+      <button onclick="saveBlankPatient()" style="margin-top:4px;width:100%;background:var(--sienna);color:#F8F6F3;border:none;border-radius:var(--r);padding:9px 14px;font-size:.78rem;font-weight:600;cursor:pointer;letter-spacing:.03em;transition:all .15s" onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">Save Patient ✓</button>
     </div>`;
 
   // Editable vitals
@@ -3266,6 +3267,85 @@ function taStyle(){
 }
 function storeBlankVitals(el, key){ window._blankVitals = window._blankVitals||{}; window._blankVitals[key] = el.value; }
 
+function saveBlankPatient(){
+  const name  = document.getElementById('nc-name')?.value?.trim();
+  const age   = document.getElementById('nc-age')?.value?.trim();
+  const wt    = document.getElementById('nc-wt')?.value?.trim();
+  const room  = document.getElementById('nc-room')?.value?.trim();
+  const chief = document.getElementById('nc-chief')?.value?.trim();
+  const labs  = document.getElementById('nc-labs')?.value?.trim();
+  const meds  = document.getElementById('nc-meds')?.value?.trim();
+  const ht    = document.getElementById('nc-ht')?.value?.trim();
+  const vax   = document.getElementById('nc-vax')?.value?.trim();
+  const lmp   = document.getElementById('nc-lmp')?.value?.trim();
+  const gpa   = document.getElementById('nc-gpa')?.value?.trim();
+
+  if(!name){ document.getElementById('nc-name').focus(); document.getElementById('nc-name').style.borderColor='var(--red)'; return; }
+
+  const sp = activeOPD || 'general';
+  const metaParts = [age, wt ? wt+' kg' : '', room].filter(Boolean);
+  const pillParts  = [age, wt ? wt+' kg' : '', chief].filter(Boolean).slice(0,3);
+
+  // specialty-specific extras
+  const extraHistory = [];
+  if(ht)  extraHistory.push({date:'Today', label:'Height', detail: ht+' cm'});
+  if(vax) extraHistory.push({date:'Today', label:'Vaccination', detail: vax});
+  if(lmp) extraHistory.push({date:'Today', label:'LMP', detail: lmp});
+  if(gpa) extraHistory.push({date:'Today', label:'Obstetric', detail: gpa});
+
+  const vitalsArr = Object.entries(window._blankVitals||{}).map(([k,v])=>({l:k.toUpperCase(), v, cls:''}));
+  const labsArr   = labs ? labs.split('\n').filter(Boolean).map(l=>{ const[lbl,...rest]=l.split(/[:·\-]/); return {l:(lbl||l).trim(), v:(rest.join(' ')||'—').trim(), cls:''}; }) : [];
+  const medsArr   = meds ? meds.split('\n').filter(Boolean).map(m=>({l:'℞', v:m.trim(), cls:''})) : [];
+
+  const newCase = {
+    name: name,
+    meta: metaParts.join(' · ') || '—',
+    specialty: sp,
+    chief: chief || '—',
+    pills: pillParts.length ? pillParts : [name],
+    history: extraHistory,
+    familyHistory: [],
+    hospitalisations: [],
+    vitals: vitalsArr,
+    labs:   labsArr,
+    meds:   medsArr,
+    ddx:[{p:70,n:'Pending NAVA analysis',w:'Run analysis to generate differential',c:'var(--muted)',b:'70%',t:'likely'}],
+    cantmiss:[], treatment:{title:'Pending',lines:[]}, carePath:[], research:[],
+    finance:{patientEstimate:'—',hospitalRevenue:'—',affordability:'med',affordNote:'Enter details first.',breakdownPatient:[],breakdownHosp:[],hospitalShare:50},
+    flagLevel:'warn', flagText:'New',
+    _saved: true
+  };
+
+  // Store notes if present
+  const notesVal = document.getElementById('case-notes-input')?.value?.trim();
+  if(notesVal) newCase._notes = notesVal;
+
+  // Add to session CASES_DATA so it appears in demo picker and is retrievable
+  CASES_DATA.unshift(newCase);
+
+  // Load into workspace via standard loadCase (idx 0 after unshift)
+  loadCase(0);
+  showView('workspace');
+  renderDemoCasePicker();
+
+  // Brief success toast
+  showSaveToast(name);
+}
+
+function showSaveToast(name){
+  let t = document.getElementById('save-toast');
+  if(!t){
+    t = document.createElement('div');
+    t.id = 'save-toast';
+    t.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--sienna);color:#F8F6F3;padding:10px 20px;border-radius:100px;font-size:.78rem;font-weight:600;z-index:9999;opacity:0;transition:all .25s ease;pointer-events:none;white-space:nowrap';
+    document.body.appendChild(t);
+  }
+  t.textContent = '✓  ' + name + ' saved — ready to run analysis';
+  requestAnimationFrame(()=>{ t.style.opacity='1'; t.style.transform='translateX(-50%) translateY(0)'; });
+  clearTimeout(t._timer);
+  t._timer = setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateX(-50%) translateY(10px)'; }, 3000);
+}
+
 // ─── PARTNER CARD (for fertility couple cases) ───
 function renderPartnerCard(p){
   const flagCount = (p.navaFlags||[]).length;
@@ -3315,6 +3395,7 @@ function renderPartnerCard(p){
 // ─── BODY MAP ───
 function renderBodyMap(d){
   const area = document.getElementById('body-map-area');
+  if(!d.bodyMap){ area.style.display='none'; return; }
   area.style.display='block';
   const svgArea = document.getElementById('body-svg-area');
   svgArea.innerHTML = `<div style="position:relative;display:inline-block">${d.bodyMap.svg}${d.bodyMap.hotspots.map(h=>`<div class="body-hotspot hs-${h.type}" style="left:${h.x};top:${h.y}"><div class="hs-tooltip" style="${h.x>'50%'?'right:120%;left:auto':'left:120%'};top:-10px;width:180px"><strong>${h.title}</strong><br><span style="font-weight:300;color:rgba(255,255,255,.7)">${h.detail}</span></div></div>`).join('')}</div>`;
