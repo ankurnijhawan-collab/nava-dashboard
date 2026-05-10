@@ -593,6 +593,62 @@ button,input,textarea,select{font-family:inherit}
 /* API key banner */
 .api-key-banner{background:var(--gpale);border:1px solid var(--border2);border-radius:var(--r2);padding:12px 15px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .api-key-banner.set{background:var(--glt);border-color:var(--status-optimal-border,#C8DFD0)}
+/* Claude key banner in NAVA header */
+.claude-key-bar{padding:7px 10px;background:rgba(0,0,0,.18);display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,.07)}
+.claude-key-bar.hidden{display:none}
+.ck-label{font-size:.65rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55);white-space:nowrap}
+.ck-input{flex:1;min-width:120px;border:1px solid rgba(255,255,255,.15);border-radius:5px;padding:4px 8px;font-size:.7rem;font-family:monospace;background:rgba(0,0,0,.25);color:#F8F6F3;outline:none}
+.ck-input:focus{border-color:var(--sienna)}
+.ck-save{background:var(--sienna);color:#F8F6F3;border:none;border-radius:5px;padding:4px 10px;font-size:.68rem;font-weight:600;cursor:pointer;white-space:nowrap}
+.ck-save:hover{background:var(--sien2)}
+.ck-ok{font-size:.65rem;color:#6EE098;font-weight:600;white-space:nowrap}
+.ck-toggle{background:none;border:none;color:rgba(255,255,255,.35);font-size:.65rem;cursor:pointer;margin-left:auto;padding:0;text-decoration:underline;white-space:nowrap}
+.ck-toggle:hover{color:rgba(255,255,255,.7)}
+/* Onboarding overlay */
+.ob-overlay{position:fixed;inset:0;background:rgba(26,24,22,.75);z-index:9000;display:flex;align-items:center;justify-content:center;animation:obFadeIn .35s ease}
+.ob-overlay.hidden{display:none}
+@keyframes obFadeIn{from{opacity:0}to{opacity:1}}
+.ob-box{background:var(--card);border-radius:20px;box-shadow:0 24px 64px rgba(0,0,0,.28);width:min(560px,92vw);overflow:hidden}
+.ob-head{background:var(--bark);padding:28px 32px 20px;position:relative}
+.ob-step-dots{display:flex;gap:6px;margin-bottom:16px}
+.ob-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.22);transition:background .25s}
+.ob-dot.active{background:var(--sienna);width:20px;border-radius:3px}
+.ob-title{font-family:var(--serif);font-size:1.45rem;font-weight:600;color:#F8F6F3;margin-bottom:6px}
+.ob-subtitle{font-size:.83rem;color:rgba(255,255,255,.55);line-height:1.55}
+.ob-body{padding:22px 32px}
+.ob-step{display:none}
+.ob-step.active{display:block}
+.ob-item{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px}
+.ob-item-icon{width:34px;height:34px;border-radius:10px;background:var(--sien3);color:var(--sienna);display:grid;place-items:center;font-size:1rem;flex-shrink:0}
+.ob-item-text{}
+.ob-item-head{font-size:.86rem;font-weight:600;color:var(--bark);margin-bottom:3px}
+.ob-item-sub{font-size:.78rem;color:var(--muted);line-height:1.55}
+.ob-footer{padding:0 32px 24px;display:flex;align-items:center;justify-content:space-between}
+.ob-skip{background:none;border:none;color:var(--muted);font-size:.75rem;cursor:pointer;padding:0;text-decoration:underline}
+.ob-skip:hover{color:var(--bark)}
+.ob-next{background:var(--bark);color:#F8F6F3;border:none;border-radius:100px;padding:10px 24px;font-size:.83rem;font-weight:600;cursor:pointer;transition:background .15s}
+.ob-next:hover{background:var(--sienna)}
+/* Mobile hamburger */
+.mob-ham{display:none;background:none;border:none;cursor:pointer;padding:6px;color:var(--muted);font-size:1.2rem;flex-shrink:0}
+/* Mobile sidebar overlay */
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200}
+.sidebar-overlay.open{display:block}
+/* Mobile responsive */
+@media (max-width:768px){
+  .app{grid-template-columns:1fr}
+  .sidebar{position:fixed;left:0;top:0;bottom:0;width:240px;z-index:250;transform:translateX(-100%);transition:transform .3s var(--ease)}
+  .sidebar.mob-open{transform:translateX(0)}
+  .mob-ham{display:flex}
+  .topbar-search{width:160px}
+  .ws-panels{flex-direction:column}
+  .ws-left,.ws-right{min-width:unset;width:100%}
+  .ws-run-bar{position:sticky;bottom:0;z-index:10}
+  .views{overflow-y:auto}
+  #view-today > div:last-of-type{grid-template-columns:1fr}
+  .rx-workspace{flex-direction:column}
+  .rx-form-panel,.rx-output-panel{min-width:unset;width:100%}
+  .tb-btn.ghost{display:none}
+}
 .akb-label{font-size:.72rem;font-weight:600;color:var(--muted);white-space:nowrap}
 .akb-input{flex:1;min-width:160px;border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:.75rem;font-family:monospace;background:var(--card);color:var(--ink);outline:none}
 .akb-input:focus{border-color:var(--sienna)}
@@ -1039,6 +1095,7 @@ button,input,textarea,select{font-family:inherit}
 <!-- ═════ MAIN ═════ -->
 <div class="main">
   <div class="topbar">
+    <button class="mob-ham" onclick="toggleMobileSidebar()" aria-label="Menu">☰</button>
     <button class="topbar-back" id="topbar-back" onclick="goHome()" style="display:none" aria-label="Go to home page">
       <span class="tbb-arrow">←</span>
       <span class="tbb-label">Home</span>
@@ -1237,6 +1294,13 @@ button,input,textarea,select{font-family:inherit}
           <div class="nava-panel">
             <div class="np-header">
               <div class="np-title">NAVA Analysis</div>
+              <button class="ck-toggle" id="ck-toggle-btn" onclick="toggleClaudeKeyBar()">+ Claude AI</button>
+            </div>
+            <div class="claude-key-bar hidden" id="claude-key-bar">
+              <span class="ck-label">Claude API Key</span>
+              <input class="ck-input" id="ck-input" type="password" placeholder="sk-ant-…" autocomplete="off">
+              <button class="ck-save" onclick="saveClaudeKey()">Save</button>
+              <span class="ck-ok" id="ck-ok" style="display:none">✓ AI ready</span>
             </div>
             <div class="np-body" id="nava-output">
               <div style="text-align:center;padding:36px 20px">
@@ -3643,6 +3707,51 @@ async function runNava(){
   // brief pause so the user sees the final ✓
   await new Promise(r=>setTimeout(r, 240));
 
+  // If Claude key exists, call real API
+  const claudeKey = getClaudeKey();
+  if(claudeKey){
+    const statusDiv = document.createElement('div');
+    statusDiv.style.cssText='text-align:center;padding:14px;font-size:.78rem;color:var(--muted)';
+    statusDiv.textContent='Sending to Claude AI…';
+    out.appendChild(statusDiv);
+    try {
+      const resp = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': claudeKey,
+          'anthropic-version': '2023-06-01',
+          'anthropic-dangerous-direct-browser-access': 'true'
+        },
+        body: JSON.stringify({
+          model: 'claude-opus-4-7',
+          max_tokens: 1500,
+          messages: [{ role: 'user', content: buildClaudePrompt(d) }]
+        })
+      });
+      if(!resp.ok){ const err=await resp.text(); throw new Error(err); }
+      const data = await resp.json();
+      const raw  = data.content?.[0]?.text || '';
+      // Strip any accidental markdown fences
+      const cleaned = raw.replace(/^```[a-z]*\n?/i,'').replace(/```$/,'').trim();
+      const json = JSON.parse(cleaned);
+      // Update case flag level
+      if(json.flagLevel) d.flagLevel = json.flagLevel;
+      // Gate critical
+      if(json.flagLevel==='crit' && (json.cantMiss||[]).length){
+        const synth = {...d, cantmiss: json.cantMiss||[] };
+        showCriticalAckModal(synth, ()=>{ renderClaudeNavaOutput(json,d); btn.disabled=false; btxt.textContent='Run Analysis →'; });
+      } else {
+        renderClaudeNavaOutput(json, d);
+        btn.disabled=false; btxt.textContent='Run Analysis →';
+      }
+      return;
+    } catch(e){
+      console.error('Claude API error:', e);
+      out.innerHTML += `<div style="font-size:.75rem;color:var(--red);padding:8px 12px;background:var(--rlt);border-radius:8px;margin-top:8px">Claude error: ${e.message}. Showing demo analysis.</div>`;
+    }
+  }
+
   // Gate critical cases behind an acknowledgment modal
   if(d.flagLevel === 'crit' && d.cantmiss && d.cantmiss.length){
     showCriticalAckModal(d, () => {
@@ -3781,12 +3890,12 @@ function renderNavaOutput(d){
   document.getElementById('nava-output').innerHTML = `
     ${verdictH}
     ${actionH}
-    ${d.cantmiss && d.cantmiss.length ? `<div class="ddx-sec-title" style="color:var(--red);margin-bottom:6px">⚠ Can't Miss</div>${cantH}` : ''}
-    ${sec('ddx',      'Differential Diagnosis',      ddxH,   true)}
-    ${sec('tx',       'Treatment Plan',               txH,    true)}
-    ${sec('carepath', 'Care Path & Next Steps',       `<div class="panel-card" style="margin:0">${cpH}</div>`, false)}
-    ${sec('research', 'Research Evidence',            resH,   false)}
-    ${sec('cost',     'Cost Estimate',                `<div class="np-body" style="padding:14px">${finH}</div>`, false)}
+    ${d.cantmiss && d.cantmiss.length ? `<div class="ddx-sec-title" style="color:var(--red);margin-bottom:6px">⚠ Don't Miss These</div>${cantH}` : ''}
+    ${sec('ddx',      'Most Likely Diagnoses',        ddxH,   true)}
+    ${sec('tx',       'Treatment',                    txH,    true)}
+    ${sec('carepath', 'What to Do Next',              `<div class="panel-card" style="margin:0">${cpH}</div>`, false)}
+    ${sec('research', 'Clinical Evidence',            resH,   false)}
+    ${sec('cost',     'Estimated Costs',              `<div class="np-body" style="padding:14px">${finH}</div>`, false)}
     <div class="advisory-row" style="margin-top:8px">⚕ <span><strong>Advisory only.</strong> NAVA supports — does not replace — clinical judgment.</span></div>
     <div class="tools-row">
       <button class="tool-btn primary" onclick="openSummaryDirect()">Patient Summary</button>
@@ -4216,6 +4325,188 @@ function initApiKeyBanner(){
   if(inp)inp.value='••••••••'+key.slice(-4);
   const st=document.getElementById('akb-status');if(st)st.style.display='inline';
   const b=document.getElementById('api-key-banner');if(b)b.classList.add('set');
+}
+
+// ─── Claude API key helpers ───
+function getClaudeKey(){ return localStorage.getItem('nava_claude_key')||''; }
+function saveClaudeKey(){
+  const val=(document.getElementById('ck-input').value||'').trim();
+  if(!val.startsWith('sk-ant-') && !val.startsWith('sk-')){ alert('Enter a valid Anthropic API key (starts with sk-ant-…)'); return; }
+  localStorage.setItem('nava_claude_key', val);
+  document.getElementById('ck-input').value='••••••••'+val.slice(-4);
+  document.getElementById('ck-ok').style.display='inline';
+  document.getElementById('ck-toggle-btn').textContent='AI ready ✓';
+  document.getElementById('ck-toggle-btn').style.color='#6EE098';
+}
+function toggleClaudeKeyBar(){
+  const bar=document.getElementById('claude-key-bar');
+  bar.classList.toggle('hidden');
+}
+function initClaudeKeyBanner(){
+  const key=getClaudeKey();
+  if(!key) return;
+  const inp=document.getElementById('ck-input');
+  if(inp) inp.value='••••••••'+key.slice(-4);
+  const ok=document.getElementById('ck-ok');
+  if(ok) ok.style.display='inline';
+  const btn=document.getElementById('ck-toggle-btn');
+  if(btn){ btn.textContent='AI ready ✓'; btn.style.color='#6EE098'; }
+}
+
+// ─── Build clinical prompt for Claude ───
+function buildClaudePrompt(d){
+  const vitalsText = (d.vitals||[]).map(v=>`${v.l}: ${v.v}`).join(', ') || 'Not recorded';
+  const labsText   = (d.labs||[]).map(v=>`${v.l}: ${v.v}`).join(', ') || 'Not done';
+  const medsText   = (d.meds||[]).map(v=>v.v).join(', ') || 'None';
+  const histText   = Array.isArray(d.history) ? d.history.join('. ') : (d.history||'');
+  const fhText     = (d.familyHistory||[]).join(', ') || 'None reported';
+  const notes      = d._notes || '';
+
+  return `You are NAVA, a clinical intelligence assistant for Indian doctors. Analyse this patient and respond ONLY with a valid JSON object — no prose, no markdown, no code fences.
+
+PATIENT:
+Name: ${d.name}
+Demographics: ${d.meta||'—'}
+Specialty: ${d.specialty||'general'}
+Chief complaint: ${d.chief||'—'}
+History: ${histText||'None provided'}
+Family history: ${fhText}
+Vitals: ${vitalsText}
+Labs / investigations: ${labsText}
+Current medications: ${medsText}
+Clinical notes: ${notes||'None'}
+
+INSTRUCTIONS:
+- Analyse for the Indian clinical context (endemic diseases, nutrition, access, cost).
+- Be specific: use drug names, doses, durations relevant to India.
+- "cantMiss" must list conditions that are dangerous if delayed/missed.
+- "flagLevel" must be one of: "ok", "warn", "crit".
+- All arrays must have at least 1 item.
+- Keep language plain and direct — avoid jargon.
+
+REQUIRED JSON STRUCTURE:
+{
+  "topDiagnosis": "string — most likely diagnosis",
+  "confidence": number (0–100),
+  "plainSummary": "string — 2-sentence plain English summary for the doctor",
+  "flagLevel": "ok|warn|crit",
+  "ddx": [{"rank":1,"name":"string","probability":number,"reasoning":"string"}],
+  "cantMiss": ["string — condition not to miss"],
+  "orderNow": ["string — investigation to order"],
+  "startMeds": [{"drug":"string","dose":"string","duration":"string","reason":"string"}],
+  "stopMeds": [{"drug":"string","reason":"string"}],
+  "treatmentLines": ["string — plain treatment step"],
+  "nextSteps": ["string — follow-up action"],
+  "costNote": "string — rough out-of-pocket estimate in INR"
+}`;
+}
+
+// ─── Render Claude NAVA output ───
+function renderClaudeNavaOutput(json, d){
+  const sec=(id,title,body,open)=>`<div class="nv-section" id="nvsec-${id}"><div class="nv-sec-head" onclick="toggleNvSection('${id}')"><span>${title}</span><span class="nv-sec-chev">▾</span></div><div class="nv-sec-body">${body}</div></div>`;
+
+  const topDx   = json.topDiagnosis || '—';
+  const conf    = json.confidence || 0;
+  const confColor = conf >= 75 ? 'var(--red)' : conf >= 55 ? 'var(--amber)' : 'var(--muted)';
+  const isCrit  = json.flagLevel === 'crit';
+  const summary = json.plainSummary || '';
+
+  // Verdict card
+  const verdictH = `
+    <div class="nv-card ${isCrit?'crit':'warn'}" style="margin-bottom:12px">
+      <div class="nv-left">
+        <div class="nv-prev-lbl">Most Likely</div>
+        <div class="nv-primary">${topDx}</div>
+        ${summary ? `<div style="font-size:.78rem;color:var(--muted);margin-top:6px;line-height:1.55">${summary}</div>` : ''}
+      </div>
+      <div class="nv-right">
+        <div class="nv-conf-ring" style="--pct:${conf}%;border-color:${confColor}">
+          <div class="nv-conf-val" style="color:${confColor}">${conf}<span style="font-size:.65rem">%</span></div>
+          <div class="nv-conf-lbl">confidence</div>
+        </div>
+      </div>
+    </div>`;
+
+  // Action block
+  const orderH  = (json.orderNow||[]).map(i=>`<div class="delta-row"><span class="delta-badge order">Order</span><span>${i}</span></div>`).join('');
+  const startH  = (json.startMeds||[]).map(i=>`<div class="delta-row"><span class="delta-badge start">Start</span><span><strong>${i.drug}</strong> ${i.dose} × ${i.duration} <span style="color:var(--muted);font-size:.75rem">— ${i.reason}</span></span></div>`).join('');
+  const stopH   = (json.stopMeds||[]).map(i=>`<div class="delta-row"><span class="delta-badge stop">Stop</span><span><strong>${i.drug}</strong> — ${i.reason}</span></div>`).join('');
+  const actionH = (orderH||startH||stopH) ? `<div class="delta-card" style="margin-bottom:12px"><div class="delta-title">Do Today</div>${orderH}${startH}${stopH}</div>` : '';
+
+  // Can't miss
+  const cantH   = (json.cantMiss||[]).map(c=>`<div class="cant-row"><span style="color:var(--red);margin-right:6px">▲</span>${c}</div>`).join('');
+
+  // DDx
+  const ddxH = (json.ddx||[]).map((r,i)=>{
+    const pct = r.probability||0;
+    return `<div class="ddx-row"><div class="ddx-rank">${i+1}</div><div class="ddx-info"><div class="ddx-name">${r.name}</div><div class="ddx-why">${r.reasoning||''}</div><div class="ddx-bar-wrap"><div class="ddx-bar" style="width:${pct}%;background:${pct>=75?'var(--red)':pct>=55?'var(--amber)':'var(--green)'}"></div></div></div><div class="ddx-pct" style="color:${pct>=75?'var(--red)':pct>=55?'var(--amber)':'var(--muted)'}">${pct}%</div></div>`;
+  }).join('');
+
+  // Treatment
+  const txH = (json.treatmentLines||[]).map(l=>`<div class="tx-step">${l}</div>`).join('');
+
+  // Next steps / care path
+  const cpH = (json.nextSteps||[]).map(s=>`<div class="cp-step">${s}</div>`).join('');
+
+  // Cost
+  const costH = json.costNote ? `<div style="font-size:.82rem;color:var(--muted);padding:10px 4px">${json.costNote}</div>` : '<div style="color:var(--muted);font-size:.8rem;padding:10px 4px">Not estimated.</div>';
+
+  document.getElementById('nava-output').innerHTML = `
+    ${verdictH}
+    ${actionH}
+    ${cantH ? `<div class="ddx-sec-title" style="color:var(--red);margin-bottom:6px">⚠ Don't Miss These</div><div class="cant-wrap" style="margin-bottom:12px">${cantH}</div>` : ''}
+    ${sec('ddx',      'Most Likely Diagnoses',  ddxH,   true)}
+    ${sec('tx',       'Treatment',              txH,    true)}
+    ${sec('carepath', 'What to Do Next',        `<div class="panel-card" style="margin:0">${cpH}</div>`, false)}
+    ${sec('cost',     'Estimated Costs',        `<div class="np-body" style="padding:14px">${costH}</div>`, false)}
+    <div style="font-size:.7rem;color:var(--muted);margin-top:8px;padding:4px 2px;border-top:1px solid var(--border2);line-height:1.5">⚕ NAVA supports — does not replace — your clinical judgment. Verify all suggestions.</div>
+    <div class="tools-row">
+      <button class="tool-btn primary" onclick="openSummaryDirect()">Patient Summary</button>
+      <button class="tool-btn" onclick="showView('rx')">℞ Generate Rx</button>
+      <button class="tool-btn" onclick="copyReport()"> Copy Report</button>
+      <button class="tool-btn" onclick="window.print()">Print</button>
+    </div>`;
+  ['carepath','cost'].forEach(id=>{
+    const s=document.getElementById('nvsec-'+id);
+    if(s) s.classList.add('nv-sec-collapsed');
+  });
+}
+
+// ─── Onboarding ───
+let _obStep = 0;
+const _obSteps = [
+  { title:'Welcome to NAVA', subtitle:'Your AI clinical intelligence assistant — built for Indian doctors.' },
+  { title:'Core features', subtitle:'Everything you need in one place — no switching between tools.' },
+  { title:'Ready to start', subtitle:'You can explore with the demo patients right now.' }
+];
+function showOnboarding(){
+  if(localStorage.getItem('nava_onboarded')) return;
+  document.getElementById('ob-overlay').classList.remove('hidden');
+  _obStep = 0;
+  updateObStep();
+}
+function updateObStep(){
+  _obSteps.forEach((_,i)=>{
+    document.getElementById('ob-step-'+i).classList.toggle('active', i===_obStep);
+    document.getElementById('ob-dot-'+i).classList.toggle('active', i===_obStep);
+  });
+  document.getElementById('ob-title').textContent = _obSteps[_obStep].title;
+  document.getElementById('ob-subtitle').textContent = _obSteps[_obStep].subtitle;
+  document.getElementById('ob-next-btn').textContent = _obStep < _obSteps.length-1 ? 'Next →' : 'Get Started';
+}
+function nextOnboardingStep(){
+  if(_obStep < _obSteps.length-1){ _obStep++; updateObStep(); }
+  else dismissOnboarding();
+}
+function dismissOnboarding(){
+  localStorage.setItem('nava_onboarded','1');
+  document.getElementById('ob-overlay').classList.add('hidden');
+}
+
+// ─── Mobile sidebar ───
+function toggleMobileSidebar(){
+  document.querySelector('.sidebar').classList.toggle('mob-open');
+  document.getElementById('sidebar-overlay').classList.toggle('open');
 }
 
 // Real Whisper recording
@@ -5170,7 +5461,7 @@ function drillCondition(idx){
 
 // Render insights on first view switch + at init
 document.addEventListener('DOMContentLoaded', ()=>{
-  setTimeout(()=>{ renderTodayView(); renderInsights(); renderCaseHistory(); renderDemoCasePicker(); initApiKeyBanner(); if(typeof updateBackButton === 'function') updateBackButton('today'); }, 50);
+  setTimeout(()=>{ renderTodayView(); renderInsights(); renderCaseHistory(); renderDemoCasePicker(); initApiKeyBanner(); initClaudeKeyBanner(); showOnboarding(); if(typeof updateBackButton === 'function') updateBackButton('today'); }, 50);
 });
 // Also re-render when navigating to the insights tab (in case DOMContentLoaded fires before layout)
 const _origShowView = showView;
@@ -5622,6 +5913,45 @@ document.addEventListener('click', function(e) {
   if (wrap && !wrap.contains(e.target)) closeSearchDropdown();
 });
 </script>
+
+<!-- MOBILE SIDEBAR OVERLAY -->
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleMobileSidebar()"></div>
+
+<!-- ONBOARDING OVERLAY -->
+<div class="ob-overlay hidden" id="ob-overlay">
+  <div class="ob-box">
+    <div class="ob-head">
+      <div class="ob-step-dots">
+        <div class="ob-dot active" id="ob-dot-0"></div>
+        <div class="ob-dot" id="ob-dot-1"></div>
+        <div class="ob-dot" id="ob-dot-2"></div>
+      </div>
+      <div class="ob-title" id="ob-title">Welcome to NAVA</div>
+      <div class="ob-subtitle" id="ob-subtitle">Your AI clinical intelligence assistant — built for Indian doctors.</div>
+    </div>
+    <div class="ob-body">
+      <div class="ob-step active" id="ob-step-0">
+        <div class="ob-item"><div class="ob-item-icon">○</div><div class="ob-item-text"><div class="ob-item-head">Today's OPD — your home screen</div><div class="ob-item-sub">See your patient queue, urgent flags, and quick actions. Pick a specialty from the left panel.</div></div></div>
+        <div class="ob-item"><div class="ob-item-icon">→</div><div class="ob-item-text"><div class="ob-item-head">Open a patient to see their full case</div><div class="ob-item-sub">Tap any patient card to open their history, vitals, labs, and medications in one view.</div></div></div>
+        <div class="ob-item"><div class="ob-item-icon">+</div><div class="ob-item-text"><div class="ob-item-head">Add a new patient in seconds</div><div class="ob-item-sub">Click "New Patient", enter the basics, then run NAVA analysis. No paperwork needed.</div></div></div>
+      </div>
+      <div class="ob-step" id="ob-step-1">
+        <div class="ob-item"><div class="ob-item-icon">N</div><div class="ob-item-text"><div class="ob-item-head">Run Analysis — NAVA's core feature</div><div class="ob-item-sub">Open a patient, then click "Run Analysis" at the bottom left. NAVA will rank likely diagnoses, flag what not to miss, and suggest treatment.</div></div></div>
+        <div class="ob-item"><div class="ob-item-icon">◉</div><div class="ob-item-text"><div class="ob-item-head">Record your consultation</div><div class="ob-item-sub">Use "Record Consult" to speak in Hindi or English. NAVA auto-generates structured notes — no typing needed.</div></div></div>
+        <div class="ob-item"><div class="ob-item-icon">℞</div><div class="ob-item-text"><div class="ob-item-head">Generate prescriptions instantly</div><div class="ob-item-sub">After analysis, click "Generate Rx". NAVA pre-fills the prescription based on the diagnosis — you just review and print.</div></div></div>
+      </div>
+      <div class="ob-step" id="ob-step-2">
+        <div class="ob-item"><div class="ob-item-icon" style="background:var(--glt);color:var(--green)">✓</div><div class="ob-item-text"><div class="ob-item-head">NAVA works without an API key</div><div class="ob-item-sub">Demo mode uses built-in cases so you can explore every feature right now. No account needed.</div></div></div>
+        <div class="ob-item"><div class="ob-item-icon" style="background:var(--sien3);color:var(--sienna)">⚡</div><div class="ob-item-text"><div class="ob-item-head">Add a Claude API key for real AI</div><div class="ob-item-sub">In the NAVA Analysis panel, tap "+ Claude AI" and paste your Anthropic API key. NAVA will then analyse your real patients with live AI — not demo data.</div></div></div>
+        <div class="ob-item"><div class="ob-item-icon" style="background:var(--blt);color:var(--blue)">i</div><div class="ob-item-text"><div class="ob-item-head">Your data stays on your device</div><div class="ob-item-sub">Nothing is stored on a server. Keys and notes stay in your browser only.</div></div></div>
+      </div>
+    </div>
+    <div class="ob-footer">
+      <button class="ob-skip" onclick="dismissOnboarding()">Skip intro</button>
+      <button class="ob-next" id="ob-next-btn" onclick="nextOnboardingStep()">Next →</button>
+    </div>
+  </div>
+</div>
 
 <!-- CRITICAL FLAG ACKNOWLEDGMENT MODAL -->
 <div class="ack-overlay" id="ack-modal">
