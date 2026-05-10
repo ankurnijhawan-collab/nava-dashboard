@@ -1732,17 +1732,17 @@ function bannerBg(opd){
 }
 
 const QUICK_ACTIONS = {
-  nava:      `<div class="qa-btn" onclick="showView('workspace')"><div class="qa-icon">NAVA</div><div class="qa-label">Run NAVA DDx</div><div class="qa-sub">Differential + drug safety</div></div>`,
-  rx:        `<div class="qa-btn" onclick="showView('rx')"><div class="qa-icon">℞</div><div class="qa-label">Generate Rx</div><div class="qa-sub">Indian brands + dosing</div></div>`,
-  'rx-paed': `<div class="qa-btn" onclick="showView('rx')"><div class="qa-icon">℞</div><div class="qa-label">Paediatric Rx</div><div class="qa-sub">Weight-based · dispersibles</div></div>`,
-  'rx-couple': `<div class="qa-btn" onclick="showView('rx')"><div class="qa-icon">℞</div><div class="qa-label">Couple Rx</div><div class="qa-sub">His + her regimens</div></div>`,
-  scribe:    `<div class="qa-btn" onclick="showView('scribe')"><div class="qa-icon">◉</div><div class="qa-label">Ambient Scribe</div><div class="qa-sub">Hindi/English SOAP notes</div></div>`,
+  nava:      `<div class="qa-btn" onclick="qaLoadAndRun()"><div class="qa-icon">NAVA</div><div class="qa-label">Run NAVA DDx</div><div class="qa-sub">Differential + drug safety</div></div>`,
+  rx:        `<div class="qa-btn" onclick="qaOpenRx()"><div class="qa-icon">℞</div><div class="qa-label">Generate Rx</div><div class="qa-sub">Indian brands + dosing</div></div>`,
+  'rx-paed': `<div class="qa-btn" onclick="qaOpenRx()"><div class="qa-icon">℞</div><div class="qa-label">Paediatric Rx</div><div class="qa-sub">Weight-based · dispersibles</div></div>`,
+  'rx-couple': `<div class="qa-btn" onclick="qaOpenRx()"><div class="qa-icon">℞</div><div class="qa-label">Couple Rx</div><div class="qa-sub">His + her regimens</div></div>`,
+  scribe:    `<div class="qa-btn" onclick="showView('scribe');initApiKeyBanner()"><div class="qa-icon">◉</div><div class="qa-label">Ambient Scribe</div><div class="qa-sub">Hindi/English SOAP notes</div></div>`,
   upload:    `<div class="qa-btn" onclick="showView('upload')"><div class="qa-icon">Doc</div><div class="qa-label">Upload & Scan</div><div class="qa-sub">Reports, scans, lab PDFs</div></div>`,
-  summary:   `<div class="qa-btn" onclick="openSummaryDirect()"><div class="qa-icon">→</div><div class="qa-label">Patient Summary</div><div class="qa-sub">WhatsApp · Hindi + English</div></div>`,
+  summary:   `<div class="qa-btn" onclick="qaOpenSummary()"><div class="qa-icon">→</div><div class="qa-label">Patient Summary</div><div class="qa-sub">WhatsApp · Hindi + English</div></div>`,
   insights:  `<div class="qa-btn" onclick="showView('insights')"><div class="qa-icon">≈</div><div class="qa-label">View Insights</div><div class="qa-sub">Accuracy, revenue, trends</div></div>`,
-  growth:    `<div class="qa-btn" onclick="alert('Growth chart — demo only')"><div class="qa-icon">↗</div><div class="qa-label">Growth Chart</div><div class="qa-sub">WHO + IAP percentiles</div></div>`,
-  screening: `<div class="qa-btn" onclick="alert('Screening tracker — demo only')"><div class="qa-icon">◎</div><div class="qa-label">Screening Due</div><div class="qa-sub">Pap · HPV · mammography</div></div>`,
-  timeline:  `<div class="qa-btn" onclick="alert('Couple timeline — demo only')"><div class="qa-icon">—</div><div class="qa-label">Couple Timeline</div><div class="qa-sub">Cycles · workup · IUI/IVF</div></div>`
+  growth:    `<div class="qa-btn" onclick="qaLoadAndRun('growth')"><div class="qa-icon">↗</div><div class="qa-label">Growth Chart</div><div class="qa-sub">WHO + IAP percentiles</div></div>`,
+  screening: `<div class="qa-btn" onclick="showView('insights')"><div class="qa-icon">◎</div><div class="qa-label">Screening Due</div><div class="qa-sub">Pap · HPV · mammography</div></div>`,
+  timeline:  `<div class="qa-btn" onclick="qaLoadAndRun()"><div class="qa-icon">—</div><div class="qa-label">Couple Timeline</div><div class="qa-sub">Cycles · workup · IUI/IVF</div></div>`
 };
 
 function updateOpdBadges(){
@@ -3408,6 +3408,53 @@ function copyReport(){
 }
 
 // ─── SUMMARY ───
+// ─── POPULATE RX FROM ACTIVE CASE / SCRIBE ───
+function populateRxFromScribe(){
+  const d = activeCase || CASES_DATA[1];
+  // Patient fields from active case
+  if(d){
+    document.getElementById('rx-name').value = d.name || '';
+    const ageMatch = (d.meta||'').match(/(\d+)yr/);
+    if(ageMatch) document.getElementById('rx-age').value = ageMatch[1] + ' years';
+    const wtMatch = (d.meta||'').match(/(\d+)\s*kg/);
+    if(wtMatch){ document.getElementById('rx-wt').value = wtMatch[1]; updateDosing(); }
+    // Allergies from meds list
+    const allergyEntry = (d.meds||[]).find(m=>(m.l||'').toLowerCase().includes('allerg'));
+    if(allergyEntry) document.getElementById('rx-allergy').value = allergyEntry.v;
+  }
+  // Diagnosis from SOAP assessment if available, otherwise from case chief
+  const dx = (SOAP.a && SOAP.a !== '—') ? SOAP.a.split('\n')[0].substring(0,120) : (d?.chief||'');
+  document.getElementById('rx-dx').value = dx;
+  // Findings from SOAP objective
+  if(SOAP.o && SOAP.o !== '—') document.getElementById('rx-findings').value = SOAP.o.substring(0,300);
+  // Flash highlight on auto-filled fields
+  ['rx-name','rx-age','rx-wt','rx-dx'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(!el)return;
+    el.style.transition='background .15s';
+    el.style.background='var(--glt)';
+    setTimeout(()=>{ el.style.background=''; }, 800);
+  });
+  showView('rx');
+}
+
+// ─── QUICK ACTION HELPERS ───
+function qaLoadAndRun(){
+  const idx = activeCase ? CASES_DATA.indexOf(activeCase) : 1;
+  loadCase(idx);
+  showView('workspace');
+  setTimeout(()=>runNava(), 350);
+}
+function qaOpenRx(){
+  if(!activeCase) activeCase = CASES_DATA[1];
+  populateRxFromScribe();
+  setTimeout(()=>generateRx(), 100);
+}
+function qaOpenSummary(){
+  if(!activeCase) activeCase = CASES_DATA[1];
+  openSummaryDirect();
+}
+
 function openSummaryDirect(){
   const d=activeCase||CASES_DATA[1];
   summaryLang='en';
