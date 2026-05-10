@@ -1082,6 +1082,27 @@ button,input,textarea,select{font-family:inherit}
             <div class="ch-pills"><span class="ch-pill">— · —</span></div>
           </div>
 
+          <!-- SAVE BAR — visible only in blank-case mode -->
+          <div id="blank-case-bar" style="display:none;padding:4px 0 2px">
+            <button onclick="saveBlankPatient()" style="width:100%;background:var(--sienna);color:#F8F6F3;border:none;border-radius:var(--r);padding:11px 14px;font-size:.82rem;font-weight:700;cursor:pointer;letter-spacing:.04em;transition:opacity .15s;display:flex;align-items:center;justify-content:center;gap:7px" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+              <span style="font-size:1rem;line-height:1">✓</span> Save Patient
+            </button>
+          </div>
+
+          <!-- UPLOAD CARD — visible only in blank-case mode -->
+          <div class="info-card" id="blank-upload-card" style="display:none">
+            <div class="ic-head">Upload Reports &amp; Documents</div>
+            <div class="ic-body">
+              <label id="nc-upload-zone" for="nc-file-input" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border:1.5px dashed var(--border2);border-radius:var(--r);padding:18px 12px;cursor:pointer;background:var(--surface);transition:background .15s" onmouseover="this.style.background='var(--bg2)'" onmouseout="this.style.background='var(--surface)'">
+                <span style="font-size:1.4rem;opacity:.5">📎</span>
+                <span style="font-size:.75rem;font-weight:600;color:var(--bark)">Tap to upload</span>
+                <span style="font-size:.68rem;color:var(--muted);text-align:center">PDF reports, lab results, prescriptions<br>JPG · PNG · PDF · HEIC</span>
+                <input type="file" id="nc-file-input" multiple accept=".pdf,.jpg,.jpeg,.png,.heic,.webp" onchange="handleReportUpload(this)" style="display:none" />
+              </label>
+              <div id="nc-uploaded-files" style="margin-top:8px;display:flex;flex-direction:column;gap:5px"></div>
+            </div>
+          </div>
+
           <!-- BODY MAP -->
           <div class="body-map-wrap" id="body-map-area" style="display:none">
             <div class="panel-header" style="padding:10px 14px"><div class="panel-title">Affected Body Regions</div><span style="font-size:.65rem;color:var(--muted)">Hover to see details</span></div>
@@ -2789,6 +2810,8 @@ function loadCase(i){
   activeCase = CASES_DATA[i];
   const d = activeCase;
   const isCouple = !!d.partner;
+  document.getElementById('blank-case-bar').style.display = 'none';
+  document.getElementById('blank-upload-card').style.display = 'none';
 
   // header
   const coupleIcon = isCouple ? `<span style="font-size:.65rem;font-weight:700;background:rgba(255,255,255,.15);color:#F8F6F3;padding:3px 8px;border-radius:100px;letter-spacing:.06em;text-transform:uppercase;margin-left:8px;vertical-align:middle"> Couple Case</span>` : '';
@@ -3216,7 +3239,6 @@ function startBlankCase(){
         <input id="nc-lmp" placeholder="LMP" style="${fieldStyle()}" />
         <input id="nc-gpa" placeholder="G  P  A" style="${fieldStyle()}" />
       </div>` : ''}
-      <button onclick="saveBlankPatient()" style="margin-top:4px;width:100%;background:var(--sienna);color:#F8F6F3;border:none;border-radius:var(--r);padding:9px 14px;font-size:.78rem;font-weight:600;cursor:pointer;letter-spacing:.03em;transition:all .15s" onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">Save Patient ✓</button>
     </div>`;
 
   // Editable vitals
@@ -3241,7 +3263,11 @@ function startBlankCase(){
   ['info-history','info-fh','info-partner','body-map-area','info-paeds','info-gynae','info-art'].forEach(id=>{
     const el=document.getElementById(id); if(el) el.style.display='none';
   });
+  document.getElementById('blank-case-bar').style.display = 'block';
+  document.getElementById('blank-upload-card').style.display = 'block';
+  document.getElementById('nc-uploaded-files').innerHTML = '';
   window._blankVitals = {};
+  window._blankFiles = [];
 
   const notes = document.getElementById('case-notes-input');
   if(notes) notes.value = '';
@@ -3266,6 +3292,28 @@ function taStyle(){
   return `background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);padding:8px 10px;font-size:.75rem;color:var(--bark);outline:none;width:100%;resize:none;font-family:var(--sans);line-height:1.6`;
 }
 function storeBlankVitals(el, key){ window._blankVitals = window._blankVitals||{}; window._blankVitals[key] = el.value; }
+
+function handleReportUpload(input){
+  window._blankFiles = window._blankFiles || [];
+  const container = document.getElementById('nc-uploaded-files');
+  Array.from(input.files).forEach(file => {
+    window._blankFiles.push(file);
+    const ext = file.name.split('.').pop().toUpperCase();
+    const sizeMB = (file.size / 1048576).toFixed(1);
+    const isPdf = ext === 'PDF';
+    const div = document.createElement('div');
+    div.style.cssText = 'display:flex;align-items:center;gap:9px;padding:8px 10px;background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);font-size:.72rem';
+    div.innerHTML = `
+      <span style="flex-shrink:0;width:28px;height:28px;border-radius:6px;background:${isPdf?'var(--rlt)':'var(--glt)'};display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:700;color:${isPdf?'var(--red)':'var(--green)'}">${ext}</span>
+      <div style="flex:1;min-width:0">
+        <div style="font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${file.name}</div>
+        <div style="color:var(--muted);margin-top:1px">${sizeMB} MB</div>
+      </div>
+      <span style="color:var(--green);font-size:.8rem;flex-shrink:0">✓</span>`;
+    container.appendChild(div);
+  });
+  input.value = '';
+}
 
 function saveBlankPatient(){
   const name  = document.getElementById('nc-name')?.value?.trim();
@@ -3316,9 +3364,9 @@ function saveBlankPatient(){
     _saved: true
   };
 
-  // Store notes if present
   const notesVal = document.getElementById('case-notes-input')?.value?.trim();
   if(notesVal) newCase._notes = notesVal;
+  if(window._blankFiles?.length) newCase._attachments = window._blankFiles.map(f=>f.name);
 
   // Add to session CASES_DATA so it appears in demo picker and is retrievable
   CASES_DATA.unshift(newCase);
