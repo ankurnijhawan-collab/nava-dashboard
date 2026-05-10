@@ -4331,6 +4331,7 @@ function renderNavaOutput(d){
       <button class="tool-btn primary" onclick="openSummaryDirect()">Patient Summary</button>
       <button class="tool-btn gold" onclick="openAlt()">℞ Alt. Medications</button>
       <button class="tool-btn" onclick="showView('rx')">℞ Generate Rx</button>
+      <button class="tool-btn" onclick="openDischargeSummary()">Discharge Summary</button>
       <button class="tool-btn" onclick="copyReport()">Copy Report</button>
       <button class="tool-btn" onclick="window.print()">Print</button>
     </div>`;
@@ -4905,6 +4906,7 @@ function renderClaudeNavaOutput(json, d){
     <div class="tools-row">
       <button class="tool-btn primary" onclick="openSummaryDirect()">Patient Summary</button>
       <button class="tool-btn" onclick="showView('rx')">℞ Generate Rx</button>
+      <button class="tool-btn" onclick="openDischargeSummary()">Discharge Summary</button>
       <button class="tool-btn" onclick="copyReport()">Copy Report</button>
       <button class="tool-btn" onclick="window.print()">Print</button>
     </div>`;
@@ -4955,6 +4957,111 @@ async function explainDdx(diagnosisName, boxId, btn){
   }
   btn.textContent='Hide explanation';
   btn.disabled = false;
+}
+
+// ─── Discharge Summary Generator ───
+function openDischargeSummary(){
+  const d = activeCase;
+  if(!d){ return; }
+
+  const today = new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'2-digit',year:'numeric'});
+  const topDdx = d.ddx?.[0]?.n || '—';
+  const vitals = (d.vitals||[]).map(v=>`${v.l}: ${v.v}`).join('  |  ') || '—';
+  const labs = (d.labs||[]).map(l=>`${l.l}: ${l.v}`).join('  |  ') || '—';
+  const meds = (d.meds||[]).map(m=>m.v).filter(Boolean).join('\n') || 'Nil';
+  const history = Array.isArray(d.history) ? d.history.join('. ') : (d.history || '—');
+  const cantmiss = (d.cantmiss||[]).join('; ') || 'Nil';
+  const treatment = d.treatment?.lines?.map(l=>l.text).join('\n') || '—';
+  const carePath = (d.carePath||[]).map(s=>`${s.when}: ${s.action}`).join('\n') || '—';
+
+  const modal = document.createElement('div');
+  modal.style.cssText='position:fixed;inset:0;background:rgba(26,24,22,.6);z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px';
+  modal.innerHTML=`
+    <div style="background:var(--card);border-radius:14px;width:100%;max-width:680px;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,.25)">
+      <!-- Header -->
+      <div style="padding:18px 24px 14px;border-bottom:1px solid var(--border2);display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
+        <div>
+          <div style="font-size:.88rem;font-weight:700;color:var(--ink)">Discharge Summary</div>
+          <div style="font-size:.7rem;color:var(--muted);margin-top:1px">${d.name} · ${d.meta||'—'} · Generated ${today}</div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button onclick="navigator.clipboard.writeText(document.getElementById('ds-body').innerText).then(()=>{const b=this;b.textContent='✓ Copied';setTimeout(()=>b.textContent='Copy',1800)})" style="background:var(--bark);color:#F8F6F3;border:none;border-radius:100px;padding:6px 16px;font-size:.74rem;font-weight:600;cursor:pointer;font-family:var(--sans)">Copy</button>
+          <button onclick="window.print()" style="background:none;border:1px solid var(--border);border-radius:100px;padding:6px 14px;font-size:.74rem;cursor:pointer;font-family:var(--sans)">Print</button>
+          <button onclick="this.closest('[style*=fixed]').remove()" style="background:none;border:none;font-size:1rem;cursor:pointer;color:var(--muted);padding:4px 8px">✕</button>
+        </div>
+      </div>
+      <!-- Body — editable -->
+      <div id="ds-body" contenteditable="true" spellcheck="false" style="flex:1;overflow-y:auto;padding:20px 24px;font-size:.78rem;line-height:1.8;color:var(--body);outline:none;white-space:pre-wrap;font-family:var(--sans)"><span style="font-size:.82rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)">${(d.pills||[]).join('  ·  ')}</span>
+
+<b>HOSPITAL DISCHARGE SUMMARY</b>
+
+UHID / IP No.   : _______________          Ward / Bed   : _______________
+Date of Admission: _______________          Date of Discharge: ${today}
+Treating Doctor  : _______________          Department   : ${d.specialty ? d.specialty.charAt(0).toUpperCase()+d.specialty.slice(1) : 'General Medicine'}
+
+─────────────────────────────────────────────────────────
+<b>PATIENT DETAILS</b>
+─────────────────────────────────────────────────────────
+Name     : ${d.name}
+Age / Sex: ${d.meta||'—'}
+Address  : _______________
+ABHA No. : _______________
+
+─────────────────────────────────────────────────────────
+<b>DIAGNOSIS</b>
+─────────────────────────────────────────────────────────
+Admitting Diagnosis : ${d.chief || '—'}
+Final Diagnosis     : ${topDdx}
+${cantmiss !== 'Nil' ? `Conditions Excluded  : ${cantmiss}` : ''}
+
+─────────────────────────────────────────────────────────
+<b>HISTORY &amp; CLINICAL SUMMARY</b>
+─────────────────────────────────────────────────────────
+${history}
+
+─────────────────────────────────────────────────────────
+<b>INVESTIGATIONS</b>
+─────────────────────────────────────────────────────────
+Vitals on admission:
+${vitals}
+
+Key investigations:
+${labs}
+
+─────────────────────────────────────────────────────────
+<b>TREATMENT GIVEN</b>
+─────────────────────────────────────────────────────────
+${treatment}
+
+─────────────────────────────────────────────────────────
+<b>CONDITION AT DISCHARGE</b>
+─────────────────────────────────────────────────────────
+General Condition : [ ] Stable  [ ] Improved  [ ] Same  [ ] Guarded
+Vitals at Discharge: BP ___/___  Pulse ___  Temp ___  SpO2 ___%
+
+─────────────────────────────────────────────────────────
+<b>DISCHARGE MEDICATIONS</b>
+─────────────────────────────────────────────────────────
+${meds}
+
+─────────────────────────────────────────────────────────
+<b>ADVICE &amp; FOLLOW-UP</b>
+─────────────────────────────────────────────────────────
+${carePath}
+
+Diet     : _______________
+Activity : _______________
+Restrictions: _______________
+
+Follow-up : _______________  (within ___ days)
+Contact  : Emergency helpline _______________
+
+─────────────────────────────────────────────────────────
+Signature: _______________          Seal: _______________
+</div>
+    </div>`;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', e=>{ if(e.target===modal) modal.remove(); });
 }
 
 // ─── Patient-Friendly Mode ───
