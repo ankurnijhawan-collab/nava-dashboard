@@ -58,7 +58,7 @@ button,input,textarea,select{font-family:inherit}
 
 /* OPD context banner */
 .opd-context-banner{display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:var(--r2);margin-bottom:14px;box-shadow:var(--shadow);border:1px solid var(--border2);background:var(--card);transition:all .25s var(--ease)}
-.opd-ctx-ring{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:1.4rem;flex-shrink:0;background:var(--surface);border:2px solid var(--border)}
+.opd-ctx-ring{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:.82rem;font-weight:600;letter-spacing:.03em;flex-shrink:0;background:var(--surface);border:2px solid var(--border)}
 .opd-ctx-info{flex:1;min-width:0}
 .opd-ctx-name{font-family:var(--serif);font-size:1.1rem;font-weight:600;color:var(--bark);margin-bottom:2px;display:flex;align-items:center;gap:8px}
 .opd-ctx-specialist-pill{font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:100px;background:var(--bg2);color:var(--muted)}
@@ -142,7 +142,7 @@ button,input,textarea,select{font-family:inherit}
 .mc-val{font-family:var(--serif);font-size:2rem;font-weight:600;color:var(--bark);line-height:1;margin-bottom:3px}
 .mc-lbl{font-size:.67rem;font-weight:500;color:var(--muted);letter-spacing:.03em}
 .mc-sub{font-size:.62rem;color:var(--muted);margin-top:3px;font-weight:300}
-.mc-icon{position:absolute;top:14px;right:14px;font-size:1.2rem;opacity:.3}
+.mc-icon{position:absolute;top:14px;right:14px;font-size:.65rem;font-weight:700;letter-spacing:.06em;opacity:.45;font-family:var(--serif)}
 .mc-delta{display:inline-flex;align-items:center;gap:3px;font-size:.6rem;font-weight:600;border-radius:100px;padding:2px 7px;margin-top:5px}
 .d-pos{background:var(--glt);color:var(--green)}.d-neg{background:var(--rlt);color:var(--red)}.d-neu{background:var(--alt);color:var(--amber)}
 .metric-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--sienna),var(--gold));transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
@@ -167,7 +167,7 @@ button,input,textarea,select{font-family:inherit}
 .queue-item.active-q{background:var(--sien3);border-left:3px solid var(--sienna)}
 .q-num{width:22px;height:22px;border-radius:50%;background:var(--bg2);display:grid;place-items:center;font-size:.65rem;font-weight:700;color:var(--muted);flex-shrink:0}
 .queue-item.active-q .q-num{background:var(--sienna);color:#FAF7F1}
-.q-avatar{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:.95rem;flex-shrink:0;border:1.5px solid var(--border)}
+.q-avatar{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:.68rem;font-weight:600;letter-spacing:.02em;flex-shrink:0;border:1.5px solid var(--border)}
 .q-name{font-size:.8rem;font-weight:600;color:var(--bark)}
 .q-meta{font-size:.66rem;color:var(--muted);margin-top:1px}
 .q-flag{margin-left:auto;font-size:.54rem;font-weight:700;border-radius:100px;padding:3px 7px;flex-shrink:0;text-transform:uppercase;letter-spacing:.05em}
@@ -177,7 +177,7 @@ button,input,textarea,select{font-family:inherit}
 .qa-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:12px}
 .qa-btn{background:var(--bg);border:1px solid var(--border2);border-radius:var(--r);padding:13px;cursor:pointer;transition:all .18s;text-align:left}
 .qa-btn:hover{background:var(--sien3);border-color:var(--sien2);transform:translateY(-1px)}
-.qa-icon{font-size:1.25rem;margin-bottom:5px}
+.qa-icon{font-size:.78rem;font-weight:700;letter-spacing:.04em;margin-bottom:5px;font-family:var(--serif)}
 .qa-label{font-size:.78rem;font-weight:600;color:var(--bark)}
 .qa-sub{font-size:.65rem;color:var(--muted);margin-top:2px}
 
@@ -287,7 +287,7 @@ button,input,textarea,select{font-family:inherit}
 .demo-case-row{display:flex;align-items:center;gap:8px;padding:7px 9px;border:1px solid var(--border2);border-radius:var(--r);background:var(--surface);cursor:pointer;transition:all .15s}
 .demo-case-row:hover{border-color:var(--sienna);background:var(--sien3);transform:translateX(2px)}
 .demo-case-row.active-case{border-color:var(--sienna);background:var(--sien3)}
-.dcr-avatar{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:.85rem;flex-shrink:0;border:1px solid var(--border2)}
+.dcr-avatar{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:.6rem;font-weight:600;flex-shrink:0;border:1px solid var(--border2)}
 .dcr-main{flex:1;min-width:0}
 .dcr-name{font-size:.73rem;font-weight:600;color:var(--bark);line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .dcr-meta{font-size:.59rem;color:var(--muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -302,7 +302,7 @@ button,input,textarea,select{font-family:inherit}
 .newcase-opd-tab:not(.active) .nc-tab-count{background:var(--bg2);color:var(--muted)}
 .newcase-case-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--border2);border-radius:var(--r);background:var(--card);cursor:pointer;transition:all .18s;margin-bottom:6px}
 .newcase-case-row:hover{border-color:var(--sienna);background:var(--sien3);transform:translateX(3px);box-shadow:var(--shadow)}
-.ncr-avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:1rem;flex-shrink:0;border:1.5px solid var(--border)}
+.ncr-avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:.68rem;font-weight:600;letter-spacing:.02em;flex-shrink:0;border:1.5px solid var(--border)}
 .ncr-main{flex:1;min-width:0}
 .ncr-name{font-size:.82rem;font-weight:600;color:var(--bark);line-height:1.3}
 .ncr-meta{font-size:.66rem;color:var(--muted);margin-top:2px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
@@ -437,7 +437,7 @@ button,input,textarea,select{font-family:inherit}
 .partner-head{background:rgba(26,74,74,.08) !important;color:var(--teal) !important;padding-left:16px !important}
 .partner-badge{font-size:.56rem;font-weight:700;background:var(--red);color:#FAF7F1;padding:3px 8px;border-radius:100px;letter-spacing:.06em;text-transform:uppercase}
 .partner-hero{display:flex;align-items:center;gap:12px;margin-bottom:12px;padding:10px 12px;background:var(--card);border:1px solid var(--border2);border-radius:var(--r)}
-.partner-avatar{width:44px;height:44px;border-radius:50%;background:#C4DCDC;display:grid;place-items:center;font-size:1.3rem;flex-shrink:0;border:2px solid var(--teal)}
+.partner-avatar{width:44px;height:44px;border-radius:50%;background:#C4DCDC;display:grid;place-items:center;font-size:.8rem;font-weight:600;letter-spacing:.02em;flex-shrink:0;border:2px solid var(--teal)}
 .partner-id{flex:1;min-width:0}
 .partner-name{font-size:.88rem;font-weight:600;color:var(--bark);margin-bottom:2px}
 .partner-meta{font-size:.66rem;color:var(--muted);line-height:1.4}
@@ -528,7 +528,7 @@ button,input,textarea,select{font-family:inherit}
 .upload-btn{background:var(--bark);color:#FAF7F1;border:none;border-radius:100px;padding:8px 20px;font-size:.76rem;font-weight:600;cursor:pointer;margin-top:12px;transition:background .15s}
 .upload-btn:hover{background:var(--sienna)}
 .uploaded-file{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--border2);border-radius:var(--r);padding:10px 13px;margin-top:8px}
-.uf-icon{font-size:1.3rem;flex-shrink:0}
+.uf-icon{font-size:.62rem;font-weight:700;letter-spacing:.04em;flex-shrink:0;background:var(--bg2);padding:3px 5px;border-radius:4px;color:var(--muted)}
 .uf-name{font-size:.78rem;font-weight:600;color:var(--bark);flex:1}
 .uf-meta{font-size:.65rem;color:var(--muted)}
 .uf-status{font-size:.62rem;font-weight:700;border-radius:100px;padding:3px 8px}
@@ -537,7 +537,7 @@ button,input,textarea,select{font-family:inherit}
 /* scribe */
 .scribe-listen{background:var(--card);border:1px solid var(--border2);border-radius:var(--r2);overflow:hidden;box-shadow:var(--shadow)}
 .sl-hero{background:var(--bark);padding:28px 20px;text-align:center}
-.sl-mic{width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.22);margin:0 auto 13px;display:grid;place-items:center;font-size:1.65rem;cursor:pointer;transition:all .2s}
+.sl-mic{width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.22);margin:0 auto 13px;display:grid;place-items:center;font-size:1.3rem;cursor:pointer;transition:all .2s}
 .sl-mic:hover{background:rgba(255,255,255,.17);transform:scale(1.04)}
 .sl-mic.live{background:rgba(122,26,26,.55);border-color:rgba(245,150,150,.45);animation:rpulse 1.5s ease infinite}
 .sl-status{font-size:.78rem;color:rgba(255,255,255,.52);max-width:200px;margin:0 auto}
@@ -735,7 +735,7 @@ button,input,textarea,select{font-family:inherit}
 
 /* docs modal body */
 .docs-case-summary{background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);padding:10px 13px;margin-bottom:14px;display:flex;align-items:center;gap:12px}
-.docs-case-avatar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:1.1rem;flex-shrink:0;border:1.5px solid var(--border)}
+.docs-case-avatar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:.72rem;font-weight:600;letter-spacing:.02em;flex-shrink:0;border:1.5px solid var(--border)}
 .docs-case-name{font-size:.82rem;font-weight:600;color:var(--bark)}
 .docs-case-meta{font-size:.67rem;color:var(--muted);margin-top:2px}
 .docs-toolbar{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
@@ -847,19 +847,19 @@ button,input,textarea,select{font-family:inherit}
   </div>
   <nav class="sb-nav">
     <div class="sb-section">OPD Clinics</div>
-    <button class="nav-item opd-item active" data-opd="general" onclick="switchOPD('general',this)"><span class="ni-icon">🩺</span>General OPD<span class="nav-badge" id="opd-badge-general">6</span></button>
-    <button class="nav-item opd-item" data-opd="paediatrics" onclick="switchOPD('paediatrics',this)"><span class="ni-icon">👶</span>Paediatrics<span class="nav-badge" id="opd-badge-paediatrics">4</span></button>
-    <button class="nav-item opd-item" data-opd="gynaecology" onclick="switchOPD('gynaecology',this)"><span class="ni-icon">🌸</span>Gynaecology<span class="nav-badge" id="opd-badge-gynaecology">3</span></button>
-    <button class="nav-item opd-item" data-opd="fertility" onclick="switchOPD('fertility',this)"><span class="ni-icon">🌱</span>Fertility<span class="nav-badge" id="opd-badge-fertility">2</span></button>
+    <button class="nav-item opd-item active" data-opd="general" onclick="switchOPD('general',this)"><span class="ni-icon">·</span>General OPD<span class="nav-badge" id="opd-badge-general">6</span></button>
+    <button class="nav-item opd-item" data-opd="paediatrics" onclick="switchOPD('paediatrics',this)"><span class="ni-icon">·</span>Paediatrics<span class="nav-badge" id="opd-badge-paediatrics">4</span></button>
+    <button class="nav-item opd-item" data-opd="gynaecology" onclick="switchOPD('gynaecology',this)"><span class="ni-icon">·</span>Gynaecology<span class="nav-badge" id="opd-badge-gynaecology">3</span></button>
+    <button class="nav-item opd-item" data-opd="fertility" onclick="switchOPD('fertility',this)"><span class="ni-icon">·</span>Fertility<span class="nav-badge" id="opd-badge-fertility">2</span></button>
     <div class="sb-section" style="margin-top:6px">Current Context</div>
-    <button class="nav-item" onclick="showView('workspace',this)"><span class="ni-icon">🧠</span>Active Case<span class="nav-badge amber" id="active-flag-badge">3</span></button>
+    <button class="nav-item" onclick="showView('workspace',this)"><span class="ni-icon">·</span>Active Case<span class="nav-badge amber" id="active-flag-badge">3</span></button>
     <div class="sb-section" style="margin-top:6px">Tools</div>
-    <button class="nav-item" onclick="showView('rx',this)"><span class="ni-icon">💊</span>Prescriptions</button>
-    <button class="nav-item" onclick="showView('scribe',this)"><span class="ni-icon">🎙</span>Scribe</button>
-    <button class="nav-item" onclick="showView('upload',this)"><span class="ni-icon">📁</span>Documents<span class="nav-badge gold">New</span></button>
+    <button class="nav-item" onclick="showView('rx',this)"><span class="ni-icon">·</span>Prescriptions</button>
+    <button class="nav-item" onclick="showView('scribe',this)"><span class="ni-icon">·</span>Scribe</button>
+    <button class="nav-item" onclick="showView('upload',this)"><span class="ni-icon">·</span>Documents<span class="nav-badge gold">New</span></button>
     <div class="sb-section" style="margin-top:6px">Review</div>
-    <button class="nav-item" onclick="showView('insights',this)"><span class="ni-icon">📊</span>My Insights</button>
-    <button class="nav-item" onclick="showView('history',this)"><span class="ni-icon">📋</span>Case History</button>
+    <button class="nav-item" onclick="showView('insights',this)"><span class="ni-icon">·</span>My Insights</button>
+    <button class="nav-item" onclick="showView('history',this)"><span class="ni-icon">·</span>Case History</button>
   </nav>
   <div class="sb-stats">
     <div class="sb-stat-row">
@@ -877,9 +877,9 @@ button,input,textarea,select{font-family:inherit}
       <span class="tbb-label">Home</span>
     </button>
     <div class="topbar-title" id="topbar-title">Today's OPD</div>
-    <div class="topbar-search"><span style="color:var(--muted);font-size:.82rem">🔍</span><input type="text" placeholder="Search patient or condition…"></div>
-    <button class="tb-btn ghost" onclick="showView('scribe')">🎙 Start Scribe</button>
-    <button class="tb-btn ghost" onclick="showView('upload')">📁 Upload Doc</button>
+    <div class="topbar-search"><input type="text" placeholder="Search patient or condition…"></div>
+    <button class="tb-btn ghost" onclick="showView('scribe')">Start Scribe</button>
+    <button class="tb-btn ghost" onclick="showView('upload')">Upload Doc</button>
     <button class="tb-btn primary" onclick="openNewCasePicker()">+ New Case</button>
   </div>
 
@@ -924,7 +924,7 @@ button,input,textarea,select{font-family:inherit}
 
           <!-- BODY MAP -->
           <div class="body-map-wrap" id="body-map-area" style="display:none">
-            <div class="panel-header" style="padding:10px 14px"><div class="panel-title">🫀 Affected Body Regions</div><span style="font-size:.62rem;color:var(--muted)">Hover to see details</span></div>
+            <div class="panel-header" style="padding:10px 14px"><div class="panel-title">Affected Body Regions</div><span style="font-size:.62rem;color:var(--muted)">Hover to see details</span></div>
             <div class="body-svg-container" id="body-svg-area"></div>
             <div class="body-map-legend">
               <div class="bml-item"><div class="bml-dot" style="background:var(--red)"></div><span>Primary concern</span></div>
@@ -934,13 +934,13 @@ button,input,textarea,select{font-family:inherit}
 
           <!-- Patient History -->
           <div class="info-card" id="info-history" style="display:none">
-            <div class="ic-head">📅 Medical & Surgical History</div>
+            <div class="ic-head">Medical & Surgical History</div>
             <div class="ic-body" id="history-body"></div>
           </div>
 
           <!-- Family History -->
           <div class="info-card" id="info-fh" style="display:none">
-            <div class="ic-head">🧬 Family History
+            <div class="ic-head">Family History
               <span style="font-size:.6rem;color:var(--purple);font-weight:500;text-transform:none;letter-spacing:0">↑ Affects treatment plan</span>
             </div>
             <div class="ic-body" id="fh-body"></div>
@@ -949,20 +949,20 @@ button,input,textarea,select{font-family:inherit}
           <!-- Partner History (fertility cases only) -->
           <div class="info-card partner-card" id="info-partner" style="display:none">
             <div class="ic-head partner-head">
-              <span>👫 <span id="partner-ic-label">Partner — Male Factor Workup</span></span>
+              <span><span id="partner-ic-label">Partner — Male Factor Workup</span></span>
               <span class="partner-badge" id="partner-badge">3 flags</span>
             </div>
             <div class="ic-body" id="partner-body"></div>
           </div>
 
-          <div class="info-card" id="info-vitals"><div class="ic-head">🩺 Vitals & Exam <span class="patient-label" id="vitals-label"></span></div><div class="ic-body" id="vitals-body"><span style="font-size:.75rem;color:var(--muted)">Load a patient.</span></div></div>
-          <div class="info-card" id="info-labs"><div class="ic-head">🔬 Investigations <span class="patient-label" id="labs-label"></span></div><div class="ic-body" id="labs-body"><span style="font-size:.75rem;color:var(--muted)">Load a patient.</span></div></div>
-          <div class="info-card" id="info-meds"><div class="ic-head">💊 Current Medications <span class="patient-label" id="meds-label"></span></div><div class="ic-body" id="meds-body"><span style="font-size:.75rem;color:var(--muted)">Load a patient.</span></div></div>
+          <div class="info-card" id="info-vitals"><div class="ic-head">Vitals & Exam <span class="patient-label" id="vitals-label"></span></div><div class="ic-body" id="vitals-body"><span style="font-size:.75rem;color:var(--muted)">Load a patient.</span></div></div>
+          <div class="info-card" id="info-labs"><div class="ic-head">Investigations <span class="patient-label" id="labs-label"></span></div><div class="ic-body" id="labs-body"><span style="font-size:.75rem;color:var(--muted)">Load a patient.</span></div></div>
+          <div class="info-card" id="info-meds"><div class="ic-head">Current Medications <span class="patient-label" id="meds-label"></span></div><div class="ic-body" id="meds-body"><span style="font-size:.75rem;color:var(--muted)">Load a patient.</span></div></div>
 
           <div class="info-card">
-            <div class="ic-head">📋 Add case notes
+            <div class="ic-head">Add case notes
               <div style="display:flex;gap:5px;align-items:center">
-                <button id="ws-transcribe-btn" onclick="toggleWorkspaceTranscribe()" style="background:var(--sienna);color:#FAF7F1;border:none;border-radius:100px;padding:4px 10px;font-size:.62rem;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:4px;transition:all .15s;text-transform:none;letter-spacing:0">🎙 <span id="ws-trans-label">Transcribe</span></button>
+                <button id="ws-transcribe-btn" onclick="toggleWorkspaceTranscribe()" style="background:var(--sienna);color:#FAF7F1;border:none;border-radius:100px;padding:4px 10px;font-size:.62rem;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:4px;transition:all .15s;text-transform:none;letter-spacing:0"><span id="ws-trans-label">Transcribe</span></button>
                 <button onclick="pushScribeToNotes()" style="background:var(--bg);border:1px solid var(--border2);border-radius:100px;padding:4px 10px;font-size:.62rem;font-weight:500;cursor:pointer;color:var(--muted);transition:all .15s;text-transform:none;letter-spacing:0" title="Pull last scribe SOAP note into this case">↓ From Scribe</button>
               </div>
             </div>
@@ -972,8 +972,8 @@ button,input,textarea,select{font-family:inherit}
                 <span>Listening — speak naturally in Hindi or English…</span>
                 <span id="ws-trans-time" style="margin-left:auto;font-weight:600;font-variant-numeric:tabular-nums">0:00</span>
               </div>
-              <textarea class="case-notes-input" id="case-notes-input" placeholder="Type notes here, or tap 🎙 Transcribe above to dictate. You can also pull from Scribe if you already recorded the consultation." rows="3"></textarea>
-              <div style="font-size:.6rem;color:var(--muted);margin-top:5px;line-height:1.5">💡 Transcribed text is appended to your notes. Review before running NAVA Analysis.</div>
+              <textarea class="case-notes-input" id="case-notes-input" placeholder="Type notes here, or tap Transcribe above to dictate. You can also pull from Scribe if you already recorded the consultation." rows="3"></textarea>
+              <div style="font-size:.6rem;color:var(--muted);margin-top:5px;line-height:1.5">Transcribed text is appended to your notes. Review before running NAVA Analysis.</div>
             </div>
           </div>
 
@@ -994,12 +994,12 @@ button,input,textarea,select{font-family:inherit}
         <div class="ws-right">
           <div class="nava-panel">
             <div class="np-header">
-              <div class="np-title">🧠 NAVA Analysis</div>
+              <div class="np-title">NAVA Analysis</div>
               <button class="np-run-btn" id="run-nava-btn" onclick="runNava()"><span id="run-btn-txt">Run Analysis →</span></button>
             </div>
             <div class="np-body" id="nava-output">
               <div style="text-align:center;padding:36px 20px">
-                <div style="font-size:2.2rem;margin-bottom:10px;opacity:.25">🧠</div>
+                <div style="font-family:var(--serif);font-size:1.1rem;font-weight:600;margin-bottom:10px;opacity:.2;letter-spacing:.08em">NAVA</div>
                 <div style="font-family:var(--serif);font-size:1rem;color:var(--muted);font-style:italic">Load a patient, then run analysis</div>
                 <div style="font-size:.74rem;color:var(--muted);margin-top:5px;font-weight:300;line-height:1.55">NAVA will rank the differential, check drug safety,<br>suggest treatment, and estimate costs.</div>
               </div>
@@ -1034,7 +1034,7 @@ button,input,textarea,select{font-family:inherit}
           </div>
         </div>
         <div class="rx-output-panel">
-          <div id="rx-out-area"><div style="display:flex;align-items:center;justify-content:center;height:260px;background:var(--card);border:1px solid var(--border2);border-radius:var(--r2);box-shadow:var(--shadow)"><div style="text-align:center;opacity:.35"><div style="font-size:2rem;margin-bottom:8px">💊</div><div style="font-family:var(--serif);font-size:.95rem;color:var(--muted);font-style:italic">Fill details and click Generate</div></div></div></div>
+          <div id="rx-out-area"><div style="display:flex;align-items:center;justify-content:center;height:260px;background:var(--card);border:1px solid var(--border2);border-radius:var(--r2);box-shadow:var(--shadow)"><div style="text-align:center;opacity:.35"><div style="font-family:var(--serif);font-size:1rem;font-weight:600;margin-bottom:8px;opacity:.4;letter-spacing:.06em">℞</div><div style="font-family:var(--serif);font-size:.95rem;color:var(--muted);font-style:italic">Fill details and click Generate</div></div></div></div>
         </div>
       </div>
     </div>
@@ -1045,7 +1045,7 @@ button,input,textarea,select{font-family:inherit}
         <div style="overflow-y:auto;display:flex;flex-direction:column;gap:10px">
           <div class="scribe-listen">
             <div class="sl-hero">
-              <div class="sl-mic" id="sl-mic" onclick="toggleScribe()">🎙</div>
+              <div class="sl-mic" id="sl-mic" onclick="toggleScribe()">◉</div>
               <div class="sl-status" id="sl-status">Press to begin. Speak naturally in Hindi or English.</div>
             </div>
             <div class="sl-transcript" id="sl-transcript"><div class="transcript-text" id="transcript-text" style="color:var(--muted);font-style:italic;font-size:.75rem">Transcript will appear here as you speak…</div></div>
@@ -1062,7 +1062,7 @@ button,input,textarea,select{font-family:inherit}
         </div>
         <div style="overflow-y:auto;display:flex;flex-direction:column;gap:10px">
           <div class="soap-output" id="soap-output">
-            <div class="so-head"><div class="so-title">SOAP Note — Auto Generated</div><button class="so-copy" onclick="copySOAP()">📋 Copy</button></div>
+            <div class="so-head"><div class="so-title">SOAP Note — Auto Generated</div><button class="so-copy" onclick="copySOAP()">Copy</button></div>
             <div class="soap-block"><div class="soap-lbl">Subjective</div><div class="soap-val" id="ss" style="color:var(--muted);font-style:italic">Recording will populate this…</div></div>
             <div class="soap-block"><div class="soap-lbl">Objective</div><div class="soap-val" id="so-obj" style="color:var(--muted);font-style:italic">Recording will populate this…</div></div>
             <div class="soap-block"><div class="soap-lbl">Assessment</div><div class="soap-val" id="sa" style="color:var(--muted);font-style:italic">Recording will populate this…</div></div>
@@ -1073,9 +1073,9 @@ button,input,textarea,select{font-family:inherit}
             <div style="padding:11px 13px;display:flex;flex-wrap:wrap;gap:7px">
               <button class="tool-btn primary" onclick="useScribeInNava()">→ Run NAVA Analysis</button>
               <button class="tool-btn" onclick="showView('rx')">→ Generate Prescription</button>
-              <button class="tool-btn" onclick="openSummaryDirect()">📱 Patient Summary</button>
-              <button class="tool-btn" onclick="copySOAP()">📋 Copy Note</button>
-              <button class="tool-btn" onclick="waSOAP()">💬 WhatsApp</button>
+              <button class="tool-btn" onclick="openSummaryDirect()">Patient Summary</button>
+              <button class="tool-btn" onclick="copySOAP()">Copy Note</button>
+              <button class="tool-btn" onclick="waSOAP()">WhatsApp</button>
             </div>
           </div>
         </div>
@@ -1090,7 +1090,7 @@ button,input,textarea,select{font-family:inherit}
             <div class="panel-header"><div class="panel-title">Upload Patient Documents</div></div>
             <div style="padding:14px">
               <div class="upload-zone" id="drop-zone" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="handleDrop(event)" onclick="document.getElementById('file-input').click()">
-                <div class="upload-icon">📄</div>
+                <div class="upload-icon"></div>
                 <div class="upload-title">Drag & drop or click to upload</div>
                 <div class="upload-sub">Lab reports · CXR films · ECGs · Discharge summaries<br>Prescriptions · Pathology reports · PDF, JPG, PNG</div>
                 <button class="upload-btn" onclick="event.stopPropagation();document.getElementById('file-input').click()">Choose File</button>
@@ -1102,11 +1102,11 @@ button,input,textarea,select{font-family:inherit}
           <div class="panel-card">
             <div class="panel-header"><div class="panel-title">What NAVA Extracts</div></div>
             <div style="padding:13px 15px;font-size:.78rem;color:var(--muted);line-height:1.75">
-              <div style="margin-bottom:6px">📋 <strong style="color:var(--body)">Lab reports</strong> — auto-reads values, flags abnormals, identifies trends</div>
-              <div style="margin-bottom:6px">🫁 <strong style="color:var(--body)">CXR / imaging</strong> — extracts radiologist impression, cross-references with clinical picture</div>
-              <div style="margin-bottom:6px">❤️ <strong style="color:var(--body)">ECG</strong> — reads findings, highlights arrhythmia flags</div>
-              <div style="margin-bottom:6px">📑 <strong style="color:var(--body)">Discharge summaries</strong> — extracts diagnoses, medications, follow-up instructions</div>
-              <div>💊 <strong style="color:var(--body)">Old prescriptions</strong> — checks for drug interactions with current medications</div>
+              <div style="margin-bottom:6px"><strong style="color:var(--body)">Lab reports</strong> — auto-reads values, flags abnormals, identifies trends</div>
+              <div style="margin-bottom:6px"><strong style="color:var(--body)">CXR / imaging</strong> — extracts radiologist impression, cross-references with clinical picture</div>
+              <div style="margin-bottom:6px"><strong style="color:var(--body)">ECG</strong> — reads findings, highlights arrhythmia flags</div>
+              <div style="margin-bottom:6px"><strong style="color:var(--body)">Discharge summaries</strong> — extracts diagnoses, medications, follow-up instructions</div>
+              <div><strong style="color:var(--body)">Old prescriptions</strong> — checks for drug interactions with current medications</div>
             </div>
           </div>
         </div>
@@ -1114,9 +1114,9 @@ button,input,textarea,select{font-family:inherit}
           <div class="panel-card" style="margin-bottom:14px">
             <div class="panel-header"><div class="panel-title">Recent Documents</div><button class="panel-action">Clear all</button></div>
             <div id="doc-list" style="padding:0">
-              <div class="uploaded-file" style="margin:10px"><div class="uf-icon">🫁</div><div class="uf-name">CXR_Meena_Iyer_March.jpg<div class="uf-meta">Chest X-ray · 2.4 MB · Uploaded 2 min ago</div></div><span class="uf-status ufs-ok">Analysed ✓</span></div>
-              <div class="uploaded-file" style="margin:10px"><div class="uf-icon">🧪</div><div class="uf-name">Lipid_Panel_Meena.pdf<div class="uf-meta">Lab report · 480 KB · Uploaded 5 min ago</div></div><span class="uf-status ufs-ok">Analysed ✓</span></div>
-              <div class="uploaded-file" style="margin:10px"><div class="uf-icon">📑</div><div class="uf-name">Discharge_Summary_Ramesh_2024.pdf<div class="uf-meta">Discharge summary · 1.1 MB · Uploaded 12 min ago</div></div><span class="uf-status ufs-proc">Processing…</span></div>
+              <div class="uploaded-file" style="margin:10px"><div class="uf-icon">CXR</div><div class="uf-name">CXR_Meena_Iyer_March.jpg<div class="uf-meta">Chest X-ray · 2.4 MB · Uploaded 2 min ago</div></div><span class="uf-status ufs-ok">Analysed ✓</span></div>
+              <div class="uploaded-file" style="margin:10px"><div class="uf-icon">Lab</div><div class="uf-name">Lipid_Panel_Meena.pdf<div class="uf-meta">Lab report · 480 KB · Uploaded 5 min ago</div></div><span class="uf-status ufs-ok">Analysed ✓</span></div>
+              <div class="uploaded-file" style="margin:10px"><div class="uf-icon">Dch</div><div class="uf-name">Discharge_Summary_Ramesh_2024.pdf<div class="uf-meta">Discharge summary · 1.1 MB · Uploaded 12 min ago</div></div><span class="uf-status ufs-proc">Processing…</span></div>
             </div>
           </div>
           <div class="panel-card">
@@ -1241,7 +1241,7 @@ button,input,textarea,select{font-family:inherit}
           <div class="history-sub">All consultations with linked documents, NAVA verdicts, and outcomes</div>
         </div>
         <div class="history-search">
-          <span style="color:var(--muted);font-size:.82rem">🔍</span>
+          
           <input type="text" id="history-search-input" placeholder="Search by patient, diagnosis, or document…" oninput="renderCaseHistory()">
         </div>
       </div>
@@ -1262,14 +1262,14 @@ button,input,textarea,select{font-family:inherit}
             <option value="docs-desc">Most documents</option>
             <option value="verdict">By verdict</option>
           </select>
-          <button class="tb-btn ghost" style="font-size:.68rem;padding:5px 12px" onclick="alert('CSV export — demo only')">📥 Export CSV</button>
+          <button class="tb-btn ghost" style="font-size:.68rem;padding:5px 12px" onclick="alert('CSV export — demo only')">Export CSV</button>
         </div>
       </div>
 
       <div class="panel-card">
         <div style="padding:10px 16px;background:var(--surface);border-bottom:1px solid var(--border2);font-size:.66rem;color:var(--muted);display:flex;justify-content:space-between;align-items:center">
           <span id="history-count-label">Showing all cases</span>
-          <span style="font-size:.62rem">💡 Click any row to open the case · click 📎 Documents to preview files</span>
+          <span style="font-size:.62rem">Click any row to open the case · click Documents to preview files</span>
         </div>
         <table class="history-table">
           <thead>
@@ -1301,7 +1301,7 @@ button,input,textarea,select{font-family:inherit}
       <button class="lt-btn" onclick="setLang('hi',this)">हिन्दी</button>
     </div>
     <div class="summary-text" id="sum-text">—</div>
-    <div class="modal-actions"><button class="ma ma-copy" onclick="copySummary()">📋 Copy</button><button class="ma ma-wa" onclick="waSummary()">💬 WhatsApp</button></div>
+    <div class="modal-actions"><button class="ma ma-copy" onclick="copySummary()">Copy</button><button class="ma ma-wa" onclick="waSummary()">WhatsApp</button></div>
   </div>
 </div>
 
@@ -1378,35 +1378,35 @@ function showView(id,btn){
 // ── OPD SPECIALTIES ──
 const OPD_CONFIG = {
   general:{
-    label:'General OPD', icon:'🩺', colorClass:'general',
+    label:'General OPD', icon:'G', colorClass:'general',
     desc:"Adult medicine · chronic disease management · multi-system presentations",
     queueTitle:'General OPD — Patient Queue',
     quickActions:['nava','rx','scribe','upload','summary','insights'],
     extraQueue:[
-      {name:'Suresh Pillai', meta:'67yr · M · Follow-up HTN', avatar:'👴', bg:'#E8F5E8', flag:'Routine', flagCls:'qf-ok'}
+      {name:'Suresh Pillai', meta:'67yr · M · Follow-up HTN', avatar:'SP', bg:'#E8F5E8', flag:'Routine', flagCls:'qf-ok'}
     ]
   },
   paediatrics:{
-    label:'Paediatrics', icon:'👶', colorClass:'paediatrics',
+    label:'Paediatrics', icon:'P', colorClass:'paediatrics',
     desc:"0–18 yrs · growth, development, infections, weight-based dosing · paediatric red flags",
     queueTitle:'Paediatrics OPD — Patient Queue',
     quickActions:['nava','rx-paed','scribe','upload','summary','growth'],
     extraQueue:[
-      {name:'Ishaan Mehta', meta:'3yr · M · Recurrent wheeze', avatar:'👶', bg:'#DDE8F5', flag:'Asthma?', flagCls:'qf-warn'},
-      {name:'Ananya Rao', meta:'11yr · F · Short stature', avatar:'👧', bg:'#F5E6EC', flag:'Growth', flagCls:'qf-new'}
+      {name:'Ishaan Mehta', meta:'3yr · M · Recurrent wheeze', avatar:'IM', bg:'#DDE8F5', flag:'Asthma?', flagCls:'qf-warn'},
+      {name:'Ananya Rao', meta:'11yr · F · Short stature', avatar:'AR', bg:'#F5E6EC', flag:'Growth', flagCls:'qf-new'}
     ]
   },
   gynaecology:{
-    label:'Gynaecology', icon:'🌸', colorClass:'gynaecology',
+    label:'Gynaecology', icon:'Gy', colorClass:'gynaecology',
     desc:"Menstrual disorders · pelvic pain · PCOS · menopause · contraception · screening",
     queueTitle:'Gynaecology OPD — Patient Queue',
     quickActions:['nava','rx','scribe','upload','summary','screening'],
     extraQueue:[
-      {name:'Lakshmi Iyer', meta:'34yr · F · Heavy bleeding', avatar:'👩', bg:'#F5D8E0', flag:'Fibroid?', flagCls:'qf-warn'}
+      {name:'Lakshmi Iyer', meta:'34yr · F · Heavy bleeding', avatar:'LI', bg:'#F5D8E0', flag:'Fibroid?', flagCls:'qf-warn'}
     ]
   },
   fertility:{
-    label:'Fertility', icon:'🌱', colorClass:'fertility',
+    label:'Fertility', icon:'F', colorClass:'fertility',
     desc:"Infertility evaluation · couple-focused · ovulation · semen analysis · IUI / IVF workup",
     queueTitle:'Fertility OPD — Couples Queue',
     quickActions:['nava','rx-couple','scribe','upload','summary','timeline'],
@@ -1475,10 +1475,10 @@ function renderTodayView(){
 
   // Metrics grid
   document.getElementById('opd-metrics-grid').innerHTML = `
-    <div class="metric-card"><div class="mc-icon">👥</div><div class="mc-val">${m.patients}</div><div class="mc-lbl">Patients Today</div><div class="mc-sub">${m.seen} seen · ${m.waiting} waiting</div><div class="mc-delta d-neu">Target: ${m.target}</div></div>
-    <div class="metric-card"><div class="mc-icon">⚠️</div><div class="mc-val" style="color:${flagTotal?'var(--red)':'var(--green)'}">${flagTotal}</div><div class="mc-lbl">NAVA Flags Active</div><div class="mc-sub">${flagCounts.crit} critical · ${flagCounts.warn} warning</div><div class="mc-delta ${flagTotal?'d-neg':'d-pos'}">${flagTotal?'Review before discharge':'All clear'}</div></div>
-    <div class="metric-card"><div class="mc-icon">💊</div><div class="mc-val">${m.rx}</div><div class="mc-lbl">Prescriptions Sent</div><div class="mc-sub">${m.rxChannel}</div><div class="mc-delta d-pos">${activeOPD==='fertility'?'Workup-heavy':'↑ vs yesterday'}</div></div>
-    <div class="metric-card"><div class="mc-icon">🏦</div><div class="mc-val" style="color:var(--green)">${m.revenue}</div><div class="mc-lbl">Est. Revenue Today</div><div class="mc-sub">From NAVA-recommended tests</div><div class="mc-delta d-pos">${m.revenueDelta}</div></div>
+    <div class="metric-card"><div class="mc-icon">Pts</div><div class="mc-val">${m.patients}</div><div class="mc-lbl">Patients Today</div><div class="mc-sub">${m.seen} seen · ${m.waiting} waiting</div><div class="mc-delta d-neu">Target: ${m.target}</div></div>
+    <div class="metric-card"><div class="mc-icon">⚠</div><div class="mc-val" style="color:${flagTotal?'var(--red)':'var(--green)'}">${flagTotal}</div><div class="mc-lbl">NAVA Flags Active</div><div class="mc-sub">${flagCounts.crit} critical · ${flagCounts.warn} warning</div><div class="mc-delta ${flagTotal?'d-neg':'d-pos'}">${flagTotal?'Review before discharge':'All clear'}</div></div>
+    <div class="metric-card"><div class="mc-icon">℞</div><div class="mc-val">${m.rx}</div><div class="mc-lbl">Prescriptions Sent</div><div class="mc-sub">${m.rxChannel}</div><div class="mc-delta d-pos">${activeOPD==='fertility'?'Workup-heavy':'↑ vs yesterday'}</div></div>
+    <div class="metric-card"><div class="mc-icon">₹</div><div class="mc-val" style="color:var(--green)">${m.revenue}</div><div class="mc-lbl">Est. Revenue Today</div><div class="mc-sub">From NAVA-recommended tests</div><div class="mc-delta d-pos">${m.revenueDelta}</div></div>
   `;
 
   // Flags list
@@ -1488,7 +1488,7 @@ function renderTodayView(){
       const cls = c.flagLevel==='crit'?'crit':'warn';
       const dot = c.flagLevel==='crit'?'r':'g';
       const summary = (c.cantmiss && c.cantmiss[0]) || (c.ddx && c.ddx[0] && c.ddx[0].w) || 'NAVA flagged — review in Active Case';
-      const icon = c.flagLevel==='crit'?'🚨':'⚠';
+      const icon = c.flagLevel==='crit'?'▲':'△';
       return `<div class="alert-item ${cls}" onclick="loadCase(${c._idx})"><div class="ai-dot ${dot}"></div><div><div class="ai-patient">${c.name} · ${(c.meta||'').split(' · ').slice(0,2).join('·')} · ${c.room||''}</div><div class="ai-msg">${icon} ${summary}</div></div><div class="ai-time">${['10 mins','25 mins','1 hr','2 hr'][Math.floor(Math.random()*4)]} ago</div></div>`;
     }).join('');
   } else {
@@ -1500,7 +1500,7 @@ function renderTodayView(){
   document.getElementById('opd-queue-list').innerHTML = queueEntries.length ? queueEntries.map((q,i)=>{
     const clickable = q.caseIdx !== undefined;
     const click = clickable ? `onclick="loadCase(${q.caseIdx})"` : '';
-    return `<div class="queue-item${i===0?' active-q':''}" ${click} style="${clickable?'':'opacity:.7'}"><div class="q-num">${i+1}</div><div class="q-avatar" style="background:${q.bg||'#E8F5E8'}">${q.avatar||'👤'}</div><div><div class="q-name">${q.name}</div><div class="q-meta">${q.meta}</div></div><span class="q-flag ${q.flagCls||'qf-ok'}">${q.flag||''}</span></div>`;
+    return `<div class="queue-item${i===0?' active-q':''}" ${click} style="${clickable?'':'opacity:.7'}"><div class="q-num">${i+1}</div><div class="q-avatar" style="background:${q.bg||'#E8F5E8'}">${q.avatar||'—'}</div><div><div class="q-name">${q.name}</div><div class="q-meta">${q.meta}</div></div><span class="q-flag ${q.flagCls||'qf-ok'}">${q.flag||''}</span></div>`;
   }).join('') : `<div style="padding:22px;text-align:center;color:var(--muted);font-size:.75rem;font-style:italic">No patients in queue for ${cfg.label} today.</div>`;
 
   // Quick actions
@@ -1516,17 +1516,17 @@ function bannerBg(opd){
 }
 
 const QUICK_ACTIONS = {
-  nava:      `<div class="qa-btn" onclick="showView('workspace')"><div class="qa-icon">🧠</div><div class="qa-label">Run NAVA DDx</div><div class="qa-sub">Differential + drug safety</div></div>`,
-  rx:        `<div class="qa-btn" onclick="showView('rx')"><div class="qa-icon">💊</div><div class="qa-label">Generate Rx</div><div class="qa-sub">Indian brands + dosing</div></div>`,
-  'rx-paed': `<div class="qa-btn" onclick="showView('rx')"><div class="qa-icon">💊</div><div class="qa-label">Paediatric Rx</div><div class="qa-sub">Weight-based · dispersibles</div></div>`,
-  'rx-couple': `<div class="qa-btn" onclick="showView('rx')"><div class="qa-icon">💊</div><div class="qa-label">Couple Rx</div><div class="qa-sub">His + her regimens</div></div>`,
-  scribe:    `<div class="qa-btn" onclick="showView('scribe')"><div class="qa-icon">🎙</div><div class="qa-label">Ambient Scribe</div><div class="qa-sub">Hindi/English SOAP notes</div></div>`,
-  upload:    `<div class="qa-btn" onclick="showView('upload')"><div class="qa-icon">📁</div><div class="qa-label">Upload & Scan</div><div class="qa-sub">Reports, scans, lab PDFs</div></div>`,
-  summary:   `<div class="qa-btn" onclick="openSummaryDirect()"><div class="qa-icon">📱</div><div class="qa-label">Patient Summary</div><div class="qa-sub">WhatsApp · Hindi + English</div></div>`,
-  insights:  `<div class="qa-btn" onclick="showView('insights')"><div class="qa-icon">📊</div><div class="qa-label">View Insights</div><div class="qa-sub">Accuracy, revenue, trends</div></div>`,
-  growth:    `<div class="qa-btn" onclick="alert('Growth chart — demo only')"><div class="qa-icon">📈</div><div class="qa-label">Growth Chart</div><div class="qa-sub">WHO + IAP percentiles</div></div>`,
-  screening: `<div class="qa-btn" onclick="alert('Screening tracker — demo only')"><div class="qa-icon">🎗</div><div class="qa-label">Screening Due</div><div class="qa-sub">Pap · HPV · mammography</div></div>`,
-  timeline:  `<div class="qa-btn" onclick="alert('Couple timeline — demo only')"><div class="qa-icon">📅</div><div class="qa-label">Couple Timeline</div><div class="qa-sub">Cycles · workup · IUI/IVF</div></div>`
+  nava:      `<div class="qa-btn" onclick="showView('workspace')"><div class="qa-icon">NAVA</div><div class="qa-label">Run NAVA DDx</div><div class="qa-sub">Differential + drug safety</div></div>`,
+  rx:        `<div class="qa-btn" onclick="showView('rx')"><div class="qa-icon">℞</div><div class="qa-label">Generate Rx</div><div class="qa-sub">Indian brands + dosing</div></div>`,
+  'rx-paed': `<div class="qa-btn" onclick="showView('rx')"><div class="qa-icon">℞</div><div class="qa-label">Paediatric Rx</div><div class="qa-sub">Weight-based · dispersibles</div></div>`,
+  'rx-couple': `<div class="qa-btn" onclick="showView('rx')"><div class="qa-icon">℞</div><div class="qa-label">Couple Rx</div><div class="qa-sub">His + her regimens</div></div>`,
+  scribe:    `<div class="qa-btn" onclick="showView('scribe')"><div class="qa-icon">◉</div><div class="qa-label">Ambient Scribe</div><div class="qa-sub">Hindi/English SOAP notes</div></div>`,
+  upload:    `<div class="qa-btn" onclick="showView('upload')"><div class="qa-icon">Doc</div><div class="qa-label">Upload & Scan</div><div class="qa-sub">Reports, scans, lab PDFs</div></div>`,
+  summary:   `<div class="qa-btn" onclick="openSummaryDirect()"><div class="qa-icon">→</div><div class="qa-label">Patient Summary</div><div class="qa-sub">WhatsApp · Hindi + English</div></div>`,
+  insights:  `<div class="qa-btn" onclick="showView('insights')"><div class="qa-icon">≈</div><div class="qa-label">View Insights</div><div class="qa-sub">Accuracy, revenue, trends</div></div>`,
+  growth:    `<div class="qa-btn" onclick="alert('Growth chart — demo only')"><div class="qa-icon">↗</div><div class="qa-label">Growth Chart</div><div class="qa-sub">WHO + IAP percentiles</div></div>`,
+  screening: `<div class="qa-btn" onclick="alert('Screening tracker — demo only')"><div class="qa-icon">◎</div><div class="qa-label">Screening Due</div><div class="qa-sub">Pap · HPV · mammography</div></div>`,
+  timeline:  `<div class="qa-btn" onclick="alert('Couple timeline — demo only')"><div class="qa-icon">—</div><div class="qa-label">Couple Timeline</div><div class="qa-sub">Cycles · workup · IUI/IVF</div></div>`
 };
 
 function updateOpdBadges(){
@@ -1545,7 +1545,7 @@ const CASES_DATA = [
 // ──────── 0: ARYAN ────────
 {
   name:'Aryan Rajan', specialty:'paediatrics', room:'Rm 3', chief:'Headache × 14 wks', flagLevel:'warn', flagText:'IIH?',
-  meta:'8yr · Male · 31 kg · New Delhi', bg:'#DDE8F5', avatar:'👦',
+  meta:'8yr · Male · 31 kg · New Delhi', bg:'#DDE8F5', avatar:'AK',
   pills:['31 kg','8 years old','URTI 3 wks ago'],
   history:[
     {date:'3 wks ago',label:'URTI',detail:'Coryzal illness, resolved spontaneously',type:''},
@@ -1601,9 +1601,9 @@ const CASES_DATA = [
     {when:'ONGOING',cls:'ongoing',action:'Headache diary + school monitoring',detail:'Track frequency, severity, triggers. Monitor school performance improvement as treatment progresses.'}
   ],
   research:[
-    {source:'IAP Headache Guidelines 2019',geo:'🇮🇳 India',finding:'IIH in normal-weight children is underdiagnosed in India',detail:'IAP reports that paediatric IIH is frequently missed and misattributed to sinusitis or tension headache, particularly when fundoscopy is not performed.',ddx:['IIH','Chiari I']},
-    {source:'AAP — Paediatric IIH Review (Pediatrics 2021)',geo:'🇺🇸 USA',finding:'Vitamin D deficiency documented as IIH risk factor in children',detail:'Retrospective study of 84 paediatric IIH cases: Vit D deficiency present in 71% vs 28% controls. Normal BMI IIH more common in boys.',ddx:['IIH']},
-    {source:'NICE CG150 — Headaches in Under-18s',geo:'🇬🇧 UK',finding:'Ibuprofen non-response + school decline = mandatory specialist referral',detail:'NICE mandates specialist review for any child with headache >4 weeks + school impact + analgesic non-response. Standard violated here.',ddx:['IIH','Migraine']}
+    {source:'IAP Headache Guidelines 2019',geo:'India',finding:'IIH in normal-weight children is underdiagnosed in India',detail:'IAP reports that paediatric IIH is frequently missed and misattributed to sinusitis or tension headache, particularly when fundoscopy is not performed.',ddx:['IIH','Chiari I']},
+    {source:'AAP — Paediatric IIH Review (Pediatrics 2021)',geo:'USA',finding:'Vitamin D deficiency documented as IIH risk factor in children',detail:'Retrospective study of 84 paediatric IIH cases: Vit D deficiency present in 71% vs 28% controls. Normal BMI IIH more common in boys.',ddx:['IIH']},
+    {source:'NICE CG150 — Headaches in Under-18s',geo:'UK',finding:'Ibuprofen non-response + school decline = mandatory specialist referral',detail:'NICE mandates specialist review for any child with headache >4 weeks + school impact + analgesic non-response. Standard violated here.',ddx:['IIH','Migraine']}
   ],
   finance:{
     patientEstimate:'₹32,000 – ₹58,000',
@@ -1637,13 +1637,13 @@ const CASES_DATA = [
     {type:'diff-class',name:'Furosemide 1–2 mg/kg/day',salt:'Furosemide',class:'Loop Diuretic',dose:'Adjunct, typically 1–2 mg/kg OD',price:'₹15–30 / 10 tabs',reason:'Different mechanism — reduces CSF via systemic diuresis. Used as add-on when Acetazolamide alone does not adequately reduce CSF pressure. Rarely used as monotherapy.',switchNote:'Requires K+ monitoring and may worsen Acetazolamide-induced hypokalaemia — add K+ supplementation.',evidence:'Older literature supports adjunct use. Not first- or second-line per current IIH guidelines.'},
     {type:'adjunct',name:'Calcirol 60,000 IU + Portfolio diet',salt:'Vit D3 + low-sodium diet',class:'Risk-factor modification',dose:'Vit D 60K weekly × 8 wks; <2g Na/day',price:'₹400–700 (Vit D course)',reason:'Addresses documented IIH risk factors: Vit D deficiency (18 ng/mL in this patient) and high dietary sodium. Evidence-based non-pharmacological adjunct — not a replacement for Acetazolamide.',switchNote:'Always prescribed alongside primary therapy, not instead of it. Reduces relapse risk long-term.',evidence:'AAP paediatric IIH review: Vit D sufficiency associated with better outcomes. Na restriction has small RCT support.'}
   ],
-  en:`*Health update — Aryan's headache*\n\nAfter careful review:\n\nThe current diagnosis (sinusitis) may not explain 14 weeks of constant headache that has not responded to three antibiotic and three ibuprofen courses.\n\nNAVA's concern: raised brain pressure (IIH) — where the brain scan looks completely normal but pressure is elevated.\n\n*What must happen immediately:*\n👁 Eye specialist — to check behind the eye (quick and painless)\n🧠 Brain specialist (Paediatric Neurologist)\n\n*Medicine changes:*\n✅ Paracetamol — dose corrected (was too low)\n✅ Vitamin D — switching to weekly high dose (Calcirol)\n❌ Stop all Ibuprofen — has not worked in 3 separate trials\n\n🚨 Emergency if: sudden severe headache, any vision changes, vomiting with headache\n\n⚕ Advisory — Dr Priya Nair · NAVA Clinical Intelligence`,
-  hi:`*Aryan ke sar dard ke baare mein update*\n\nPoori history dekh ke:\n\nAbhi jo diagnosis hai (sinusitis) — 14 hafte ke lagatar dard ko explain nahi karta jo teen antibiotic aur teen ibuprofen se bhi theek nahi hua.\n\nNAVA ki chinta: brain pressure badh sakta hai (IIH) — jisme brain ka scan normal dikhta hai.\n\n*Aaj hi karna hai:*\n👁 Aankh ke doctor — aankhon ke peeche check (jaldi aur dard nahi)\n🧠 Dimag ke specialist\n\n*Dawai mein badlav:*\n✅ Paracetamol — sahi dose (pehle kam thi)\n✅ Vitamin D — weekly high dose (Calcirol)\n❌ Ibuprofen bilkul band karo\n\n🚨 Emergency: achanak tez dard, aankhon mein dikkat, ulti ke saath dard\n\n⚕ Advisory — Dr Priya Nair`
+  en:`*Health update — Aryan's headache*\n\nAfter careful review:\n\nThe current diagnosis (sinusitis) may not explain 14 weeks of constant headache that has not responded to three antibiotic and three ibuprofen courses.\n\nNAVA's concern: raised brain pressure (IIH) — where the brain scan looks completely normal but pressure is elevated.\n\n*What must happen immediately:*\nEye specialist — to check behind the eye (quick and painless)\nBrain specialist (Paediatric Neurologist)\n\n*Medicine changes:*\n✓ Paracetamol — dose corrected (was too low)\n✓ Vitamin D — switching to weekly high dose (Calcirol)\n✗ Stop all Ibuprofen — has not worked in 3 separate trials\n\nURGENT — Emergency if: sudden severe headache, any vision changes, vomiting with headache\n\n⚕ Advisory — Dr Priya Nair · NAVA Clinical Intelligence`,
+  hi:`*Aryan ke sar dard ke baare mein update*\n\nPoori history dekh ke:\n\nAbhi jo diagnosis hai (sinusitis) — 14 hafte ke lagatar dard ko explain nahi karta jo teen antibiotic aur teen ibuprofen se bhi theek nahi hua.\n\nNAVA ki chinta: brain pressure badh sakta hai (IIH) — jisme brain ka scan normal dikhta hai.\n\n*Aaj hi karna hai:*\nAankh ke doctor — aankhon ke peeche check (jaldi aur dard nahi)\nDimag ke specialist\n\n*Dawai mein badlav:*\n✓ Paracetamol — sahi dose (pehle kam thi)\n✓ Vitamin D — weekly high dose (Calcirol)\n✗ Ibuprofen bilkul band karo\n\nURGENT — Emergency: achanak tez dard, aankhon mein dikkat, ulti ke saath dard\n\n⚕ Advisory — Dr Priya Nair`
 },
 // ──────── 1: MEENA ────────
 {
   name:'Meena Iyer', specialty:'general', room:'Rm 6', chief:'Chest tightness', flagLevel:'warn', flagText:'Flag',
-  meta:'42yr · Female · 68 kg · Chennai', bg:'#F5E6EC', avatar:'👩',
+  meta:'42yr · Female · 68 kg · Chennai', bg:'#F5E6EC', avatar:'MI',
   pills:['68 kg','HTN 2yr','Father MI@55','LDL 168'],
   history:[
     {date:'2 yrs ago',label:'Hypertension diagnosed',detail:'Started Amlodipine 2.5mg, increased to 5mg 3 months ago. Never well-controlled.',type:'chronic'},
@@ -1700,9 +1700,9 @@ const CASES_DATA = [
     {when:'6 WEEKS',cls:'routine',action:'Lipid recheck',detail:'After 6 weeks of Atorvastatin 40mg. Target LDL <70 mg/dL for very high risk.'}
   ],
   research:[
-    {source:'ESC Stable CAD Guidelines 2019',geo:'🇪🇺 Europe',finding:'Women with exertional chest pain often misdiagnosed — cardiac symptoms present atypically',detail:'ESC 2019: Women aged 40–65 with exertional chest symptoms and ≥2 risk factors must have cardiac workup before attributing to GI or hormonal causes.',ddx:['Stable Angina','CAD']},
-    {source:'AHA/ACC Cardiovascular Risk 2019',geo:'🇺🇸 USA',finding:'LDL >160 + HTN + premature family history = very high risk — statin mandatory',detail:'AHA/ACC 2019 Cholesterol Guidelines: this patient meets very high risk criteria. High-intensity statin should already be prescribed.',ddx:['CAD','Dyslipidaemia']},
-    {source:'CSI — Indian Hypertension Guidelines 2020',geo:'🇮🇳 India',finding:'Uncontrolled BP on monotherapy — add second agent within 4 weeks',detail:'CSI 2020: if BP remains >140/90 on monotherapy after 4 weeks, add ACE inhibitor or ARB as second agent. Patient on Amlodipine 3+ months without review.',ddx:['Hypertensive Heart Disease']}
+    {source:'ESC Stable CAD Guidelines 2019',geo:' Europe',finding:'Women with exertional chest pain often misdiagnosed — cardiac symptoms present atypically',detail:'ESC 2019: Women aged 40–65 with exertional chest symptoms and ≥2 risk factors must have cardiac workup before attributing to GI or hormonal causes.',ddx:['Stable Angina','CAD']},
+    {source:'AHA/ACC Cardiovascular Risk 2019',geo:'USA',finding:'LDL >160 + HTN + premature family history = very high risk — statin mandatory',detail:'AHA/ACC 2019 Cholesterol Guidelines: this patient meets very high risk criteria. High-intensity statin should already be prescribed.',ddx:['CAD','Dyslipidaemia']},
+    {source:'CSI — Indian Hypertension Guidelines 2020',geo:'India',finding:'Uncontrolled BP on monotherapy — add second agent within 4 weeks',detail:'CSI 2020: if BP remains >140/90 on monotherapy after 4 weeks, add ACE inhibitor or ARB as second agent. Patient on Amlodipine 3+ months without review.',ddx:['Hypertensive Heart Disease']}
   ],
   finance:{
     patientEstimate:'₹45,000 – ₹2,80,000',
@@ -1739,13 +1739,13 @@ const CASES_DATA = [
     {type:'diff-class',name:'Inclisiran 284mg (Leqvio)',salt:'Inclisiran',class:'PCSK9-targeting siRNA',dose:'Subcutaneous — day 0, 90, then 6-monthly',price:'₹45,000–60,000 per dose (limited Indian availability)',reason:'Different mechanism — silences PCSK9 production at RNA level. Reserved for true statin intolerance OR familial hypercholesterolaemia where LDL remains very high despite maximum conventional therapy.',switchNote:'NOT first-line alternative. Consider only after statin + ezetimibe have failed or are contraindicated. Cost-prohibitive for most Indian patients without insurance.',evidence:'ORION-10/11 trials: ~50% sustained LDL reduction with twice-yearly dosing. Approved in India 2023.'},
     {type:'adjunct',name:'Omega-3 EPA (Icosapent Ethyl / Vascepa)',salt:'Icosapent Ethyl 2g',class:'Triglyceride-lowering',dose:'2g BD',price:'₹900–1,400 / month (limited availability)',reason:'Adjunct — added to a statin when triglycerides remain elevated OR in patients with residual CV risk despite LDL at target. Does not replace statin.',switchNote:'Complementary, not substitutive. Only add after Atorvastatin is established and LDL trend is known.',evidence:'REDUCE-IT trial: icosapent ethyl reduced MACE by 25% in statin-treated patients with elevated TG.'}
   ],
-  en:`*Health update — Meena Iyer*\n\nAfter careful review:\n\nYour chest tightness on stairs needs your heart checked first. This pattern does not fit acid reflux.\n\nYou have a strong family history (father's heart attack at 55) and high cholesterol. Both must be addressed now.\n\n*What must happen this week:*\n❤️ Heart specialist (Cardiologist) — urgent\n📋 Heart scan (2D Echo) + Exercise stress test (TMT)\n\n*Medicine changes:*\n✅ Amlodipine — continue\n✅ Atorvastatin 40mg (Storvas/Atorva) — start tonight for cholesterol\n✅ Iron tablets — for mild anaemia\n❌ Stop Pan-D — it is not helping and is treating the wrong problem\n\n🚨 Emergency: chest pain at rest, arm or jaw pain, sudden breathlessness\n\n⚕ Advisory — Dr Priya Nair · NAVA Clinical Intelligence`,
-  hi:`*Meena Iyer ke liye update*\n\nSeedhi pe chest mein tightness — pehle dil check karna zaroori hai. Yeh acidity nahi lagta.\n\nPapa ko 55 mein heart attack tha. Cholesterol bhi zyada hai. Dono abhi theek karne hain.\n\n*Is hafte karna hai:*\n❤️ Dil ke doctor — urgent\n📋 2D Echo + TMT\n\n*Dawai:*\n✅ Amlodipine — jaari\n✅ Atorvastatin 40mg — aaj raat se shuru\n✅ Iron tablets — khoon ke liye\n❌ Pan-D band karo\n\n🚨 Emergency: aaaram mein dard, haath/jaad mein dard, sans ki takleef\n\n⚕ Advisory — Dr Priya Nair`
+  en:`*Health update — Meena Iyer*\n\nAfter careful review:\n\nYour chest tightness on stairs needs your heart checked first. This pattern does not fit acid reflux.\n\nYou have a strong family history (father's heart attack at 55) and high cholesterol. Both must be addressed now.\n\n*What must happen this week:*\nHeart specialist (Cardiologist) — urgent\n Heart scan (2D Echo) + Exercise stress test (TMT)\n\n*Medicine changes:*\n✓ Amlodipine — continue\n✓ Atorvastatin 40mg (Storvas/Atorva) — start tonight for cholesterol\n✓ Iron tablets — for mild anaemia\n✗ Stop Pan-D — it is not helping and is treating the wrong problem\n\nURGENT — Emergency: chest pain at rest, arm or jaw pain, sudden breathlessness\n\n⚕ Advisory — Dr Priya Nair · NAVA Clinical Intelligence`,
+  hi:`*Meena Iyer ke liye update*\n\nSeedhi pe chest mein tightness — pehle dil check karna zaroori hai. Yeh acidity nahi lagta.\n\nPapa ko 55 mein heart attack tha. Cholesterol bhi zyada hai. Dono abhi theek karne hain.\n\n*Is hafte karna hai:*\nDil ke doctor — urgent\n 2D Echo + TMT\n\n*Dawai:*\n✓ Amlodipine — jaari\n✓ Atorvastatin 40mg — aaj raat se shuru\n✓ Iron tablets — khoon ke liye\n✗ Pan-D band karo\n\nURGENT — Emergency: aaaram mein dard, haath/jaad mein dard, sans ki takleef\n\n⚕ Advisory — Dr Priya Nair`
 },
 // ──────── 2: RAMESH ────────
 {
   name:'Ramesh Gupta', specialty:'general', room:'Rm 4', chief:'DM + CKD', flagLevel:'crit', flagText:'CRITICAL',
-  meta:'58yr · Male · 82 kg · Lucknow', bg:'#DDE8F5', avatar:'👨',
+  meta:'58yr · Male · 82 kg · Lucknow', bg:'#DDE8F5', avatar:'RG',
   pills:['82 kg','T2DM 11yr','HTN 2018','eGFR ~28'],
   history:[
     {date:'2013',label:'T2DM diagnosed',detail:'Oral hypoglycaemics started. HbA1c poorly controlled throughout.',type:'chronic'},
@@ -1786,7 +1786,7 @@ const CASES_DATA = [
     {p:94,n:'Stage 4 Diabetic Nephropathy',w:'Creatinine 2.4 → eGFR ~28 + UACR 840 (macroalbuminuria) + bilateral small echogenic kidneys + 11yr T2DM + anaemia of CKD — textbook advanced diabetic nephropathy.',c:'#B04040',b:'94%',t:'likely'},
     {p:52,n:'Hypertensive Nephropathy (co-existing)',w:'BP 164/98 severely uncontrolled + LVH on ECG — likely co-contributing to renal decline.',c:'#B08840',b:'52%',t:'possible'}
   ],
-  cantmiss:['🚨 METFORMIN 1000mg BD AT eGFR ~28 — LACTIC ACIDOSIS RISK. Stop before patient leaves today.','K+ 5.6 on Telmisartan (ARB) in CKD — hyperkalaemia → cardiac arrhythmia risk. Dietary restriction + 48h recheck.'],
+  cantmiss:['METFORMIN 1000mg BD AT eGFR ~28 — LACTIC ACIDOSIS RISK. Stop before patient leaves today.','K+ 5.6 on Telmisartan (ARB) in CKD — hyperkalaemia → cardiac arrhythmia risk. Dietary restriction + 48h recheck.'],
   treatment:{
     title:'AI Treatment — Stage 4 Diabetic Nephropathy',
     lines:[
@@ -1804,9 +1804,9 @@ const CASES_DATA = [
     {when:'ONGOING',cls:'ongoing',action:'Iron supplementation for CKD anaemia',detail:'Hb 9.8 — anaemia of CKD. IV iron preferred at Stage 4. Nephrology to advise EPO therapy if Hb < 9.'}
   ],
   research:[
-    {source:'KDIGO CKD Guidelines 2022',geo:'🌐 Global',finding:'Metformin contraindicated at eGFR <30 — risk of fatal lactic acidosis',detail:'KDIGO 2022: Discontinue Metformin when eGFR falls below 30. The drug was increased to 1000mg BD without any renal function recheck — directly contradicts KDIGO.',ddx:['Diabetic Nephropathy']},
-    {source:'RSSDI India — Diabetes in CKD 2021',geo:'🇮🇳 India',finding:'Indian guidelines align: Metformin stop at eGFR <30, switch to insulin or DPP-4',detail:'RSSDI: DPP-4 inhibitors (Sitagliptin dose-adjusted to 25mg for eGFR 15-30) are preferred alternative. Insulin is safest.',ddx:['Diabetic Nephropathy']},
-    {source:'CREDENCE Trial (NEJM 2019)',geo:'🌐 Global',finding:'Canagliflozin reduces CKD progression in T2DM — now guideline-recommended',detail:'CREDENCE: SGLT2i (Canagliflozin) reduced ESRD, doubling of creatinine, and renal/CV death by 30% in T2DM with CKD. Nephrology to assess suitability.',ddx:['Diabetic Nephropathy']}
+    {source:'KDIGO CKD Guidelines 2022',geo:'Global',finding:'Metformin contraindicated at eGFR <30 — risk of fatal lactic acidosis',detail:'KDIGO 2022: Discontinue Metformin when eGFR falls below 30. The drug was increased to 1000mg BD without any renal function recheck — directly contradicts KDIGO.',ddx:['Diabetic Nephropathy']},
+    {source:'RSSDI India — Diabetes in CKD 2021',geo:'India',finding:'Indian guidelines align: Metformin stop at eGFR <30, switch to insulin or DPP-4',detail:'RSSDI: DPP-4 inhibitors (Sitagliptin dose-adjusted to 25mg for eGFR 15-30) are preferred alternative. Insulin is safest.',ddx:['Diabetic Nephropathy']},
+    {source:'CREDENCE Trial (NEJM 2019)',geo:'Global',finding:'Canagliflozin reduces CKD progression in T2DM — now guideline-recommended',detail:'CREDENCE: SGLT2i (Canagliflozin) reduced ESRD, doubling of creatinine, and renal/CV death by 30% in T2DM with CKD. Nephrology to assess suitability.',ddx:['Diabetic Nephropathy']}
   ],
   finance:{
     patientEstimate:'₹90,000 – ₹18,00,000/yr',
@@ -1845,13 +1845,13 @@ const CASES_DATA = [
     {type:'diff-class',name:'Gliclazide MR 30–60mg (Diamicron MR)',salt:'Gliclazide (modified-release)',class:'Sulfonylurea (2nd-gen)',dose:'30mg OD (reduced from 60mg) in CKD',price:'₹95–160 / 10 tabs',reason:'Different class (sulfonylurea) but is among the few SUs with a reasonable safety profile in CKD — predominantly hepatic metabolism, shorter-acting than Glimepiride. Option if DPP-4 inhibitors are not tolerated.',switchNote:'Hypoglycaemia risk still present — patient already on Glimepiride which needs dose reduction at eGFR <30. Do NOT combine two SUs. If switching from Glimepiride, stop Glimepiride first.',evidence:'KDIGO: if SU is necessary in CKD, Gliclazide or Glipizide are preferred over Glimepiride/Glibenclamide.'},
     {type:'adjunct',name:'Dapagliflozin 10mg (Forxiga / Oxra)',salt:'Dapagliflozin 10mg',class:'SGLT2 Inhibitor',dose:'10mg OD — reassess if eGFR <25',price:'₹250–420 / 10 tabs',reason:'Different class adjunct — primary benefit here is NOT glucose lowering (which is minimal at eGFR <30) but proven renoprotection and reduced CKD progression. Initiation must be under nephrology supervision in Stage 4.',switchNote:'Not a Sitagliptin replacement — layered on top. Monitor for volume depletion, euglycaemic DKA. Discontinue if eGFR falls below 20–25.',evidence:'DAPA-CKD trial: reduced renal/CV events in CKD patients with and without T2DM. 2022 KDIGO: SGLT2i recommended in T2DM with CKD and UACR >200 (this patient UACR 840).'}
   ],
-  en:`*Important health update — please read carefully*\n\nOne of your medicines (Metformin — the diabetes tablet) must stop immediately. Your kidneys are not strong enough to clear it safely.\n\n*Today:*\n⚠️ Stop Metformin NOW — doctor will prescribe safe alternative\n🏥 Kidney specialist this week — urgent, not routine\n🍌 Avoid: banana, tomato, coconut water, potato (potassium high)\n🔬 Blood test in 48 hours\n\n*Coming soon:*\n👁 Eye test — 4 years overdue\n\n🚨 Emergency: chest pain, irregular heartbeat, breathlessness\n\n⚕ Advisory — Dr Priya Nair · NAVA`,
-  hi:`*Zaroori sehat ki jaankari*\n\nEk dawai (Metformin) turant band karni hai. Kidney safe nahi rakh sakti isse.\n\n*Aaj:*\n⚠️ Metformin ABHI band karo\n🏥 Kidney specialist — urgent\n🍌 Avoid: kela, tamatar, nariyal paani, aloo\n🔬 48 ghante mein blood test\n\n*Jald:*\n👁 Aankhon ka test — 4 saal se nahi hua\n\n🚨 Emergency: seene mein dard, dil ki dharkan, sans ki takleef\n\n⚕ Advisory — Dr Priya Nair`
+  en:`*Important health update — please read carefully*\n\nOne of your medicines (Metformin — the diabetes tablet) must stop immediately. Your kidneys are not strong enough to clear it safely.\n\n*Today:*\n⚠ Stop Metformin NOW — doctor will prescribe safe alternative\nKidney specialist this week — urgent, not routine\nAvoid: banana, tomato, coconut water, potato (potassium high)\nBlood test in 48 hours\n\n*Coming soon:*\nEye test — 4 years overdue\n\nURGENT — Emergency: chest pain, irregular heartbeat, breathlessness\n\n⚕ Advisory — Dr Priya Nair · NAVA`,
+  hi:`*Zaroori sehat ki jaankari*\n\nEk dawai (Metformin) turant band karni hai. Kidney safe nahi rakh sakti isse.\n\n*Aaj:*\n⚠ Metformin ABHI band karo\nKidney specialist — urgent\nAvoid: kela, tamatar, nariyal paani, aloo\n48 ghante mein blood test\n\n*Jald:*\nAankhon ka test — 4 saal se nahi hua\n\nURGENT — Emergency: seene mein dard, dil ki dharkan, sans ki takleef\n\n⚕ Advisory — Dr Priya Nair`
 },
 // ──────── 3: FATIMA ────────
 {
   name:'Fatima Sheikh', specialty:'paediatrics', room:'Rm 2', chief:'Fever × 4 mo', flagLevel:'crit', flagText:'TB?',
-  meta:'6yr · Female · 18 kg (↓2kg) · Mumbai', bg:'#F5E6EC', avatar:'👧',
+  meta:'6yr · Female · 18 kg (↓2kg) · Mumbai', bg:'#F5E6EC', avatar:'FS',
   pills:['18 kg (down from 20)','TB contact (brother)','8 people · 2 rooms'],
   history:[
     {date:'Last year',label:'Brother — Pulmonary TB (DOTS completed)',detail:'Household TB contact. 2 rooms, 8 people. High-risk close contact. Family NOT screened when brother was diagnosed.',type:'chronic'},
@@ -1911,9 +1911,9 @@ const CASES_DATA = [
     {when:'ONGOING',cls:'ongoing',action:'Nutritional rehabilitation',detail:'Target weight regain. Iron supplementation (Hb 9.2). High-protein diet: eggs, dal, milk, paneer, roti. Growth monitoring monthly.'}
   ],
   research:[
-    {source:'IAP Childhood TB Consensus 2022',geo:'🇮🇳 India',finding:'Family contact of pulmonary TB = mandatory Mantoux + CXR regardless of BCG status',detail:'IAP 2022: BCG does not reliably prevent pulmonary TB from household contact. Mantoux + IGRA + CXR mandatory. Four months without TB workup in a household contact is a critical violation.',ddx:['Paediatric TB']},
-    {source:'NTEP/RNTCP Paediatric TB 2022',geo:'🇮🇳 India',finding:'Household contacts must be screened within 4 weeks of index case diagnosis',detail:'NTEP: all household contacts of pulmonary TB patients must be screened. Fatima\'s family should have been screened when her brother was diagnosed last year.',ddx:['Paediatric TB']},
-    {source:'WHO Paediatric TB Guidelines 2022',geo:'🌐 Global',finding:'Gastric lavage AFB is gold standard for children <10 who cannot produce sputum',detail:'WHO: sensitivity 40-70% in paediatric pulmonary TB. Should be performed by specialist under supervised conditions before morning feed.',ddx:['Paediatric TB']}
+    {source:'IAP Childhood TB Consensus 2022',geo:'India',finding:'Family contact of pulmonary TB = mandatory Mantoux + CXR regardless of BCG status',detail:'IAP 2022: BCG does not reliably prevent pulmonary TB from household contact. Mantoux + IGRA + CXR mandatory. Four months without TB workup in a household contact is a critical violation.',ddx:['Paediatric TB']},
+    {source:'NTEP/RNTCP Paediatric TB 2022',geo:'India',finding:'Household contacts must be screened within 4 weeks of index case diagnosis',detail:'NTEP: all household contacts of pulmonary TB patients must be screened. Fatima\'s family should have been screened when her brother was diagnosed last year.',ddx:['Paediatric TB']},
+    {source:'WHO Paediatric TB Guidelines 2022',geo:'Global',finding:'Gastric lavage AFB is gold standard for children <10 who cannot produce sputum',detail:'WHO: sensitivity 40-70% in paediatric pulmonary TB. Should be performed by specialist under supervised conditions before morning feed.',ddx:['Paediatric TB']}
   ],
   finance:{
     patientEstimate:'₹16,000 – ₹42,000',
@@ -1952,14 +1952,14 @@ const CASES_DATA = [
     {type:'adjunct',name:'Pyridoxine (Vitamin B6) 10–25mg/day',salt:'Pyridoxine HCl',class:'Vitamin adjunct',dose:'10mg/day in children (25mg in adolescents/adults)',price:'₹15–40 / 10 tabs',reason:'Mandatory adjunct with Isoniazid (H) to prevent peripheral neuropathy — particularly important in malnourished children like this patient (18kg, down from 20). Always co-prescribed, not an alternative.',switchNote:'Must be given alongside any H-containing regimen — FDC, individual drugs, or otherwise. Not optional in a child with weight loss.',evidence:'WHO + NTEP: Pyridoxine supplementation mandatory with isoniazid in all children at nutritional risk.'},
     {type:'adjunct',name:'Iron + Folic Acid syrup (Tonoferon Paed)',salt:'Ferrous ascorbate + Folic acid',class:'Haematinic adjunct',dose:'3mg/kg/day elemental iron × 3 months',price:'₹80–140 / 150mL bottle',reason:'Addresses documented anaemia (Hb 9.2 g/dL). Not a TB drug, but critical supportive care — anaemic TB patients have poorer treatment outcomes. Always co-prescribed.',switchNote:'Give between meals, not with milk or Ca-containing foods — absorption issue. Does not interact with first-line TB drugs.',evidence:'WHO: anaemia correction improves TB treatment response and growth recovery.'}
   ],
-  en:`*Important health update*\n\nYour child's recurring fever may be due to TB (tuberculosis) — not tonsillitis. Her brother had TB last year. A TB test has not been done yet — this must happen today.\n\n*Today:*\n🔬 TB skin test (Mantoux) — ask at the clinic today\n🏥 Infectious disease specialist — same day or tomorrow\n\n*Medicines:*\n✅ Paracetamol for fever — continue\n✅ Iron syrup — for anaemia\n❌ Stop all antibiotics — not treating the real problem\n\n🍎 Good food: eggs, dal, milk, roti, vegetables — daily\n\n🚨 Emergency: breathing difficulty, neck stiffness, weight dropping fast\n\n⚕ Advisory — Dr Priya Nair · NAVA Clinical Intelligence`,
-  hi:`*Zaroori sehat ki jaankari*\n\nBachi ki baar baar bukhar TB ki wajah se ho sakti hai. Bhai ko TB tha pichle saal. TB test abhi tak nahi hua — aaj hi karna zaroori hai.\n\n*Aaj:*\n🔬 TB test (Mantoux) — aaj clinic mein maango\n🏥 Infectious disease specialist — same day\n\n*Dawai:*\n✅ Bukhar ke liye Paracetamol — jaari\n✅ Iron syrup — naya\n❌ Antibiotics BAND KARO\n\n🍎 Achcha khana: ande, dal, doodh, roti — roz\n\n🚨 Emergency: sans mein takleef, gardan akad jaaye\n\n⚕ Advisory — Dr Priya Nair`
+  en:`*Important health update*\n\nYour child's recurring fever may be due to TB (tuberculosis) — not tonsillitis. Her brother had TB last year. A TB test has not been done yet — this must happen today.\n\n*Today:*\nTB skin test (Mantoux) — ask at the clinic today\nInfectious disease specialist — same day or tomorrow\n\n*Medicines:*\n✓ Paracetamol for fever — continue\n✓ Iron syrup — for anaemia\n✗ Stop all antibiotics — not treating the real problem\n\nGood food: eggs, dal, milk, roti, vegetables — daily\n\nURGENT — Emergency: breathing difficulty, neck stiffness, weight dropping fast\n\n⚕ Advisory — Dr Priya Nair · NAVA Clinical Intelligence`,
+  hi:`*Zaroori sehat ki jaankari*\n\nBachi ki baar baar bukhar TB ki wajah se ho sakti hai. Bhai ko TB tha pichle saal. TB test abhi tak nahi hua — aaj hi karna zaroori hai.\n\n*Aaj:*\nTB test (Mantoux) — aaj clinic mein maango\nInfectious disease specialist — same day\n\n*Dawai:*\n✓ Bukhar ke liye Paracetamol — jaari\n✓ Iron syrup — naya\n✗ Antibiotics BAND KARO\n\nAchcha khana: ande, dal, doodh, roti — roz\n\nURGENT — Emergency: sans mein takleef, gardan akad jaaye\n\n⚕ Advisory — Dr Priya Nair`
 }
 ,
 // ──────── 4: SUNITA (GYNAE) ────────
 {
   name:'Sunita Verma', specialty:'gynaecology', room:'Rm 5', chief:'Post-menopausal bleed × 3 wks', flagLevel:'crit', flagText:'URGENT',
-  meta:'54yr · Female · 72 kg · Jaipur · Post-menopausal', bg:'#F5D8E0', avatar:'👩',
+  meta:'54yr · Female · 72 kg · Jaipur · Post-menopausal', bg:'#F5D8E0', avatar:'SV',
   pills:['LMP 4 yrs ago','BMI 29','HTN','HRT 2 yrs (stopped 2016)'],
   history:[
     {date:'4 yrs ago',label:'Natural menopause',detail:'Last menstrual period age 50. Hot flashes for 18 months, no HRT given at that time.',type:'chronic'},
@@ -1999,7 +1999,7 @@ const CASES_DATA = [
     {p:22,n:'Atrophic Vaginitis / Cervical polyp',w:'Possible but does not justify treating without excluding malignancy. Can co-exist with cancer. Visual inspection alone insufficient.',c:'#B08840',b:'22%',t:'possible'},
     {p:8,n:'Hormonal bleeding / residual HRT effect',w:'HRT stopped 9 years ago — too distant to attribute current bleeding. Norethisterone prescription based on this reasoning is unsupported.',c:'#8A7060',b:'8%',t:'unlikely'}
   ],
-  cantmiss:['🚨 POST-MENOPAUSAL BLEEDING + Norethisterone prescribed WITHOUT biopsy = endometrial Ca being actively masked. Stop Norethisterone today. TVS + pipelle biopsy within 48 hours.','Mammography 3 years overdue + first-degree family breast Ca history — concurrent breast screening cannot be postponed further.','CA-125 not done — useful baseline before any hysteroscopy/D&C if findings require it.'],
+  cantmiss:['POST-MENOPAUSAL BLEEDING + Norethisterone prescribed WITHOUT biopsy = endometrial Ca being actively masked. Stop Norethisterone today. TVS + pipelle biopsy within 48 hours.','Mammography 3 years overdue + first-degree family breast Ca history — concurrent breast screening cannot be postponed further.','CA-125 not done — useful baseline before any hysteroscopy/D&C if findings require it.'],
   treatment:{
     title:'AI Treatment — Post-Menopausal Bleeding (PMB Pathway)',
     lines:[
@@ -2018,9 +2018,9 @@ const CASES_DATA = [
     {when:'ONGOING',cls:'ongoing',action:'BP + glycaemic control',detail:'BP 142/88 needs second agent. Pre-diabetes needs metformin trial. Both modify endometrial Ca trajectory.'}
   ],
   research:[
-    {source:'FOGSI Guidelines for PMB 2022',geo:'🇮🇳 India',finding:'PMB is endometrial cancer until proven otherwise — hormonal trial before biopsy is malpractice',detail:'FOGSI 2022: every episode of PMB warrants TVS + endometrial sampling BEFORE any hormonal therapy. Two GP visits with Norethisterone trials without biopsy is a textbook violation.',ddx:['Endometrial Ca','Endometrial Hyperplasia']},
-    {source:'RCOG Green-top Guideline 67',geo:'🇬🇧 UK',finding:'Endometrial thickness >4mm on TVS in PMB = histological sampling required',detail:'NPV of TVS at 4mm cutoff is ~99% for excluding endometrial cancer. Above 4mm, biopsy non-negotiable.',ddx:['Endometrial Ca']},
-    {source:'SGO — Endometrial Cancer Risk Model 2020',geo:'🇺🇸 USA',finding:'Obesity (BMI ≥28) + pre-diabetes + PMB = 20–25% risk of endometrial Ca',detail:'Society of Gynecologic Oncology risk model — this patient clusters multiple high-risk features. Workup priority should match the risk-adjusted probability.',ddx:['Endometrial Ca','Endometrial Hyperplasia']}
+    {source:'FOGSI Guidelines for PMB 2022',geo:'India',finding:'PMB is endometrial cancer until proven otherwise — hormonal trial before biopsy is malpractice',detail:'FOGSI 2022: every episode of PMB warrants TVS + endometrial sampling BEFORE any hormonal therapy. Two GP visits with Norethisterone trials without biopsy is a textbook violation.',ddx:['Endometrial Ca','Endometrial Hyperplasia']},
+    {source:'RCOG Green-top Guideline 67',geo:'UK',finding:'Endometrial thickness >4mm on TVS in PMB = histological sampling required',detail:'NPV of TVS at 4mm cutoff is ~99% for excluding endometrial cancer. Above 4mm, biopsy non-negotiable.',ddx:['Endometrial Ca']},
+    {source:'SGO — Endometrial Cancer Risk Model 2020',geo:'USA',finding:'Obesity (BMI ≥28) + pre-diabetes + PMB = 20–25% risk of endometrial Ca',detail:'Society of Gynecologic Oncology risk model — this patient clusters multiple high-risk features. Workup priority should match the risk-adjusted probability.',ddx:['Endometrial Ca','Endometrial Hyperplasia']}
   ],
   finance:{
     patientEstimate:'₹28,000 – ₹4,50,000',
@@ -2053,14 +2053,14 @@ const CASES_DATA = [
     {type:'diff-class',name:'Levonorgestrel IUS (Mirena)',salt:'Levonorgestrel 52mg IUS',class:'Local progestogen',dose:'Intrauterine release × 5 years',price:'₹5,500–8,500 device',reason:'ONLY if biopsy confirms benign endometrial hyperplasia WITHOUT atypia. Delivers high-concentration progesterone locally, reverses hyperplasia in 70–90% of simple cases. Not appropriate before biopsy.',switchNote:'Post-biopsy decision only. Requires serial biopsies (3, 6 months) to confirm regression. Contraindicated if atypia or cancer.',evidence:'Cochrane review: LNG-IUS more effective than oral progestogens for endometrial hyperplasia without atypia.'},
     {type:'adjunct',name:'Metformin 500mg BD',salt:'Metformin HCl',class:'Biguanide — metabolic adjunct',dose:'500mg BD, titrate to 1g BD',price:'₹45–90 / 10 tabs',reason:'Addresses underlying insulin resistance (HbA1c 6.3% + BMI 29). Emerging evidence that metformin has antiproliferative effect on endometrium in at-risk women. Not a cancer treatment — risk-factor modification.',switchNote:'Use alongside definitive therapy, not instead of it. Recheck eGFR at start.',evidence:'Meta-analysis 2020: metformin associated with reduced endometrial cancer incidence in women with T2DM. Emerging trials in high-risk PMB.'}
   ],
-  en:`*Urgent health update — please read carefully*\n\nBleeding after menopause is never normal and must be properly investigated.\n\nThe tablet you were given (Norethisterone) can hide a serious cause. We need to stop it today and do two quick tests:\n\n*This week:*\n🔬 Ultrasound of the uterus (TVS) — painless, 20 minutes\n🔬 Small sample from the uterus (biopsy) — office procedure, no anaesthesia\n📸 Mammography — overdue by 3 years\n\n*Medicine changes:*\n❌ STOP Norethisterone immediately — do not take any more tablets\n✅ Blood pressure and sugar: continue current medicines, recheck today\n\n*Why this is important:*\nMost cases turn out to be benign — but in women your age with these risk factors, 1 in 6 cases of bleeding after menopause is due to a cancer of the uterus. Catching it early means simple surgery; delaying can change the options significantly.\n\n⚕ Advisory — Dr Priya Nair · NAVA Clinical Intelligence`,
-  hi:`*Zaroori sehat ki jaankari*\n\nMenopause ke baad bleeding kabhi bhi normal nahi hoti — iski proper jaanch honi chahiye.\n\nJo tablet di gayi thi (Norethisterone), woh asli wajah ko chhupa sakti hai. Aaj isse band karna hai aur do jaldi test karvane hain:\n\n*Is hafte:*\n🔬 Uterus ka ultrasound (TVS) — 20 minute, dard nahi\n🔬 Uterus se chota sample (biopsy) — clinic mein, anaesthesia nahi\n📸 Mammography — 3 saal se nahi hui\n\n*Dawai:*\n❌ Norethisterone ABHI band karo\n✅ BP aur sugar ki dawai jaari\n\n*Kyun zaroori:*\n85% cases mein koi serious baat nahi hoti. Lekin aap ki age + family history dekhte hue — 6 mein se 1 case uterus ke cancer ka hota hai. Jaldi pakadne pe chhoti si surgery se theek; der hone pe ilaaj mushkil.\n\n⚕ Advisory — Dr Priya Nair`
+  en:`*Urgent health update — please read carefully*\n\nBleeding after menopause is never normal and must be properly investigated.\n\nThe tablet you were given (Norethisterone) can hide a serious cause. We need to stop it today and do two quick tests:\n\n*This week:*\nUltrasound of the uterus (TVS) — painless, 20 minutes\nSmall sample from the uterus (biopsy) — office procedure, no anaesthesia\nMammography — overdue by 3 years\n\n*Medicine changes:*\n✗ STOP Norethisterone immediately — do not take any more tablets\n✓ Blood pressure and sugar: continue current medicines, recheck today\n\n*Why this is important:*\nMost cases turn out to be benign — but in women your age with these risk factors, 1 in 6 cases of bleeding after menopause is due to a cancer of the uterus. Catching it early means simple surgery; delaying can change the options significantly.\n\n⚕ Advisory — Dr Priya Nair · NAVA Clinical Intelligence`,
+  hi:`*Zaroori sehat ki jaankari*\n\nMenopause ke baad bleeding kabhi bhi normal nahi hoti — iski proper jaanch honi chahiye.\n\nJo tablet di gayi thi (Norethisterone), woh asli wajah ko chhupa sakti hai. Aaj isse band karna hai aur do jaldi test karvane hain:\n\n*Is hafte:*\nUterus ka ultrasound (TVS) — 20 minute, dard nahi\nUterus se chota sample (biopsy) — clinic mein, anaesthesia nahi\nMammography — 3 saal se nahi hui\n\n*Dawai:*\n✗ Norethisterone ABHI band karo\n✓ BP aur sugar ki dawai jaari\n\n*Kyun zaroori:*\n85% cases mein koi serious baat nahi hoti. Lekin aap ki age + family history dekhte hue — 6 mein se 1 case uterus ke cancer ka hota hai. Jaldi pakadne pe chhoti si surgery se theek; der hone pe ilaaj mushkil.\n\n⚕ Advisory — Dr Priya Nair`
 }
 ,
 // ──────── 5: NEHA (GYNAE) ────────
 {
   name:'Neha Kapoor', specialty:'gynaecology', room:'Rm 7', chief:'Irregular periods, weight gain, hair loss', flagLevel:'warn', flagText:'PCOS+',
-  meta:'28yr · Female · 76 kg · Delhi · Married 2 yrs', bg:'#F5D8E0', avatar:'👩',
+  meta:'28yr · Female · 76 kg · Delhi · Married 2 yrs', bg:'#F5D8E0', avatar:'NK',
   pills:['BMI 30','PCOS diagnosed 2022','TTC × 14 mo','OCP × 2 yrs'],
   history:[
     {date:'2019',label:'Irregular cycles started',detail:'Post-college weight gain. Cycles every 40–65 days. 2–3 cycles per year missed entirely.',type:''},
@@ -2102,7 +2102,7 @@ const CASES_DATA = [
     {p:18,n:'Subclinical Hypothyroidism (TSH 3.4)',w:'TSH upper-normal. Ideally <2.5 for conception planning. Anti-TPO not measured. May contribute to menstrual irregularity and TTC difficulty.',c:'#B08840',b:'18%',t:'possible'},
     {p:15,n:'Non-classical CAH (21-hydroxylase)',w:'Differential for hyperandrogenism + oligomenorrhoea in young women. 17-OH progesterone not done — should be checked at least once to exclude.',c:'#8A7060',b:'15%',t:'unlikely'}
   ],
-  cantmiss:['🚨 Diane-35 prescribed for 2 years to a young woman wanting to conceive — contraception is not treatment for PCOS-related infertility. Wrong intervention for her actual goal.','Metabolic workup NEVER done at PCOS diagnosis — 3 years of missed insulin resistance, pre-diabetes, and cardiometabolic risk monitoring. Sister also has PCOS + IVF failures — strong familial pattern.','Ovulation status not assessed in 14 months of TTC. Male factor not evaluated. Couple-centric infertility workup missing entirely.'],
+  cantmiss:['Diane-35 prescribed for 2 years to a young woman wanting to conceive — contraception is not treatment for PCOS-related infertility. Wrong intervention for her actual goal.','Metabolic workup NEVER done at PCOS diagnosis — 3 years of missed insulin resistance, pre-diabetes, and cardiometabolic risk monitoring. Sister also has PCOS + IVF failures — strong familial pattern.','Ovulation status not assessed in 14 months of TTC. Male factor not evaluated. Couple-centric infertility workup missing entirely.'],
   treatment:{
     title:'AI Treatment — PCOS with Infertility + Metabolic Dysfunction',
     lines:[
@@ -2121,9 +2121,9 @@ const CASES_DATA = [
     {when:'ONGOING',cls:'ongoing',action:'Cardiometabolic surveillance',detail:'HbA1c + BP every 6 months. Annual lipid profile. Long-term T2DM risk regardless of conception outcome.'}
   ],
   research:[
-    {source:'International PCOS Guideline 2023 (ESHRE + ASRM + Monash)',geo:'🌐 Global',finding:'Letrozole is first-line ovulation induction in PCOS — replaces Clomiphene',detail:'2023 update: Letrozole has higher live birth rate (RR 1.42), lower multiple pregnancy rate than Clomiphene. Metformin adjunct in all PCOS with BMI >25 or pre-diabetes.',ddx:['PCOS','Anovulatory Infertility']},
-    {source:'FOGSI PCOS Consensus 2022',geo:'🇮🇳 India',finding:'Indian PCOS prevalence 9.13% — higher among urban women. Metabolic phenotype more prevalent than in Western cohorts',detail:'FOGSI: metabolic workup mandatory at diagnosis. OGTT + lipids + LFT + USG abdomen. Indian women develop T2DM earlier and at lower BMI than Caucasian counterparts.',ddx:['PCOS']},
-    {source:'AIIMS Reproductive Endo — PCOS + Infertility Outcomes 2021',geo:'🇮🇳 India',finding:'OCPs prescribed to TTC patients delay diagnosis and treatment by average 18 months',detail:'AIIMS retrospective: 62% of PCOS + infertility patients were initially given OCPs for "cycle regulation". Median diagnostic delay 18 months from start of TTC to first ovulation induction.',ddx:['PCOS','Anovulatory Infertility']}
+    {source:'International PCOS Guideline 2023 (ESHRE + ASRM + Monash)',geo:'Global',finding:'Letrozole is first-line ovulation induction in PCOS — replaces Clomiphene',detail:'2023 update: Letrozole has higher live birth rate (RR 1.42), lower multiple pregnancy rate than Clomiphene. Metformin adjunct in all PCOS with BMI >25 or pre-diabetes.',ddx:['PCOS','Anovulatory Infertility']},
+    {source:'FOGSI PCOS Consensus 2022',geo:'India',finding:'Indian PCOS prevalence 9.13% — higher among urban women. Metabolic phenotype more prevalent than in Western cohorts',detail:'FOGSI: metabolic workup mandatory at diagnosis. OGTT + lipids + LFT + USG abdomen. Indian women develop T2DM earlier and at lower BMI than Caucasian counterparts.',ddx:['PCOS']},
+    {source:'AIIMS Reproductive Endo — PCOS + Infertility Outcomes 2021',geo:'India',finding:'OCPs prescribed to TTC patients delay diagnosis and treatment by average 18 months',detail:'AIIMS retrospective: 62% of PCOS + infertility patients were initially given OCPs for "cycle regulation". Median diagnostic delay 18 months from start of TTC to first ovulation induction.',ddx:['PCOS','Anovulatory Infertility']}
   ],
   finance:{
     patientEstimate:'₹45,000 – ₹1,60,000',
@@ -2160,14 +2160,14 @@ const CASES_DATA = [
     {type:'diff-class',name:'Gonadotrophins (Recombinant FSH — Gonal-F, Puregon)',salt:'rFSH',class:'Injectable gonadotrophin',dose:'75–150 IU SC daily × 7–10 days',price:'₹1,800–3,200 per 75 IU vial',reason:'Completely different mechanism — direct FSH stimulation. Reserved for Letrozole/Clomiphene failure. Requires IVF-clinic-level monitoring (TVS + oestradiol to prevent OHSS).',switchNote:'Third-line after oral agents fail. Must be in specialist setting. Cost-prohibitive for routine OPD use.',evidence:'ESHRE 2023: gonadotrophins + TVS monitoring for Clomiphene-resistant PCOS.'},
     {type:'adjunct',name:'Dietitian + structured exercise programme',salt:'Lifestyle intervention',class:'Non-pharmacological',dose:'Individualised; 150 min moderate exercise/wk',price:'₹1,000–2,000 per dietitian visit',reason:'Most important long-term intervention. 5–10% weight loss alone restores ovulation in 40–50% of obese PCOS. Should be paired with every pharmacological intervention — not an alternative to medication.',switchNote:'Always co-prescribed. Regular dietitian follow-ups improve adherence. Consider referral to a structured PCOS programme if available.',evidence:'ESHRE 2023: lifestyle intervention first-line in all PCOS regardless of BMI; stronger effect in obese patients.'}
   ],
-  en:`*Health update — Neha Kapoor*\n\nAfter a careful review of your notes:\n\nYour PCOS is real, but the medicine you were on (Diane-35 / birth control) was the wrong choice for someone wanting to conceive. We need to shift treatment now.\n\n*Why your periods are irregular:*\nYour body has insulin resistance — this drives the PCOS. Simply getting periods back with hormones is not enough if the goal is to have a baby.\n\n*New plan (starts this week):*\n✅ Metformin — addresses the root cause\n✅ Weight loss: 5–10% over 6 months (we will give you a dietitian plan)\n✅ TSH, AMH, insulin levels — all tested this week\n✅ Husband needs a semen test — this is mandatory for couples trying to conceive\n\n*After 3 months:*\n💊 Letrozole tablets to help ovulation (better than older Clomid)\n\n*Longer term:*\nBlood sugar and cholesterol monitoring every 6 months — your family history of diabetes is a strong risk.\n\n⚕ Advisory — Dr Priya Nair · NAVA Clinical Intelligence`,
-  hi:`*Neha Kapoor ke liye update*\n\nPoori history dekh ke:\n\nAap ka PCOS genuine hai, lekin jo dawai di gayi thi (Diane-35) woh baby plan karne ke liye sahi nahi thi. Ab ilaaj badalna hai.\n\n*Irregular periods ki asli wajah:*\nInsulin resistance — yehi PCOS ka root cause hai.\n\n*Naya plan (is hafte):*\n✅ Metformin shuru\n✅ Weight loss — 6 mahine mein 5–10% (dietitian help karegi)\n✅ AMH, insulin, TSH test karwao\n✅ Pati ka semen test — bahut zaroori\n\n*3 mahine baad:*\n💊 Letrozole — ovulation ke liye\n\n*Lambe samay ke liye:*\n6 mahine mein BP aur sugar check — mummy ka diabetes hai, risk zyada.\n\n⚕ Advisory — Dr Priya Nair`
+  en:`*Health update — Neha Kapoor*\n\nAfter a careful review of your notes:\n\nYour PCOS is real, but the medicine you were on (Diane-35 / birth control) was the wrong choice for someone wanting to conceive. We need to shift treatment now.\n\n*Why your periods are irregular:*\nYour body has insulin resistance — this drives the PCOS. Simply getting periods back with hormones is not enough if the goal is to have a baby.\n\n*New plan (starts this week):*\n✓ Metformin — addresses the root cause\n✓ Weight loss: 5–10% over 6 months (we will give you a dietitian plan)\n✓ TSH, AMH, insulin levels — all tested this week\n✓ Husband needs a semen test — this is mandatory for couples trying to conceive\n\n*After 3 months:*\n℞ Letrozole tablets to help ovulation (better than older Clomid)\n\n*Longer term:*\nBlood sugar and cholesterol monitoring every 6 months — your family history of diabetes is a strong risk.\n\n⚕ Advisory — Dr Priya Nair · NAVA Clinical Intelligence`,
+  hi:`*Neha Kapoor ke liye update*\n\nPoori history dekh ke:\n\nAap ka PCOS genuine hai, lekin jo dawai di gayi thi (Diane-35) woh baby plan karne ke liye sahi nahi thi. Ab ilaaj badalna hai.\n\n*Irregular periods ki asli wajah:*\nInsulin resistance — yehi PCOS ka root cause hai.\n\n*Naya plan (is hafte):*\n✓ Metformin shuru\n✓ Weight loss — 6 mahine mein 5–10% (dietitian help karegi)\n✓ AMH, insulin, TSH test karwao\n✓ Pati ka semen test — bahut zaroori\n\n*3 mahine baad:*\n℞ Letrozole — ovulation ke liye\n\n*Lambe samay ke liye:*\n6 mahine mein BP aur sugar check — mummy ka diabetes hai, risk zyada.\n\n⚕ Advisory — Dr Priya Nair`
 }
 ,
 // ──────── 6: PRIYA & ROHIT SHARMA (FERTILITY) ────────
 {
   name:'Priya & Rohit Sharma', specialty:'fertility', room:'Rm 1', chief:'Primary infertility × 3 yrs', flagLevel:'warn', flagText:'Male factor?',
-  meta:'Couple · Priya 32F · Rohit 34M · Mumbai · Married 4 yrs', bg:'#D8EADF', avatar:'👫',
+  meta:'Couple · Priya 32F · Rohit 34M · Mumbai · Married 4 yrs', bg:'#D8EADF', avatar:'P·R',
   pills:['TTC 3 yrs','AMH 2.1 ng/mL','1 early miscarriage','Regular cycles'],
   partner:{
     name:'Rohit Sharma', age:'34M', role:'Husband',
@@ -2228,7 +2228,7 @@ const CASES_DATA = [
     {l:'Priya HSG',v:'NOT DONE',cls:'bad'},
     {l:'Priya Endo screen',v:'NOT DONE — dysmenorrhoea present',cls:'warn'},
     {l:'Karyotype (both)',v:'NOT DONE after miscarriage',cls:'warn'},
-    {l:'ROHIT Semen analysis',v:'🚨 NEVER DONE in 3 yrs',cls:'bad'},
+    {l:'ROHIT Semen analysis',v:'NEVER DONE in 3 yrs',cls:'bad'},
     {l:'ROHIT Hormones + Scrotal USG',v:'NEVER DONE',cls:'bad'}
   ],
   meds:[{l:'Priya — Folic acid 5mg',v:'OD — appropriate for pre-conception',cls:'ok'},{l:'Priya — Vitamin D 60K',v:'Monthly — appropriate',cls:'ok'},{l:'Rohit — nothing',v:'No supplementation despite fertility-modifiable factors',cls:'warn'}],
@@ -2238,7 +2238,7 @@ const CASES_DATA = [
     {p:28,n:'Tubal factor (blocked tubes, hydrosalpinx)',w:'HSG never done in 3 years of TTC. 10–15% of female factor infertility. Mandatory baseline investigation — should have been done at year 1.',c:'#B08840',b:'28%',t:'possible'},
     {p:12,n:'Recurrent Pregnancy Loss (RPL) factors',w:'1 early miscarriage at 7 wks — does not yet meet RPL criteria (requires 2+). But karyotype + APL screen still reasonable given 3 yrs TTC trajectory.',c:'#8A7060',b:'12%',t:'unlikely'}
   ],
-  cantmiss:['🚨 Three years of couple TTC and Rohit has NEVER had a semen analysis. This is the single biggest gap in their workup. Cost: ₹600–1,200. Mandatory BEFORE any IUI decision.','Recommending IUI without semen parameters is clinically indefensible — IUI success depends heavily on total motile sperm count (TMSC >5M typically required).','Priya\'s dysmenorrhoea + maternal endometriosis history never investigated. Diagnostic laparoscopy may uncover silent endometriosis — changes treatment strategy entirely.'],
+  cantmiss:['Three years of couple TTC and Rohit has NEVER had a semen analysis. This is the single biggest gap in their workup. Cost: ₹600–1,200. Mandatory BEFORE any IUI decision.','Recommending IUI without semen parameters is clinically indefensible — IUI success depends heavily on total motile sperm count (TMSC >5M typically required).','Priya\'s dysmenorrhoea + maternal endometriosis history never investigated. Diagnostic laparoscopy may uncover silent endometriosis — changes treatment strategy entirely.'],
   treatment:{
     title:'AI Treatment — Couple Fertility Workup (Complete)',
     lines:[
@@ -2257,9 +2257,9 @@ const CASES_DATA = [
     {when:'MONTH 6',cls:'routine',action:'Escalate to IVF-ICSI if IUI unsuccessful',detail:'Or straight to IVF if semen parameters warrant (severe oligospermia, high DFI, bilateral tubal factor).'}
   ],
   research:[
-    {source:'ISAR Guidelines for Male Infertility 2022',geo:'🇮🇳 India',finding:'Semen analysis is mandatory at FIRST infertility consultation — not deferred',detail:'Indian Society for Assisted Reproduction 2022: WHO-standardised semen analysis should be done at first presentation of couple infertility, regardless of female workup status. 3 years TTC without semen analysis is a textbook violation.',ddx:['Male Factor Infertility','Couple Infertility']},
-    {source:'ESHRE Guideline — Unexplained Infertility 2023',geo:'🇪🇺 Europe',finding:'IUI should not be offered without normal semen analysis',detail:'ESHRE 2023: TMSC <5M on post-wash is associated with <5% live birth per IUI cycle — direct IVF recommended. Offering IUI without knowing TMSC is uninformed recommendation.',ddx:['Couple Infertility']},
-    {source:'WHO Semen Analysis 6th Ed 2021',geo:'🌐 Global',finding:'Normal reference: volume ≥1.4mL · concentration ≥16M/mL · progressive motility ≥30% · morphology ≥4%',detail:'Updated WHO 2021 reference values. Indian labs have transitioned from 2010 to 2021 criteria in most Tier 1 centres. Normal ranges tighter than 2010 edition.',ddx:['Male Factor Infertility']}
+    {source:'ISAR Guidelines for Male Infertility 2022',geo:'India',finding:'Semen analysis is mandatory at FIRST infertility consultation — not deferred',detail:'Indian Society for Assisted Reproduction 2022: WHO-standardised semen analysis should be done at first presentation of couple infertility, regardless of female workup status. 3 years TTC without semen analysis is a textbook violation.',ddx:['Male Factor Infertility','Couple Infertility']},
+    {source:'ESHRE Guideline — Unexplained Infertility 2023',geo:' Europe',finding:'IUI should not be offered without normal semen analysis',detail:'ESHRE 2023: TMSC <5M on post-wash is associated with <5% live birth per IUI cycle — direct IVF recommended. Offering IUI without knowing TMSC is uninformed recommendation.',ddx:['Couple Infertility']},
+    {source:'WHO Semen Analysis 6th Ed 2021',geo:'Global',finding:'Normal reference: volume ≥1.4mL · concentration ≥16M/mL · progressive motility ≥30% · morphology ≥4%',detail:'Updated WHO 2021 reference values. Indian labs have transitioned from 2010 to 2021 criteria in most Tier 1 centres. Normal ranges tighter than 2010 edition.',ddx:['Male Factor Infertility']}
   ],
   finance:{
     patientEstimate:'₹55,000 – ₹4,80,000 (couple, through 1 IVF cycle)',
@@ -2294,14 +2294,14 @@ const CASES_DATA = [
     {type:'diff-class',name:'IVF with ICSI',salt:'Couple procedure',class:'Assisted Reproduction',dose:'1–3 cycles typically',price:'₹1,40,000–2,50,000 per cycle',reason:'ICSI (intracytoplasmic sperm injection) bypasses low sperm count, poor motility, or high DFI. First-line for moderate-severe male factor or failed IUI.',switchNote:'Consider straight to IVF-ICSI if TMSC <5M or DFI >30% or maternal endometriosis severe. Skips 3 wasted IUI cycles.',evidence:'Indian ART data: IVF-ICSI success rate 35–45% per cycle in this age group. Cost-per-live-birth often lower than sequential IUI attempts in poor-prognosis couples.'},
     {type:'adjunct',name:'Folate 5mg + Vit D + Omega-3 (both partners)',salt:'Nutritional adjunct',class:'Pre-conception supplementation',dose:'Folate 5mg OD (her), 1mg OD (him); Vit D + Omega-3 both',price:'₹200–500 / month per person',reason:'Pre-conception nutrition proven to improve conception rates and reduce pregnancy complications. Male folate deficiency also linked to sperm DNA damage.',switchNote:'Mandatory baseline — both partners. Continue throughout workup and treatment.',evidence:'Cochrane: preconception folate reduces neural tube defects. Small RCTs: male folate + zinc improve semen parameters modestly.'}
   ],
-  en:`*Update for Priya & Rohit*\n\nThank you for sharing your full history as a couple — this changes our approach.\n\n*The key gap:*\nThree years of trying, and we have done extensive tests on Priya but not yet on Rohit. Nearly half of all couple infertility involves a male factor — we must complete that workup this week before any treatment.\n\n*This week — both of you:*\n🔬 Rohit — semen analysis (2 samples, 4 weeks apart)\n🔬 Rohit — scrotal ultrasound + hormones\n🔬 Priya — HSG (tubal patency) in your next cycle\n🔬 Karyotype for both (given the miscarriage)\n\n*Lifestyle — starting today (impacts semen in 3 months):*\nRohit: Stop smoking · no laptop on lap · loose underwear · structured exercise\nPriya: Continue folate + vitamin D · pre-conception nutrition\n\n*Decision point — 4 weeks from now:*\nWe will review all results together as a couple and choose the most cost-effective path — expectant, IUI (3 cycles), or directly to IVF. We will NOT recommend IUI without knowing Rohit's results.\n\n⚕ Advisory — Dr Priya Nair · NAVA Clinical Intelligence`,
-  hi:`*Priya aur Rohit ke liye update*\n\nPoori history dekh ke:\n\n*Sabse badi kami:*\n3 saal se try kar rahe ho — Priya ke bahut tests hue, par Rohit ke nahi. Couple infertility ka 40% male factor hota hai. Iska workup is hafte pura karna hai.\n\n*Is hafte — dono:*\n🔬 Rohit — semen test (2 samples, 4 hafte gap)\n🔬 Rohit — scrotal USG + hormones\n🔬 Priya — HSG (tubes ka test) — cycle ke early din\n🔬 Dono ka karyotype\n\n*Lifestyle — aaj se (semen par 3 mahine mein asar):*\nRohit: smoking BAND · laptop lap pe nahi · loose underwear · exercise\nPriya: folate + Vit D jaari\n\n*4 hafte baad:*\nDono ke result dekh ke decide karenge — IUI ya IVF. Rohit ka result jaane bina IUI recommend nahi karenge.\n\n⚕ Advisory — Dr Priya Nair`
+  en:`*Update for Priya & Rohit*\n\nThank you for sharing your full history as a couple — this changes our approach.\n\n*The key gap:*\nThree years of trying, and we have done extensive tests on Priya but not yet on Rohit. Nearly half of all couple infertility involves a male factor — we must complete that workup this week before any treatment.\n\n*This week — both of you:*\nRohit — semen analysis (2 samples, 4 weeks apart)\nRohit — scrotal ultrasound + hormones\nPriya — HSG (tubal patency) in your next cycle\nKaryotype for both (given the miscarriage)\n\n*Lifestyle — starting today (impacts semen in 3 months):*\nRohit: Stop smoking · no laptop on lap · loose underwear · structured exercise\nPriya: Continue folate + vitamin D · pre-conception nutrition\n\n*Decision point — 4 weeks from now:*\nWe will review all results together as a couple and choose the most cost-effective path — expectant, IUI (3 cycles), or directly to IVF. We will NOT recommend IUI without knowing Rohit's results.\n\n⚕ Advisory — Dr Priya Nair · NAVA Clinical Intelligence`,
+  hi:`*Priya aur Rohit ke liye update*\n\nPoori history dekh ke:\n\n*Sabse badi kami:*\n3 saal se try kar rahe ho — Priya ke bahut tests hue, par Rohit ke nahi. Couple infertility ka 40% male factor hota hai. Iska workup is hafte pura karna hai.\n\n*Is hafte — dono:*\nRohit — semen test (2 samples, 4 hafte gap)\nRohit — scrotal USG + hormones\nPriya — HSG (tubes ka test) — cycle ke early din\nDono ka karyotype\n\n*Lifestyle — aaj se (semen par 3 mahine mein asar):*\nRohit: smoking BAND · laptop lap pe nahi · loose underwear · exercise\nPriya: folate + Vit D jaari\n\n*4 hafte baad:*\nDono ke result dekh ke decide karenge — IUI ya IVF. Rohit ka result jaane bina IUI recommend nahi karenge.\n\n⚕ Advisory — Dr Priya Nair`
 }
 ,
 // ──────── 7: ANJALI & VIKRAM PATEL (FERTILITY) ────────
 {
   name:'Anjali & Vikram Patel', specialty:'fertility', room:'Rm 8', chief:'Secondary infertility × 4.5 yrs', flagLevel:'warn', flagText:'Low AMH + endo',
-  meta:'Couple · Anjali 38F · Vikram 40M · Ahmedabad · Married 10 yrs', bg:'#D8EADF', avatar:'👫',
+  meta:'Couple · Anjali 38F · Vikram 40M · Ahmedabad · Married 10 yrs', bg:'#D8EADF', avatar:'A·V',
   pills:['TTC 4.5 yrs','AMH 0.9 ng/mL — LOW','Endometriosis (laparoscopy 2022)','3 IUI failures'],
   partner:{
     name:'Vikram Patel', age:'40M', role:'Husband',
@@ -2376,7 +2376,7 @@ const CASES_DATA = [
     {p:40,n:'Severe Male Factor (DFI-driven)',w:'DFI 34% independently predicts miscarriage and IVF failure. Varicocele repair has 30–40% DFI reduction potential — worth considering before IVF.',c:'#B08840',b:'40%',t:'possible'},
     {p:15,n:'Immunological / RPL factors (unexplored)',w:'3 IUI failures without pregnancy. Antiphospholipid, NK cells, thrombophilia panels worth considering before IVF to optimise implantation.',c:'#8A7060',b:'15%',t:'unlikely'}
   ],
-  cantmiss:['🚨 AMH 0.9 at 38 is TIME-SENSITIVE. Continuing IUI or expectant management wastes the fertility window — should have been moved to IVF-ICSI 2 years ago.','Vikram\'s DFI 34% was a strong predictor of the 3 IUI failures. Low morphology + high DFI = ICSI indication (not conventional IVF). This was missed in the IUI planning.','A third endometrioma surgery would further compromise ovarian reserve. IVF should precede any further surgical intervention on ovaries.'],
+  cantmiss:['AMH 0.9 at 38 is TIME-SENSITIVE. Continuing IUI or expectant management wastes the fertility window — should have been moved to IVF-ICSI 2 years ago.','Vikram\'s DFI 34% was a strong predictor of the 3 IUI failures. Low morphology + high DFI = ICSI indication (not conventional IVF). This was missed in the IUI planning.','A third endometrioma surgery would further compromise ovarian reserve. IVF should precede any further surgical intervention on ovaries.'],
   treatment:{
     title:'AI Treatment — DOR + Endometriosis + Male Factor → Straight to IVF-ICSI',
     lines:[
@@ -2395,9 +2395,9 @@ const CASES_DATA = [
     {when:'IF SUCCESSFUL',cls:'ongoing',action:'Obstetric follow-up + endometriosis management plan',detail:'Endometriosis may flare post-delivery. Long-term GnRH analog or progestogen therapy after family is complete.'}
   ],
   research:[
-    {source:'ESHRE Ovarian Stimulation Guideline 2023',geo:'🇪🇺 Europe',finding:'DuoStim protocol recommended for poor responders (AMH <1.2)',detail:'Two stimulations (follicular + luteal phase) in same cycle doubles oocyte yield for low-AMH patients. Freeze-all + frozen transfer recommended to decouple stimulation stress from implantation.',ddx:['DOR','Poor Ovarian Response']},
-    {source:'ISAR Male Infertility — DFI Guidelines 2022',geo:'🇮🇳 India',finding:'DFI >30% warrants intervention before ART — varicocele repair + antioxidants',detail:'ISAR 2022: varicocelectomy reduces DFI by 30–40% within 3 months. Combined with antioxidants, improves IVF live birth rates by ~15%. DFI testing should be standard in any couple with ≥2 IVF/IUI failures.',ddx:['Male Factor','Severe Male Factor']},
-    {source:'FIGO Endometriosis + Infertility Statement 2021',geo:'🌐 Global',finding:'Repeated ovarian surgery for endometriomas reduces ovarian reserve — IVF should precede 3rd surgery',detail:'FIGO 2021: each endometrioma cystectomy reduces AMH by 30–40%. Patients should be counselled about ART alternatives before repeat surgery in unilateral or bilateral recurrence.',ddx:['Endometriosis','DOR']}
+    {source:'ESHRE Ovarian Stimulation Guideline 2023',geo:' Europe',finding:'DuoStim protocol recommended for poor responders (AMH <1.2)',detail:'Two stimulations (follicular + luteal phase) in same cycle doubles oocyte yield for low-AMH patients. Freeze-all + frozen transfer recommended to decouple stimulation stress from implantation.',ddx:['DOR','Poor Ovarian Response']},
+    {source:'ISAR Male Infertility — DFI Guidelines 2022',geo:'India',finding:'DFI >30% warrants intervention before ART — varicocele repair + antioxidants',detail:'ISAR 2022: varicocelectomy reduces DFI by 30–40% within 3 months. Combined with antioxidants, improves IVF live birth rates by ~15%. DFI testing should be standard in any couple with ≥2 IVF/IUI failures.',ddx:['Male Factor','Severe Male Factor']},
+    {source:'FIGO Endometriosis + Infertility Statement 2021',geo:'Global',finding:'Repeated ovarian surgery for endometriomas reduces ovarian reserve — IVF should precede 3rd surgery',detail:'FIGO 2021: each endometrioma cystectomy reduces AMH by 30–40%. Patients should be counselled about ART alternatives before repeat surgery in unilateral or bilateral recurrence.',ddx:['Endometriosis','DOR']}
   ],
   finance:{
     patientEstimate:'₹3,80,000 – ₹8,50,000 (couple, 2 IVF cycles + varicocele + PGT-A)',
@@ -2431,8 +2431,8 @@ const CASES_DATA = [
     {type:'adjunct',name:'DHEA 75mg/day + CoQ10 600mg/day (Anjali)',salt:'Ovarian reserve adjunct',class:'Supplement',dose:'DHEA 25mg TDS × 3 mo pre-IVF',price:'₹1,200–2,000 per month',reason:'Pre-IVF adjunct for poor responders. Small-moderate evidence base. May increase oocyte yield and quality in DOR patients. Start 3 months before stimulation.',switchNote:'Off-label use — endocrinology consultation recommended. Not for PCOS (androgen load). Monitor testosterone + DHEAS.',evidence:'CoCoON trial + multiple smaller RCTs: DHEA + CoQ10 modestly improve oocyte yield in DOR. Effect size debated.'},
     {type:'adjunct',name:'PGT-A (Pre-implantation Genetic Testing for Aneuploidy)',salt:'Embryo biopsy + genetic screen',class:'Lab procedure',dose:'Day 5 blastocyst biopsy',price:'₹50,000–90,000 per cycle',reason:'At age 38, aneuploidy rate in embryos is ~40–50%. PGT-A selects euploid embryos preferentially — reduces miscarriage + time to live birth. Strong indication here given age + DFI.',switchNote:'Not a replacement for IVF — a testing adjunct within IVF. Requires blastocyst-stage embryos (not all cycles produce these).',evidence:'ESHRE 2023: PGT-A reduces miscarriage and increases live birth per transfer in women >35. STAR trial + Indian data confirm benefit.'}
   ],
-  en:`*Update for Anjali & Vikram*\n\nAfter reviewing 4.5 years of workup:\n\n*The honest picture:*\n- Anjali's ovarian reserve (AMH 0.9 at age 38) is low — we don't have time for more IUI cycles.\n- Vikram's DFI (sperm DNA damage) at 34% explains why the 3 IUI cycles failed.\n- Another surgery for endometriosis would further reduce Anjali's egg count.\n\n*The right path — IVF-ICSI with some prep:*\n\n*For Vikram (next 3 months):*\n🏥 Varicocele repair (day-care procedure)\n💊 Antioxidant capsules (L-Carnitine + CoQ10 + Vit E + Zinc)\n😴 Sleep 7+ hrs nightly · limit travel if possible\n\n*For Anjali (month 1–3):*\n🛑 Stop Dienogest (4 weeks before stims)\n🔬 Pre-IVF labs (thrombophilia, APL, thyroid)\n\n*IVF cycle — month 3–4:*\n💊 DuoStim protocol (double stimulation, more eggs)\n❄️ Freeze all embryos, test for chromosomes (PGT-A)\n🤰 Transfer best embryo in prepared cycle\n\n*Realistic expectations:*\nAt age 38 with AMH 0.9, our cumulative live-birth chance over 2 IVF cycles is 40–50%. Honest numbers — but materially better than continued IUI, which would likely fail again.\n\n⚕ Advisory — Dr Priya Nair · NAVA Clinical Intelligence`,
-  hi:`*Anjali aur Vikram ke liye update*\n\n4.5 saal ki history dekh ke seedhi baat:\n\n*Asli picture:*\n- Anjali ki AMH 0.9 at 38 — eggs kam ho rahe hain, time kam hai.\n- Vikram ki DFI 34% (sperm DNA damage) — isi wajah se 3 IUI fail hue.\n- Endometriosis ki ek aur surgery karne se aur eggs kam ho jayenge.\n\n*Sahi raasta — IVF-ICSI (kuch preparation ke saath):*\n\n*Vikram ke liye (3 mahine):*\n🏥 Varicocele ki surgery (day-care)\n💊 Antioxidant capsules\n😴 7+ ghante ki neend · kam travel\n\n*Anjali ke liye (1–3 mahine):*\n🛑 Dienogest band (4 hafte pehle)\n🔬 Pre-IVF tests\n\n*IVF cycle — 3–4 mahine mein:*\n💊 DuoStim protocol (zyada eggs)\n❄️ Sabhi embryos freeze, genetic test (PGT-A)\n🤰 Sabse accha embryo transfer\n\n*Sachchi expectation:*\nAap ki age aur AMH dekhte hue, 2 IVF cycles mein baby hone ka chance 40–50%. IUI jaari rakhne se zyada acha.\n\n⚕ Advisory — Dr Priya Nair`
+  en:`*Update for Anjali & Vikram*\n\nAfter reviewing 4.5 years of workup:\n\n*The honest picture:*\n- Anjali's ovarian reserve (AMH 0.9 at age 38) is low — we don't have time for more IUI cycles.\n- Vikram's DFI (sperm DNA damage) at 34% explains why the 3 IUI cycles failed.\n- Another surgery for endometriosis would further reduce Anjali's egg count.\n\n*The right path — IVF-ICSI with some prep:*\n\n*For Vikram (next 3 months):*\nVaricocele repair (day-care procedure)\n℞ Antioxidant capsules (L-Carnitine + CoQ10 + Vit E + Zinc)\nSleep 7+ hrs nightly · limit travel if possible\n\n*For Anjali (month 1–3):*\nSTOP: Stop Dienogest (4 weeks before stims)\nPre-IVF labs (thrombophilia, APL, thyroid)\n\n*IVF cycle — month 3–4:*\n℞ DuoStim protocol (double stimulation, more eggs)\nFreeze all embryos, test for chromosomes (PGT-A)\nTransfer best embryo in prepared cycle\n\n*Realistic expectations:*\nAt age 38 with AMH 0.9, our cumulative live-birth chance over 2 IVF cycles is 40–50%. Honest numbers — but materially better than continued IUI, which would likely fail again.\n\n⚕ Advisory — Dr Priya Nair · NAVA Clinical Intelligence`,
+  hi:`*Anjali aur Vikram ke liye update*\n\n4.5 saal ki history dekh ke seedhi baat:\n\n*Asli picture:*\n- Anjali ki AMH 0.9 at 38 — eggs kam ho rahe hain, time kam hai.\n- Vikram ki DFI 34% (sperm DNA damage) — isi wajah se 3 IUI fail hue.\n- Endometriosis ki ek aur surgery karne se aur eggs kam ho jayenge.\n\n*Sahi raasta — IVF-ICSI (kuch preparation ke saath):*\n\n*Vikram ke liye (3 mahine):*\nVaricocele ki surgery (day-care)\n℞ Antioxidant capsules\n7+ ghante ki neend · kam travel\n\n*Anjali ke liye (1–3 mahine):*\nSTOP: Dienogest band (4 hafte pehle)\nPre-IVF tests\n\n*IVF cycle — 3–4 mahine mein:*\n℞ DuoStim protocol (zyada eggs)\nSabhi embryos freeze, genetic test (PGT-A)\nSabse accha embryo transfer\n\n*Sachchi expectation:*\nAap ki age aur AMH dekhte hue, 2 IVF cycles mein baby hone ka chance 40–50%. IUI jaari rakhne se zyada acha.\n\n⚕ Advisory — Dr Priya Nair`
 }
 
 ];
@@ -2447,7 +2447,7 @@ function loadCase(i){
   const isCouple = !!d.partner;
 
   // header
-  const coupleIcon = isCouple ? `<span style="font-size:.55rem;font-weight:700;background:rgba(255,255,255,.15);color:#FAF7F1;padding:3px 8px;border-radius:100px;letter-spacing:.06em;text-transform:uppercase;margin-left:8px;vertical-align:middle">👫 Couple Case</span>` : '';
+  const coupleIcon = isCouple ? `<span style="font-size:.55rem;font-weight:700;background:rgba(255,255,255,.15);color:#FAF7F1;padding:3px 8px;border-radius:100px;letter-spacing:.06em;text-transform:uppercase;margin-left:8px;vertical-align:middle"> Couple Case</span>` : '';
   document.getElementById('case-header').innerHTML = `<div class="ch-name">${d.name}${coupleIcon}</div><div class="ch-meta">${d.meta}</div><div class="ch-pills">${d.pills.map(p=>`<span class="ch-pill">${p}</span>`).join('')}<span class="ch-pill flag">⚠ NAVA Flags</span></div>`;
 
   // body map
@@ -2456,8 +2456,8 @@ function loadCase(i){
   // patient history
   const hi = document.getElementById('info-history');
   hi.style.display='block';
-  const herLabelPill = isCouple ? `<span class="patient-label visible" style="background:#F5D8E0;color:#7A1A4A">👩 Her</span>` : '';
-  hi.querySelector('.ic-head').innerHTML = `📅 Medical & Surgical History ${herLabelPill}`;
+  const herLabelPill = isCouple ? `<span class="patient-label visible" style="background:#F5D8E0;color:#7A1A4A"> Her</span>` : '';
+  hi.querySelector('.ic-head').innerHTML = ` Medical & Surgical History ${herLabelPill}`;
   document.getElementById('history-body').innerHTML = `<div class="history-timeline">${d.history.map(e=>`<div class="ht-event"><div class="ht-dot ${e.type||''}"></div><div class="ht-date">${e.date}</div><div class="ht-event-name">${e.label}</div><div class="ht-detail">${e.detail}</div></div>`).join('')}</div>`;
 
   // family history
@@ -2479,7 +2479,7 @@ function loadCase(i){
   Object.values(herPills).forEach(id=>{
     const el = document.getElementById(id);
     if(el){
-      el.innerHTML = isCouple ? '👩 Her' : '';
+      el.innerHTML = isCouple ? ' Her' : '';
       el.className = 'patient-label' + (isCouple ? ' visible' : '');
     }
   });
@@ -2616,7 +2616,7 @@ function startBlankCase(){
     <div style="text-align:center;padding:36px 20px">
       <div style="font-size:2.2rem;margin-bottom:10px;opacity:.25">✱</div>
       <div style="font-family:var(--serif);font-size:1rem;color:var(--muted);font-style:italic">Blank case ready</div>
-      <div style="font-size:.74rem;color:var(--muted);margin-top:5px;font-weight:300;line-height:1.55">Dictate via 🎙 Transcribe, pull from Scribe,<br>or type case notes to run NAVA.</div>
+      <div style="font-size:.74rem;color:var(--muted);margin-top:5px;font-weight:300;line-height:1.55">Dictate via ◉ Transcribe, pull from Scribe,<br>or type case notes to run NAVA.</div>
     </div>`;
 
   showView('workspace');
@@ -2645,13 +2645,13 @@ function renderPartnerCard(p){
 
   const flagsHTML = (p.navaFlags||[]).map(f => `
     <div class="partner-flag">
-      <div class="partner-flag-icon">🚨</div>
+      <div class="partner-flag-icon">▲</div>
       <div class="partner-flag-text">${f}</div>
     </div>`).join('');
 
   document.getElementById('partner-body').innerHTML = `
     <div class="partner-hero">
-      <div class="partner-avatar">👨</div>
+      <div class="partner-avatar">${p.name ? p.name.split(" ").map(w=>w[0]).slice(0,2).join("") : "—"}</div>
       <div class="partner-id">
         <div class="partner-name">${p.name} · ${p.age}</div>
         <div class="partner-meta">${p.occupation || ''}</div>
@@ -2659,13 +2659,13 @@ function renderPartnerCard(p){
       <span class="partner-role-pill">${p.role}</span>
     </div>
 
-    ${p.lifestyle ? `<div class="partner-section-label">🚬 Lifestyle & Exposure</div><div class="partner-lifestyle">${p.lifestyle}</div>` : ''}
+    ${p.lifestyle ? `<div class="partner-section-label">Lifestyle & Exposure</div><div class="partner-lifestyle">${p.lifestyle}</div>` : ''}
 
-    ${historyHTML ? `<div class="partner-section-label">📅 Male-Factor History</div>${historyHTML}` : ''}
+    ${historyHTML ? `<div class="partner-section-label"> Male-Factor History</div>${historyHTML}` : ''}
 
-    ${labsHTML ? `<div class="partner-section-label">🔬 His Investigations</div>${labsHTML}` : ''}
+    ${labsHTML ? `<div class="partner-section-label">His Investigations</div>${labsHTML}` : ''}
 
-    ${flagsHTML ? `<div class="partner-section-label" style="color:var(--red)">🚨 NAVA Flags — Male Factor</div>${flagsHTML}` : ''}
+    ${flagsHTML ? `<div class="partner-section-label" style="color:var(--red)">NAVA Flags — Male Factor</div>${flagsHTML}` : ''}
   `;
 }
 
@@ -2696,43 +2696,43 @@ async function runNava(){
   let agents;
   if(isFertility){
     agents = [
-      {key:'intake',   icon:'📋', name:'Couple Intake Agent', role:'Reviewing her + his histories', detail:'Reconciling her menstrual/gynae record with his male-factor history and lifestyle exposures.'},
-      {key:'female',   icon:'🌸', name:'Female Factor Agent', role:'Ovarian reserve + tubal + uterine', detail:'Age + AMH + AFC + cycle + previous surgeries. Flagging diminished reserve and endometriosis patterns.'},
-      {key:'male',     icon:'♂️', name:'Male Factor Agent', role:'Semen + DFI + anatomical', detail:'Checking for semen analysis, DFI, varicocele, orchidopexy/mumps history. Gaps flagged.'},
-      {key:'pathway',  icon:'🛤', name:'ART Pathway Agent', role:'IUI vs IVF vs ICSI vs donor', detail:'Running ESHRE/ISAR decision logic against this couple\'s profile.'},
-      {key:'evidence', icon:'📚', name:'Evidence Agent', role:'ESHRE · ISAR · ICMR · WHO', detail:'Cross-referencing guidelines for specific age × AMH × DFI × failed-cycle combination.'},
+      {key:'intake',   icon:'○', name:'Couple Intake Agent', role:'Reviewing her + his histories', detail:'Reconciling her menstrual/gynae record with his male-factor history and lifestyle exposures.'},
+      {key:'female',   icon:'', name:'Female Factor Agent', role:'Ovarian reserve + tubal + uterine', detail:'Age + AMH + AFC + cycle + previous surgeries. Flagging diminished reserve and endometriosis patterns.'},
+      {key:'male',     icon:'', name:'Male Factor Agent', role:'Semen + DFI + anatomical', detail:'Checking for semen analysis, DFI, varicocele, orchidopexy/mumps history. Gaps flagged.'},
+      {key:'pathway',  icon:'→', name:'ART Pathway Agent', role:'IUI vs IVF vs ICSI vs donor', detail:'Running ESHRE/ISAR decision logic against this couple\'s profile.'},
+      {key:'evidence', icon:'', name:'Evidence Agent', role:'ESHRE · ISAR · ICMR · WHO', detail:'Cross-referencing guidelines for specific age × AMH × DFI × failed-cycle combination.'},
       {key:'cost',     icon:'₹',  name:'Cost & Access Agent', role:'Out-of-pocket + staging strategy', detail:'Sequencing workup to avoid premature spend on IUI when IVF-ICSI is indicated.'},
-      {key:'summary',  icon:'🧠', name:'Summary Agent', role:'Synthesising couple plan', detail:'Writing the integrated plan with clear next steps for both partners.'}
+      {key:'summary',  icon:'N', name:'Summary Agent', role:'Synthesising couple plan', detail:'Writing the integrated plan with clear next steps for both partners.'}
     ];
   } else if(isGynae){
     agents = [
-      {key:'intake',   icon:'📋', name:'Intake Agent', role:'Menstrual + reproductive history', detail:'Parsing LMP, cycle pattern, obstetric history, and screening status.'},
-      {key:'redflag',  icon:'🚩', name:'Red-Flag Agent', role:'Cancer + ectopic + pregnancy exclusion', detail:'Running FOGSI + RCOG red-flag triggers — PMB, post-coital bleed, new pelvic mass, missed pregnancy exclusion.'},
-      {key:'hormonal', icon:'⚖️', name:'Endocrine Agent', role:'Hormonal axis + metabolic', detail:'Rotterdam/PCOS criteria, HPO axis, thyroid, insulin resistance, androgen workup.'},
-      {key:'drug',     icon:'💊', name:'Drug Safety Agent', role:'Hormone Rx appropriateness', detail:'Auditing current hormonal prescriptions against patient goal (contraception vs conception vs bleeding control).'},
-      {key:'evidence', icon:'📚', name:'Evidence Agent', role:'FOGSI · RCOG · ESHRE · SGO', detail:'Matching patient profile to guideline-based workup pathways.'},
+      {key:'intake',   icon:'○', name:'Intake Agent', role:'Menstrual + reproductive history', detail:'Parsing LMP, cycle pattern, obstetric history, and screening status.'},
+      {key:'redflag',  icon:'▲', name:'Red-Flag Agent', role:'Cancer + ectopic + pregnancy exclusion', detail:'Running FOGSI + RCOG red-flag triggers — PMB, post-coital bleed, new pelvic mass, missed pregnancy exclusion.'},
+      {key:'hormonal', icon:'', name:'Endocrine Agent', role:'Hormonal axis + metabolic', detail:'Rotterdam/PCOS criteria, HPO axis, thyroid, insulin resistance, androgen workup.'},
+      {key:'drug',     icon:'℞', name:'Drug Safety Agent', role:'Hormone Rx appropriateness', detail:'Auditing current hormonal prescriptions against patient goal (contraception vs conception vs bleeding control).'},
+      {key:'evidence', icon:'', name:'Evidence Agent', role:'FOGSI · RCOG · ESHRE · SGO', detail:'Matching patient profile to guideline-based workup pathways.'},
       {key:'cost',     icon:'₹',  name:'Cost & Access Agent', role:'Patient spend + hospital capture', detail:'Mapping diagnostic vs therapeutic costs, insurance applicability, PMJAY eligibility.'},
-      {key:'summary',  icon:'🧠', name:'Summary Agent', role:'Synthesising pathway', detail:'Writing the prioritised care plan with timelines.'}
+      {key:'summary',  icon:'N', name:'Summary Agent', role:'Synthesising pathway', detail:'Writing the prioritised care plan with timelines.'}
     ];
   } else if(isPaeds){
     agents = [
-      {key:'intake',   icon:'📋', name:'Paediatric Intake Agent', role:'Weight-for-age + vaccination + chronicity', detail:'Growth percentile, vaccination completeness, duration-adjusted symptom review.'},
-      {key:'redflag',  icon:'🚩', name:'Red-Flag Agent', role:'Paediatric-specific alarm features', detail:'IAP + NICE red-flag protocols for age group. Weight loss, persistent fever, neuro signs.'},
-      {key:'dosing',   icon:'⚖️', name:'Weight-Based Dosing Agent', role:'Paediatric pharmacology', detail:'Validating every current prescription by mg/kg/day. Flagging sub-therapeutic or unsafe doses.'},
-      {key:'drug',     icon:'💊', name:'Drug Safety Agent', role:'Contraindications + redundancy', detail:'Multiple antibiotic courses, NSAID appropriateness, adverse effect risk in paediatrics.'},
-      {key:'evidence', icon:'📚', name:'Evidence Agent', role:'IAP · WHO · NICE · AAP', detail:'Cross-checking ICMR/IAP paediatric guidelines for the presenting syndrome.'},
+      {key:'intake',   icon:'○', name:'Paediatric Intake Agent', role:'Weight-for-age + vaccination + chronicity', detail:'Growth percentile, vaccination completeness, duration-adjusted symptom review.'},
+      {key:'redflag',  icon:'▲', name:'Red-Flag Agent', role:'Paediatric-specific alarm features', detail:'IAP + NICE red-flag protocols for age group. Weight loss, persistent fever, neuro signs.'},
+      {key:'dosing',   icon:'', name:'Weight-Based Dosing Agent', role:'Paediatric pharmacology', detail:'Validating every current prescription by mg/kg/day. Flagging sub-therapeutic or unsafe doses.'},
+      {key:'drug',     icon:'℞', name:'Drug Safety Agent', role:'Contraindications + redundancy', detail:'Multiple antibiotic courses, NSAID appropriateness, adverse effect risk in paediatrics.'},
+      {key:'evidence', icon:'', name:'Evidence Agent', role:'IAP · WHO · NICE · AAP', detail:'Cross-checking ICMR/IAP paediatric guidelines for the presenting syndrome.'},
       {key:'cost',     icon:'₹',  name:'Cost & Access Agent', role:'Family burden + government schemes', detail:'RNTCP/NTEP applicability, paediatric PMJAY, specialist access.'},
-      {key:'summary',  icon:'🧠', name:'Summary Agent', role:'Synthesising plan', detail:'Writing an age-appropriate, parent-facing plan with clear red-flag thresholds.'}
+      {key:'summary',  icon:'N', name:'Summary Agent', role:'Synthesising plan', detail:'Writing an age-appropriate, parent-facing plan with clear red-flag thresholds.'}
     ];
   } else {
     agents = [
-      {key:'intake',   icon:'📋', name:'Intake Agent', role:'History + timeline reconciliation', detail:'Parsing chief complaint, duration, prior visits, and chronological evolution.'},
-      {key:'redflag',  icon:'🚩', name:'Red-Flag Agent', role:'Can\'t-miss diagnoses', detail:'Screening for time-critical diagnoses given presentation and risk factors.'},
-      {key:'drug',     icon:'💊', name:'Drug Safety Agent', role:'Contraindications + interactions', detail:'Auditing current prescriptions against renal, hepatic, cardiac status and patient comorbidities.'},
-      {key:'evidence', icon:'📚', name:'Evidence Agent', role:'ICMR · WHO · ESC · AHA · KDIGO', detail:'Cross-referencing Indian + global guidelines for the suspected differential.'},
-      {key:'family',   icon:'🧬', name:'Family History Agent', role:'Hereditary risk modifiers', detail:'Adjusting risk profile based on first-degree and second-degree relative patterns.'},
+      {key:'intake',   icon:'○', name:'Intake Agent', role:'History + timeline reconciliation', detail:'Parsing chief complaint, duration, prior visits, and chronological evolution.'},
+      {key:'redflag',  icon:'▲', name:'Red-Flag Agent', role:'Can\'t-miss diagnoses', detail:'Screening for time-critical diagnoses given presentation and risk factors.'},
+      {key:'drug',     icon:'℞', name:'Drug Safety Agent', role:'Contraindications + interactions', detail:'Auditing current prescriptions against renal, hepatic, cardiac status and patient comorbidities.'},
+      {key:'evidence', icon:'', name:'Evidence Agent', role:'ICMR · WHO · ESC · AHA · KDIGO', detail:'Cross-referencing Indian + global guidelines for the suspected differential.'},
+      {key:'family',   icon:'○', name:'Family History Agent', role:'Hereditary risk modifiers', detail:'Adjusting risk profile based on first-degree and second-degree relative patterns.'},
       {key:'cost',     icon:'₹',  name:'Cost & Access Agent', role:'Patient spend + hospital capture', detail:'Mapping recommended workup to realistic out-of-pocket + revenue flows.'},
-      {key:'summary',  icon:'🧠', name:'Summary Agent', role:'Synthesising plan', detail:'Writing the integrated differential, care path, and prescription plan.'}
+      {key:'summary',  icon:'N', name:'Summary Agent', role:'Synthesising plan', detail:'Writing the integrated differential, care path, and prescription plan.'}
     ];
   }
 
@@ -2740,7 +2740,7 @@ async function runNava(){
   out.innerHTML = `
     <div class="agent-stream">
       <div class="agent-stream-header">
-        <div class="agent-stream-title">🧠 NAVA · Multi-Agent Clinical Reasoning</div>
+        <div class="agent-stream-title">NAVA · Multi-Agent Clinical Reasoning</div>
         <div class="agent-stream-sub">${agents.length} specialist agents analysing <strong>${d.name}</strong></div>
       </div>
       <div class="agent-list" id="agent-list">
@@ -2786,10 +2786,10 @@ function renderNavaOutput(d){
   const topDdx = d.ddx && d.ddx[0];
   const hasCritMiss = d.cantmiss && d.cantmiss.length > 0;
   const headlineText = hasCritMiss ? d.cantmiss[0] : (topDdx ? `${topDdx.n} — ${topDdx.w}` : 'See full analysis below');
-  const headlineIsCritical = /🚨|CONTRAINDICATED|URGENT|MANDATORY|immediately|mandatory|today|48 HOUR|lactic acidosis|cancer until proven|medico-legal/i.test(headlineText);
+  const headlineIsCritical = /CONTRAINDICATED|URGENT|MANDATORY|immediately|mandatory|today|48 HOUR|lactic acidosis|cancer until proven|medico-legal/i.test(headlineText);
   const confidencePct = topDdx ? topDdx.p : 85;
   const confidenceColor = confidencePct >= 80 ? 'var(--red)' : confidencePct >= 60 ? 'var(--gold)' : 'var(--muted)';
-  const urgencyBadge = headlineIsCritical ? '🚨 CRITICAL' : '⚠ HIGH PRIORITY';
+  const urgencyBadge = headlineIsCritical ? 'CRITICAL' : 'HIGH PRIORITY';
   const urgencyBg = headlineIsCritical ? 'var(--red)' : 'var(--amber)';
 
   // Find the highest-quality evidence citation for this headline
@@ -2815,7 +2815,7 @@ function renderNavaOutput(d){
         </div>
       </div>
       <div class="nava-headline-finding">${headlineText}</div>
-      ${consequence ? `<div class="nava-headline-consequence"><span class="nhc-ico">⚡</span> ${consequence}</div>` : ''}
+      ${consequence ? `<div class="nava-headline-consequence"><span class="nhc-ico"></span> ${consequence}</div>` : ''}
       ${topEvidence ? `<div class="nava-headline-evidence"><span class="nhe-geo">${topEvidence.geo}</span> <strong>${topEvidence.source}</strong> · ${topEvidence.finding}</div>` : ''}
     </div>
   `;
@@ -2823,7 +2823,7 @@ function renderNavaOutput(d){
   const beforeAfterH = `
     <div class="ba-compare">
       <div class="ba-col ba-before">
-        <div class="ba-col-label">👨‍⚕️ Treating Dx (referring)</div>
+        <div class="ba-col-label">⚕ Treating Dx (referring)</div>
         <div class="ba-col-title">${treatingDx.label}</div>
         <div class="ba-col-detail">${treatingDx.detail}</div>
       </div>
@@ -2832,7 +2832,7 @@ function renderNavaOutput(d){
         <div class="ba-arrow-head">→</div>
       </div>
       <div class="ba-col ba-after">
-        <div class="ba-col-label">🧠 NAVA Assessment</div>
+        <div class="ba-col-label">NAVA Assessment</div>
         <div class="ba-col-title">${navaAssessment.label}</div>
         <div class="ba-col-detail">${navaAssessment.detail}</div>
       </div>
@@ -2862,7 +2862,7 @@ function renderNavaOutput(d){
   const cantH = d.cantmiss.map(c=>`<div class="cm-block"><div class="cm-dot"></div><div class="cm-text">${c}</div></div>`).join('');
 
   const txH = `<div class="tx-card">
-    <div class="tx-eyebrow">🧠 AI Treatment Suggestion</div>
+    <div class="tx-eyebrow">AI Treatment Suggestion</div>
     <div class="tx-title">${d.treatment.title}</div>
     ${d.treatment.lines.map(l=>`<div class="tx-item"><div class="tx-ic ${l.cls}">${l.icon}</div><div><div class="tx-text">${l.text}</div><div class="tx-reasoning">${l.reason}</div></div></div>`).join('')}
   </div>`;
@@ -2920,11 +2920,11 @@ function renderNavaOutput(d){
     <div class="ddx-sec-title">Cost Estimation</div>
     <div class="panel-card" style="margin-bottom:12px"><div class="np-body" style="padding:14px">${finH}</div></div>
     <div class="tools-row">
-      <button class="tool-btn primary" onclick="openSummaryDirect()">📱 Patient Summary</button>
-      <button class="tool-btn gold" onclick="openAlt()">💊 Alt. Medications</button>
-      <button class="tool-btn" onclick="showView('rx')">💊 Generate Rx</button>
-      <button class="tool-btn" onclick="copyReport()">📋 Copy Report</button>
-      <button class="tool-btn" onclick="window.print()">🖨 Print</button>
+      <button class="tool-btn primary" onclick="openSummaryDirect()">Patient Summary</button>
+      <button class="tool-btn gold" onclick="openAlt()">℞ Alt. Medications</button>
+      <button class="tool-btn" onclick="showView('rx')">℞ Generate Rx</button>
+      <button class="tool-btn" onclick="copyReport()"> Copy Report</button>
+      <button class="tool-btn" onclick="window.print()">Print</button>
     </div>`;
 }
 
@@ -3019,7 +3019,7 @@ function copyReport(){
   if(!activeCase)return;
   const d=activeCase;
   const txt=['NAVA CLINICAL ANALYSIS',new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'}),`Patient: ${d.name} · ${d.meta}`,'─────','DIFFERENTIAL',...d.ddx.map(x=>`${x.p}% — ${x.n}`),"CAN'T MISS",...d.cantmiss,'TREATMENT',...d.treatment.lines.map(l=>`${l.icon}. ${l.text.replace(/<[^>]*>/g,'')} — ${l.reason}`),'CARE PATH',...d.carePath.map(s=>`${s.when}: ${s.action} — ${s.detail}`),'','⚕ Advisory only'].join('\n');
-  navigator.clipboard.writeText(txt).then(()=>{const b=event.target;b.textContent='✓ Copied';setTimeout(()=>b.textContent='📋 Copy Report',2000)});
+  navigator.clipboard.writeText(txt).then(()=>{const b=event.target;b.textContent='✓ Copied';setTimeout(()=>b.textContent='Copy Report',2000)});
 }
 
 // ─── SUMMARY ───
@@ -3032,7 +3032,7 @@ function openSummaryDirect(){
 }
 function closeSummary(){document.getElementById('summary-modal').classList.remove('open')}
 function setLang(lang,btn){summaryLang=lang;document.querySelectorAll('.lt-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const d=activeCase||CASES_DATA[1];document.getElementById('sum-text').textContent=lang==='en'?d.en:d.hi;}
-function copySummary(){navigator.clipboard.writeText(document.getElementById('sum-text').textContent).then(()=>{const b=document.querySelector('.ma-copy');b.textContent='✓ Copied';setTimeout(()=>b.textContent='📋 Copy',2000)})}
+function copySummary(){navigator.clipboard.writeText(document.getElementById('sum-text').textContent).then(()=>{const b=document.querySelector('.ma-copy');b.textContent='✓ Copied';setTimeout(()=>b.textContent='Copy',2000)})}
 function waSummary(){window.open('https://wa.me/?text='+encodeURIComponent(document.getElementById('sum-text').textContent))}
 
 // ─── ALT MEDICATIONS ───
@@ -3092,17 +3092,17 @@ function generateRx(){
   const combined=(dx+' '+findings).toLowerCase();
   const match=RX_MAP.find(r=>r.keys.some(k=>combined.includes(k)))||{drugs:[{n:'Paracetamol 650mg (Dolo 650)',d:'650mg when required · Max 4×/day · With food',note:''}],stops:[],alts:[]};
   const drugsH=match.drugs.map(d=>`<div class="rx-drug-item"><div class="rx-drug-name">℞ ${d.n}</div><div class="rx-drug-dose">${d.d}</div><div class="rx-drug-note">${d.note}</div></div>`).join('');
-  const stopsH=match.stops.map(s=>`<div class="rx-stop">⛔ STOP: ${s}</div>`).join('');
-  const altsH=(match.alts||[]).map(a=>`<div class="rx-alt">🌿 Alternative: ${a}</div>`).join('');
+  const stopsH=match.stops.map(s=>`<div class="rx-stop">✗ STOP: ${s}</div>`).join('');
+  const altsH=(match.alts||[]).map(a=>`<div class="rx-alt">Alternative: ${a}</div>`).join('');
   document.getElementById('rx-out-area').innerHTML=`<div class="rx-print" id="rx-print">
     <div class="rx-hosp"><div class="rx-hosp-name">Apollo Hospitals — OPD</div><div class="rx-hosp-doc">Dr Priya Nair · MD Paediatrics · MCI 48820 · ${DS()}</div></div>
     <div class="rx-pt-row"><div class="rx-pt-field"><strong>${name}</strong>Patient</div><div class="rx-pt-field"><strong>${age}</strong>Age</div><div class="rx-pt-field"><strong>${wt} kg</strong>Weight</div></div>
     ${drugsH}${stopsH}${altsH}
     <div class="rx-sig"><div><div class="rx-sig-name">Dr Priya Nair</div><div class="rx-sig-sub">MD Paediatrics · MCI 48820</div></div><div class="rx-sig-right"><div>${DS()}</div><div>NAVA Clinical Intelligence</div></div></div>
-    <div class="rx-actions"><button class="rxa rxa-copy" onclick="copyRx()">📋 Copy</button><button class="rxa rxa-wa" onclick="waRx()">💬 WhatsApp</button><button class="rxa rxa-print" onclick="window.print()">🖨 Print</button></div>
+    <div class="rx-actions"><button class="rxa rxa-copy" onclick="copyRx()">Copy</button><button class="rxa rxa-wa" onclick="waRx()">WhatsApp</button><button class="rxa rxa-print" onclick="window.print()">Print</button></div>
   </div>`;
 }
-function copyRx(){const t=document.getElementById('rx-print').innerText;navigator.clipboard.writeText(t).then(()=>{const b=document.querySelector('.rxa-copy');b.textContent='✓ Copied';setTimeout(()=>b.textContent='📋 Copy',2000)})}
+function copyRx(){const t=document.getElementById('rx-print').innerText;navigator.clipboard.writeText(t).then(()=>{const b=document.querySelector('.rxa-copy');b.textContent='✓ Copied';setTimeout(()=>b.textContent='Copy',2000)})}
 function waRx(){window.open('https://wa.me/?text='+encodeURIComponent(document.getElementById('rx-print').innerText))}
 
 const DRUGS=[
@@ -3119,7 +3119,7 @@ function updateDosing(){
     DRUGS.map(d=>{
       const dose=d.ok===1&&d.mk?Math.min(Math.round(d.mk*w),d.mx):null;
       const cls=d.ok===0?'blocked':d.ok===2?'warn-row':'';
-      return `<tr class="${cls}"><td>${d.n}</td><td>${dose?dose+' mg':d.ok===0?'⛔ DO NOT USE':d.fr}</td><td>${d.ok===1&&d.mk?d.fr:d.note}</td></tr>`;
+      return `<tr class="${cls}"><td>${d.n}</td><td>${dose?dose+' mg':d.ok===0?'✗ DO NOT USE':d.fr}</td><td>${d.ok===1&&d.mk?d.fr:d.note}</td></tr>`;
     }).join('');
 }
 updateDosing();
@@ -3161,8 +3161,8 @@ function startScribe(){
     }
   },28);
 }
-function stopScribe(){scribeOn=false;clearInterval(scribeT);const mic=document.getElementById('sl-mic');if(mic){mic.classList.remove('live');mic.textContent='🎙'}}
-function copySOAP(){const t=`SUBJECTIVE\n${SOAP.s}\n\nOBJECTIVE\n${SOAP.o}\n\nASSESSMENT\n${SOAP.a}\n\nPLAN\n${SOAP.p}`;navigator.clipboard.writeText(t).then(()=>{const b=document.querySelector('.so-copy');b.textContent='✓ Copied';setTimeout(()=>b.textContent='📋 Copy',2000)})}
+function stopScribe(){scribeOn=false;clearInterval(scribeT);const mic=document.getElementById('sl-mic');if(mic){mic.classList.remove('live');mic.textContent='◉'}}
+function copySOAP(){const t=`SUBJECTIVE\n${SOAP.s}\n\nOBJECTIVE\n${SOAP.o}\n\nASSESSMENT\n${SOAP.a}\n\nPLAN\n${SOAP.p}`;navigator.clipboard.writeText(t).then(()=>{const b=document.querySelector('.so-copy');b.textContent='✓ Copied';setTimeout(()=>b.textContent='Copy',2000)})}
 function waSOAP(){window.open('https://wa.me/?text='+encodeURIComponent(`SOAP Note\n\nS: ${SOAP.s}\nO: ${SOAP.o}\nA: ${SOAP.a}\nP: ${SOAP.p}`))}
 function useScribeInNava(){if(!activeCase)activeCase=CASES_DATA[1];showView('workspace');runNava()}
 
@@ -3208,7 +3208,7 @@ function stopWsTranscribe(){
   clearInterval(wsSecT);
   const btn=document.getElementById('ws-transcribe-btn');
   const status=document.getElementById('ws-trans-status');
-  if(btn){ btn.style.background='var(--sienna)'; btn.innerHTML='🎙 <span id="ws-trans-label">Transcribe</span>'; }
+  if(btn){ btn.style.background='var(--sienna)'; btn.innerHTML='◉ <span id="ws-trans-label">Transcribe</span>'; }
   if(status) status.style.display='none';
 }
 function pushScribeToNotes(){
@@ -3224,9 +3224,9 @@ function pushScribeToNotes(){
 function handleDrop(e){e.preventDefault();document.getElementById('drop-zone').classList.remove('drag-over');const files=Array.from(e.dataTransfer.files);files.forEach(f=>addUploadedFile(f.name,f.size))}
 function handleFileSelect(e){Array.from(e.target.files).forEach(f=>addUploadedFile(f.name,f.size))}
 function addUploadedFile(name,size){
-  const icons={'pdf':'📄','jpg':'🫁','jpeg':'🫁','png':'🔬','webp':'🔬'};
+  const icons={'pdf':'','jpg':'','jpeg':'','png':'','webp':''};
   const ext=name.split('.').pop().toLowerCase();
-  const icon=icons[ext]||'📄';
+  const icon=icons[ext]||'';
   const sz=size?(size/1024<1000?Math.round(size/1024)+' KB':Math.round(size/1024/1024*10)/10+' MB'):'—';
   const wrap=document.createElement('div');wrap.innerHTML=`<div class="uploaded-file" style="margin-top:8px"><div class="uf-icon">${icon}</div><div class="uf-name">${name}<div class="uf-meta">${sz} · Just now</div></div><span class="uf-status ufs-proc">Processing…</span></div>`;
   document.getElementById('drop-zone').after(wrap.firstChild);
@@ -3364,12 +3364,12 @@ const OUTCOMES_DATA = [
 ];
 
 const TOP_CONDITIONS = [
-  {icon:'❤️', name:'Cardiac causes of "GERD"', sub:'Exertional chest pain initially labelled GI', count:4, category:'cardiology', color:'var(--red)'},
-  {icon:'🫘', name:'Metformin in CKD', sub:'Missed renal function check before dose increase', count:4, category:'nephrology', color:'var(--red)'},
-  {icon:'🧠', name:'IIH in normal-weight children', sub:'Misdiagnosed as migraine or sinusitis', count:3, category:'neurology', color:'var(--amber)'},
-  {icon:'🫁', name:'Paediatric TB in household contacts', sub:'Family screening gap after index case', count:3, category:'infectious', color:'var(--red)'},
-  {icon:'💊', name:'Paediatric under-dosing', sub:'Paracetamol/antibiotics not weight-calculated', count:4, category:'paediatrics', color:'var(--amber)'},
-  {icon:'🩸', name:'Iron + B12 combined deficiency', sub:'Only iron checked — B12 overlooked', count:2, category:'haematology', color:'var(--gold)'}
+  {icon:'', name:'Cardiac causes of "GERD"', sub:'Exertional chest pain initially labelled GI', count:4, category:'cardiology', color:'var(--red)'},
+  {icon:'', name:'Metformin in CKD', sub:'Missed renal function check before dose increase', count:4, category:'nephrology', color:'var(--red)'},
+  {icon:'', name:'IIH in normal-weight children', sub:'Misdiagnosed as migraine or sinusitis', count:3, category:'neurology', color:'var(--amber)'},
+  {icon:'', name:'Paediatric TB in household contacts', sub:'Family screening gap after index case', count:3, category:'infectious', color:'var(--red)'},
+  {icon:'℞', name:'Paediatric under-dosing', sub:'Paracetamol/antibiotics not weight-calculated', count:4, category:'paediatrics', color:'var(--amber)'},
+  {icon:'', name:'Iron + B12 combined deficiency', sub:'Only iron checked — B12 overlooked', count:2, category:'haematology', color:'var(--gold)'}
 ];
 
 let currentInsightsRange = '30d';
@@ -3821,7 +3821,7 @@ function drillCondition(idx){
           <div class="drill-case-date">${o.date}</div>
         </div>`).join('')}
     </div>
-    <div style="margin-top:14px;font-size:.7rem;color:var(--muted);background:var(--bg);border:1px solid var(--border2);border-radius:var(--r);padding:10px 12px;line-height:1.55">💡 This pattern often appears in NAVA-flagged cases. Consider adding it to your differential when presenting symptoms overlap.</div>
+    <div style="margin-top:14px;font-size:.7rem;color:var(--muted);background:var(--bg);border:1px solid var(--border2);border-radius:var(--r);padding:10px 12px;line-height:1.55"> This pattern often appears in NAVA-flagged cases. Consider adding it to your differential when presenting symptoms overlap.</div>
   `);
 }
 
@@ -3871,129 +3871,129 @@ function goHome(){
 
 const HISTORY_DATA = [
   {
-    date:'15 Apr 2025', dateISO:'2025-04-15', patient:'Meena Iyer', age:'42F', avatar:'👩', bg:'#F5E6EC',
+    date:'15 Apr 2025', dateISO:'2025-04-15', patient:'Meena Iyer', age:'42F', avatar:'MI', bg:'#F5E6EC',
     complaint:'Exertional chest tightness × 8 wks',
     treating:'GERD + anxiety', nava:'Stable angina — urgent cardiac workup',
     verdict:'vb-diff', verdictLabel:'Different', outcome:'Cardiology pending', caseIdx:1,
     docs:[
-      {type:'cxr', icon:'🫁', name:'CXR_Meena_Iyer_March.jpg', category:'Chest X-ray', size:'2.4 MB', uploaded:'2 min ago', status:'flag', statusLabel:'Flagged', findings:'Mild cardiomegaly (CTR ~0.55). Clear lung fields. <strong>NAVA flag: cardiomegaly in context of exertional chest pain — 2D Echo urgent.</strong>', hasNew:true},
-      {type:'lab', icon:'🧪', name:'Lipid_Panel_Meena.pdf', category:'Lab report', size:'480 KB', uploaded:'5 min ago', status:'flag', statusLabel:'Flagged', findings:'<strong>LDL 168 HIGH</strong>, HDL 38 LOW, Total Cholesterol 242. Fasting glucose 112 (pre-diabetic). Hb 11.2, Ferritin 8 — iron deficiency.'},
-      {type:'ecg', icon:'❤️', name:'ECG_Meena_Apr12.pdf', category:'Electrocardiogram', size:'180 KB', uploaded:'3 days ago', status:'ok', statusLabel:'Read', findings:'Sinus rhythm, rate 92. No ST-T changes at rest. <em>Normal resting ECG does not exclude exertional ischaemia — TMT required.</em>'},
-      {type:'rx', icon:'💊', name:'Previous_Rx_Dec24.pdf', category:'Old prescription', size:'220 KB', uploaded:'1 week ago', status:'ok', statusLabel:'Read', findings:'Amlodipine 2.5→5mg (HTN). Pan-D added 3 weeks ago. <strong>NAVA flag: Pan-D treating wrong condition — exertional pattern is not GERD.</strong>'}
+      {type:'cxr', icon:'', name:'CXR_Meena_Iyer_March.jpg', category:'Chest X-ray', size:'2.4 MB', uploaded:'2 min ago', status:'flag', statusLabel:'Flagged', findings:'Mild cardiomegaly (CTR ~0.55). Clear lung fields. <strong>NAVA flag: cardiomegaly in context of exertional chest pain — 2D Echo urgent.</strong>', hasNew:true},
+      {type:'lab', icon:'', name:'Lipid_Panel_Meena.pdf', category:'Lab report', size:'480 KB', uploaded:'5 min ago', status:'flag', statusLabel:'Flagged', findings:'<strong>LDL 168 HIGH</strong>, HDL 38 LOW, Total Cholesterol 242. Fasting glucose 112 (pre-diabetic). Hb 11.2, Ferritin 8 — iron deficiency.'},
+      {type:'ecg', icon:'', name:'ECG_Meena_Apr12.pdf', category:'Electrocardiogram', size:'180 KB', uploaded:'3 days ago', status:'ok', statusLabel:'Read', findings:'Sinus rhythm, rate 92. No ST-T changes at rest. <em>Normal resting ECG does not exclude exertional ischaemia — TMT required.</em>'},
+      {type:'rx', icon:'℞', name:'Previous_Rx_Dec24.pdf', category:'Old prescription', size:'220 KB', uploaded:'1 week ago', status:'ok', statusLabel:'Read', findings:'Amlodipine 2.5→5mg (HTN). Pan-D added 3 weeks ago. <strong>NAVA flag: Pan-D treating wrong condition — exertional pattern is not GERD.</strong>'}
     ]
   },
   {
-    date:'14 Apr 2025', dateISO:'2025-04-14', patient:'Aryan Rajan', age:'8M', avatar:'👦', bg:'#DDE8F5',
+    date:'14 Apr 2025', dateISO:'2025-04-14', patient:'Aryan Rajan', age:'8M', avatar:'AK', bg:'#DDE8F5',
     complaint:'Bilateral headache × 14 weeks',
     treating:'Chronic sinusitis', nava:'IIH — fundoscopy + LP mandatory',
     verdict:'vb-diff', verdictLabel:'Different', outcome:'Neurology awaited', caseIdx:0,
     docs:[
-      {type:'mri', icon:'🧠', name:'MRI_Brain_Aryan_Feb2025.pdf', category:'MRI Brain 1.5T', size:'8.7 MB', uploaded:'6 weeks ago', status:'flag', statusLabel:'Incomplete', findings:'"Normal study." <strong>NAVA flag: no contrast, no phase-contrast CSF flow study — cannot exclude IIH or Chiari I on this protocol.</strong> Repeat with CSF flow sequence.'},
-      {type:'lab', icon:'🧪', name:'Vitamin_D_Aryan.pdf', category:'Lab report', size:'160 KB', uploaded:'2 days ago', status:'flag', statusLabel:'Flagged', findings:'<strong>Vit D (25-OH): 18 ng/mL — severely deficient.</strong> Sodium 134 (borderline low). hsCRP mildly elevated. Documented IIH risk factor.'},
-      {type:'cxr', icon:'🩻', name:'Sinus_Xray_Aryan_Wk8.jpg', category:'Sinus X-ray', size:'1.1 MB', uploaded:'6 weeks ago', status:'ok', statusLabel:'Read', findings:'"Mild deviated septum. No active sinusitis." <em>Does not support chronic sinusitis as cause of 14-week headache.</em>'},
-      {type:'rx', icon:'💊', name:'Previous_Rx_Aryan_3courses.pdf', category:'Previous prescriptions', size:'340 KB', uploaded:'2 weeks ago', status:'flag', statusLabel:'Flagged', findings:'3 × antibiotic courses (Amox, Azithro, Amox) + 3 × ibuprofen trials. <strong>NAVA flag: zero analgesic response to ibuprofen is atypical for migraine/tension headache — suggests raised ICP.</strong>'}
+      {type:'mri', icon:'', name:'MRI_Brain_Aryan_Feb2025.pdf', category:'MRI Brain 1.5T', size:'8.7 MB', uploaded:'6 weeks ago', status:'flag', statusLabel:'Incomplete', findings:'"Normal study." <strong>NAVA flag: no contrast, no phase-contrast CSF flow study — cannot exclude IIH or Chiari I on this protocol.</strong> Repeat with CSF flow sequence.'},
+      {type:'lab', icon:'', name:'Vitamin_D_Aryan.pdf', category:'Lab report', size:'160 KB', uploaded:'2 days ago', status:'flag', statusLabel:'Flagged', findings:'<strong>Vit D (25-OH): 18 ng/mL — severely deficient.</strong> Sodium 134 (borderline low). hsCRP mildly elevated. Documented IIH risk factor.'},
+      {type:'cxr', icon:'', name:'Sinus_Xray_Aryan_Wk8.jpg', category:'Sinus X-ray', size:'1.1 MB', uploaded:'6 weeks ago', status:'ok', statusLabel:'Read', findings:'"Mild deviated septum. No active sinusitis." <em>Does not support chronic sinusitis as cause of 14-week headache.</em>'},
+      {type:'rx', icon:'℞', name:'Previous_Rx_Aryan_3courses.pdf', category:'Previous prescriptions', size:'340 KB', uploaded:'2 weeks ago', status:'flag', statusLabel:'Flagged', findings:'3 × antibiotic courses (Amox, Azithro, Amox) + 3 × ibuprofen trials. <strong>NAVA flag: zero analgesic response to ibuprofen is atypical for migraine/tension headache — suggests raised ICP.</strong>'}
     ]
   },
   {
-    date:'10 Apr 2025', dateISO:'2025-04-10', patient:'Ramesh Gupta', age:'58M', avatar:'👨', bg:'#DDE8F5',
+    date:'10 Apr 2025', dateISO:'2025-04-10', patient:'Ramesh Gupta', age:'58M', avatar:'RG', bg:'#DDE8F5',
     complaint:'Fatigue, bilateral leg swelling',
     treating:'Poor DM control', nava:'Stage 4 CKD. Metformin contraindicated.',
     verdict:'vb-agree', verdictLabel:'NAVA Correct', outcome:'Stage 4 CKD confirmed. Metformin stopped.', caseIdx:2,
     docs:[
-      {type:'lab', icon:'🧪', name:'Renal_Panel_Ramesh_Apr.pdf', category:'Lab report', size:'380 KB', uploaded:'4 days ago', status:'flag', statusLabel:'Critical', findings:'<strong>Creatinine 2.4 → eGFR ~28 (Stage 4 CKD)</strong>. K+ 5.6 (hyperkalaemia). UACR 840 (macroalbuminuria). HbA1c 9.8%.', hasNew:true},
-      {type:'lab', icon:'🧪', name:'Old_Creatinine_2021.pdf', category:'Historical lab', size:'120 KB', uploaded:'2 weeks ago', status:'ok', statusLabel:'Read', findings:'Creatinine 1.4 (2021). <strong>NAVA flag: 4-year gap in renal monitoring. Metformin was increased to 1000mg BD without recheck.</strong>'},
-      {type:'usg', icon:'🩻', name:'USG_KUB_Ramesh.pdf', category:'Ultrasound KUB', size:'1.8 MB', uploaded:'5 days ago', status:'flag', statusLabel:'Flagged', findings:'"Bilateral small echogenic kidneys." <em>Consistent with chronic, likely irreversible structural damage. Supports Stage 4 diabetic nephropathy.</em>'},
-      {type:'ecg', icon:'❤️', name:'ECG_Ramesh.pdf', category:'Electrocardiogram', size:'140 KB', uploaded:'5 days ago', status:'flag', statusLabel:'Flagged', findings:'LVH pattern. <strong>NAVA note: monitor for hyperkalaemia-related changes given K+ 5.6 on ARB.</strong>'},
-      {type:'discharge', icon:'📑', name:'Discharge_Summary_Ramesh_2024.pdf', category:'Discharge summary', size:'1.1 MB', uploaded:'12 min ago', status:'proc', statusLabel:'Processing', findings:'Extraction in progress — expected: diagnoses, medications, follow-up instructions from last year\'s admission.'},
-      {type:'rx', icon:'💊', name:'Current_Medications_Ramesh.pdf', category:'Current Rx', size:'200 KB', uploaded:'4 days ago', status:'flag', statusLabel:'Flagged', findings:'Metformin 1000mg BD, Glimepiride 2mg, Telmisartan 40, Amlodipine 5, Atorva 10. <strong>NAVA flag: Metformin contraindicated at eGFR 28 — stop immediately.</strong>'}
+      {type:'lab', icon:'', name:'Renal_Panel_Ramesh_Apr.pdf', category:'Lab report', size:'380 KB', uploaded:'4 days ago', status:'flag', statusLabel:'Critical', findings:'<strong>Creatinine 2.4 → eGFR ~28 (Stage 4 CKD)</strong>. K+ 5.6 (hyperkalaemia). UACR 840 (macroalbuminuria). HbA1c 9.8%.', hasNew:true},
+      {type:'lab', icon:'', name:'Old_Creatinine_2021.pdf', category:'Historical lab', size:'120 KB', uploaded:'2 weeks ago', status:'ok', statusLabel:'Read', findings:'Creatinine 1.4 (2021). <strong>NAVA flag: 4-year gap in renal monitoring. Metformin was increased to 1000mg BD without recheck.</strong>'},
+      {type:'usg', icon:'', name:'USG_KUB_Ramesh.pdf', category:'Ultrasound KUB', size:'1.8 MB', uploaded:'5 days ago', status:'flag', statusLabel:'Flagged', findings:'"Bilateral small echogenic kidneys." <em>Consistent with chronic, likely irreversible structural damage. Supports Stage 4 diabetic nephropathy.</em>'},
+      {type:'ecg', icon:'', name:'ECG_Ramesh.pdf', category:'Electrocardiogram', size:'140 KB', uploaded:'5 days ago', status:'flag', statusLabel:'Flagged', findings:'LVH pattern. <strong>NAVA note: monitor for hyperkalaemia-related changes given K+ 5.6 on ARB.</strong>'},
+      {type:'discharge', icon:'', name:'Discharge_Summary_Ramesh_2024.pdf', category:'Discharge summary', size:'1.1 MB', uploaded:'12 min ago', status:'proc', statusLabel:'Processing', findings:'Extraction in progress — expected: diagnoses, medications, follow-up instructions from last year\'s admission.'},
+      {type:'rx', icon:'℞', name:'Current_Medications_Ramesh.pdf', category:'Current Rx', size:'200 KB', uploaded:'4 days ago', status:'flag', statusLabel:'Flagged', findings:'Metformin 1000mg BD, Glimepiride 2mg, Telmisartan 40, Amlodipine 5, Atorva 10. <strong>NAVA flag: Metformin contraindicated at eGFR 28 — stop immediately.</strong>'}
     ]
   },
   {
-    date:'08 Apr 2025', dateISO:'2025-04-08', patient:'Fatima Sheikh', age:'6F', avatar:'👧', bg:'#F5E6EC',
+    date:'08 Apr 2025', dateISO:'2025-04-08', patient:'Fatima Sheikh', age:'6F', avatar:'FS', bg:'#F5E6EC',
     complaint:'Recurrent fever × 4 months',
     treating:'Tonsillitis', nava:'Paediatric TB — Mantoux urgent',
     verdict:'vb-diff', verdictLabel:'Different', outcome:'TB workup pending', caseIdx:3,
     docs:[
-      {type:'cxr', icon:'🫁', name:'CXR_Fatima_Feb2025.jpg', category:'Chest X-ray', size:'2.1 MB', uploaded:'8 weeks ago', status:'flag', statusLabel:'Critical', findings:'Radiologist: "Bilateral hilar lymphadenopathy. RUL haziness. <strong>TB to be considered.</strong>" <strong>NAVA flag: radiologist-flagged TB 8 weeks ago — zero clinical action documented. Medico-legal concern.</strong>', hasNew:true},
-      {type:'lab', icon:'🧪', name:'CBC_ESR_Fatima.pdf', category:'Lab report', size:'180 KB', uploaded:'1 week ago', status:'flag', statusLabel:'Flagged', findings:'Hb 9.2 (anaemia), ESR 68 (elevated), CRP 24, lymphocytes 48% (lymphocytosis). <em>Consistent with chronic infective/inflammatory process — supports TB over tonsillitis.</em>'},
-      {type:'rx', icon:'💊', name:'Antibiotic_History_Fatima.pdf', category:'Previous prescriptions', size:'280 KB', uploaded:'1 week ago', status:'flag', statusLabel:'Flagged', findings:'5 antibiotic courses in 4 months — Amox ×3, Azithro ×1, Cefpodoxime ×1. <strong>NAVA flag: zero lasting benefit from antibiotics. Delays TB diagnosis and creates resistance.</strong>'}
+      {type:'cxr', icon:'', name:'CXR_Fatima_Feb2025.jpg', category:'Chest X-ray', size:'2.1 MB', uploaded:'8 weeks ago', status:'flag', statusLabel:'Critical', findings:'Radiologist: "Bilateral hilar lymphadenopathy. RUL haziness. <strong>TB to be considered.</strong>" <strong>NAVA flag: radiologist-flagged TB 8 weeks ago — zero clinical action documented. Medico-legal concern.</strong>', hasNew:true},
+      {type:'lab', icon:'', name:'CBC_ESR_Fatima.pdf', category:'Lab report', size:'180 KB', uploaded:'1 week ago', status:'flag', statusLabel:'Flagged', findings:'Hb 9.2 (anaemia), ESR 68 (elevated), CRP 24, lymphocytes 48% (lymphocytosis). <em>Consistent with chronic infective/inflammatory process — supports TB over tonsillitis.</em>'},
+      {type:'rx', icon:'℞', name:'Antibiotic_History_Fatima.pdf', category:'Previous prescriptions', size:'280 KB', uploaded:'1 week ago', status:'flag', statusLabel:'Flagged', findings:'5 antibiotic courses in 4 months — Amox ×3, Azithro ×1, Cefpodoxime ×1. <strong>NAVA flag: zero lasting benefit from antibiotics. Delays TB diagnosis and creates resistance.</strong>'}
     ]
   },
   {
-    date:'06 Apr 2025', dateISO:'2025-04-06', patient:'Ravi Prakash', age:'62M', avatar:'👨', bg:'#E8F5E8',
+    date:'06 Apr 2025', dateISO:'2025-04-06', patient:'Ravi Prakash', age:'62M', avatar:'RP', bg:'#E8F5E8',
     complaint:'Intermittent chest discomfort × 3 months',
     treating:'GERD + anxiety', nava:'Stable angina — TMT + Echo urgent',
     verdict:'vb-agree', verdictLabel:'NAVA Correct', outcome:'TMT positive. LAD 60% stenosis confirmed. PTCA done.',
     docs:[
-      {type:'ecg', icon:'❤️', name:'TMT_Report_Ravi.pdf', category:'Treadmill Test', size:'420 KB', uploaded:'2 weeks ago', status:'flag', statusLabel:'Positive', findings:'<strong>TMT POSITIVE</strong> — ST depression >2mm in inferior leads at 7 METs. Chest pain reproduced. Referred for angiography.'},
-      {type:'cxr', icon:'🩻', name:'Coronary_Angio_Ravi.pdf', category:'Angiogram', size:'3.2 MB', uploaded:'10 days ago', status:'flag', statusLabel:'Flagged', findings:'<strong>LAD 60% stenosis (proximal).</strong> RCA, LCx normal. Successful PTCA with DES deployed. Post-procedure TIMI 3 flow.'},
-      {type:'lab', icon:'🧪', name:'Lipid_Cardiac_Markers_Ravi.pdf', category:'Lab report', size:'340 KB', uploaded:'2 weeks ago', status:'ok', statusLabel:'Read', findings:'LDL 152, HDL 34. Troponin negative. Started on Atorva 80 + dual antiplatelet post-PCI.'}
+      {type:'ecg', icon:'', name:'TMT_Report_Ravi.pdf', category:'Treadmill Test', size:'420 KB', uploaded:'2 weeks ago', status:'flag', statusLabel:'Positive', findings:'<strong>TMT POSITIVE</strong> — ST depression >2mm in inferior leads at 7 METs. Chest pain reproduced. Referred for angiography.'},
+      {type:'cxr', icon:'', name:'Coronary_Angio_Ravi.pdf', category:'Angiogram', size:'3.2 MB', uploaded:'10 days ago', status:'flag', statusLabel:'Flagged', findings:'<strong>LAD 60% stenosis (proximal).</strong> RCA, LCx normal. Successful PTCA with DES deployed. Post-procedure TIMI 3 flow.'},
+      {type:'lab', icon:'', name:'Lipid_Cardiac_Markers_Ravi.pdf', category:'Lab report', size:'340 KB', uploaded:'2 weeks ago', status:'ok', statusLabel:'Read', findings:'LDL 152, HDL 34. Troponin negative. Started on Atorva 80 + dual antiplatelet post-PCI.'}
     ]
   },
   {
-    date:'04 Apr 2025', dateISO:'2025-04-04', patient:'Kavya Subramanian', age:'7F', avatar:'👧', bg:'#F5E6EC',
+    date:'04 Apr 2025', dateISO:'2025-04-04', patient:'Kavya Subramanian', age:'7F', avatar:'KS', bg:'#F5E6EC',
     complaint:'Recurrent tonsillar enlargement + weight loss',
     treating:'Chronic tonsillitis', nava:'Paediatric TB — gastric lavage urgent',
     verdict:'vb-agree', verdictLabel:'NAVA Correct', outcome:'TB confirmed on gastric lavage AFB. RNTCP CAT I started.',
     docs:[
-      {type:'lab', icon:'🧪', name:'Gastric_Lavage_AFB_Kavya.pdf', category:'Microbiology', size:'240 KB', uploaded:'3 weeks ago', status:'flag', statusLabel:'Positive', findings:'<strong>AFB POSITIVE on gastric lavage.</strong> GeneXpert MTB/RIF: MTB detected, Rifampicin-sensitive. Started on NTEP CAT I regimen.'},
-      {type:'cxr', icon:'🫁', name:'CXR_Kavya.jpg', category:'Chest X-ray', size:'1.9 MB', uploaded:'3 weeks ago', status:'ok', statusLabel:'Read', findings:'Hilar prominence. Right upper lobe opacity. Consistent with paediatric pulmonary TB.'}
+      {type:'lab', icon:'', name:'Gastric_Lavage_AFB_Kavya.pdf', category:'Microbiology', size:'240 KB', uploaded:'3 weeks ago', status:'flag', statusLabel:'Positive', findings:'<strong>AFB POSITIVE on gastric lavage.</strong> GeneXpert MTB/RIF: MTB detected, Rifampicin-sensitive. Started on NTEP CAT I regimen.'},
+      {type:'cxr', icon:'', name:'CXR_Kavya.jpg', category:'Chest X-ray', size:'1.9 MB', uploaded:'3 weeks ago', status:'ok', statusLabel:'Read', findings:'Hilar prominence. Right upper lobe opacity. Consistent with paediatric pulmonary TB.'}
     ]
   },
   {
-    date:'01 Apr 2025', dateISO:'2025-04-01', patient:'Sunita Devi', age:'38F', avatar:'👩', bg:'#E8F5E8',
+    date:'01 Apr 2025', dateISO:'2025-04-01', patient:'Sunita Devi', age:'38F', avatar:'SD', bg:'#E8F5E8',
     complaint:'Progressive fatigue × 6 months',
     treating:'Iron deficiency anaemia', nava:'Combined iron + B12 deficiency — check both',
     verdict:'vb-partial', verdictLabel:'Partial', outcome:'Combined iron + B12 deficiency confirmed.',
     docs:[
-      {type:'lab', icon:'🧪', name:'CBC_Ferritin_B12_Sunita.pdf', category:'Lab report', size:'320 KB', uploaded:'1 month ago', status:'flag', statusLabel:'Flagged', findings:'Hb 9.8, MCV 92 (normal — unusual for pure iron deficiency), Ferritin 12, <strong>B12 180 pg/mL (low)</strong>. Both iron AND B12 replacement needed.'}
+      {type:'lab', icon:'', name:'CBC_Ferritin_B12_Sunita.pdf', category:'Lab report', size:'320 KB', uploaded:'1 month ago', status:'flag', statusLabel:'Flagged', findings:'Hb 9.8, MCV 92 (normal — unusual for pure iron deficiency), Ferritin 12, <strong>B12 180 pg/mL (low)</strong>. Both iron AND B12 replacement needed.'}
     ]
   },
   {
-    date:'28 Mar 2025', dateISO:'2025-03-28', patient:'Asha Krishnan', age:'34F', avatar:'👩', bg:'#F5E6EC',
+    date:'28 Mar 2025', dateISO:'2025-03-28', patient:'Asha Krishnan', age:'34F', avatar:'AC', bg:'#F5E6EC',
     complaint:'Chronic headache × 12 weeks',
     treating:'Tension headache', nava:'IIH — fundoscopy urgent',
     verdict:'vb-agree', verdictLabel:'NAVA Correct', outcome:'IIH confirmed on LP. Papilloedema found. On Acetazolamide.',
     docs:[
-      {type:'lab', icon:'🧪', name:'LP_CSF_Asha.pdf', category:'CSF analysis', size:'240 KB', uploaded:'2 weeks ago', status:'flag', statusLabel:'Positive', findings:'<strong>Opening pressure 32 cmH₂O (elevated — normal <20).</strong> CSF composition normal. Confirms IIH per modified Dandy criteria.'},
-      {type:'mri', icon:'🧠', name:'MRI_Brain_Orbits_Asha.pdf', category:'MRI with orbits', size:'7.2 MB', uploaded:'3 weeks ago', status:'flag', statusLabel:'Flagged', findings:'Empty sella. Flattened posterior globes. Optic nerve sheath distension. <em>Classic imaging features of IIH.</em>'},
-      {type:'discharge', icon:'📑', name:'Fundoscopy_Report_Asha.pdf', category:'Ophthalmology', size:'180 KB', uploaded:'3 weeks ago', status:'flag', statusLabel:'Flagged', findings:'<strong>Bilateral papilloedema Frisén grade 2.</strong> Referred urgently for LP.'}
+      {type:'lab', icon:'', name:'LP_CSF_Asha.pdf', category:'CSF analysis', size:'240 KB', uploaded:'2 weeks ago', status:'flag', statusLabel:'Positive', findings:'<strong>Opening pressure 32 cmH₂O (elevated — normal <20).</strong> CSF composition normal. Confirms IIH per modified Dandy criteria.'},
+      {type:'mri', icon:'', name:'MRI_Brain_Orbits_Asha.pdf', category:'MRI with orbits', size:'7.2 MB', uploaded:'3 weeks ago', status:'flag', statusLabel:'Flagged', findings:'Empty sella. Flattened posterior globes. Optic nerve sheath distension. <em>Classic imaging features of IIH.</em>'},
+      {type:'discharge', icon:'', name:'Fundoscopy_Report_Asha.pdf', category:'Ophthalmology', size:'180 KB', uploaded:'3 weeks ago', status:'flag', statusLabel:'Flagged', findings:'<strong>Bilateral papilloedema Frisén grade 2.</strong> Referred urgently for LP.'}
     ]
   },
   {
-    date:'24 Mar 2025', dateISO:'2025-03-24', patient:'Suresh Pillai', age:'67M', avatar:'👴', bg:'#E8F5E8',
+    date:'24 Mar 2025', dateISO:'2025-03-24', patient:'Suresh Pillai', age:'67M', avatar:'SP', bg:'#E8F5E8',
     complaint:'Routine HTN follow-up',
     treating:'Essential hypertension', nava:'Well-controlled. Continue regimen.',
     verdict:'vb-agree', verdictLabel:'NAVA Correct', outcome:'BP 128/78 at 3-month follow-up.',
     docs:[]
   },
   {
-    date:'20 Mar 2025', dateISO:'2025-03-20', patient:'Priya Das', age:'54F', avatar:'👩', bg:'#F5E6EC',
+    date:'20 Mar 2025', dateISO:'2025-03-20', patient:'Priya Das', age:'54F', avatar:'PD', bg:'#F5E6EC',
     complaint:'Palpitations, headache',
     treating:'Anxiety disorder', nava:'Hyperkalaemia from ACEi + K-sparing diuretic combo',
     verdict:'vb-agree', verdictLabel:'NAVA Correct', outcome:'K+ 5.8 confirmed. Spironolactone stopped. K+ normalised.',
     docs:[
-      {type:'lab', icon:'🧪', name:'Electrolytes_Priya.pdf', category:'Lab report', size:'180 KB', uploaded:'4 weeks ago', status:'flag', statusLabel:'Critical', findings:'<strong>K+ 5.8 mEq/L (severe hyperkalaemia).</strong> Na+ 138, Cl- 102, Creatinine 1.1 (normal).'},
-      {type:'ecg', icon:'❤️', name:'ECG_Priya_Hyperkalaemia.pdf', category:'Electrocardiogram', size:'160 KB', uploaded:'4 weeks ago', status:'flag', statusLabel:'Flagged', findings:'Peaked T waves in V2-V5. Classic hyperkalaemia changes. <em>Resolved after stopping Spironolactone.</em>'}
+      {type:'lab', icon:'', name:'Electrolytes_Priya.pdf', category:'Lab report', size:'180 KB', uploaded:'4 weeks ago', status:'flag', statusLabel:'Critical', findings:'<strong>K+ 5.8 mEq/L (severe hyperkalaemia).</strong> Na+ 138, Cl- 102, Creatinine 1.1 (normal).'},
+      {type:'ecg', icon:'', name:'ECG_Priya_Hyperkalaemia.pdf', category:'Electrocardiogram', size:'160 KB', uploaded:'4 weeks ago', status:'flag', statusLabel:'Flagged', findings:'Peaked T waves in V2-V5. Classic hyperkalaemia changes. <em>Resolved after stopping Spironolactone.</em>'}
     ]
   },
   {
-    date:'18 Mar 2025', dateISO:'2025-03-18', patient:'Rekha Bhatia', age:'45F', avatar:'👩', bg:'#F5E6EC',
+    date:'18 Mar 2025', dateISO:'2025-03-18', patient:'Rekha Bhatia', age:'45F', avatar:'', bg:'#F5E6EC',
     complaint:'Annual preventive check',
     treating:'Routine wellness visit', nava:'Mammography overdue — 14 months past due',
     verdict:'vb-partial', verdictLabel:'Partial', outcome:'Mammography ordered. Normal. Continued screening yearly.',
     docs:[
-      {type:'cxr', icon:'🩻', name:'Mammogram_Rekha.pdf', category:'Mammography', size:'4.1 MB', uploaded:'3 weeks ago', status:'ok', statusLabel:'Read', findings:'BI-RADS 1 — negative. Continue annual screening.'}
+      {type:'cxr', icon:'', name:'Mammogram_Rekha.pdf', category:'Mammography', size:'4.1 MB', uploaded:'3 weeks ago', status:'ok', statusLabel:'Read', findings:'BI-RADS 1 — negative. Continue annual screening.'}
     ]
   },
   {
-    date:'12 Mar 2025', dateISO:'2025-03-12', patient:'Nikhil Shah', age:'45M', avatar:'👨', bg:'#DDE8F5',
+    date:'12 Mar 2025', dateISO:'2025-03-12', patient:'Nikhil Shah', age:'45M', avatar:'NS', bg:'#DDE8F5',
     complaint:'Follow-up after MI 3 months ago',
     treating:'Post-MI stable', nava:'Statin adherence low — LDL still 142',
     verdict:'vb-partial', verdictLabel:'Partial', outcome:'Statin intensified to Rosuva 20. LDL dropped to 78.',
     docs:[
-      {type:'lab', icon:'🧪', name:'Lipid_Panel_Nikhil.pdf', category:'Lab report', size:'210 KB', uploaded:'1 month ago', status:'flag', statusLabel:'Flagged', findings:'<strong>LDL 142 (target <55 post-MI).</strong> TG 198. HDL 36. Statin compliance issue — discussed adherence.'},
-      {type:'ecg', icon:'❤️', name:'ECG_Nikhil_FU.pdf', category:'Electrocardiogram', size:'140 KB', uploaded:'1 month ago', status:'ok', statusLabel:'Read', findings:'Sinus rhythm. Q waves in inferior leads (old MI). No new ischaemic changes.'}
+      {type:'lab', icon:'', name:'Lipid_Panel_Nikhil.pdf', category:'Lab report', size:'210 KB', uploaded:'1 month ago', status:'flag', statusLabel:'Flagged', findings:'<strong>LDL 142 (target <55 post-MI).</strong> TG 198. HDL 36. Statin compliance issue — discussed adherence.'},
+      {type:'ecg', icon:'', name:'ECG_Nikhil_FU.pdf', category:'Electrocardiogram', size:'140 KB', uploaded:'1 month ago', status:'ok', statusLabel:'Read', findings:'Sinus rhythm. Q waves in inferior leads (old MI). No new ischaemic changes.'}
     ]
   }
 ];
@@ -4095,9 +4095,9 @@ function renderDocsModal(){
   const typeCounts = {};
   r.docs.forEach(d => { typeCounts[d.type] = (typeCounts[d.type]||0) + 1; });
   const typeLabels = {cxr:'X-rays',xray:'X-rays',lab:'Labs',ecg:'ECGs',mri:'MRI',ct:'CT',usg:'USG',rx:'Rx',discharge:'Discharge'};
-  const typeIcons = {cxr:'🫁',xray:'🩻',lab:'🧪',ecg:'❤️',mri:'🧠',ct:'🧠',usg:'🩻',rx:'💊',discharge:'📑'};
+  const typeIcons = {cxr:'CXR',xray:'X-R',lab:'Lab',ecg:'ECG',mri:'MRI',ct:'CT',usg:'USG',rx:'℞',discharge:'Dch'};
   const chips = [`<button class="docs-type-chip ${currentDocsTypeFilter==='all'?'active':''}" onclick="setDocsTypeFilter('all')">All (${r.docs.length})</button>`]
-    .concat(Object.keys(typeCounts).map(t => `<button class="docs-type-chip ${currentDocsTypeFilter===t?'active':''}" onclick="setDocsTypeFilter('${t}')">${typeIcons[t]||'📄'} ${typeLabels[t]||t} (${typeCounts[t]})</button>`))
+    .concat(Object.keys(typeCounts).map(t => `<button class="docs-type-chip ${currentDocsTypeFilter===t?'active':''}" onclick="setDocsTypeFilter('${t}')">${typeIcons[t]||''} ${typeLabels[t]||t} (${typeCounts[t]})</button>`))
     .join('');
 
   const caseLink = r.caseIdx !== undefined
@@ -4125,8 +4125,8 @@ function renderDocsModal(){
         <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
           <span class="doc-row-status drs-${d.status}">${d.statusLabel}</span>
           <div class="doc-row-actions">
-            <button class="doc-action-btn" onclick="alert('Preview — demo only')" title="Preview">👁 View</button>
-            <button class="doc-action-btn" onclick="alert('Download — demo only')" title="Download">⬇</button>
+            <button class="doc-action-btn" onclick="alert('Preview — demo only')" title="Preview">View</button>
+            <button class="doc-action-btn" onclick="alert('Download — demo only')" title="Download">↓</button>
           </div>
         </div>
       </div>`).join('') : `<div style="padding:28px;text-align:center;color:var(--muted);font-style:italic;font-size:.78rem">No documents of this type.</div>`}
