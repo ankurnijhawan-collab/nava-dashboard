@@ -3737,49 +3737,67 @@ function waSOAP(){window.open('https://wa.me/?text='+encodeURIComponent(`SOAP No
 function useScribeInNava(){if(!activeCase)activeCase=CASES_DATA[1];showView('workspace');runNava()}
 
 // ─── WORKSPACE TRANSCRIBE (for case notes) ───
-let wsTranscribeOn=false, wsTranscribeT=null, wsTransSeconds=0, wsSecT=null;
-const WS_DEMO_TEXT = `Patient reports: tightness in chest particularly when climbing stairs, noticed over the last 8 weeks. Rest relieves it. No shortness of breath at rest. Mild palpitations occasionally. Father had MI at 55. Currently on Amlodipine for BP and Pan-D for "acidity" but acidity medicine not helping. Patient also mentions feeling more tired than usual and cold hands.`;
+let wsTranscribeOn=false, wsMediaRecorder=null, wsAudioChunks=[], wsSecT=null, wsTransSeconds=0;
 function toggleWorkspaceTranscribe(){ wsTranscribeOn ? stopWsTranscribe() : startWsTranscribe(); }
-function startWsTranscribe(){
+async function startWsTranscribe(){
+  const key=getApiKey();
+  if(!key){ alert('Please enter your OpenAI API key first (tap the key icon in the header).'); return; }
+  let stream;
+  try { stream = await navigator.mediaDevices.getUserMedia({audio:true}); }
+  catch(e){ alert('Microphone access denied. Please allow microphone permission and try again.'); return; }
   wsTranscribeOn=true;
+  wsAudioChunks=[];
   const btn=document.getElementById('ws-transcribe-btn');
-  const lbl=document.getElementById('ws-trans-label');
   const status=document.getElementById('ws-trans-status');
   const ta=document.getElementById('case-notes-input');
-  if(!btn||!ta) return;
-  btn.style.background='var(--red)';
-  lbl.textContent='Stop';
-  btn.innerHTML='⏹ <span id="ws-trans-label">Stop</span>';
-  status.style.display='flex';
+  if(btn){ btn.style.background='var(--red)'; btn.innerHTML='⏹ <span id="ws-trans-label">Stop</span>'; }
+  if(status){ status.style.display='flex'; }
   wsTransSeconds=0;
-  document.getElementById('ws-trans-time').textContent='0:00';
+  const timeEl=document.getElementById('ws-trans-time');
+  if(timeEl) timeEl.textContent='0:00';
   wsSecT=setInterval(()=>{
     wsTransSeconds++;
     const m=Math.floor(wsTransSeconds/60), s=wsTransSeconds%60;
     const el=document.getElementById('ws-trans-time');
     if(el) el.textContent=`${m}:${s.toString().padStart(2,'0')}`;
   },1000);
-  // Simulate streaming transcript appending to the notes
-  const prefix = ta.value ? ta.value + '\n\n' : '';
-  let i=0;
-  wsTranscribeT=setInterval(()=>{
-    if(i<WS_DEMO_TEXT.length){
-      i+=3;
-      ta.value = prefix + WS_DEMO_TEXT.slice(0,i);
-      ta.scrollTop = ta.scrollHeight;
-    } else {
-      stopWsTranscribe();
-    }
-  },30);
+  const mimeType=['audio/webm;codecs=opus','audio/webm','audio/ogg;codecs=opus','audio/mp4'].find(t=>MediaRecorder.isTypeSupported(t))||'';
+  wsMediaRecorder=new MediaRecorder(stream, mimeType?{mimeType}:{});
+  wsMediaRecorder.ondataavailable=e=>{ if(e.data.size>0) wsAudioChunks.push(e.data); };
+  wsMediaRecorder.onstop=()=>{ stream.getTracks().forEach(t=>t.stop()); processWsAudio(key, ta); };
+  wsMediaRecorder.start();
 }
 function stopWsTranscribe(){
   wsTranscribeOn=false;
-  clearInterval(wsTranscribeT);
   clearInterval(wsSecT);
   const btn=document.getElementById('ws-transcribe-btn');
   const status=document.getElementById('ws-trans-status');
   if(btn){ btn.style.background='var(--sienna)'; btn.innerHTML='◉ <span id="ws-trans-label">Transcribe</span>'; }
   if(status) status.style.display='none';
+  if(wsMediaRecorder && wsMediaRecorder.state!=='inactive') wsMediaRecorder.stop();
+}
+async function processWsAudio(key, ta){
+  const statusEl=document.getElementById('ws-trans-status');
+  if(statusEl){ statusEl.style.display='flex'; statusEl.querySelector('span:nth-child(2)').textContent='Processing with Whisper…'; }
+  try{
+    const blob=new Blob(wsAudioChunks,{type:wsAudioChunks[0]?.type||'audio/webm'});
+    const form=new FormData();
+    form.append('file', blob, 'note.webm');
+    form.append('model','whisper-1');
+    form.append('language','en');
+    const res=await fetch('https://api.openai.com/v1/audio/transcriptions',{method:'POST',headers:{'Authorization':'Bearer '+key},body:form});
+    if(!res.ok) throw new Error('Whisper API error '+res.status);
+    const transcript=((await res.json()).text||'').trim();
+    if(ta && transcript){
+      ta.value = ta.value ? (ta.value + '\n\n' + transcript) : transcript;
+      ta.scrollTop = ta.scrollHeight;
+      ta.focus();
+    }
+  } catch(e){
+    alert('Transcription failed: '+e.message);
+  } finally {
+    if(statusEl) statusEl.style.display='none';
+  }
 }
 function pushScribeToNotes(){
   const ta=document.getElementById('case-notes-input');
