@@ -1638,6 +1638,16 @@ document.getElementById('today-date').textContent = new Date().toLocaleDateStrin
 // ── VIEWS ──
 const VIEW_TITLES = {today:"Today's OPD",workspace:'Active Case',rx:'Prescriptions',scribe:'Ambient Scribe',upload:'Documents & Scans',insights:'My Insights',history:'Case History'};
 function showView(id,btn){
+  // Auto-load first OPD patient when navigating to workspace with no case loaded
+  if(id === 'workspace' && !activeCase){
+    const opd = activeOPD || 'general';
+    const first = CASES_DATA.find(c => c.specialty === opd) || CASES_DATA[0];
+    if(first){
+      const idx = CASES_DATA.indexOf(first);
+      loadCase(idx);
+      return; // loadCase calls showView internally
+    }
+  }
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   // Don't clear the OPD sidebar selection when navigating to other sections
   document.querySelectorAll('.nav-item:not(.opd-item)').forEach(n=>n.classList.remove('active'));
