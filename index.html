@@ -1367,9 +1367,9 @@ button,input,textarea,select{font-family:inherit}
 <div class="main">
   <div class="topbar">
     <button class="mob-ham" onclick="toggleMobileSidebar()" aria-label="Menu">☰</button>
-    <button class="topbar-back" id="topbar-back" onclick="goHome()" style="display:none" aria-label="Go to home page">
+    <button class="topbar-back" id="topbar-back" onclick="goBack()" style="display:none" aria-label="Go back">
       <span class="tbb-arrow">←</span>
-      <span class="tbb-label">Home</span>
+      <span class="tbb-label">Back</span>
     </button>
     <div class="topbar-title" id="topbar-title">Today's OPD</div>
     <div class="topbar-search" id="topbar-search-wrap">
@@ -6576,8 +6576,18 @@ document.addEventListener('DOMContentLoaded', ()=>{
   setTimeout(()=>{ renderTodayView(); renderInsights(); renderCaseHistory(); renderDemoCasePicker(); initApiKeyBanner(); initClaudeKeyBanner(); showOnboarding(); if(typeof updateBackButton === 'function') updateBackButton('today'); }, 50);
 });
 // Also re-render when navigating to the insights tab (in case DOMContentLoaded fires before layout)
+// ─── NAVIGATION HISTORY ───
+let _viewHistory = []; // stack of {id, title, opd}
+
 const _origShowView = showView;
 showView = function(id, btn){
+  // Push current view onto history stack before switching
+  const currentActive = document.querySelector('.view.active');
+  const currentId = currentActive?.id?.replace('view-', '');
+  if(currentId && currentId !== id){
+    _viewHistory.push({ id: currentId, title: VIEW_TITLES[currentId] || currentId, opd: activeOPD });
+    if(_viewHistory.length > 30) _viewHistory.shift();
+  }
   _origShowView(id, btn);
   if(id === 'insights'){ renderInsights(); }
   if(id === 'history'){ renderCaseHistory(); }
@@ -6613,17 +6623,37 @@ showView = function(id, btn){
   updateBackButton(id);
 };
 
-// ─── HOME NAVIGATION ───
+// ─── BACK NAVIGATION ───
 function updateBackButton(currentViewId){
   const backBtn = document.getElementById('topbar-back');
+  const backLabel = backBtn?.querySelector('.tbb-label');
   if(!backBtn) return;
-  // Show "← Home" on any view that's not the OPD home view, OR on any OPD that's not General
-  const isHome = (currentViewId === 'today' && activeOPD === 'general');
-  backBtn.style.display = isHome ? 'none' : 'inline-flex';
+  if(_viewHistory.length > 0){
+    const prev = _viewHistory[_viewHistory.length - 1];
+    backBtn.style.display = 'inline-flex';
+    if(backLabel) backLabel.textContent = prev.title || 'Back';
+  } else {
+    backBtn.style.display = 'none';
+  }
 }
 
+function goBack(){
+  if(!_viewHistory.length) return;
+  const prev = _viewHistory.pop();
+  // Restore OPD context if it changed
+  if(prev.opd && prev.opd !== activeOPD){
+    activeOPD = prev.opd;
+    document.querySelectorAll('.opd-item').forEach(n=>n.classList.remove('active'));
+    const opdBtn = document.querySelector(`.opd-item[onclick*="${prev.opd}"]`);
+    if(opdBtn) opdBtn.classList.add('active');
+  }
+  _origShowView(prev.id);
+  updateBackButton(prev.id);
+}
+
+// keep goHome for any direct callers
 function goHome(){
-  // Always return to General OPD home page
+  _viewHistory = [];
   activeOPD = 'general';
   document.querySelectorAll('.opd-item').forEach(n=>n.classList.remove('active'));
   const generalBtn = document.querySelector('.opd-item[onclick*="general"]');
@@ -7031,6 +7061,15 @@ document.addEventListener('keydown', function(e){
     e.preventDefault();
     const btn = document.getElementById('run-nava-btn');
     if(btn && !btn.disabled) btn.click();
+  }
+  // Alt+Left = go back
+  if(e.altKey && e.key === 'ArrowLeft'){
+    const focused = document.activeElement;
+    const inInput = focused && (focused.tagName === 'INPUT' || focused.tagName === 'TEXTAREA' || focused.isContentEditable);
+    if(!inInput){
+      e.preventDefault();
+      if(_viewHistory.length) goBack();
+    }
   }
 });
 
