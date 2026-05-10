@@ -3204,12 +3204,12 @@ function startBlankCase(){
       <input id="nc-name" placeholder="Patient name" style="background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);padding:7px 10px;font-size:.82rem;font-weight:600;color:var(--bark);outline:none;width:100%" />
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
         <input id="nc-age"  placeholder="Age & Sex (e.g. 42F)" style="${fieldStyle()}" />
-        <input id="nc-wt"   placeholder="Weight (kg)"           style="${fieldStyle()}" />
+        <input id="nc-wt"   placeholder="Weight (kg)" type="number" min="1" max="300" inputmode="numeric" style="${fieldStyle()}" />
         <input id="nc-room" placeholder="Room / Bed"            style="${fieldStyle()}" />
       </div>
       <input id="nc-chief" placeholder="Chief complaint (e.g. Chest pain × 2 months)" style="${fieldStyle('full')}" />
       ${isPaeds ? `<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
-        <input id="nc-ht" placeholder="Height (cm)" style="${fieldStyle()}" />
+        <input id="nc-ht" placeholder="Height (cm)" type="number" min="1" max="250" inputmode="numeric" style="${fieldStyle()}" />
         <input id="nc-vax" placeholder="Vaccination status" style="${fieldStyle()}" />
       </div>` : ''}
       ${(isGynae||isFertility) ? `<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
@@ -3227,7 +3227,7 @@ function startBlankCase(){
       <input placeholder="HR (e.g. 88/min)"  style="${fieldStyle()}" oninput="storeBlankVitals(this,'hr')"   />
       <input placeholder="Temp (e.g. 37.2°C)" style="${fieldStyle()}" oninput="storeBlankVitals(this,'temp')" />
       <input placeholder="SpO₂ (e.g. 98%)"   style="${fieldStyle()}" oninput="storeBlankVitals(this,'spo2')" />
-      ${isPaeds?`<input placeholder="Weight (kg)" style="${fieldStyle()}" oninput="storeBlankVitals(this,'wt')" />`:''}
+      ${isPaeds?`<input placeholder="Weight (kg)" type="number" min="1" max="300" inputmode="numeric" style="${fieldStyle()}" oninput="storeBlankVitals(this,'wt')" />`:''}
     </div>`;
 
   // Editable investigations
