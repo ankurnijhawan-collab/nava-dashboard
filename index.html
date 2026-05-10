@@ -668,6 +668,44 @@ button,input,textarea,select{font-family:inherit}
   .impact-strip{grid-template-columns:1fr 1fr}
   .role-switcher{overflow-x:auto;border-radius:8px}
 }
+/* ═══ DARK MODE ═══ */
+[data-theme="dark"]{
+  --bg:#151310;--bg2:#1E1B18;--surface:#1E1B18;--card:#222019;
+  --ink:#F0EDE8;--body:#D8D3CC;--muted:#7A746C;
+  --border:#3A3630;--border2:#2E2B27;
+  --sien3:rgba(139,109,69,.18);--glt:rgba(74,122,90,.18);
+  --rlt:rgba(158,80,64,.18);--alt:rgba(166,124,46,.18);
+  --blt:rgba(26,58,92,.25);--plt:rgba(61,26,92,.25);--tlt:rgba(26,74,74,.25);
+  --shadow:0 2px 12px rgba(0,0,0,.3);--shadow2:0 6px 28px rgba(0,0,0,.45);
+}
+[data-theme="dark"] .sidebar{background:#0E0C0A}
+[data-theme="dark"] .np-header,[data-theme="dark"] .ws-run-bar{background:var(--card)}
+[data-theme="dark"] .topbar{background:#0E0C0A;border-color:#2E2B27}
+[data-theme="dark"] .ws-patient-id-bar{background:#0E0C0A;border-color:#2E2B27}
+[data-theme="dark"] body{background:var(--bg)}
+
+/* Dark mode toggle button */
+.theme-toggle{background:none;border:1px solid rgba(255,255,255,.15);border-radius:100px;padding:5px 12px;font-size:.7rem;color:rgba(255,255,255,.5);cursor:pointer;font-family:var(--sans);transition:.2s;display:flex;align-items:center;gap:5px}
+.theme-toggle:hover{border-color:rgba(255,255,255,.35);color:rgba(255,255,255,.8)}
+
+/* ═══ PRINT ═══ */
+@media print{
+  .sidebar,.topbar,.ws-run-bar,.tools-row,.nv-sec-head,.de-explain-btn,
+  .tour-overlay,.ob-overlay,.ehr-pull,.sidebar-overlay,
+  #run-hint,.ai-mode-badge,.patient-mode-bar,
+  button:not(.print-keep){display:none!important}
+  .app{display:block;height:auto}
+  .views{overflow:visible!important;height:auto}
+  .view{display:block!important}
+  .ws-panels{flex-direction:column;overflow:visible}
+  .ws-left,.ws-right{width:100%;min-width:unset;max-height:unset}
+  .nava-panel,.nv-section{break-inside:avoid}
+  .nv-sec-body{display:block!important;max-height:none!important}
+  body{background:#fff!important;color:#111!important;font-size:11pt}
+  .nv-card,.ddx-entry,.cm-block{border:1px solid #ccc!important;box-shadow:none!important}
+  @page{margin:18mm}
+}
+
 /* Jargon tooltip */
 .jargon{border-bottom:1px dashed var(--muted);cursor:help;position:relative}
 .jargon-tip{display:none;position:absolute;bottom:calc(100% + 4px);left:50%;transform:translateX(-50%);background:var(--bark);color:#F8F6F3;font-size:.7rem;padding:5px 9px;border-radius:6px;white-space:nowrap;z-index:100;pointer-events:none;font-style:normal;line-height:1.4}
@@ -1318,6 +1356,10 @@ button,input,textarea,select{font-family:inherit}
       <div><div class="sb-stat-val">94<span style="font-size:.85rem;color:var(--sien2)">%</span></div><div class="sb-stat-lbl">NAVA accuracy</div><div class="sb-acc-bar"><div class="sb-acc-fill" style="width:94%"></div></div></div>
       <div style="text-align:right"><div class="sb-stat-val" style="font-size:1.1rem">47</div><div class="sb-stat-lbl">Cases reviewed</div></div>
     </div>
+    <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between">
+      <button class="theme-toggle" id="theme-toggle-btn" onclick="toggleDarkMode()">☾ Dark</button>
+      <div style="font-size:.6rem;color:rgba(255,255,255,.2);letter-spacing:.05em">NAVA v2.0</div>
+    </div>
   </div>
 </aside>
 
@@ -1355,7 +1397,7 @@ button,input,textarea,select{font-family:inherit}
         <div class="impact-cell"><div class="impact-val">12<span style="font-size:.8rem">→</span><span class="impact-arrow">7</span><span style="font-size:.8rem;color:rgba(255,255,255,.5)">min</span></div><div class="impact-lbl">Avg consult time</div></div>
         <div class="impact-cell"><div class="impact-val" style="color:#6EE098">94<span style="font-size:.8rem;color:rgba(255,255,255,.4)">%</span></div><div class="impact-lbl">NAVA accuracy</div></div>
         <div class="impact-cell"><div class="impact-val">47</div><div class="impact-lbl">Cases analysed</div></div>
-        <div class="impact-cell"><div class="impact-val" style="color:var(--sien2)">₹2.1L</div><div class="impact-lbl">Revenue captured</div></div>
+        <div class="impact-cell"><div class="impact-val" style="color:var(--sien2)" id="time-saved-val">—</div><div class="impact-lbl">Time saved today</div></div>
       </div>
       <!-- Top bar: specialty label + quick stats + New Patient -->
       <div id="opd-context-banner" style="display:flex;align-items:center;gap:14px;margin-bottom:18px;padding:14px 18px;background:var(--card);border:1px solid var(--border2);border-radius:var(--r2)"></div>
@@ -1538,6 +1580,11 @@ button,input,textarea,select{font-family:inherit}
             <div class="np-header" id="nava-panel-header">
               <div class="np-title">NAVA Analysis<span class="ai-mode-badge">Claude AI</span></div>
               <div style="display:flex;gap:6px;align-items:center">
+                <select id="model-select" onchange="setClaudeModel(this.value)" style="font-size:.65rem;font-family:var(--sans);border:1px solid var(--border);border-radius:100px;padding:4px 8px;background:var(--bg2);color:var(--muted);cursor:pointer;display:none">
+                  <option value="claude-opus-4-7">Opus (best)</option>
+                  <option value="claude-sonnet-4-6">Sonnet (fast)</option>
+                  <option value="claude-haiku-4-5-20251001">Haiku (quick)</option>
+                </select>
                 <button class="ck-toggle" id="pt-mode-btn" onclick="togglePatientMode()" title="Rewrite in plain language for the patient">Plain language</button>
                 <button class="ck-toggle" id="ck-toggle-btn" onclick="toggleClaudeKeyBar()">+ Claude AI</button>
               </div>
@@ -3233,7 +3280,8 @@ function loadCase(i){
     }
   });
   document.getElementById('vitals-body').innerHTML = d.vitals.map(r=>`<div class="info-row"><span class="ir-label">${r.l}</span><span class="ir-val ${r.cls||''}">${r.v}</span></div>`).join('');
-  document.getElementById('labs-body').innerHTML = d.labs.map(r=>`<div class="info-row"><span class="ir-label">${r.l}</span><span class="ir-val ${r.cls||''}">${r.v}</span></div>`).join('');
+  document.getElementById('labs-body').innerHTML = d.labs.map(r=>`<div class="info-row"><span class="ir-label">${r.l}</span><span class="ir-val ${r.cls||''}">${r.v}</span>${r.cls==='flag'||r.cls==='warn'?`<span style="font-size:.62rem;color:var(--muted);margin-left:6px;font-style:italic">${interpretLab(r.l,r.v)}</span>`:''}
+  </div>`).join('');
   document.getElementById('meds-body').innerHTML = d.meds.map(r=>`<div class="info-row"><span class="ir-label">${r.l}</span><span class="ir-val ${r.cls||''}">${r.v}</span></div>`).join('');
 
   // reset output
@@ -3304,6 +3352,7 @@ function loadCase(i){
     makeCardCollapsible('info-meds',       true);   // collapsed
   }, 50);
 
+  window._caseLoadTime = Date.now();
   showView('workspace');
   renderDemoCasePicker();
 }
@@ -4018,7 +4067,15 @@ async function runNava(){
           <div class="skeleton-line short"></div>
         </div>
       </div>`;
+    const MAX_RETRIES = 3;
+    let lastError = null;
+    for(let attempt = 1; attempt <= MAX_RETRIES; attempt++){
     try {
+      if(attempt > 1){
+        const retryEl = out.querySelector('#stream-preview');
+        if(retryEl) retryEl.textContent = `Retrying ${attempt}/${MAX_RETRIES}…`;
+        await new Promise(r=>setTimeout(r, attempt * 800));
+      }
       const resp = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
         headers: {
@@ -4028,7 +4085,7 @@ async function runNava(){
           'anthropic-dangerous-direct-browser-access': 'true'
         },
         body: JSON.stringify({
-          model: 'claude-opus-4-7',
+          model: getClaudeModel(),
           max_tokens: 2000,
           stream: true,
           messages: [{ role: 'user', content: buildClaudePrompt(d) }]
@@ -4070,11 +4127,16 @@ async function runNava(){
       }
       return;
     } catch(e){
-      console.error('Claude API error:', e);
-      document.getElementById('nava-panel-header')?.classList.remove('ai-mode-active');
-      out.innerHTML += `<div style="font-size:.75rem;color:var(--red);padding:8px 12px;background:var(--rlt);border-radius:8px;margin-top:8px">Claude error: ${e.message}. Showing demo analysis.</div>`;
+      lastError = e;
+      console.error(`Claude API attempt ${attempt} error:`, e);
     }
+    } // end retry loop
+    // All retries failed
+    document.getElementById('nava-panel-header')?.classList.remove('ai-mode-active');
+    out.innerHTML += `<div style="font-size:.75rem;color:var(--red);padding:8px 12px;background:var(--rlt);border-radius:8px;margin-top:8px">Claude unavailable after ${MAX_RETRIES} attempts: ${lastError?.message||'unknown error'}. Showing demo analysis.</div>`;
   }
+
+  recordTimeSaved();
 
   // Gate critical cases behind an acknowledgment modal
   if(d.flagLevel === 'crit' && d.cantmiss && d.cantmiss.length){
@@ -5065,6 +5127,269 @@ Signature: _______________          Seal: _______________
     </div>`;
   document.body.appendChild(modal);
   modal.addEventListener('click', e=>{ if(e.target===modal) modal.remove(); });
+}
+
+// ─── Dark Mode ───
+function toggleDarkMode(){
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  const btn = document.getElementById('theme-toggle-btn');
+  if(btn) btn.innerHTML = isDark ? '☾ Dark' : '☀ Light';
+  localStorage.setItem('nava_theme', isDark ? 'light' : 'dark');
+}
+(function(){
+  const saved = localStorage.getItem('nava_theme');
+  if(saved === 'dark'){
+    document.documentElement.setAttribute('data-theme','dark');
+    const btn = document.getElementById('theme-toggle-btn');
+    if(btn) btn.innerHTML = '☀ Light';
+  }
+})();
+
+// ─── Model Selector ───
+let _claudeModel = 'claude-opus-4-7';
+function setClaudeModel(val){ _claudeModel = val; }
+function getClaudeModel(){ return _claudeModel; }
+
+// Show/hide model selector when key is saved
+const _origSaveClaudeKey = window.saveClaudeKey;
+if(typeof saveClaudeKey === 'function'){
+  const __origSave = saveClaudeKey;
+  saveClaudeKey = function(){
+    __origSave();
+    const sel = document.getElementById('model-select');
+    if(sel) sel.style.display = getClaudeKey() ? 'block' : 'none';
+  };
+}
+
+// ─── Time Saved Counter ───
+let _totalTimeSavedMs = 0;
+function recordTimeSaved(){
+  if(!window._caseLoadTime) return;
+  const elapsed = Date.now() - window._caseLoadTime;
+  // Baseline: avg manual review = 8 min. If analysis < 8 min, count the delta.
+  const baselineMs = 8 * 60 * 1000;
+  const saved = Math.max(0, baselineMs - elapsed);
+  _totalTimeSavedMs += saved;
+  const totalMins = Math.round(_totalTimeSavedMs / 60000);
+  const el = document.getElementById('time-saved-val');
+  if(el && totalMins > 0) el.innerHTML = `${totalMins}<span style="font-size:.8rem;color:rgba(255,255,255,.5)">min</span>`;
+  window._caseLoadTime = null;
+}
+
+// ─── Lab Interpretation ───
+const LAB_INTERP = [
+  [/hba1c|glyc/i, (v)=>{
+    const n=parseFloat(v);
+    if(n>=9) return 'poorly controlled — 3+ months of high sugars';
+    if(n>=7.5) return 'above target — needs medication review';
+    if(n>=6.5) return 'diabetic range';
+    if(n>=5.7) return 'pre-diabetic range';
+    return null;
+  }],
+  [/hb$|haemoglobin|hemoglobin/i, (v)=>{
+    const n=parseFloat(v);
+    if(n<7) return 'severe anaemia — transfusion threshold';
+    if(n<10) return 'moderate anaemia — investigate cause';
+    if(n<12) return 'mild anaemia';
+    return null;
+  }],
+  [/bp|blood.press/i, (v)=>{
+    const m=v.match(/(\d+)\/(\d+)/);
+    if(!m) return null;
+    const sys=parseInt(m[1]), dia=parseInt(m[2]);
+    if(sys>=180||dia>=120) return 'hypertensive crisis';
+    if(sys>=160||dia>=100) return 'stage 2 hypertension';
+    if(sys>=140||dia>=90) return 'above target — review meds';
+    return null;
+  }],
+  [/creatinine/i, (v)=>{
+    const n=parseFloat(v);
+    if(n>5) return 'severe kidney impairment';
+    if(n>2) return 'significant kidney dysfunction — dose adjust meds';
+    if(n>1.4) return 'mildly elevated — monitor kidneys';
+    return null;
+  }],
+  [/tsh/i, (v)=>{
+    const n=parseFloat(v);
+    if(n>10) return 'overt hypothyroidism — start replacement';
+    if(n>4.5) return 'subclinical hypothyroidism';
+    if(n<0.4) return 'suppressed — possible hyperthyroidism';
+    return null;
+  }],
+  [/fbs|fasting.sugar|fasting.glucose/i, (v)=>{
+    const n=parseFloat(v);
+    if(n>=126) return 'diabetic range';
+    if(n>=100) return 'impaired fasting — pre-diabetic';
+    return null;
+  }],
+  [/ppbs|post.meal|post.prandial/i, (v)=>{
+    const n=parseFloat(v);
+    if(n>=200) return 'diabetic range';
+    if(n>=140) return 'impaired glucose tolerance';
+    return null;
+  }],
+  [/sodium|na\b/i, (v)=>{
+    const n=parseFloat(v);
+    if(n<125) return 'severe hyponatraemia — urgent correction';
+    if(n<135) return 'low sodium — check hydration';
+    if(n>150) return 'hypernatraemia — dehydration likely';
+    return null;
+  }],
+  [/potassium|k\b/i, (v)=>{
+    const n=parseFloat(v);
+    if(n<3) return 'hypokalaemia — cardiac risk, replace';
+    if(n<3.5) return 'low-normal — monitor';
+    if(n>5.5) return 'hyperkalaemia — review ACE/ARB, check ECG';
+    return null;
+  }],
+  [/wbc|total.count|tlc/i, (v)=>{
+    const n=parseFloat(v);
+    if(n>15000) return 'high — active infection likely';
+    if(n>11000) return 'mildly elevated — watch for infection';
+    if(n<4000) return 'low — immunosuppression or viral illness';
+    return null;
+  }],
+  [/platelet/i, (v)=>{
+    const n=parseFloat(v);
+    if(n<20000) return 'critically low — bleeding risk';
+    if(n<100000) return 'thrombocytopenia — investigate';
+    if(n>450000) return 'elevated — reactive or myeloproliferative';
+    return null;
+  }],
+  [/ldl/i, (v)=>{
+    const n=parseFloat(v);
+    if(n>190) return 'very high — statin indicated';
+    if(n>130) return 'above ideal for cardiac risk';
+    return null;
+  }],
+  [/uric.acid/i, (v)=>{
+    const n=parseFloat(v);
+    if(n>9) return 'high — gout risk, consider allopurinol';
+    if(n>7) return 'elevated — dietary advice';
+    return null;
+  }],
+];
+function interpretLab(label, value){
+  for(const [re, fn] of LAB_INTERP){
+    if(re.test(label)){
+      const msg = fn(value);
+      if(msg) return msg;
+    }
+  }
+  return '';
+}
+
+// ─── Nursing Handover Note ───
+function openNursingHandover(){
+  const d = activeCase;
+  if(!d) return;
+  const today = new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+  const vitals = (d.vitals||[]).map(v=>`${v.l}: ${v.v}`).join('  ·  ') || '—';
+  const meds = (d.meds||[]).map(m=>m.v).filter(Boolean).join('\n') || 'Nil';
+  const flags = (d.cantmiss||[]).join('; ') || 'None';
+  const carePath = (d.carePath||[]).slice(0,3).map(s=>`• ${s.when}: ${s.action}`).join('\n') || '—';
+
+  const modal = document.createElement('div');
+  modal.style.cssText='position:fixed;inset:0;background:rgba(26,24,22,.6);z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px';
+  modal.innerHTML=`
+    <div style="background:var(--card);border-radius:14px;width:100%;max-width:600px;max-height:88vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,.25)">
+      <div style="padding:16px 22px 12px;border-bottom:1px solid var(--border2);display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
+        <div>
+          <div style="font-size:.88rem;font-weight:700;color:var(--ink)">Nursing Handover Note</div>
+          <div style="font-size:.7rem;color:var(--muted);margin-top:1px">${d.name} · ${d.meta||'—'} · ${today}</div>
+        </div>
+        <div style="display:flex;gap:7px">
+          <button onclick="navigator.clipboard.writeText(document.getElementById('hn-body').innerText).then(()=>{const b=this;b.textContent='✓';setTimeout(()=>b.textContent='Copy',1800)})" style="background:var(--bark);color:#F8F6F3;border:none;border-radius:100px;padding:5px 14px;font-size:.74rem;font-weight:600;cursor:pointer;font-family:var(--sans)">Copy</button>
+          <button onclick="this.closest('[style*=fixed]').remove()" style="background:none;border:none;font-size:.95rem;cursor:pointer;color:var(--muted);padding:4px 8px">✕</button>
+        </div>
+      </div>
+      <div id="hn-body" contenteditable="true" spellcheck="false" style="flex:1;overflow-y:auto;padding:18px 22px;font-size:.78rem;line-height:1.8;color:var(--body);outline:none;white-space:pre-wrap;font-family:var(--sans)"><b>NURSING HANDOVER — ${d.name.toUpperCase()}</b>
+Time: ${today}  ·  ${d.meta||'—'}
+Bed: ___  Ward: ___  Consultant: Dr. ___
+
+─────────────────────────────────────
+<b>CURRENT STATUS</b>
+─────────────────────────────────────
+Diagnosis     : ${d.ddx?.[0]?.n || '—'}
+Condition     : [ ] Stable  [ ] Improving  [ ] Deteriorating
+Consciousness : [ ] Alert  [ ] Confused  [ ] Drowsy
+
+<b>LATEST VITALS</b>
+${vitals}
+
+─────────────────────────────────────
+<b>ACTIVE MEDICATIONS</b>
+─────────────────────────────────────
+${meds}
+Last dose given: ___  Next due: ___
+
+─────────────────────────────────────
+<b>ALERTS &amp; FLAGS</b>
+─────────────────────────────────────
+${flags !== 'None' ? `⚠ Watch for: ${flags}` : 'No active alerts'}
+Allergies: ${d.meds?.find(m=>m.l?.toLowerCase().includes('allerg'))?.v || 'None documented'}
+
+─────────────────────────────────────
+<b>PENDING TASKS</b>
+─────────────────────────────────────
+${carePath}
+• IV access: [ ] In situ  [ ] Removed  [ ] Needed
+• Fluids: ___
+
+─────────────────────────────────────
+<b>HANDOVER TO</b>
+─────────────────────────────────────
+Nurse: ___  Time: ___  Signature: ___</div>
+    </div>`;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', e=>{ if(e.target===modal) modal.remove(); });
+
+  // If Claude key set, auto-fill narrative sections
+  const claudeKey = getClaudeKey();
+  if(claudeKey){
+    const dsBody = document.getElementById('ds-body');
+    const fillBtn = document.createElement('div');
+    fillBtn.id = 'ds-ai-banner';
+    fillBtn.style.cssText = 'padding:8px 22px;font-size:.72rem;color:var(--sienna);background:rgba(139,109,69,.07);border-bottom:1px solid var(--border2);display:flex;align-items:center;gap:8px';
+    fillBtn.innerHTML = '<span class="spin" style="width:10px;height:10px;border-width:2px"></span> Claude is writing the clinical narrative…';
+    modal.querySelector('div').insertBefore(fillBtn, modal.querySelector('#ds-body'));
+    fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':claudeKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({
+        model:'claude-haiku-4-5-20251001', max_tokens:600,
+        messages:[{role:'user',content:`Write a concise hospital discharge summary clinical narrative for an Indian doctor. Be factual and clinical. Return ONLY a JSON with these keys:
+"clinicalSummary": 2-3 sentence history & course in hospital
+"treatmentGiven": 2-3 sentence description of treatment provided
+"conditionAtDischarge": one sentence on condition when leaving
+"dischargeAdvice": 2-3 key instructions for the patient
+
+Patient: ${d.name}, ${d.meta||''}
+Diagnosis: ${topDdx}
+History: ${Array.isArray(d.history)?d.history.join('. '):(d.history||'—')}
+Vitals: ${vitals}
+Labs: ${labs}
+Meds: ${meds}
+NAVA flags: ${cantmiss}`}]
+      })
+    }).then(r=>r.json()).then(data=>{
+      const raw = data.content?.[0]?.text||'';
+      try{
+        const j = JSON.parse(raw.replace(/^```[a-z]*\n?/i,'').replace(/```$/,'').trim());
+        if(dsBody){
+          dsBody.innerHTML = dsBody.innerHTML
+            .replace('As detailed below.', j.clinicalSummary||'As detailed below.')
+            .replace(treatment||'—', j.treatmentGiven||treatment||'—')
+            .replace(carePath||'—', j.dischargeAdvice||carePath||'—');
+        }
+        fillBtn.innerHTML = '✓ Claude filled in the clinical narrative — edit as needed';
+        fillBtn.style.color = 'var(--green)';
+        fillBtn.style.background = 'var(--glt)';
+        setTimeout(()=>fillBtn.remove(), 3000);
+      } catch(_){ fillBtn.remove(); }
+    }).catch(()=>fillBtn.remove());
+  }
 }
 
 // ─── Patient-Friendly Mode ───
@@ -6674,7 +6999,11 @@ function renderNurseOverlay() {
           <div class="nurse-task-text">${t.text}</div>
           <div class="nurse-task-time">${t.time}</div>
         </div>`).join('')}
-      <div style="margin-top:12px;font-size:.72rem;color:var(--muted);padding:8px;background:var(--bg2);border-radius:8px;line-height:1.5">Nurse view only. Full NAVA analysis available to Doctor role.</div>
+      <div style="margin-top:12px;display:flex;gap:8px">
+        <button onclick="openNursingHandover()" style="flex:1;background:var(--bark);color:#F8F6F3;border:none;border-radius:8px;padding:8px;font-size:.75rem;font-weight:600;cursor:pointer;font-family:var(--sans)">Handover Note</button>
+        <button onclick="openDischargeSummary()" style="flex:1;background:var(--bg2);color:var(--body);border:1px solid var(--border);border-radius:8px;padding:8px;font-size:.75rem;cursor:pointer;font-family:var(--sans)">Discharge Summary</button>
+      </div>
+      <div style="margin-top:8px;font-size:.72rem;color:var(--muted);padding:8px;background:var(--bg2);border-radius:8px;line-height:1.5">Nurse view. Full NAVA analysis visible to Doctor role.</div>
     </div>`;
   navaPanel.innerHTML = html;
 }
