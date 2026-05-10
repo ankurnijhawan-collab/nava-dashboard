@@ -1638,8 +1638,8 @@ document.getElementById('today-date').textContent = new Date().toLocaleDateStrin
 // ── VIEWS ──
 const VIEW_TITLES = {today:"Today's OPD",workspace:'Active Case',rx:'Prescriptions',scribe:'Ambient Scribe',upload:'Documents & Scans',insights:'My Insights',history:'Case History'};
 function showView(id,btn){
-  // Auto-load first OPD patient when navigating to workspace with no case loaded
-  if(id === 'workspace' && !activeCase){
+  // Auto-load first OPD patient when navigating to workspace via sidebar (btn present), not when called from blank-case flow
+  if(id === 'workspace' && !activeCase && btn && !window._blankCaseMode){
     const opd = activeOPD || 'general';
     const first = CASES_DATA.find(c => c.specialty === opd) || CASES_DATA[0];
     if(first){
@@ -3190,44 +3190,81 @@ function switchNewCaseOpd(opd){
 }
 
 function startBlankCase(){
-  // Reset workspace to empty/blank state so the doctor can fill it manually
   activeCase = null;
   document.getElementById('newcase-modal').classList.remove('open');
 
-  // Reset visuals
+  const sp = activeOPD || 'general';
+  const isPaeds = sp === 'paediatrics';
+  const isGynae = sp === 'gynaecology';
+  const isFertility = sp === 'fertility';
+
+  // Editable case header
   document.getElementById('case-header').innerHTML = `
-    <div class="ch-name">New Blank Case</div>
-    <div class="ch-meta">Use scribe or manual entry below to capture patient details</div>
-    <div class="ch-pills"><span class="ch-pill">✱ Blank</span><span class="ch-pill">${OPD_CONFIG[activeOPD]?.label||'OPD'}</span></div>`;
+    <div style="display:flex;flex-direction:column;gap:7px;padding:2px 0">
+      <input id="nc-name" placeholder="Patient name" style="background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);padding:7px 10px;font-size:.82rem;font-weight:600;color:var(--bark);outline:none;width:100%" />
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
+        <input id="nc-age"  placeholder="Age & Sex (e.g. 42F)" style="${fieldStyle()}" />
+        <input id="nc-wt"   placeholder="Weight (kg)"           style="${fieldStyle()}" />
+        <input id="nc-room" placeholder="Room / Bed"            style="${fieldStyle()}" />
+      </div>
+      <input id="nc-chief" placeholder="Chief complaint (e.g. Chest pain × 2 months)" style="${fieldStyle('full')}" />
+      ${isPaeds ? `<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+        <input id="nc-ht" placeholder="Height (cm)" style="${fieldStyle()}" />
+        <input id="nc-vax" placeholder="Vaccination status" style="${fieldStyle()}" />
+      </div>` : ''}
+      ${(isGynae||isFertility) ? `<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+        <input id="nc-lmp" placeholder="LMP" style="${fieldStyle()}" />
+        <input id="nc-gpa" placeholder="G  P  A" style="${fieldStyle()}" />
+      </div>` : ''}
+    </div>`;
 
-  ['info-history','info-fh','info-partner','body-map-area'].forEach(id=>{
-    const el = document.getElementById(id); if(el) el.style.display='none';
+  // Editable vitals
+  ['vitals-label','labs-label','meds-label'].forEach(id=>{const el=document.getElementById(id);if(el){el.innerHTML='';el.className='patient-label';}});
+  document.getElementById('vitals-body').innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:4px 0">
+      <input placeholder="BP (e.g. 128/82)"  style="${fieldStyle()}" oninput="storeBlankVitals(this,'bp')"   />
+      <input placeholder="HR (e.g. 88/min)"  style="${fieldStyle()}" oninput="storeBlankVitals(this,'hr')"   />
+      <input placeholder="Temp (e.g. 37.2°C)" style="${fieldStyle()}" oninput="storeBlankVitals(this,'temp')" />
+      <input placeholder="SpO₂ (e.g. 98%)"   style="${fieldStyle()}" oninput="storeBlankVitals(this,'spo2')" />
+      ${isPaeds?`<input placeholder="Weight (kg)" style="${fieldStyle()}" oninput="storeBlankVitals(this,'wt')" />`:''}
+    </div>`;
+
+  // Editable investigations
+  document.getElementById('labs-body').innerHTML = `
+    <textarea id="nc-labs" placeholder="Paste or dictate recent investigations&#10;e.g. Hb 11.2 · LDL 168 · HbA1c 8.4 · Creatinine 2.1" rows="4" style="${taStyle()}"></textarea>`;
+
+  // Editable medications
+  document.getElementById('meds-body').innerHTML = `
+    <textarea id="nc-meds" placeholder="Current medications (one per line)&#10;e.g. Metformin 500mg BD&#10;Amlodipine 5mg OD" rows="3" style="${taStyle()}"></textarea>`;
+
+  ['info-history','info-fh','info-partner','body-map-area','info-paeds','info-gynae','info-art'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.style.display='none';
   });
+  window._blankVitals = {};
 
-  const placeholder = `<div style="padding:14px 0;text-align:center;color:var(--muted);font-size:.75rem;font-style:italic">Awaiting patient details…</div>`;
-  document.getElementById('vitals-body').innerHTML = placeholder;
-  document.getElementById('labs-body').innerHTML = placeholder;
-  document.getElementById('meds-body').innerHTML = placeholder;
-
-  // Clear any previous Her/Him labels
-  ['vitals-label','labs-label','meds-label'].forEach(id=>{
-    const el=document.getElementById(id); if(el){el.innerHTML='';el.className='patient-label';}
-  });
-
-  // Empty the notes textarea
   const notes = document.getElementById('case-notes-input');
   if(notes) notes.value = '';
 
   document.getElementById('nava-output').innerHTML = `
     <div style="text-align:center;padding:36px 20px">
       <div style="font-size:2.2rem;margin-bottom:10px;opacity:.25">✱</div>
-      <div style="font-family:var(--serif);font-size:1rem;color:var(--muted);font-style:italic">Blank case ready</div>
-      <div style="font-size:.75rem;color:var(--muted);margin-top:5px;font-weight:300;line-height:1.55">Dictate via ◉ Transcribe, pull from Scribe,<br>or type case notes to run NAVA.</div>
+      <div style="font-family:var(--serif);font-size:1rem;color:var(--muted);font-style:italic">New patient — fill the form on the left</div>
+      <div style="font-size:.75rem;color:var(--muted);margin-top:5px;font-weight:300;line-height:1.55">Enter details, then tap <strong style="color:var(--bark)">Run Analysis →</strong><br>Or use ◉ Transcribe to dictate everything.</div>
     </div>`;
 
+  document.getElementById('run-btn-txt').textContent = 'Run Analysis →';
   showView('workspace');
   renderDemoCasePicker();
+  setTimeout(()=>document.getElementById('nc-name')?.focus(), 100);
 }
+
+function fieldStyle(full){
+  return `background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);padding:6px 9px;font-size:.75rem;color:var(--bark);outline:none;width:100%;font-family:var(--sans)`;
+}
+function taStyle(){
+  return `background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);padding:8px 10px;font-size:.75rem;color:var(--bark);outline:none;width:100%;resize:none;font-family:var(--sans);line-height:1.6`;
+}
+function storeBlankVitals(el, key){ window._blankVitals = window._blankVitals||{}; window._blankVitals[key] = el.value; }
 
 // ─── PARTNER CARD (for fertility couple cases) ───
 function renderPartnerCard(p){
@@ -3285,7 +3322,34 @@ function renderBodyMap(d){
 
 // ─── RUN NAVA ───
 async function runNava(){
-  if(!activeCase){alert('Load a patient first.');return;}
+  if(!activeCase){
+    // Build a temporary case from blank-case form inputs
+    const name = document.getElementById('nc-name')?.value?.trim();
+    const age  = document.getElementById('nc-age')?.value?.trim();
+    const wt   = document.getElementById('nc-wt')?.value?.trim();
+    const chief= document.getElementById('nc-chief')?.value?.trim();
+    const labs = document.getElementById('nc-labs')?.value?.trim();
+    const meds = document.getElementById('nc-meds')?.value?.trim();
+    const notes= document.getElementById('case-notes-input')?.value?.trim();
+    if(!name && !chief && !notes){ alert('Please enter at least a patient name and chief complaint, or use Transcribe to dictate.'); return; }
+    // Synthesise a minimal case object so runNava can proceed
+    activeCase = {
+      name: name || 'New Patient',
+      meta: [age,wt?wt+' kg':''].filter(Boolean).join(' · ') || '—',
+      specialty: activeOPD || 'general',
+      chief: chief || notes?.split('\n')[0] || '—',
+      pills: [age, wt?wt+' kg':'', chief].filter(Boolean).slice(0,3),
+      history:[], familyHistory:[], hospitalisations:[],
+      vitals: Object.entries(window._blankVitals||{}).map(([k,v])=>({l:k.toUpperCase(),v,cls:''})),
+      labs: labs ? labs.split('\n').filter(Boolean).map(l=>{ const[lbl,...rest]=l.split(/[:·\-]/); return {l:(lbl||l).trim(),v:(rest.join(' ')||'—').trim(),cls:''}; }) : [],
+      meds: meds ? meds.split('\n').filter(Boolean).map(m=>({l:'℞',v:m.trim(),cls:''})) : [],
+      ddx:[{p:70,n:'Pending NAVA analysis',w:'Run analysis to generate differential',c:'var(--muted)',b:'70%',t:'likely'}],
+      cantmiss:[], treatment:{title:'Pending',lines:[]}, carePath:[], research:[],
+      finance:{patientEstimate:'—',hospitalRevenue:'—',affordability:'med',affordNote:'Enter details first.',breakdownPatient:[],breakdownHosp:[],hospitalShare:50},
+      flagLevel:'warn', flagText:'New'
+    };
+    if(notes) activeCase._notes = notes;
+  }
   const btn=document.getElementById('run-nava-btn');
   const btxt=document.getElementById('run-btn-txt');
   btn.disabled=true;
