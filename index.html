@@ -1277,12 +1277,36 @@ button,input,textarea,select{font-family:inherit}
             <div class="panel-header"><div class="panel-title">Diagnostic Lab Partners</div><span style="font-size:.65rem;background:var(--alt);color:var(--amber);padding:2px 8px;border-radius:4px;font-weight:600">Via ABDM HIE</span></div>
             <div style="padding:10px 14px 6px">
               <div style="font-size:.72rem;color:var(--muted);margin-bottom:10px;line-height:1.6">Lab reports auto-fetch when patient gives ABDM consent. Until then, upload a photo of the report above — NAVA reads it instantly.</div>
-              ${['Lal Path Labs','SRL Diagnostics','Dr Dang\'s Lab','Mahajan Imaging','Thyrocare','Metropolis'].map((lab,i)=>`
               <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border2)">
-                <div style="width:32px;height:32px;border-radius:8px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:var(--muted)">${lab.substring(0,2).toUpperCase()}</div>
-                <div style="flex:1"><div style="font-size:.78rem;font-weight:600;color:var(--ink)">${lab}</div><div style="font-size:.68rem;color:var(--muted)">${i<2?'ABDM integration available':'Pending ABDM onboarding'}</div></div>
-                <span style="font-size:.63rem;font-weight:700;padding:2px 7px;border-radius:4px;background:${i<2?'var(--glt)':'var(--bg2)'};color:${i<2?'var(--green)':'var(--muted)'};">${i<2?'Ready':'Coming'}</span>
-              </div>`).join('')}
+                <div style="width:32px;height:32px;border-radius:8px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:var(--muted)">LA</div>
+                <div style="flex:1"><div style="font-size:.78rem;font-weight:600;color:var(--ink)">Lal Path Labs</div><div style="font-size:.68rem;color:var(--muted)">ABDM integration available</div></div>
+                <span style="font-size:.63rem;font-weight:700;padding:2px 7px;border-radius:4px;background:var(--glt);color:var(--green)">Ready</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border2)">
+                <div style="width:32px;height:32px;border-radius:8px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:var(--muted)">SR</div>
+                <div style="flex:1"><div style="font-size:.78rem;font-weight:600;color:var(--ink)">SRL Diagnostics</div><div style="font-size:.68rem;color:var(--muted)">ABDM integration available</div></div>
+                <span style="font-size:.63rem;font-weight:700;padding:2px 7px;border-radius:4px;background:var(--glt);color:var(--green)">Ready</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border2)">
+                <div style="width:32px;height:32px;border-radius:8px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:var(--muted)">DR</div>
+                <div style="flex:1"><div style="font-size:.78rem;font-weight:600;color:var(--ink)">Dr Dang's Lab</div><div style="font-size:.68rem;color:var(--muted)">Pending ABDM onboarding</div></div>
+                <span style="font-size:.63rem;font-weight:700;padding:2px 7px;border-radius:4px;background:var(--bg2);color:var(--muted)">Coming</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border2)">
+                <div style="width:32px;height:32px;border-radius:8px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:var(--muted)">MA</div>
+                <div style="flex:1"><div style="font-size:.78rem;font-weight:600;color:var(--ink)">Mahajan Imaging</div><div style="font-size:.68rem;color:var(--muted)">Pending ABDM onboarding</div></div>
+                <span style="font-size:.63rem;font-weight:700;padding:2px 7px;border-radius:4px;background:var(--bg2);color:var(--muted)">Coming</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border2)">
+                <div style="width:32px;height:32px;border-radius:8px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:var(--muted)">TH</div>
+                <div style="flex:1"><div style="font-size:.78rem;font-weight:600;color:var(--ink)">Thyrocare</div><div style="font-size:.68rem;color:var(--muted)">Pending ABDM onboarding</div></div>
+                <span style="font-size:.63rem;font-weight:700;padding:2px 7px;border-radius:4px;background:var(--bg2);color:var(--muted)">Coming</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border2)">
+                <div style="width:32px;height:32px;border-radius:8px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:var(--muted)">ME</div>
+                <div style="flex:1"><div style="font-size:.78rem;font-weight:600;color:var(--ink)">Metropolis</div><div style="font-size:.68rem;color:var(--muted)">Pending ABDM onboarding</div></div>
+                <span style="font-size:.63rem;font-weight:700;padding:2px 7px;border-radius:4px;background:var(--bg2);color:var(--muted)">Coming</span>
+              </div>
               <div style="font-size:.68rem;color:var(--muted);margin-top:10px;padding:8px;background:var(--bg2);border-radius:8px;line-height:1.6">
                 <strong style="color:var(--body)">How it works:</strong> Patient shares ABHA ID → gives one-time consent → all their reports from these labs flow into NAVA automatically. No manual upload needed.
               </div>
