@@ -94,9 +94,20 @@ button,input,textarea,select{font-family:inherit}
 .topbar-back:hover .tbb-arrow{transform:translateX(-2px)}
 .tbb-label{font-weight:600;color:var(--bark)}
 .topbar-back:hover .tbb-label{color:var(--sienna)}
-@keyframes backIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:translateX(0)}}.topbar-search{display:flex;align-items:center;gap:7px;background:var(--bg);border:1px solid var(--border);border-radius:100px;padding:6px 13px;width:200px}
+@keyframes backIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:translateX(0)}}.topbar-search{position:relative;display:flex;align-items:center;gap:7px;background:var(--bg);border:1px solid var(--border);border-radius:100px;padding:6px 13px;width:240px;transition:border-color .15s}
+.topbar-search:focus-within{border-color:var(--sienna)}
 .topbar-search input{background:none;border:none;outline:none;font-size:.78rem;color:var(--ink);width:100%}
 .topbar-search input::placeholder{color:var(--muted)}
+#search-dropdown{display:none;position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow2);z-index:200;overflow:hidden;max-height:400px;overflow-y:auto}
+#search-dropdown.open{display:block}
+.sd-section-label{font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:10px 14px 4px}
+.sd-item{display:flex;align-items:center;gap:10px;padding:9px 14px;cursor:pointer;transition:background .1s}
+.sd-item:hover{background:var(--bg2)}
+.sd-avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:var(--ink);flex-shrink:0}
+.sd-name{font-size:.8rem;font-weight:600;color:var(--ink)}
+.sd-meta{font-size:.72rem;color:var(--muted);margin-top:1px}
+.sd-flag{font-size:.65rem;font-weight:600;padding:2px 7px;border-radius:4px;margin-left:auto;flex-shrink:0}
+.sd-empty{padding:20px 14px;text-align:center;font-size:.8rem;color:var(--muted)}
 .tb-btn{border:none;border-radius:100px;padding:7px 16px;font-size:.76rem;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .15s}
 .tb-btn.primary{background:var(--bark);color:var(--surface)}
 .tb-btn.primary:hover{background:var(--sienna)}
@@ -866,6 +877,74 @@ button,input,textarea,select{font-family:inherit}
 .ins-section-tab.active{background:var(--card);color:var(--bark);font-weight:600;box-shadow:0 1px 4px rgba(26,24,22,.1)}
 .ins-section{display:none}
 .ins-section.active{display:block}
+
+/* ═══ VISUAL TEMPORAL TIMELINE ═══ */
+.vt-wrap{padding:14px 16px}
+.vt-summary{display:flex;gap:16px;margin-bottom:14px;flex-wrap:wrap}
+.vt-stat{display:flex;flex-direction:column;gap:2px}
+.vt-stat-val{font-family:var(--serif);font-size:1.05rem;font-weight:600;color:var(--bark)}
+.vt-stat-lbl{font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.vt-stat-sep{width:1px;background:var(--border2);margin:0 4px;align-self:stretch}
+
+/* Horizontal time ribbon */
+.vt-ribbon-wrap{position:relative;margin-bottom:16px}
+.vt-ribbon-label{display:flex;justify-content:space-between;font-size:.65rem;color:var(--muted);margin-bottom:4px}
+.vt-ribbon{position:relative;height:32px;background:var(--bg2);border-radius:100px;overflow:hidden}
+.vt-ribbon-track{position:absolute;top:50%;left:12px;right:12px;height:2px;background:var(--border);transform:translateY(-50%)}
+.vt-ribbon-node{position:absolute;top:50%;transform:translate(-50%,-50%);cursor:pointer;z-index:2}
+.vt-ribbon-dot{width:12px;height:12px;border-radius:50%;border:2px solid var(--surface);transition:transform .15s}
+.vt-ribbon-node:hover .vt-ribbon-dot{transform:scale(1.5)}
+.vt-ribbon-node .vt-rn-tip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--bark);color:#F8F6F3;font-size:.7rem;border-radius:6px;padding:5px 9px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .15s;z-index:10;line-height:1.4;box-shadow:var(--shadow2)}
+.vt-ribbon-node:hover .vt-rn-tip{opacity:1}
+
+/* Event list */
+.vt-events{display:flex;flex-direction:column;gap:0}
+.vt-event{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border2);position:relative;cursor:default;transition:background .12s}
+.vt-event:last-child{border:none;padding-bottom:0}
+.vt-event:hover{background:var(--surface);margin:0 -16px;padding-left:16px;padding-right:16px}
+.vt-e-left{display:flex;flex-direction:column;align-items:center;gap:0;flex-shrink:0;width:44px}
+.vt-e-date{font-size:.65rem;font-weight:700;color:var(--muted);text-align:center;line-height:1.2;white-space:nowrap}
+.vt-e-node{width:10px;height:10px;border-radius:50%;margin:4px auto 0;flex-shrink:0}
+.vt-e-body{flex:1;min-width:0}
+.vt-e-label{font-size:.8rem;font-weight:600;color:var(--bark);margin-bottom:3px;line-height:1.3}
+.vt-e-detail{font-size:.75rem;color:var(--muted);line-height:1.5}
+.vt-e-tag{display:inline-block;font-size:.6rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:2px 7px;border-radius:100px;margin-bottom:4px}
+.vt-e-tag.chronic{background:var(--alt);color:var(--amber)}
+.vt-e-tag.surgery{background:var(--rlt);color:var(--red)}
+.vt-e-tag.diagnosis{background:var(--glt);color:var(--green)}
+.vt-e-tag.medication{background:var(--sien3);color:var(--sienna)}
+
+/* Lab trends strip */
+.vt-labs-strip{margin-top:14px;padding-top:12px;border-top:1px solid var(--border2)}
+.vt-labs-title{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.vt-labs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px}
+.vt-lab-cell{background:var(--bg2);border-radius:var(--r);padding:8px 10px;position:relative;overflow:hidden}
+.vt-lab-name{font-size:.65rem;color:var(--muted);margin-bottom:3px;text-overflow:ellipsis;overflow:hidden;white-space:nowrap}
+.vt-lab-val{font-size:.88rem;font-weight:700;font-family:var(--serif)}
+.vt-lab-val.ok{color:var(--green)}.vt-lab-val.warn{color:var(--amber)}.vt-lab-val.bad{color:var(--red)}
+.vt-lab-bar{position:absolute;bottom:0;left:0;right:0;height:3px}
+.vt-lab-bar-fill{height:100%;border-radius:2px}
+
+/* Case History timeline view */
+.hist-view-toggle{display:flex;gap:4px;padding:3px;background:var(--bg2);border:1px solid var(--border2);border-radius:100px}
+.hvt-btn{background:none;border:none;border-radius:100px;padding:5px 14px;font-family:var(--sans);font-size:.75rem;font-weight:500;color:var(--muted);cursor:pointer;transition:all .15s}
+.hvt-btn.active{background:var(--card);color:var(--bark);font-weight:600;box-shadow:0 1px 3px rgba(26,24,22,.1)}
+.hist-timeline-view{display:none;padding:16px}
+.hist-timeline-view.active{display:block}
+.hist-table-view.active{display:block}
+.hist-table-view{display:none}
+.cht-patient-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border2)}
+.cht-patient-row:last-child{border:none}
+.cht-patient-name{width:110px;flex-shrink:0;font-size:.78rem;font-weight:600;color:var(--bark);line-height:1.3}
+.cht-patient-age{font-size:.65rem;color:var(--muted);font-weight:400}
+.cht-track{flex:1;position:relative;height:28px}
+.cht-track-line{position:absolute;top:50%;left:0;right:0;height:1px;background:var(--border2);transform:translateY(-50%)}
+.cht-event-node{position:absolute;top:50%;transform:translate(-50%,-50%);cursor:pointer}
+.cht-event-node .cht-dot{width:11px;height:11px;border-radius:50%;border:2px solid var(--card);transition:transform .15s}
+.cht-event-node:hover .cht-dot{transform:scale(1.6)}
+.cht-event-node .cht-tip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--bark);color:#F8F6F3;font-size:.7rem;border-radius:6px;padding:6px 10px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .15s;z-index:20;box-shadow:var(--shadow2);line-height:1.5}
+.cht-event-node:hover .cht-tip{opacity:1}
+.cht-axis{display:flex;justify-content:space-between;font-size:.65rem;color:var(--muted);padding:4px 0 0;margin-left:122px}
 </style>
 </head>
 <body>
@@ -919,7 +998,10 @@ button,input,textarea,select{font-family:inherit}
       <span class="tbb-label">Home</span>
     </button>
     <div class="topbar-title" id="topbar-title">Today's OPD</div>
-    <div class="topbar-search"><input type="text" placeholder="Search patient or condition…"></div>
+    <div class="topbar-search" id="topbar-search-wrap">
+      <input type="text" id="topbar-search-input" placeholder="Search patient or condition…" oninput="doTopbarSearch(this.value)" onkeydown="onSearchKey(event)" autocomplete="off">
+      <div id="search-dropdown"></div>
+    </div>
     <button class="tb-btn ghost" onclick="showView('scribe')">Start Scribe</button>
     <button class="tb-btn ghost" onclick="showView('upload')">Upload Doc</button>
     <button class="tb-btn primary" onclick="openNewCasePicker()">+ New Case</button>
@@ -1352,22 +1434,35 @@ button,input,textarea,select{font-family:inherit}
       <div class="panel-card">
         <div style="padding:10px 16px;background:var(--surface);border-bottom:1px solid var(--border2);font-size:.75rem;color:var(--muted);display:flex;justify-content:space-between;align-items:center">
           <span id="history-count-label">Showing all cases</span>
-          <span style="font-size:.65rem">Click any row to open the case · click Documents to preview files</span>
+          <div style="display:flex;align-items:center;gap:12px">
+            <span style="font-size:.65rem">Click any row to open the case</span>
+            <div class="hist-view-toggle">
+              <button class="hvt-btn active" id="hvt-table" onclick="switchHistView('table',this)">Table</button>
+              <button class="hvt-btn" id="hvt-timeline" onclick="switchHistView('timeline',this)">Timeline</button>
+            </div>
+          </div>
         </div>
-        <table class="history-table">
-          <thead>
-            <tr>
-              <th style="width:90px">Date</th>
-              <th style="width:160px">Patient</th>
-              <th>Chief Complaint</th>
-              <th>Treating Dx</th>
-              <th>NAVA Verdict</th>
-              <th>Outcome</th>
-              <th style="width:130px">Documents</th>
-            </tr>
-          </thead>
-          <tbody id="history-tbody"></tbody>
-        </table>
+        <!-- Table view -->
+        <div class="hist-table-view active" id="hist-table-view">
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th style="width:90px">Date</th>
+                <th style="width:160px">Patient</th>
+                <th>Chief Complaint</th>
+                <th>Treating Dx</th>
+                <th>NAVA Verdict</th>
+                <th>Outcome</th>
+                <th style="width:130px">Documents</th>
+              </tr>
+            </thead>
+            <tbody id="history-tbody"></tbody>
+          </table>
+        </div>
+        <!-- Timeline view -->
+        <div class="hist-timeline-view" id="hist-timeline-view">
+          <div id="hist-timeline-canvas"></div>
+        </div>
       </div>
     </div>
 
@@ -2541,7 +2636,7 @@ function loadCase(i){
   hi.style.display='block';
   const herLabelPill = isCouple ? `<span class="patient-label visible" style="background:#F5D8E0;color:#7A1A4A"> Her</span>` : '';
   hi.querySelector('.ic-head').innerHTML = ` Medical & Surgical History ${herLabelPill}`;
-  document.getElementById('history-body').innerHTML = `<div class="history-timeline">${d.history.map(e=>`<div class="ht-event"><div class="ht-dot ${e.type||''}"></div><div class="ht-date">${e.date}</div><div class="ht-event-name">${e.label}</div><div class="ht-detail">${e.detail}</div></div>`).join('')}</div>`;
+  document.getElementById('history-body').innerHTML = renderVisualTimeline(d);
 
   // family history
   const fi = document.getElementById('info-fh');
@@ -4255,6 +4350,116 @@ function docIconBg(type){
   const map = {cxr:'var(--blt)',xray:'var(--blt)',lab:'var(--glt)',ecg:'var(--rlt)',discharge:'var(--gpale)',rx:'var(--alt)',mri:'var(--plt)',ct:'var(--plt)',usg:'var(--tlt)'};
   return map[type] || 'var(--bg2)';
 }
+
+/* ── Topbar Search ── */
+let _searchFocusIdx = -1;
+
+function doTopbarSearch(q) {
+  const dd = document.getElementById('search-dropdown');
+  q = q.trim();
+  if (!q) { closeSearchDropdown(); return; }
+
+  const ql = q.toLowerCase();
+  const caseHits = CASES_DATA.filter(c =>
+    (c.name||'').toLowerCase().includes(ql) ||
+    (c.chief||'').toLowerCase().includes(ql) ||
+    (c.specialty||'').toLowerCase().includes(ql) ||
+    (c.flagText||'').toLowerCase().includes(ql) ||
+    (c.pills||[]).some(p => (p.label||p).toLowerCase().includes(ql))
+  ).slice(0, 5);
+
+  const histHits = HISTORY_DATA.filter(h =>
+    (h.patient||'').toLowerCase().includes(ql) ||
+    (h.complaint||'').toLowerCase().includes(ql) ||
+    (h.treating||'').toLowerCase().includes(ql) ||
+    (h.nava||'').toLowerCase().includes(ql)
+  ).slice(0, 4);
+
+  if (!caseHits.length && !histHits.length) {
+    dd.innerHTML = `<div class="sd-empty">No results for "${q}"</div>`;
+    dd.classList.add('open');
+    return;
+  }
+
+  let html = '';
+  if (caseHits.length) {
+    html += `<div class="sd-section-label">Active Cases</div>`;
+    caseHits.forEach(c => {
+      const idx = CASES_DATA.indexOf(c);
+      const flagBg = c.flagLevel === 'crit' ? 'var(--rlt)' : c.flagLevel === 'warn' ? 'var(--alt)' : 'var(--glt)';
+      const flagColor = c.flagLevel === 'crit' ? 'var(--red)' : c.flagLevel === 'warn' ? 'var(--amber)' : 'var(--green)';
+      html += `<div class="sd-item" onclick="selectSearchCase(${idx})">
+        <div class="sd-avatar" style="background:${c.bg||'var(--bg2)'}">${c.avatar||''}</div>
+        <div style="flex:1;min-width:0">
+          <div class="sd-name">${c.name}</div>
+          <div class="sd-meta">${c.chief||''} · ${c.specialty||''}</div>
+        </div>
+        ${c.flagText ? `<span class="sd-flag" style="background:${flagBg};color:${flagColor}">${c.flagText}</span>` : ''}
+      </div>`;
+    });
+  }
+  if (histHits.length) {
+    html += `<div class="sd-section-label">Case History</div>`;
+    histHits.forEach(h => {
+      const badgeBg = h.verdict === 'vb-diff' ? 'var(--rlt)' : h.verdict === 'vb-partial' ? 'var(--alt)' : 'var(--glt)';
+      const badgeColor = h.verdict === 'vb-diff' ? 'var(--red)' : h.verdict === 'vb-partial' ? 'var(--amber)' : 'var(--green)';
+      html += `<div class="sd-item" onclick="selectSearchHistory(${HISTORY_DATA.indexOf(h)})">
+        <div class="sd-avatar" style="background:${h.bg||'var(--bg2)'}">${h.avatar||''}</div>
+        <div style="flex:1;min-width:0">
+          <div class="sd-name">${h.patient}</div>
+          <div class="sd-meta">${h.complaint}</div>
+        </div>
+        <span class="sd-flag" style="background:${badgeBg};color:${badgeColor}">${h.verdictLabel||'—'}</span>
+      </div>`;
+    });
+  }
+
+  dd.innerHTML = html;
+  dd.classList.add('open');
+  _searchFocusIdx = -1;
+}
+
+function selectSearchCase(idx) {
+  closeSearchDropdown();
+  document.getElementById('topbar-search-input').value = '';
+  loadCase(idx);
+  showView('workspace');
+}
+
+function selectSearchHistory(idx) {
+  closeSearchDropdown();
+  document.getElementById('topbar-search-input').value = '';
+  showView('history');
+}
+
+function closeSearchDropdown() {
+  const dd = document.getElementById('search-dropdown');
+  if (dd) { dd.classList.remove('open'); dd.innerHTML = ''; }
+  _searchFocusIdx = -1;
+}
+
+function onSearchKey(e) {
+  const dd = document.getElementById('search-dropdown');
+  const items = dd.querySelectorAll('.sd-item');
+  if (e.key === 'Escape') { closeSearchDropdown(); e.target.blur(); return; }
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    _searchFocusIdx = Math.min(_searchFocusIdx + 1, items.length - 1);
+    items.forEach((el, i) => el.style.background = i === _searchFocusIdx ? 'var(--bg2)' : '');
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    _searchFocusIdx = Math.max(_searchFocusIdx - 1, 0);
+    items.forEach((el, i) => el.style.background = i === _searchFocusIdx ? 'var(--bg2)' : '');
+  } else if (e.key === 'Enter' && _searchFocusIdx >= 0) {
+    items[_searchFocusIdx].click();
+  }
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(e) {
+  const wrap = document.getElementById('topbar-search-wrap');
+  if (wrap && !wrap.contains(e.target)) closeSearchDropdown();
+});
 </script>
 
 <!-- CRITICAL FLAG ACKNOWLEDGMENT MODAL -->
