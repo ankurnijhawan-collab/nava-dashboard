@@ -649,6 +649,143 @@ button,input,textarea,select{font-family:inherit}
   .rx-form-panel,.rx-output-panel{min-width:unset;width:100%}
   .tb-btn.ghost{display:none}
 }
+/* ═══ ROLE SWITCHER ═══ */
+.role-switcher{display:flex;gap:2px;background:var(--bg2);border-radius:100px;padding:3px;flex-shrink:0}
+.role-btn{background:none;border:none;border-radius:100px;padding:5px 13px;font-size:.72rem;font-weight:500;cursor:pointer;color:var(--muted);transition:all .15s;font-family:var(--sans);white-space:nowrap}
+.role-btn:hover{color:var(--bark)}
+.role-btn.active{background:var(--bark);color:#F8F6F3;font-weight:600}
+.role-btn.active[data-role="nurse"]{background:#1A3A5C}
+.role-btn.active[data-role="pharmacist"]{background:#1A4A4A}
+.role-btn.active[data-role="admin"]{background:var(--purple)}
+
+/* ═══ EHR PULL OVERLAY ═══ */
+.ehr-pull{position:fixed;inset:0;background:rgba(26,24,22,.55);z-index:500;display:none;align-items:center;justify-content:center}
+.ehr-pull.show{display:flex}
+.ehr-pull-box{background:var(--card);border-radius:16px;padding:24px 32px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.2);min-width:260px}
+.ehr-pull-logo{font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.ehr-pull-spinner{width:32px;height:32px;border:2.5px solid var(--border);border-top-color:var(--sienna);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ehr-pull-msg{font-size:.82rem;color:var(--bark);font-weight:500}
+.ehr-pull-sub{font-size:.72rem;color:var(--muted);margin-top:4px}
+.ehr-pull-done{display:none;font-size:.82rem;font-weight:600;color:var(--green)}
+
+/* ═══ EMERGENCY TRIAGE ═══ */
+.triage-board{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;padding:4px 0}
+.triage-card{background:var(--card);border-radius:var(--r2);border:1px solid var(--border2);overflow:hidden;box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s;cursor:pointer}
+.triage-card:hover{transform:translateY(-2px);box-shadow:var(--shadow2)}
+.triage-card.crit{border-top:3px solid var(--red)}
+.triage-card.warn{border-top:3px solid var(--amber)}
+.triage-card.ok{border-top:3px solid var(--green)}
+.triage-head{padding:12px 14px 8px;display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.triage-name{font-family:var(--serif);font-size:.95rem;font-weight:600;color:var(--bark)}
+.triage-meta{font-size:.7rem;color:var(--muted);margin-top:2px}
+.triage-badge{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:6px;white-space:nowrap;flex-shrink:0}
+.triage-badge.crit{background:var(--rlt);color:var(--red)}
+.triage-badge.warn{background:var(--alt);color:var(--amber)}
+.triage-badge.ok{background:var(--glt);color:var(--green)}
+.triage-vitals{display:flex;gap:0;border-top:1px solid var(--border2);border-bottom:1px solid var(--border2)}
+.triage-vital{flex:1;text-align:center;padding:7px 4px;border-right:1px solid var(--border2)}
+.triage-vital:last-child{border-right:none}
+.triage-vital-val{font-size:.78rem;font-weight:600;color:var(--bark);line-height:1}
+.triage-vital-val.flag{color:var(--red)}
+.triage-vital-lbl{font-size:.58rem;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:.04em}
+.triage-flags{padding:8px 14px;font-size:.72rem;color:var(--red);line-height:1.5;min-height:24px}
+.triage-actions{padding:8px 14px 12px;display:flex;gap:6px}
+.triage-action-btn{flex:1;background:none;border:1px solid var(--border);border-radius:8px;padding:6px 8px;font-size:.72rem;font-weight:500;cursor:pointer;color:var(--bark);font-family:var(--sans);transition:all .15s;text-align:center}
+.triage-action-btn:hover{background:var(--bark);color:#F8F6F3;border-color:var(--bark)}
+.triage-action-btn.primary{background:var(--red);color:#F8F6F3;border-color:var(--red)}
+.triage-action-btn.primary:hover{background:#7A3830}
+.emg-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+.emg-title{font-family:var(--serif);font-size:1.2rem;font-weight:600;color:var(--bark)}
+.emg-stats{display:flex;gap:12px}
+.emg-stat{text-align:center;background:var(--card);border:1px solid var(--border2);border-radius:var(--r);padding:8px 14px}
+.emg-stat-val{font-family:var(--serif);font-size:1.1rem;font-weight:600;color:var(--bark);line-height:1}
+.emg-stat-lbl{font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+.emg-live-dot{display:inline-block;width:7px;height:7px;background:var(--red);border-radius:50%;animation:pulse 1.2s ease infinite;margin-right:5px}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+
+/* ═══ PHARMACY QUEUE ═══ */
+.rx-queue{display:flex;flex-direction:column;gap:10px}
+.rxq-card{background:var(--card);border-radius:var(--r2);border:1px solid var(--border2);overflow:hidden;box-shadow:var(--shadow)}
+.rxq-head{padding:12px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border2);background:var(--surface)}
+.rxq-patient{flex:1}
+.rxq-pname{font-weight:600;font-size:.85rem;color:var(--bark)}
+.rxq-pmeta{font-size:.7rem;color:var(--muted);margin-top:1px}
+.rxq-time{font-size:.68rem;color:var(--muted);text-align:right}
+.rxq-drugs{padding:10px 16px;display:flex;flex-direction:column;gap:6px}
+.rxq-drug{display:flex;align-items:center;gap:10px;padding:7px 10px;background:var(--bg2);border-radius:8px}
+.rxq-drug-name{flex:1;font-size:.8rem;font-weight:600;color:var(--bark)}
+.rxq-drug-dose{font-size:.72rem;color:var(--muted)}
+.rxq-stock{font-size:.68rem;font-weight:600;padding:2px 7px;border-radius:4px}
+.rxq-stock.ok{background:var(--glt);color:var(--green)}
+.rxq-stock.low{background:var(--alt);color:var(--amber)}
+.rxq-stock.out{background:var(--rlt);color:var(--red)}
+.rxq-actions{padding:8px 16px 12px;display:flex;gap:8px}
+.rxq-btn{flex:1;border:none;border-radius:8px;padding:8px 12px;font-size:.78rem;font-weight:600;cursor:pointer;font-family:var(--sans);transition:all .15s}
+.rxq-btn.dispense{background:var(--green);color:#F8F6F3}
+.rxq-btn.dispense:hover{background:#3A6A4A}
+.rxq-btn.dispense:disabled{background:var(--muted);cursor:default}
+.rxq-btn.substitute{background:var(--card);border:1px solid var(--border);color:var(--bark)}
+.rxq-btn.substitute:hover{background:var(--bg2)}
+.rxq-dispensed{padding:8px 16px 10px;font-size:.78rem;color:var(--green);font-weight:600;display:none}
+.phm-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+.phm-tabs{display:flex;gap:4px;background:var(--bg2);border-radius:100px;padding:3px}
+.phm-tab{background:none;border:none;border-radius:100px;padding:5px 14px;font-size:.72rem;font-weight:500;cursor:pointer;color:var(--muted);font-family:var(--sans);transition:all .15s}
+.phm-tab.active{background:var(--card);color:var(--bark);font-weight:600;box-shadow:var(--shadow)}
+
+/* ═══ DIAGNOSTICS RESULTS ═══ */
+.diag-ordered{background:var(--glt);border:1px solid var(--status-optimal-border,#C8DFD0);border-radius:var(--r);padding:10px 14px;font-size:.78rem;color:var(--green);margin:8px 0;display:flex;align-items:center;gap:8px}
+.diag-result-incoming{background:var(--alt);border:1px solid rgba(166,124,46,.25);border-radius:var(--r);padding:10px 14px;font-size:.78rem;color:var(--amber);margin:8px 0;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.diag-result-bar{height:3px;background:var(--border2);border-radius:2px;overflow:hidden;width:80px;flex-shrink:0}
+.diag-result-fill{height:100%;background:var(--amber);border-radius:2px;animation:diagfill 10s linear forwards}
+@keyframes diagfill{from{width:0}to{width:100%}}
+
+/* ═══ WHATSAPP PREVIEW ═══ */
+.wa-modal-overlay{position:fixed;inset:0;background:rgba(26,24,22,.65);z-index:3000;display:none;align-items:center;justify-content:center}
+.wa-modal-overlay.open{display:flex}
+.wa-modal{background:var(--card);border-radius:20px;box-shadow:0 24px 64px rgba(0,0,0,.25);width:min(420px,92vw);overflow:hidden}
+.wa-modal-head{background:#128C7E;padding:16px 18px;display:flex;align-items:center;gap:10px}
+.wa-modal-avatar{width:36px;height:36px;background:rgba(255,255,255,.25);border-radius:50%;display:grid;place-items:center;font-weight:700;color:#fff;font-size:.85rem;flex-shrink:0}
+.wa-modal-contact{flex:1}
+.wa-modal-name{font-size:.88rem;font-weight:600;color:#fff}
+.wa-modal-status{font-size:.7rem;color:rgba(255,255,255,.7)}
+.wa-close{background:none;border:none;color:rgba(255,255,255,.7);font-size:1.1rem;cursor:pointer;padding:0}
+.wa-chat{background:#E5DDD5;padding:16px;min-height:160px}
+.wa-bubble{background:#fff;border-radius:0 12px 12px 12px;padding:10px 13px;font-size:.8rem;line-height:1.6;color:#1A1816;box-shadow:0 1px 3px rgba(0,0,0,.1);max-width:90%;white-space:pre-wrap}
+.wa-time{font-size:.65rem;color:var(--muted);text-align:right;margin-top:4px}
+.wa-send-bar{padding:12px 16px;display:flex;gap:8px;border-top:1px solid var(--border2)}
+.wa-send-btn{flex:1;background:#128C7E;color:#fff;border:none;border-radius:100px;padding:9px 18px;font-size:.8rem;font-weight:600;cursor:pointer;font-family:var(--sans);transition:background .15s}
+.wa-send-btn:hover{background:#0E7066}
+.wa-send-btn.sent{background:var(--green)}
+.wa-cancel{background:none;border:1px solid var(--border);border-radius:100px;padding:9px 16px;font-size:.78rem;cursor:pointer;color:var(--muted);font-family:var(--sans)}
+
+/* ═══ IMPACT METRIC BANNER ═══ */
+.impact-strip{display:flex;gap:0;background:var(--bark);border-radius:var(--r);overflow:hidden;margin-bottom:14px}
+.impact-cell{flex:1;padding:12px 16px;text-align:center;border-right:1px solid rgba(255,255,255,.08)}
+.impact-cell:last-child{border-right:none}
+.impact-val{font-family:var(--serif);font-size:1.25rem;font-weight:600;color:#F8F6F3;line-height:1}
+.impact-lbl{font-size:.62rem;color:rgba(255,255,255,.42);text-transform:uppercase;letter-spacing:.07em;margin-top:4px}
+.impact-arrow{color:var(--green);font-weight:700}
+
+/* ═══ NURSE VIEW ═══ */
+.nurse-task-card{background:var(--card);border-radius:var(--r2);border:1px solid var(--border2);overflow:hidden;margin-bottom:10px}
+.nurse-task-head{background:var(--bark);color:#F8F6F3;padding:10px 14px;font-size:.75rem;font-weight:600;letter-spacing:.05em;display:flex;align-items:center;gap:8px}
+.nurse-task-body{padding:10px 14px;display:flex;flex-direction:column;gap:7px}
+.nurse-task-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;background:var(--bg2)}
+.nurse-task-chk{width:18px;height:18px;border:2px solid var(--border);border-radius:4px;cursor:pointer;flex-shrink:0;display:grid;place-items:center;transition:all .15s}
+.nurse-task-chk.done{background:var(--green);border-color:var(--green);color:#fff;font-size:.7rem}
+.nurse-task-text{font-size:.8rem;color:var(--bark);flex:1}
+.nurse-task-time{font-size:.7rem;color:var(--muted)}
+
+/* ═══ ADMIN BILLING VIEW ═══ */
+.billing-row{display:flex;align-items:center;gap:12px;padding:10px 14px;border-bottom:1px solid var(--border2)}
+.billing-row:last-child{border-bottom:none}
+.billing-code{font-size:.75rem;font-family:monospace;background:var(--bg2);padding:3px 8px;border-radius:5px;color:var(--bark);font-weight:600}
+.billing-desc{flex:1;font-size:.78rem;color:var(--bark)}
+.billing-amt{font-size:.82rem;font-weight:600;color:var(--bark)}
+.billing-status{font-size:.68rem;font-weight:600;padding:2px 8px;border-radius:4px}
+.billing-status.approved{background:var(--glt);color:var(--green)}
+.billing-status.pending{background:var(--alt);color:var(--amber)}
 .akb-label{font-size:.72rem;font-weight:600;color:var(--muted);white-space:nowrap}
 .akb-input{flex:1;min-width:160px;border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:.75rem;font-family:monospace;background:var(--card);color:var(--ink);outline:none}
 .akb-input:focus{border-color:var(--sienna)}
@@ -1080,6 +1217,9 @@ button,input,textarea,select{font-family:inherit}
     <button class="nav-item" onclick="showView('rx',this)"><span class="ni-icon">·</span>Prescriptions</button>
     <button class="nav-item" onclick="showView('scribe',this)"><span class="ni-icon">·</span>Record Consult</button>
     <button class="nav-item" onclick="showView('upload',this)"><span class="ni-icon">·</span>Patient Files</button>
+    <div class="sb-section" style="margin-top:6px">Hospital</div>
+    <button class="nav-item" id="nav-emergency" onclick="showView('emergency',this)"><span class="ni-icon">▲</span>Emergency<span class="nav-badge" style="background:var(--red)">2</span></button>
+    <button class="nav-item" id="nav-pharmacy" onclick="showView('pharmacy',this)"><span class="ni-icon">·</span>Pharmacy Queue<span class="nav-badge amber" id="phm-badge">4</span></button>
     <div class="sb-section" style="margin-top:6px">Review</div>
     <button class="nav-item" onclick="showView('insights',this)"><span class="ni-icon">·</span>My Insights</button>
     <button class="nav-item" onclick="showView('history',this)"><span class="ni-icon">·</span>Case History</button>
@@ -1105,9 +1245,14 @@ button,input,textarea,select{font-family:inherit}
       <input type="text" id="topbar-search-input" placeholder="Search patient or condition…" oninput="doTopbarSearch(this.value)" onkeydown="onSearchKey(event)" autocomplete="off">
       <div id="search-dropdown"></div>
     </div>
+    <div class="role-switcher" id="role-switcher">
+      <button class="role-btn active" data-role="doctor" onclick="switchRole('doctor',this)">Doctor</button>
+      <button class="role-btn" data-role="nurse" onclick="switchRole('nurse',this)">Nurse</button>
+      <button class="role-btn" data-role="pharmacist" onclick="switchRole('pharmacist',this)">Pharmacist</button>
+      <button class="role-btn" data-role="admin" onclick="switchRole('admin',this)">Admin</button>
+    </div>
     <button class="tb-btn ghost" onclick="showView('scribe')">Record</button>
-    <button class="tb-btn ghost" onclick="showView('upload')">Files</button>
-    <button class="tb-btn primary" onclick="startBlankCase()">+ New Patient</button>
+    <button class="tb-btn primary" id="new-patient-btn" onclick="startBlankCase()">+ New Patient</button>
   </div>
 
   <div class="views">
@@ -1115,6 +1260,13 @@ button,input,textarea,select{font-family:inherit}
     <!-- ═══ TODAY ═══ -->
     <div class="view active" id="view-today">
 
+      <!-- Impact metric strip -->
+      <div class="impact-strip" id="impact-strip">
+        <div class="impact-cell"><div class="impact-val">12<span style="font-size:.8rem">→</span><span class="impact-arrow">7</span><span style="font-size:.8rem;color:rgba(255,255,255,.5)">min</span></div><div class="impact-lbl">Avg consult time</div></div>
+        <div class="impact-cell"><div class="impact-val" style="color:#6EE098">94<span style="font-size:.8rem;color:rgba(255,255,255,.4)">%</span></div><div class="impact-lbl">NAVA accuracy</div></div>
+        <div class="impact-cell"><div class="impact-val">47</div><div class="impact-lbl">Cases analysed</div></div>
+        <div class="impact-cell"><div class="impact-val" style="color:var(--sien2)">₹2.1L</div><div class="impact-lbl">Revenue captured</div></div>
+      </div>
       <!-- Top bar: specialty label + quick stats + New Patient -->
       <div id="opd-context-banner" style="display:flex;align-items:center;gap:14px;margin-bottom:18px;padding:14px 18px;background:var(--card);border:1px solid var(--border2);border-radius:var(--r2)"></div>
 
@@ -1691,6 +1843,38 @@ button,input,textarea,select{font-family:inherit}
           <div id="hist-timeline-canvas"></div>
         </div>
       </div>
+    </div>
+
+    <!-- ═══ EMERGENCY TRIAGE ═══ -->
+    <div class="view" id="view-emergency">
+      <div class="emg-header">
+        <div>
+          <div class="emg-title"><span class="emg-live-dot"></span>Emergency Department</div>
+          <div style="font-size:.75rem;color:var(--muted);margin-top:3px">Live triage board — NAVA-assisted escalation</div>
+        </div>
+        <div class="emg-stats">
+          <div class="emg-stat"><div class="emg-stat-val" style="color:var(--red)">2</div><div class="emg-stat-lbl">Critical</div></div>
+          <div class="emg-stat"><div class="emg-stat-val" style="color:var(--amber)">3</div><div class="emg-stat-lbl">Watch</div></div>
+          <div class="emg-stat"><div class="emg-stat-val" style="color:var(--green)">1</div><div class="emg-stat-lbl">Stable</div></div>
+          <div class="emg-stat"><div class="emg-stat-val">4</div><div class="emg-stat-lbl">Beds free</div></div>
+        </div>
+      </div>
+      <div class="triage-board" id="triage-board"></div>
+    </div>
+
+    <!-- ═══ PHARMACY QUEUE ═══ -->
+    <div class="view" id="view-pharmacy">
+      <div class="phm-header">
+        <div>
+          <div style="font-family:var(--serif);font-size:1.2rem;font-weight:600;color:var(--bark)">Pharmacy Queue</div>
+          <div style="font-size:.75rem;color:var(--muted);margin-top:3px">Pending prescriptions — stock status · dispense · substitute</div>
+        </div>
+        <div class="phm-tabs">
+          <button class="phm-tab active" onclick="filterPharmacy('pending',this)">Pending <span style="background:var(--red);color:#fff;border-radius:100px;padding:1px 6px;font-size:.65rem;margin-left:4px" id="phm-pending-count">4</span></button>
+          <button class="phm-tab" onclick="filterPharmacy('dispensed',this)">Dispensed today</button>
+        </div>
+      </div>
+      <div class="rx-queue" id="pharmacy-queue"></div>
     </div>
 
   </div><!-- /views -->
@@ -3591,7 +3775,11 @@ async function runNava(){
     const labs = document.getElementById('nc-labs')?.value?.trim();
     const meds = document.getElementById('nc-meds')?.value?.trim();
     const notes= document.getElementById('case-notes-input')?.value?.trim();
-    if(!name && !chief && !notes){ alert('Please enter at least a patient name and chief complaint, or use Transcribe to dictate.'); return; }
+    if(!name && !chief && !notes){
+      const out=document.getElementById('nava-output');
+      if(out) out.innerHTML=`<div style="padding:16px;background:var(--rlt);border-radius:8px;font-size:.8rem;color:var(--red)">Please enter at least a patient name and chief complaint, or use <strong>Transcribe</strong> to dictate.</div>`;
+      return;
+    }
     // Synthesise a minimal case object so runNava can proceed
     activeCase = {
       name: name || 'New Patient',
@@ -5912,7 +6100,490 @@ document.addEventListener('click', function(e) {
   const wrap = document.getElementById('topbar-search-wrap');
   if (wrap && !wrap.contains(e.target)) closeSearchDropdown();
 });
+
+// ═══════════════════════════════════════════════════
+// ROLE SWITCHER
+// ═══════════════════════════════════════════════════
+let activeRole = 'doctor';
+
+function switchRole(role, btn) {
+  activeRole = role;
+  document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  applyRoleUI(role);
+  // Route to appropriate default view for the role
+  if (role === 'pharmacist') { showView('pharmacy'); renderPharmacyQueue(); }
+  else if (role === 'nurse') { showView('workspace'); renderNurseOverlay(); }
+  else if (role === 'admin') { showView('workspace'); renderAdminOverlay(); }
+  else { showView('today'); removeRoleOverlays(); }
+}
+
+function applyRoleUI(role) {
+  const newPatBtn = document.getElementById('new-patient-btn');
+  if (newPatBtn) newPatBtn.style.display = (role === 'doctor' || role === 'nurse') ? '' : 'none';
+  // Hide/show nav items based on role
+  const emgNav = document.getElementById('nav-emergency');
+  const phmNav = document.getElementById('nav-pharmacy');
+  if (emgNav) emgNav.style.display = (role === 'doctor' || role === 'nurse') ? '' : 'none';
+  if (phmNav) phmNav.style.display = (role === 'pharmacist' || role === 'admin') ? '' : 'none';
+}
+
+function removeRoleOverlays() {
+  ['nurse-overlay','admin-overlay'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.remove();
+  });
+}
+
+function renderNurseOverlay() {
+  const d = activeCase || CASES_DATA[0];
+  if (!d) return;
+  removeRoleOverlays();
+  const tasks = [
+    { text: `Record vitals — BP, HR, SpO₂, temp for ${d.name}`, time: 'Now', done: false },
+    { text: `Administer ${(d.meds||[])[0]?.v || 'medications'} as prescribed`, time: '10:00', done: false },
+    { text: 'Escort patient to ECG room for 12-lead ECG', time: '10:30', done: false },
+    { text: 'Draw blood for lipid panel + HbA1c + CBC', time: '11:00', done: false },
+    { text: 'Document allergy confirmation with patient', time: 'Before DC', done: false },
+    { text: 'Brief patient on new medication schedule', time: 'Before DC', done: false },
+  ];
+  const navaPanel = document.getElementById('nava-output');
+  if (!navaPanel) return;
+  const html = `
+    <div id="nurse-overlay">
+      <div style="font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;padding:4px 0 6px;border-bottom:1px solid var(--border2)">Nurse Task List — ${d.name}</div>
+      ${tasks.map((t,i) => `
+        <div class="nurse-task-row" id="ntask-${i}">
+          <div class="nurse-task-chk" onclick="toggleNurseTask(${i})" id="ntchk-${i}"></div>
+          <div class="nurse-task-text">${t.text}</div>
+          <div class="nurse-task-time">${t.time}</div>
+        </div>`).join('')}
+      <div style="margin-top:12px;font-size:.72rem;color:var(--muted);padding:8px;background:var(--bg2);border-radius:8px;line-height:1.5">Nurse view only. Full NAVA analysis available to Doctor role.</div>
+    </div>`;
+  navaPanel.innerHTML = html;
+}
+
+function toggleNurseTask(i) {
+  const chk = document.getElementById('ntchk-'+i);
+  const row = document.getElementById('ntask-'+i);
+  if (!chk) return;
+  const done = chk.classList.toggle('done');
+  chk.textContent = done ? '✓' : '';
+  if (row) row.style.opacity = done ? '.5' : '1';
+}
+
+function renderAdminOverlay() {
+  const d = activeCase || CASES_DATA[0];
+  if (!d) return;
+  removeRoleOverlays();
+  const navaPanel = document.getElementById('nava-output');
+  if (!navaPanel) return;
+  const billingItems = [
+    { code: 'Z00.0', desc: 'General health exam', amt: '₹500', status: 'approved' },
+    { code: 'I10', desc: 'Hypertension — consultation', amt: '₹800', status: 'approved' },
+    { code: '93000', desc: 'ECG — 12 lead', amt: '₹350', status: 'pending' },
+    { code: '80061', desc: 'Lipid panel', amt: '₹650', status: 'approved' },
+    { code: '93306', desc: '2D Echo (ordered)', amt: '₹2,200', status: 'pending' },
+  ];
+  const total = '₹4,500';
+  const html = `
+    <div id="admin-overlay">
+      <div style="font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;padding:4px 0 6px;border-bottom:1px solid var(--border2)">Billing — ${d.name}</div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+        <div style="font-size:.75rem;background:var(--glt);color:var(--green);padding:4px 10px;border-radius:6px;font-weight:600">✓ ABHA Linked</div>
+        <div style="font-size:.75rem;background:var(--alt);color:var(--amber);padding:4px 10px;border-radius:6px;font-weight:600">Star Health — Active</div>
+        <div style="font-size:.75rem;background:var(--bg2);color:var(--muted);padding:4px 10px;border-radius:6px">PMJAY: Eligible</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border2);border-radius:var(--r);overflow:hidden;margin-bottom:10px">
+        ${billingItems.map(b => `
+          <div class="billing-row">
+            <span class="billing-code">${b.code}</span>
+            <span class="billing-desc">${b.desc}</span>
+            <span class="billing-amt">${b.amt}</span>
+            <span class="billing-status ${b.status}">${b.status === 'approved' ? '✓ Approved' : '⏳ Pending'}</span>
+          </div>`).join('')}
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;font-size:.82rem;font-weight:600;padding:6px 2px">
+        <span style="color:var(--muted)">Total encounter</span>
+        <span style="color:var(--bark);font-size:.95rem">${total}</span>
+      </div>
+      <button onclick="alert('Claim submitted to Star Health Insurance')" style="margin-top:10px;width:100%;background:var(--bark);color:#F8F6F3;border:none;border-radius:8px;padding:9px;font-size:.78rem;font-weight:600;cursor:pointer">Submit Insurance Claim →</button>
+    </div>`;
+  navaPanel.innerHTML = html;
+}
+
+// ═══════════════════════════════════════════════════
+// EHR PULL ANIMATION
+// ═══════════════════════════════════════════════════
+function showEhrPull(patientName, callback) {
+  const ov = document.getElementById('ehr-pull');
+  const msg = document.getElementById('ehr-pull-msg');
+  const sub = document.getElementById('ehr-pull-sub');
+  const spinner = document.getElementById('ehr-spinner');
+  const done = document.getElementById('ehr-pull-done');
+  if (!ov) { callback(); return; }
+  msg.textContent = `Pulling record for ${patientName}…`;
+  sub.textContent = 'Fetching from Apollo EHR';
+  spinner.style.display = 'block';
+  done.style.display = 'none';
+  ov.classList.add('show');
+  // Step 1: fetching
+  setTimeout(() => { sub.textContent = 'Verifying ABHA ID · Decrypting records'; }, 600);
+  // Step 2: done
+  setTimeout(() => {
+    spinner.style.display = 'none';
+    done.style.display = 'block';
+    msg.textContent = `${patientName} — record loaded`;
+    sub.textContent = 'Apollo HIS · 3 previous visits found';
+  }, 1300);
+  // Step 3: hide and continue
+  setTimeout(() => {
+    ov.classList.remove('show');
+    callback();
+  }, 2000);
+}
+
+// Intercept loadCase to show EHR pull animation
+const _origLoadCase = loadCase;
+loadCase = function(idx) {
+  const d = CASES_DATA[idx];
+  if (d && activeRole === 'doctor') {
+    showEhrPull(d.name, () => {
+      _origLoadCase(idx);
+      if (activeRole === 'nurse') renderNurseOverlay();
+      else if (activeRole === 'admin') renderAdminOverlay();
+    });
+  } else {
+    _origLoadCase(idx);
+  }
+};
+
+// ═══════════════════════════════════════════════════
+// EMERGENCY TRIAGE BOARD
+// ═══════════════════════════════════════════════════
+const EMERGENCY_CASES = [
+  { name:'Vikram Rajan', age:'58M', chief:'Crushing chest pain, diaphoresis × 40 min', level:'crit',
+    vitals:{ BP:'82/50', HR:'118', SpO2:'91', Temp:'37.2' }, flagBP:true, flagHR:true, flagSpO2:true,
+    flags:'⚡ STEMI suspected — cath lab alert required. Cardiogenic shock signs.',
+    nava:'Likely STEMI. Immediate aspirin 325mg + nitroglycerin. Call cardiology NOW.' },
+  { name:'Preethi Nair', age:'34F', chief:'Sudden severe headache — "worst of my life"', level:'crit',
+    vitals:{ BP:'196/112', HR:'96', SpO2:'98', Temp:'37.0' }, flagBP:true, flagHR:false, flagSpO2:false,
+    flags:'⚡ Thunderclap headache — subarachnoid haemorrhage until proven otherwise. CT head stat.',
+    nava:'SAH cannot be excluded. CT head + LP if CT negative. No anticoagulation.' },
+  { name:'Arjun Mehta', age:'22M', chief:'RIF pain + nausea × 6 hours', level:'warn',
+    vitals:{ BP:'118/76', HR:'102', SpO2:'98', Temp:'38.1' }, flagBP:false, flagHR:true, flagSpO2:false,
+    flags:'Rovsing sign positive. Rebound tenderness. Likely acute appendicitis.',
+    nava:'Appendicitis score 8/10. IV access + NBM + surgical consult. USS abdomen.' },
+  { name:'Kavitha Sundaram', age:'67F', chief:'Acute confusion + fever', level:'warn',
+    vitals:{ BP:'102/64', HR:'112', SpO2:'94', Temp:'39.4' }, flagBP:true, flagHR:true, flagSpO2:true,
+    flags:'qSOFA 2 — sepsis screen positive. Source unknown. Urosepsis vs pneumonia.',
+    nava:'Sepsis protocol. Blood cultures × 2, urine culture, CXR. IV antibiotics within 1 hour.' },
+  { name:'Mohan Das', age:'45M', chief:'Shortness of breath + wheeze', level:'warn',
+    vitals:{ BP:'126/82', HR:'108', SpO2:'92', Temp:'37.5' }, flagBP:false, flagHR:true, flagSpO2:true,
+    flags:'Peak flow 40% predicted. Moderate-severe asthma exacerbation.',
+    nava:'Salbutamol neb + ipratropium + prednisolone 40mg. Reassess SpO2 in 20 min.' },
+  { name:'Ananya Krishnan', age:'28F', chief:'Ankle sprain — sports injury', level:'ok',
+    vitals:{ BP:'116/72', HR:'78', SpO2:'99', Temp:'36.8' }, flagBP:false, flagHR:false, flagSpO2:false,
+    flags:'',
+    nava:'Ottawa rules negative — no X-ray needed. RICE + analgesia. Discharge.' },
+];
+
+function renderEmergencyBoard() {
+  const board = document.getElementById('triage-board');
+  if (!board) return;
+  board.innerHTML = EMERGENCY_CASES.map((p,i) => `
+    <div class="triage-card ${p.level}" onclick="showTriageDetail(${i})">
+      <div class="triage-head">
+        <div>
+          <div class="triage-name">${p.name}</div>
+          <div class="triage-meta">${p.age} · ${p.chief}</div>
+        </div>
+        <div class="triage-badge ${p.level}">${p.level === 'crit' ? '🔴 Critical' : p.level === 'warn' ? '🟡 Watch' : '🟢 Stable'}</div>
+      </div>
+      <div class="triage-vitals">
+        <div class="triage-vital"><div class="triage-vital-val ${p.flagBP?'flag':''}">${p.vitals.BP}</div><div class="triage-vital-lbl">BP</div></div>
+        <div class="triage-vital"><div class="triage-vital-val ${p.flagHR?'flag':''}">${p.vitals.HR}</div><div class="triage-vital-lbl">HR</div></div>
+        <div class="triage-vital"><div class="triage-vital-val ${p.flagSpO2?'flag':''}">${p.vitals.SpO2}%</div><div class="triage-vital-lbl">SpO₂</div></div>
+        <div class="triage-vital"><div class="triage-vital-val">${p.vitals.Temp}°</div><div class="triage-vital-lbl">Temp</div></div>
+      </div>
+      ${p.flags ? `<div class="triage-flags">${p.flags}</div>` : '<div class="triage-flags" style="color:var(--green)">No immediate flags</div>'}
+      <div class="triage-actions">
+        <button class="triage-action-btn ${p.level==='crit'?'primary':''}" onclick="event.stopPropagation();showTriageDetail(${i})">NAVA Analysis</button>
+        <button class="triage-action-btn" onclick="event.stopPropagation();alert('Bed ${i+1} assigned')">Assign Bed</button>
+        ${p.level==='crit' ? `<button class="triage-action-btn" style="background:var(--amber);color:#fff;border-color:var(--amber)" onclick="event.stopPropagation();alert('Specialist alerted')">Alert Specialist</button>` : ''}
+      </div>
+    </div>`).join('');
+}
+
+function showTriageDetail(i) {
+  const p = EMERGENCY_CASES[i];
+  alert(`NAVA Assessment — ${p.name}\n\n${p.nava}\n\nFull workspace view: open from patient queue.`);
+}
+
+// ═══════════════════════════════════════════════════
+// PHARMACY QUEUE
+// ═══════════════════════════════════════════════════
+const PHARMACY_QUEUE_DATA = [
+  { patient:'Meena Iyer', meta:'42F · General OPD', time:'10:14', status:'pending',
+    drugs:[
+      { name:'Atorvastatin 40mg', dose:'1 tab OD at night', stock:'ok', stockLabel:'In stock' },
+      { name:'Iron + Folic Acid', dose:'1 tab OD', stock:'ok', stockLabel:'In stock' },
+      { name:'Amlodipine 5mg', dose:'1 tab OD morning', stock:'low', stockLabel:'Low stock (3 strips)' },
+    ]},
+  { patient:'Riya Sharma', meta:'8F · Paediatrics', time:'10:28', status:'pending',
+    drugs:[
+      { name:'Paracetamol syrup 250mg/5ml', dose:'5ml TDS × 3 days', stock:'ok', stockLabel:'In stock' },
+      { name:'Azithromycin syrup', dose:'200mg OD × 5 days', stock:'out', stockLabel:'Out of stock', sub:'Amoxicillin syrup 125mg/5ml — equivalent' },
+    ]},
+  { patient:'Ananya Krishnan', meta:'32F · Gynaecology', time:'11:05', status:'pending',
+    drugs:[
+      { name:'Norethisterone 5mg', dose:'1 tab TDS × 10 days', stock:'ok', stockLabel:'In stock' },
+      { name:'Tranexamic acid 500mg', dose:'2 tabs TDS (heavy days)', stock:'ok', stockLabel:'In stock' },
+    ]},
+  { patient:'Rohit Verma', meta:'35M · Fertility', time:'11:22', status:'pending',
+    drugs:[
+      { name:'Clomiphene 50mg (partner)', dose:'1 tab OD D2–D6', stock:'ok', stockLabel:'In stock' },
+      { name:'Folic acid 5mg', dose:'1 tab OD', stock:'ok', stockLabel:'In stock' },
+    ]},
+];
+
+let _dispensedIds = new Set();
+
+function renderPharmacyQueue(filter='pending') {
+  const container = document.getElementById('pharmacy-queue');
+  if (!container) return;
+  const items = PHARMACY_QUEUE_DATA.filter((_,i) => filter === 'dispensed' ? _dispensedIds.has(i) : !_dispensedIds.has(i));
+  if (!items.length) { container.innerHTML = `<div style="text-align:center;padding:32px;color:var(--muted);font-size:.85rem">${filter==='dispensed'?'No dispensed prescriptions yet.':'All caught up — queue is empty.'}</div>`; return; }
+  container.innerHTML = PHARMACY_QUEUE_DATA.map((q,i) => {
+    const isDispensed = _dispensedIds.has(i);
+    if (filter === 'dispensed' && !isDispensed) return '';
+    if (filter === 'pending' && isDispensed) return '';
+    return `
+      <div class="rxq-card" id="rxqcard-${i}">
+        <div class="rxq-head">
+          <div class="rxq-patient">
+            <div class="rxq-pname">${q.patient}</div>
+            <div class="rxq-pmeta">${q.meta}</div>
+          </div>
+          <div class="rxq-time">Received ${q.time}</div>
+        </div>
+        <div class="rxq-drugs">
+          ${q.drugs.map((d,di) => `
+            <div class="rxq-drug" id="rxqdrug-${i}-${di}">
+              <div>
+                <div class="rxq-drug-name">${d.name}</div>
+                <div class="rxq-drug-dose">${d.dose}</div>
+                ${d.sub ? `<div style="font-size:.7rem;color:var(--amber);margin-top:3px">⚠ Out of stock — suggest: ${d.sub}</div>` : ''}
+              </div>
+              <span class="rxq-stock ${d.stock}">${d.stockLabel}</span>
+            </div>`).join('')}
+        </div>
+        <div class="rxq-actions" id="rxq-actions-${i}">
+          <button class="rxq-btn dispense" onclick="dispenseRx(${i})">✓ Dispense All</button>
+          <button class="rxq-btn substitute" onclick="alert('Substitution list loaded for ${q.patient}')">Substitutes</button>
+        </div>
+        <div class="rxq-dispensed" id="rxq-dispensed-${i}">✓ Dispensed — ${new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})}</div>
+      </div>`; }).join('');
+}
+
+function dispenseRx(i) {
+  _dispensedIds.add(i);
+  const actions = document.getElementById('rxq-actions-'+i);
+  const dispensed = document.getElementById('rxq-dispensed-'+i);
+  const card = document.getElementById('rxqcard-'+i);
+  if (actions) actions.style.display = 'none';
+  if (dispensed) { dispensed.style.display = 'block'; }
+  setTimeout(() => { if (card) { card.style.opacity = '.55'; card.style.pointerEvents = 'none'; } }, 800);
+  // Update badge
+  const pending = PHARMACY_QUEUE_DATA.length - _dispensedIds.size;
+  const badge = document.getElementById('phm-badge');
+  const count = document.getElementById('phm-pending-count');
+  if (badge) badge.textContent = pending;
+  if (count) count.textContent = pending;
+}
+
+function filterPharmacy(filter, btn) {
+  document.querySelectorAll('.phm-tab').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderPharmacyQueue(filter);
+}
+
+// Send to Pharmacy from Rx view
+function sendToPharmacy() {
+  alert('Prescription sent to pharmacy queue.\n\nPharmacist will be notified. Expected wait: 8 minutes.');
+  const badge = document.getElementById('phm-badge');
+  if (badge) badge.textContent = parseInt(badge.textContent||0) + 1;
+}
+
+// ═══════════════════════════════════════════════════
+// DIAGNOSTICS LOOP — Order Now → Results arrive → NAVA re-runs
+// ═══════════════════════════════════════════════════
+const DEMO_RESULTS = {
+  '2D Echo': 'EF 52%, mild concentric LVH, grade 1 diastolic dysfunction, no regional wall motion abnormality. No pericardial effusion.',
+  'TMT': 'Positive at stage 2 Bruce protocol. 1.5mm ST depression in V4-V6. Stopped due to chest discomfort. HR achieved: 148 bpm.',
+  'HbA1c': 'HbA1c 6.4% — pre-diabetic range. FPG 112 mg/dL confirmed.',
+  'CBC': 'Hb 11.2 g/dL, MCV 74 fL — microcytic. WBC 8,400/µL. Platelets 2.8L/µL.',
+  'Urine culture': 'E. coli > 10⁵ CFU/mL. Sensitive to Nitrofurantoin, Fosfomycin. Resistant to Ciprofloxacin.',
+};
+
+function orderDiagnostic(testName, buttonEl) {
+  if (buttonEl) { buttonEl.disabled = true; buttonEl.textContent = 'Ordered ✓'; buttonEl.style.background = 'var(--green)'; buttonEl.style.color = '#fff'; buttonEl.style.borderColor = 'var(--green)'; }
+  // Show "results incoming" row
+  const container = buttonEl?.closest('.delta-row') || buttonEl?.parentElement;
+  const resultRow = document.createElement('div');
+  resultRow.className = 'diag-result-incoming';
+  resultRow.innerHTML = `<span>⏳ ${testName} — results expected in ~10 min (demo: 10 sec)</span><div class="diag-result-bar"><div class="diag-result-fill"></div></div>`;
+  if (container && container.parentElement) container.parentElement.insertBefore(resultRow, container.nextSibling);
+  // After 10s, show result and offer to re-run NAVA
+  setTimeout(() => {
+    const result = DEMO_RESULTS[testName] || `${testName} result: within normal limits.`;
+    resultRow.className = 'diag-ordered';
+    resultRow.innerHTML = `<span>✓ ${testName} result ready: <strong>${result}</strong></span>`;
+    // Append to active case labs
+    if (activeCase) {
+      activeCase.labs = activeCase.labs || [];
+      activeCase.labs.push({ l: testName, v: result, cls: '' });
+    }
+    // Prompt re-run
+    const rerunDiv = document.createElement('div');
+    rerunDiv.style.cssText = 'margin-top:6px;padding:8px 12px;background:var(--sien3);border-radius:8px;font-size:.78rem;display:flex;align-items:center;justify-content:space-between;gap:8px';
+    rerunDiv.innerHTML = `<span>New result available — re-run NAVA for updated analysis?</span><button onclick="runNava()" style="background:var(--sienna);color:#fff;border:none;border-radius:6px;padding:5px 12px;font-size:.75rem;font-weight:600;cursor:pointer;white-space:nowrap">Re-run →</button>`;
+    resultRow.parentElement?.insertBefore(rerunDiv, resultRow.nextSibling);
+  }, 10000);
+}
+
+// ═══════════════════════════════════════════════════
+// WHATSAPP PATIENT SUMMARY
+// ═══════════════════════════════════════════════════
+function openWaPatientSummary() {
+  const d = activeCase || CASES_DATA[0];
+  if (!d) return;
+  const modal = document.getElementById('wa-modal');
+  const avatar = document.getElementById('wa-avatar');
+  const nameEl = document.getElementById('wa-name');
+  const bubble = document.getElementById('wa-bubble');
+  const timeEl = document.getElementById('wa-time');
+  const sendBtn = document.getElementById('wa-send-btn');
+  // Build plain-language message
+  const topDdx = d.ddx?.[0]?.n || 'your condition';
+  const tx = d.treatment?.lines?.[0] || 'follow the prescription given';
+  const msg = `Dear ${d.name.split(' ')[0]},\n\nDr Priya Nair has reviewed your case today.\n\n🩺 Most likely diagnosis: ${topDdx}\n\n💊 Key action: ${tx}\n\n📋 Please collect your prescription from the pharmacy and return in ${d.specialty === 'fertility' ? '2 weeks' : '4 weeks'} for follow-up.\n\nIf you feel worse, have chest pain, breathlessness, or high fever — go to emergency immediately.\n\nGet well soon.\n— NAVA · Dr Priya Nair's Clinic`;
+  avatar.textContent = d.name[0];
+  nameEl.textContent = d.name;
+  bubble.textContent = msg;
+  timeEl.textContent = new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}) + ' · Not sent yet';
+  sendBtn.textContent = 'Send via WhatsApp';
+  sendBtn.className = 'wa-send-btn';
+  sendBtn.disabled = false;
+  modal.classList.add('open');
+}
+
+function confirmWaSend() {
+  const btn = document.getElementById('wa-send-btn');
+  const timeEl = document.getElementById('wa-time');
+  btn.textContent = '✓ Sent';
+  btn.className = 'wa-send-btn sent';
+  btn.disabled = true;
+  timeEl.textContent = new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}) + ' · Delivered ✓✓';
+  setTimeout(() => closeWaModal(), 1500);
+}
+
+function closeWaModal() {
+  document.getElementById('wa-modal').classList.remove('open');
+}
+
+// Hook "Send to Patient" into NAVA output tools row
+const _origRenderNavaOutput = renderNavaOutput;
+renderNavaOutput = function(d) {
+  _origRenderNavaOutput(d);
+  // Inject "Order Now" buttons and "Send to Patient" button
+  patchNavaOutputButtons(d);
+};
+const _origRenderClaudeNavaOutput = renderClaudeNavaOutput;
+renderClaudeNavaOutput = function(json, d) {
+  _origRenderClaudeNavaOutput(json, d);
+  patchNavaOutputButtons(d);
+};
+
+function patchNavaOutputButtons(d) {
+  // Add "Send to Patient" to tools row
+  const toolsRow = document.querySelector('#nava-output .tools-row');
+  if (toolsRow && !toolsRow.querySelector('.wa-tool-btn')) {
+    const waBtn = document.createElement('button');
+    waBtn.className = 'tool-btn wa-tool-btn';
+    waBtn.style.background = '#128C7E';
+    waBtn.style.color = '#fff';
+    waBtn.style.borderColor = '#128C7E';
+    waBtn.textContent = '📲 Send to Patient';
+    waBtn.onclick = openWaPatientSummary;
+    toolsRow.insertBefore(waBtn, toolsRow.firstChild);
+    // Add Send to Pharmacy button
+    const rxBtn = document.createElement('button');
+    rxBtn.className = 'tool-btn';
+    rxBtn.textContent = '→ Send to Pharmacy';
+    rxBtn.onclick = sendToPharmacy;
+    toolsRow.appendChild(rxBtn);
+  }
+  // Add "Order Now" buttons to order items in delta card
+  const deltaRows = document.querySelectorAll('#nava-output .delta-row');
+  deltaRows.forEach(row => {
+    const badge = row.querySelector('.delta-badge.order');
+    if (badge && !row.querySelector('.order-now-btn')) {
+      const btn = document.createElement('button');
+      btn.className = 'order-now-btn';
+      btn.style.cssText = 'background:var(--bark);color:#F8F6F3;border:none;border-radius:6px;padding:3px 9px;font-size:.68rem;font-weight:600;cursor:pointer;white-space:nowrap;margin-left:auto';
+      btn.textContent = 'Order Now';
+      const textSpan = row.querySelector('span:last-child');
+      const testName = textSpan?.textContent?.trim().split(' ')[0] || 'Investigation';
+      btn.onclick = () => orderDiagnostic(testName, btn);
+      row.appendChild(btn);
+    }
+  });
+}
+
+// ═══════════════════════════════════════════════════
+// HOOK showView TO RENDER EMERGENCY + PHARMACY
+// ═══════════════════════════════════════════════════
+const _origShowView2 = showView;
+showView = function(id, btn) {
+  _origShowView2(id, btn);
+  if (id === 'emergency') { renderEmergencyBoard(); }
+  if (id === 'pharmacy')  { renderPharmacyQueue(); }
+};
 </script>
+
+<!-- EHR PULL OVERLAY -->
+<div class="ehr-pull" id="ehr-pull">
+  <div class="ehr-pull-box">
+    <div class="ehr-pull-logo">Apollo Hospitals · HIS Integration</div>
+    <div class="ehr-pull-spinner" id="ehr-spinner"></div>
+    <div class="ehr-pull-msg" id="ehr-pull-msg">Pulling patient record…</div>
+    <div class="ehr-pull-sub" id="ehr-pull-sub">Fetching from Apollo EHR</div>
+    <div class="ehr-pull-done" id="ehr-pull-done">✓ Record loaded</div>
+  </div>
+</div>
+
+<!-- WHATSAPP PATIENT SUMMARY MODAL -->
+<div class="wa-modal-overlay" id="wa-modal">
+  <div class="wa-modal">
+    <div class="wa-modal-head">
+      <div class="wa-modal-avatar" id="wa-avatar">P</div>
+      <div class="wa-modal-contact">
+        <div class="wa-modal-name" id="wa-name">Patient</div>
+        <div class="wa-modal-status">+91 98XXX XXXXX · WhatsApp</div>
+      </div>
+      <button class="wa-close" onclick="closeWaModal()">✕</button>
+    </div>
+    <div class="wa-chat">
+      <div class="wa-bubble" id="wa-bubble">—</div>
+      <div class="wa-time" id="wa-time">—</div>
+    </div>
+    <div class="wa-send-bar">
+      <button class="wa-cancel" onclick="closeWaModal()">Cancel</button>
+      <button class="wa-send-btn" id="wa-send-btn" onclick="confirmWaSend()">Send via WhatsApp</button>
+    </div>
+  </div>
+</div>
 
 <!-- MOBILE SIDEBAR OVERLAY -->
 <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleMobileSidebar()"></div>
