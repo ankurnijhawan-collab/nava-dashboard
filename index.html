@@ -551,9 +551,20 @@ button,input,textarea,select{font-family:inherit}
 .sl-mic{width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.22);margin:0 auto 13px;display:grid;place-items:center;font-size:1.3rem;cursor:pointer;transition:all .2s}
 .sl-mic:hover{background:rgba(255,255,255,.17);transform:scale(1.04)}
 .sl-mic.live{background:rgba(122,26,26,.55);border-color:rgba(245,150,150,.45);animation:rpulse 1.5s ease infinite}
-.sl-status{font-size:.78rem;color:rgba(255,255,255,.52);max-width:200px;margin:0 auto}
+.sl-mic.processing{background:rgba(139,109,69,.45);border-color:rgba(200,170,110,.5);animation:rpulse 1s ease infinite;cursor:default}
+.sl-status{font-size:.78rem;color:rgba(255,255,255,.52);max-width:220px;margin:0 auto;line-height:1.5}
+.sl-timer{font-size:.72rem;color:rgba(255,255,255,.35);margin-top:5px}
 .sl-transcript{padding:14px;max-height:180px;overflow-y:auto}
 .transcript-text{font-size:.78rem;color:var(--body);line-height:1.7;white-space:pre-wrap;min-height:36px}
+/* API key banner */
+.api-key-banner{background:var(--gpale);border:1px solid var(--border2);border-radius:var(--r2);padding:12px 15px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.api-key-banner.set{background:var(--glt);border-color:var(--status-optimal-border,#C8DFD0)}
+.akb-label{font-size:.72rem;font-weight:600;color:var(--muted);white-space:nowrap}
+.akb-input{flex:1;min-width:160px;border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:.75rem;font-family:monospace;background:var(--card);color:var(--ink);outline:none}
+.akb-input:focus{border-color:var(--sienna)}
+.akb-btn{background:var(--bark);color:#F8F6F3;border:none;border-radius:6px;padding:5px 12px;font-size:.72rem;font-weight:600;cursor:pointer;white-space:nowrap}
+.akb-btn:hover{background:var(--sienna)}
+.akb-status{font-size:.7rem;color:var(--green);font-weight:600}
 .soap-output{background:var(--card);border:1px solid var(--border2);border-radius:var(--r2);box-shadow:var(--shadow);overflow:hidden}
 .so-head{padding:11px 15px;background:var(--surface);border-bottom:1px solid var(--border2);display:flex;align-items:center;justify-content:space-between}
 .so-title{font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
@@ -1175,10 +1186,17 @@ button,input,textarea,select{font-family:inherit}
     <div class="view" id="view-scribe">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;height:calc(100vh - 76px);overflow:hidden">
         <div style="overflow-y:auto;display:flex;flex-direction:column;gap:10px">
+          <div class="api-key-banner" id="api-key-banner">
+            <span class="akb-label">OpenAI API Key</span>
+            <input class="akb-input" id="akb-input" type="password" placeholder="sk-…" autocomplete="off">
+            <button class="akb-btn" onclick="saveApiKey()">Save</button>
+            <span class="akb-status" id="akb-status" style="display:none">Key saved</span>
+          </div>
           <div class="scribe-listen">
             <div class="sl-hero">
               <div class="sl-mic" id="sl-mic" onclick="toggleScribe()">◉</div>
               <div class="sl-status" id="sl-status">Press to begin. Speak naturally in Hindi or English.</div>
+              <div class="sl-timer" id="sl-timer"></div>
             </div>
             <div class="sl-transcript" id="sl-transcript"><div class="transcript-text" id="transcript-text" style="color:var(--muted);font-style:italic;font-size:.75rem">Transcript will appear here as you speak…</div></div>
           </div>
@@ -3333,43 +3351,126 @@ function updateDosing(){
 updateDosing();
 
 // ─── SCRIBE ───
-let scribeOn=false,scribeT=null;
-const DEMO_TR=`Doctor: Aaj kya takleef hai?\n\nPatient: Doctor sahib, seene mein tightness hai... seedhi chadh te waqt zyada. Do mahine se.\n\nDoctor: Aaram mein hota hai?\n\nPatient: Rest mein theek. Seedhi chadh ne se badh jaata hai.\n\nDoctor: Family mein heart problem?\n\nPatient: Papa ko 55 mein heart attack aaya tha. Woh nahi rahe.\n\nDoctor: BP ki dawai?\n\nPatient: Amlodipine le raha hoon. Aur Pan-D — acidity ke liye.`;
 const SOAP={
   s:'42F presenting with progressive exertional chest tightness × 2 months, worse on climbing stairs. Palpitations. No symptoms at rest. Father died MI at 55. On Amlodipine (HTN) and Pan-D (GERD).',
   o:'BP 148/94 mmHg. LDL 168, HDL 38, TC 242. Hb 11.2, Ferritin 8. CXR mild cardiomegaly. ECG: normal. 2D Echo: NOT done. TMT: NOT done.',
   a:'Exertional chest tightness with 5 simultaneous CV risk factors. GERD diagnosis does not explain exertional pattern. NAVA: high probability stable angina/early CAD. Cardiac cause not excluded.',
   p:'1. Urgent cardiology referral — 2D Echo + TMT\n2. Start Atorvastatin 40mg OD tonight (Atorva)\n3. Stop Pan-D — treating wrong diagnosis\n4. Iron + Folic Acid × 3mo\n5. BP review: second agent after cardiology'
 };
-function toggleScribe(){scribeOn?stopScribe():startScribe()}
-function startScribe(){
-  scribeOn=true;
-  const mic=document.getElementById('sl-mic');if(!mic)return;
-  mic.classList.add('live');mic.textContent='⏹';
-  document.getElementById('sl-status').textContent='Listening… Hindi or English, speak naturally.';
-  const tt=document.getElementById('transcript-text');
-  tt.style.fontStyle='normal';tt.style.color='var(--body)';tt.textContent='';
-  ['ss','so-obj','sa','sp'].forEach(id=>{const el=document.getElementById(id);if(el){el.textContent='—';el.style.fontStyle='normal'}});
-  document.getElementById('scribe-actions-panel').style.display='none';
-  let i=0;
-  scribeT=setInterval(()=>{
-    if(i<DEMO_TR.length){tt.textContent=DEMO_TR.slice(0,i+=4);const sl=document.getElementById('sl-transcript');if(sl)sl.scrollTop=9999}
-    else{
-      clearInterval(scribeT);
-      document.getElementById('sl-status').textContent='Processing…';
-      setTimeout(()=>{
-        stopScribe();
-        document.getElementById('ss').textContent=SOAP.s;
-        document.getElementById('so-obj').textContent=SOAP.o;
-        document.getElementById('sa').textContent=SOAP.a;
-        document.getElementById('sp').textContent=SOAP.p;
-        document.getElementById('scribe-actions-panel').style.display='block';
-        document.getElementById('sl-status').textContent='SOAP note ready — review and use.';
-      },900);
-    }
-  },28);
+
+// API key helpers
+function saveApiKey(){
+  const val=(document.getElementById('akb-input').value||'').trim();
+  if(!val.startsWith('sk-')){alert('Enter a valid OpenAI key starting with sk-');return;}
+  localStorage.setItem('nava_oai_key',val);
+  document.getElementById('akb-input').value='••••••••'+val.slice(-4);
+  document.getElementById('akb-status').style.display='inline';
+  const b=document.getElementById('api-key-banner');if(b)b.classList.add('set');
 }
-function stopScribe(){scribeOn=false;clearInterval(scribeT);const mic=document.getElementById('sl-mic');if(mic){mic.classList.remove('live');mic.textContent='◉'}}
+function getApiKey(){return localStorage.getItem('nava_oai_key')||'';}
+function initApiKeyBanner(){
+  const key=getApiKey();
+  if(!key)return;
+  const inp=document.getElementById('akb-input');
+  if(inp)inp.value='••••••••'+key.slice(-4);
+  const st=document.getElementById('akb-status');if(st)st.style.display='inline';
+  const b=document.getElementById('api-key-banner');if(b)b.classList.add('set');
+}
+
+// Real Whisper recording
+let scribeOn=false, mediaRecorder=null, audioChunks=[], scribeTimerSec=0, scribeTimerInterval=null;
+
+function toggleScribe(){scribeOn?stopScribe():startScribe();}
+
+async function startScribe(){
+  const key=getApiKey();
+  if(!key){alert('Please enter your OpenAI API key first.');return;}
+  let stream;
+  try{stream=await navigator.mediaDevices.getUserMedia({audio:true});}
+  catch(e){alert('Microphone access denied. Please allow microphone in your browser settings.');return;}
+  scribeOn=true; audioChunks=[];
+  const mic=document.getElementById('sl-mic');
+  mic.classList.add('live');mic.textContent='⏹';
+  document.getElementById('sl-status').textContent='Recording… speak naturally in Hindi or English.';
+  document.getElementById('sl-timer').textContent='0:00';
+  const tt=document.getElementById('transcript-text');
+  tt.style.fontStyle='normal';tt.style.color='var(--muted)';tt.textContent='Listening…';
+  ['ss','so-obj','sa','sp'].forEach(id=>{const el=document.getElementById(id);if(el){el.textContent='—';el.style.fontStyle='normal';el.style.color='var(--muted)';}});
+  document.getElementById('scribe-actions-panel').style.display='none';
+  scribeTimerSec=0;
+  scribeTimerInterval=setInterval(()=>{
+    scribeTimerSec++;
+    const m=Math.floor(scribeTimerSec/60),s=scribeTimerSec%60;
+    document.getElementById('sl-timer').textContent=`${m}:${String(s).padStart(2,'0')}`;
+  },1000);
+  const mimeType=['audio/webm;codecs=opus','audio/webm','audio/ogg;codecs=opus','audio/mp4'].find(t=>MediaRecorder.isTypeSupported(t))||'';
+  mediaRecorder=new MediaRecorder(stream,mimeType?{mimeType}:{});
+  mediaRecorder.ondataavailable=e=>{if(e.data.size>0)audioChunks.push(e.data);};
+  mediaRecorder.onstop=()=>{stream.getTracks().forEach(t=>t.stop());processAudio();};
+  mediaRecorder.start();
+}
+
+function stopScribe(){
+  if(!scribeOn)return;
+  scribeOn=false;
+  clearInterval(scribeTimerInterval);
+  document.getElementById('sl-timer').textContent='';
+  const mic=document.getElementById('sl-mic');
+  mic.classList.remove('live');mic.classList.add('processing');mic.textContent='…';
+  document.getElementById('sl-status').textContent='Transcribing with Whisper…';
+  if(mediaRecorder&&mediaRecorder.state!=='inactive')mediaRecorder.stop();
+  else processAudio();
+}
+
+async function processAudio(){
+  const key=getApiKey();
+  const mic=document.getElementById('sl-mic');
+  let transcript='';
+  try{
+    const blob=new Blob(audioChunks,{type:audioChunks[0]?.type||'audio/webm'});
+    const form=new FormData();
+    form.append('file',blob,'recording.webm');
+    form.append('model','whisper-1');
+    const res=await fetch('https://api.openai.com/v1/audio/transcriptions',{
+      method:'POST',headers:{'Authorization':'Bearer '+key},body:form
+    });
+    if(!res.ok){const e=await res.json();throw new Error(e.error?.message||res.statusText);}
+    transcript=(await res.json()).text||'';
+  }catch(e){
+    mic.classList.remove('processing');mic.textContent='◉';
+    document.getElementById('sl-status').textContent='Transcription failed: '+e.message;
+    document.getElementById('transcript-text').textContent='Error: '+e.message;
+    return;
+  }
+  const tt=document.getElementById('transcript-text');
+  tt.style.color='var(--body)';tt.textContent=transcript;
+  document.getElementById('sl-status').textContent='Generating SOAP note…';
+  try{
+    const res=await fetch('https://api.openai.com/v1/chat/completions',{
+      method:'POST',
+      headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'gpt-4o-mini',temperature:0.2,response_format:{type:'json_object'},
+        messages:[
+          {role:'system',content:'You are a clinical scribe for an Indian doctor. Convert the consultation transcript into a SOAP note. Return ONLY valid JSON: {"s":"...","o":"...","a":"...","p":"..."}. S=Subjective (patient complaint, history, symptoms), O=Objective (vitals, examination findings, test results mentioned), A=Assessment (diagnosis or differential), P=Plan (investigations, medications, referrals, follow-up). Be concise and clinical. Preserve Hindi medical terms with English translation in parentheses.'},
+          {role:'user',content:transcript}
+        ]
+      })
+    });
+    if(!res.ok){const e=await res.json();throw new Error(e.error?.message||res.statusText);}
+    const soap=JSON.parse((await res.json()).choices[0].message.content);
+    SOAP.s=soap.s||'—';SOAP.o=soap.o||'—';SOAP.a=soap.a||'—';SOAP.p=soap.p||'—';
+    [['ss',SOAP.s],['so-obj',SOAP.o],['sa',SOAP.a],['sp',SOAP.p]].forEach(([id,val])=>{
+      const el=document.getElementById(id);
+      if(el){el.textContent=val;el.style.color='var(--body)';el.style.fontStyle='normal';}
+    });
+    document.getElementById('scribe-actions-panel').style.display='block';
+    document.getElementById('sl-status').textContent='SOAP note ready — review and use.';
+  }catch(e){
+    document.getElementById('sl-status').textContent='SOAP generation failed: '+e.message;
+  }
+  mic.classList.remove('processing');mic.textContent='◉';
+}
 function copySOAP(){const t=`SUBJECTIVE\n${SOAP.s}\n\nOBJECTIVE\n${SOAP.o}\n\nASSESSMENT\n${SOAP.a}\n\nPLAN\n${SOAP.p}`;navigator.clipboard.writeText(t).then(()=>{const b=document.querySelector('.so-copy');b.textContent='✓ Copied';setTimeout(()=>b.textContent='Copy',2000)})}
 function waSOAP(){window.open('https://wa.me/?text='+encodeURIComponent(`SOAP Note\n\nS: ${SOAP.s}\nO: ${SOAP.o}\nA: ${SOAP.a}\nP: ${SOAP.p}`))}
 function useScribeInNava(){if(!activeCase)activeCase=CASES_DATA[1];showView('workspace');runNava()}
@@ -4035,7 +4136,7 @@ function drillCondition(idx){
 
 // Render insights on first view switch + at init
 document.addEventListener('DOMContentLoaded', ()=>{
-  setTimeout(()=>{ renderTodayView(); renderInsights(); renderCaseHistory(); renderDemoCasePicker(); if(typeof updateBackButton === 'function') updateBackButton('today'); }, 50);
+  setTimeout(()=>{ renderTodayView(); renderInsights(); renderCaseHistory(); renderDemoCasePicker(); initApiKeyBanner(); if(typeof updateBackButton === 'function') updateBackButton('today'); }, 50);
 });
 // Also re-render when navigating to the insights tab (in case DOMContentLoaded fires before layout)
 const _origShowView = showView;
