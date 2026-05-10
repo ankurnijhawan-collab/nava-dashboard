@@ -4996,9 +4996,10 @@ function openDischargeSummary(){
 <b>HOSPITAL DISCHARGE SUMMARY</b>
 
 Patient ID (MRD) : _______________          Mobile No.   : _______________
-IP No.          : _______________          Ward / Bed   : _______________
+IP No.          : _______________          UHID         : _______________ (optional)
+Ward / Bed      : _______________          Department   : ${d.specialty ? d.specialty.charAt(0).toUpperCase()+d.specialty.slice(1) : 'General Medicine'}
 Date of Admission: _______________          Date of Discharge: ${today}
-Treating Doctor  : _______________          Department   : ${d.specialty ? d.specialty.charAt(0).toUpperCase()+d.specialty.slice(1) : 'General Medicine'}
+Treating Doctor  : _______________
 
 ─────────────────────────────────────────────────────────
 <b>PATIENT DETAILS</b>
