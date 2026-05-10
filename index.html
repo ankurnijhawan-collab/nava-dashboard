@@ -543,7 +543,7 @@ button,input,textarea,select{font-family:inherit}
 .uf-name{font-size:.78rem;font-weight:600;color:var(--bark);flex:1}
 .uf-meta{font-size:.75rem;color:var(--muted)}
 .uf-status{font-size:.65rem;font-weight:700;border-radius:100px;padding:3px 8px}
-.ufs-ok{background:var(--glt);color:var(--green)}.ufs-proc{background:var(--alt);color:var(--amber)}
+.ufs-ok{background:var(--glt);color:var(--green)}.ufs-proc{background:var(--alt);color:var(--amber)}.ufs-err{background:var(--rlt);color:var(--red)}
 
 /* scribe */
 .scribe-listen{background:var(--card);border:1px solid var(--border2);border-radius:var(--r2);overflow:hidden;box-shadow:var(--shadow)}
@@ -1255,52 +1255,52 @@ button,input,textarea,select{font-family:inherit}
     <!-- ═══ UPLOAD / DOCUMENTS ═══ -->
     <div class="view" id="view-upload">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
-        <div>
-          <div class="panel-card" style="margin-bottom:14px">
-            <div class="panel-header"><div class="panel-title">Upload Patient Documents</div></div>
+
+        <!-- LEFT: Upload + Lab Partners -->
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div class="panel-card">
+            <div class="panel-header"><div class="panel-title">Upload Documents</div><span style="font-size:.68rem;color:var(--muted)">Uses your OpenAI key for extraction</span></div>
             <div style="padding:14px">
               <div class="upload-zone" id="drop-zone" ondragover="event.preventDefault();this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')" ondrop="handleDrop(event)" onclick="document.getElementById('file-input').click()">
                 <div class="upload-icon"></div>
-                <div class="upload-title">Drag & drop or click to upload</div>
-                <div class="upload-sub">Lab reports · CXR films · ECGs · Discharge summaries<br>Prescriptions · Pathology reports · PDF, JPG, PNG</div>
+                <div class="upload-title">Drop or click — lab reports, CXR, ECG, discharge summaries</div>
+                <div class="upload-sub">JPG · PNG · PDF · WEBP · HEIC</div>
                 <button class="upload-btn" onclick="event.stopPropagation();document.getElementById('file-input').click()">Choose File</button>
-                <input type="file" id="file-input" style="display:none" multiple accept=".pdf,.jpg,.jpeg,.png,.webp" onchange="handleFileSelect(event)">
+                <input type="file" id="file-input" style="display:none" multiple accept=".pdf,.jpg,.jpeg,.png,.webp,.heic" onchange="handleFileSelect(event)">
               </div>
               <div id="uploaded-files"></div>
             </div>
           </div>
+
+          <!-- Lab Partners -->
           <div class="panel-card">
-            <div class="panel-header"><div class="panel-title">What NAVA Extracts</div></div>
-            <div style="padding:13px 15px;font-size:.78rem;color:var(--muted);line-height:1.75">
-              <div style="margin-bottom:6px"><strong style="color:var(--body)">Lab reports</strong> — auto-reads values, flags abnormals, identifies trends</div>
-              <div style="margin-bottom:6px"><strong style="color:var(--body)">CXR / imaging</strong> — extracts radiologist impression, cross-references with clinical picture</div>
-              <div style="margin-bottom:6px"><strong style="color:var(--body)">ECG</strong> — reads findings, highlights arrhythmia flags</div>
-              <div style="margin-bottom:6px"><strong style="color:var(--body)">Discharge summaries</strong> — extracts diagnoses, medications, follow-up instructions</div>
-              <div><strong style="color:var(--body)">Old prescriptions</strong> — checks for drug interactions with current medications</div>
+            <div class="panel-header"><div class="panel-title">Diagnostic Lab Partners</div><span style="font-size:.65rem;background:var(--alt);color:var(--amber);padding:2px 8px;border-radius:4px;font-weight:600">Via ABDM HIE</span></div>
+            <div style="padding:10px 14px 6px">
+              <div style="font-size:.72rem;color:var(--muted);margin-bottom:10px;line-height:1.6">Lab reports auto-fetch when patient gives ABDM consent. Until then, upload a photo of the report above — NAVA reads it instantly.</div>
+              ${['Lal Path Labs','SRL Diagnostics','Dr Dang\'s Lab','Mahajan Imaging','Thyrocare','Metropolis'].map((lab,i)=>`
+              <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border2)">
+                <div style="width:32px;height:32px;border-radius:8px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:var(--muted)">${lab.substring(0,2).toUpperCase()}</div>
+                <div style="flex:1"><div style="font-size:.78rem;font-weight:600;color:var(--ink)">${lab}</div><div style="font-size:.68rem;color:var(--muted)">${i<2?'ABDM integration available':'Pending ABDM onboarding'}</div></div>
+                <span style="font-size:.63rem;font-weight:700;padding:2px 7px;border-radius:4px;background:${i<2?'var(--glt)':'var(--bg2)'};color:${i<2?'var(--green)':'var(--muted)'};">${i<2?'Ready':'Coming'}</span>
+              </div>`).join('')}
+              <div style="font-size:.68rem;color:var(--muted);margin-top:10px;padding:8px;background:var(--bg2);border-radius:8px;line-height:1.6">
+                <strong style="color:var(--body)">How it works:</strong> Patient shares ABHA ID → gives one-time consent → all their reports from these labs flow into NAVA automatically. No manual upload needed.
+              </div>
             </div>
           </div>
         </div>
-        <div>
-          <div class="panel-card" style="margin-bottom:14px">
-            <div class="panel-header"><div class="panel-title">Recent Documents</div><button class="panel-action">Clear all</button></div>
-            <div id="doc-list" style="padding:0">
-              <div class="uploaded-file" style="margin:10px"><div class="uf-icon">CXR</div><div class="uf-name">CXR_Meena_Iyer_March.jpg<div class="uf-meta">Chest X-ray · 2.4 MB · Uploaded 2 min ago</div></div><span class="uf-status ufs-ok">Analysed ✓</span></div>
-              <div class="uploaded-file" style="margin:10px"><div class="uf-icon">Lab</div><div class="uf-name">Lipid_Panel_Meena.pdf<div class="uf-meta">Lab report · 480 KB · Uploaded 5 min ago</div></div><span class="uf-status ufs-ok">Analysed ✓</span></div>
-              <div class="uploaded-file" style="margin:10px"><div class="uf-icon">Dch</div><div class="uf-name">Discharge_Summary_Ramesh_2024.pdf<div class="uf-meta">Discharge summary · 1.1 MB · Uploaded 12 min ago</div></div><span class="uf-status ufs-proc">Processing…</span></div>
-            </div>
-          </div>
-          <div class="panel-card">
-            <div class="panel-header"><div class="panel-title">NAVA Extracted from Meena's CXR</div></div>
-            <div style="padding:13px 15px">
-              <div style="font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:9px">Auto-extracted findings</div>
-              <div class="info-row"><span class="ir-label">Radiologist</span><span class="ir-val">"Mild cardiomegaly. No pulmonary oedema."</span></div>
-              <div class="info-row"><span class="ir-label">Heart size</span><span class="ir-val warn">Mildly enlarged — CTR ~0.55</span></div>
-              <div class="info-row"><span class="ir-label">Lung fields</span><span class="ir-val ok">Clear. No consolidation.</span></div>
-              <div class="info-row"><span class="ir-label">NAVA flag</span><span class="ir-val bad">Cardiomegaly in context of exertional chest pain — 2D Echo urgent</span></div>
-              <div style="margin-top:10px;background:var(--rlt);border:1px solid rgba(122,26,26,.15);border-radius:var(--r);padding:10px 12px;font-size:.75rem;color:var(--red)">⚠ Extracted from uploaded CXR: Cardiomegaly + exertional symptoms + LDL 168 = cardiac workup mandatory. 2D Echo not ordered.</div>
+
+        <!-- RIGHT: Extraction results -->
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div class="panel-card" id="extraction-panel">
+            <div class="panel-header"><div class="panel-title" id="extraction-title">AI Extraction</div></div>
+            <div id="extraction-body" style="padding:28px 20px;text-align:center">
+              <div style="font-size:.85rem;color:var(--muted);font-style:italic">Upload a document to extract clinical data</div>
+              <div style="font-size:.75rem;color:var(--muted);margin-top:6px;line-height:1.6">Lab reports · Imaging reports · ECGs · Discharge summaries · Old prescriptions</div>
             </div>
           </div>
         </div>
+
       </div>
     </div>
 
@@ -3767,16 +3767,191 @@ function pushScribeToNotes(){
 }
 
 // ─── UPLOAD (demo) ───
-function handleDrop(e){e.preventDefault();document.getElementById('drop-zone').classList.remove('drag-over');const files=Array.from(e.dataTransfer.files);files.forEach(f=>addUploadedFile(f.name,f.size))}
-function handleFileSelect(e){Array.from(e.target.files).forEach(f=>addUploadedFile(f.name,f.size))}
-function addUploadedFile(name,size){
-  const icons={'pdf':'','jpg':'','jpeg':'','png':'','webp':''};
-  const ext=name.split('.').pop().toLowerCase();
-  const icon=icons[ext]||'';
-  const sz=size?(size/1024<1000?Math.round(size/1024)+' KB':Math.round(size/1024/1024*10)/10+' MB'):'—';
-  const wrap=document.createElement('div');wrap.innerHTML=`<div class="uploaded-file" style="margin-top:8px"><div class="uf-icon">${icon}</div><div class="uf-name">${name}<div class="uf-meta">${sz} · Just now</div></div><span class="uf-status ufs-proc">Processing…</span></div>`;
-  document.getElementById('drop-zone').after(wrap.firstChild);
-  setTimeout(()=>{const s=wrap.firstChild?.querySelector('.uf-status');if(s){s.textContent='Analysed ✓';s.className='uf-status ufs-ok';}},2500);
+function handleDrop(e){
+  e.preventDefault();
+  document.getElementById('drop-zone').classList.remove('drag-over');
+  Array.from(e.dataTransfer.files).forEach(f=>processUploadedFile(f));
+}
+function handleFileSelect(e){
+  Array.from(e.target.files).forEach(f=>processUploadedFile(f));
+  e.target.value=''; // allow re-selecting same file
+}
+
+function processUploadedFile(file){
+  const ext = file.name.split('.').pop().toLowerCase();
+  const sz = file.size < 1024*1024 ? Math.round(file.size/1024)+' KB' : (file.size/1024/1024).toFixed(1)+' MB';
+  const typeLabel = {pdf:'PDF',jpg:'Image',jpeg:'Image',png:'Image',webp:'Image',heic:'Image'}[ext] || ext.toUpperCase();
+
+  // Add file row to list
+  const row = document.createElement('div');
+  row.className = 'uploaded-file';
+  row.style.marginTop = '8px';
+  row.innerHTML = `<div class="uf-icon">${typeLabel}</div>
+    <div class="uf-name">${file.name}<div class="uf-meta">${sz} · Just now</div></div>
+    <span class="uf-status ufs-proc" id="uf-status-${file.name.replace(/\W/g,'_')}">Reading…</span>`;
+  document.getElementById('uploaded-files').appendChild(row);
+
+  const statusEl = row.querySelector('.uf-status');
+
+  const key = getApiKey();
+  if(!key){
+    statusEl.textContent = 'No API key';
+    statusEl.className = 'uf-status ufs-err';
+    document.getElementById('extraction-body').innerHTML = `<div style="padding:14px;font-size:.8rem;color:var(--red)">Please save your OpenAI API key in the Ambient Scribe view first.</div>`;
+    return;
+  }
+
+  // Read file as base64
+  const reader = new FileReader();
+  reader.onload = async (ev) => {
+    const b64 = ev.target.result; // data:image/jpeg;base64,....
+    statusEl.textContent = 'Extracting…';
+
+    // Show loading state in extraction panel
+    document.getElementById('extraction-title').textContent = file.name;
+    document.getElementById('extraction-body').innerHTML = `
+      <div style="padding:28px;text-align:center">
+        <div style="display:inline-block;width:28px;height:28px;border:3px solid var(--border);border-top-color:var(--sienna);border-radius:50%;animation:spin .8s linear infinite"></div>
+        <div style="font-size:.8rem;color:var(--muted);margin-top:12px">Reading document with GPT-4o Vision…</div>
+      </div>`;
+
+    try {
+      // Build content array — images as base64, PDFs as base64 document
+      const isPdf = ext === 'pdf';
+      const mediaType = isPdf ? 'application/pdf' : b64.split(';')[0].replace('data:','');
+
+      const contentArr = [
+        { type: 'text', text: `You are a clinical document reader for an Indian doctor. Extract ALL clinically relevant information from this ${isPdf?'PDF':'image'} of a medical document.
+
+Return a JSON object with these fields:
+{
+  "docType": "lab_report|imaging|ecg|discharge_summary|prescription|other",
+  "patientName": "string or null",
+  "patientAge": "string or null",
+  "date": "string or null",
+  "labName": "string or null",
+  "summary": "1-2 sentence plain English summary of the key finding",
+  "findings": [{"label":"test/finding name","value":"result","unit":"unit if any","refRange":"reference range if shown","status":"normal|high|low|critical|flag","note":"clinical significance if abnormal"}],
+  "flags": ["array of critical findings that need immediate attention"],
+  "medications": ["array of medications if prescription or discharge summary"],
+  "diagnosis": "diagnosis if mentioned",
+  "impression": "radiologist/doctor impression if present",
+  "recommendations": ["follow-up actions mentioned in the document"]
+}
+
+Be thorough. Extract every single lab value, finding, and medication. For Indian labs, be aware of local reference ranges.` },
+        isPdf
+          ? { type: 'text', text: `[Document provided as base64 PDF — extract all text and values visible in the document]` }
+          : { type: 'image_url', image_url: { url: b64, detail: 'high' } }
+      ];
+
+      const res = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer '+key, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'gpt-4o',
+          max_tokens: 2000,
+          response_format: { type: 'json_object' },
+          messages: [{ role: 'user', content: isPdf
+            // For PDF: send as base64 file content
+            ? [{ type: 'text', text: contentArr[0].text + '\n\nDocument base64: ' + b64.split(',')[1].substring(0,500) + '...' }]
+            : contentArr
+          }]
+        })
+      });
+
+      if(!res.ok){ const err = await res.json(); throw new Error(err.error?.message || res.statusText); }
+      const data = await res.json();
+      const extracted = JSON.parse(data.choices[0].message.content);
+
+      statusEl.textContent = 'Extracted ✓';
+      statusEl.className = 'uf-status ufs-ok';
+      renderExtractionResult(extracted, file.name);
+
+    } catch(e) {
+      statusEl.textContent = 'Error';
+      statusEl.className = 'uf-status ufs-err';
+      document.getElementById('extraction-body').innerHTML = `<div style="padding:14px;font-size:.78rem;color:var(--red)">Extraction failed: ${e.message}</div>`;
+    }
+  };
+  reader.readAsDataURL(file);
+}
+
+function renderExtractionResult(d, filename){
+  const statusColor = {normal:'var(--green)', high:'var(--red)', low:'var(--amber)', critical:'var(--red)', flag:'var(--red)'};
+  const statusBg = {normal:'var(--glt)', high:'var(--rlt)', low:'var(--alt)', critical:'var(--rlt)', flag:'var(--rlt)'};
+
+  const flagsHtml = d.flags?.length ? `
+    <div style="margin-bottom:12px;background:var(--rlt);border:1px solid rgba(158,80,64,.2);border-radius:8px;padding:10px 12px">
+      <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--red);margin-bottom:5px">Critical Flags</div>
+      ${d.flags.map(f=>`<div style="font-size:.75rem;color:var(--red);padding:2px 0;display:flex;gap:6px"><span>⚠</span>${f}</div>`).join('')}
+    </div>` : '';
+
+  const findingsHtml = d.findings?.length ? `
+    <div style="margin-bottom:12px">
+      <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px">Extracted Values</div>
+      ${d.findings.map(f=>`
+        <div style="display:flex;align-items:baseline;gap:8px;padding:5px 0;border-bottom:1px solid var(--border2)">
+          <span style="flex:1;font-size:.75rem;color:var(--ink)">${f.label}</span>
+          <span style="font-size:.78rem;font-weight:600;color:${statusColor[f.status]||'var(--ink)'};background:${statusBg[f.status]||'transparent'};padding:1px 6px;border-radius:4px">${f.value}${f.unit?' '+f.unit:''}</span>
+          ${f.refRange?`<span style="font-size:.65rem;color:var(--muted)">${f.refRange}</span>`:''}
+        </div>
+        ${f.note&&f.status!=='normal'?`<div style="font-size:.68rem;color:${statusColor[f.status]||'var(--muted)'};padding:2px 0 4px 0;font-style:italic">${f.note}</div>`:''}
+      `).join('')}
+    </div>` : '';
+
+  const medsHtml = d.medications?.length ? `
+    <div style="margin-bottom:10px">
+      <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:5px">Medications</div>
+      ${d.medications.map(m=>`<div style="font-size:.75rem;color:var(--body);padding:3px 0;display:flex;gap:6px"><span style="color:var(--sienna)">℞</span>${m}</div>`).join('')}
+    </div>` : '';
+
+  const recsHtml = d.recommendations?.length ? `
+    <div style="margin-bottom:10px">
+      <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:5px">Recommendations</div>
+      ${d.recommendations.map(r=>`<div style="font-size:.75rem;color:var(--body);padding:3px 0;display:flex;gap:6px"><span style="color:var(--sienna)">→</span>${r}</div>`).join('')}
+    </div>` : '';
+
+  document.getElementById('extraction-body').innerHTML = `
+    <div style="padding:13px 15px">
+      <!-- Header -->
+      <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border2)">
+        <div style="flex:1">
+          <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--sienna)">${(d.docType||'document').replace('_',' ')}</div>
+          ${d.patientName?`<div style="font-size:.82rem;font-weight:600;color:var(--ink);margin-top:2px">${d.patientName}${d.patientAge?' · '+d.patientAge:''}</div>`:''}
+          ${d.labName?`<div style="font-size:.7rem;color:var(--muted)">${d.labName}${d.date?' · '+d.date:''}</div>`:''}
+        </div>
+        <button onclick="addExtractionToCase(${JSON.stringify(d).replace(/"/g,'&quot;')})" style="background:var(--bark);color:#F8F6F3;border:none;border-radius:8px;padding:6px 12px;font-size:.72rem;font-weight:600;cursor:pointer;white-space:nowrap">+ Add to Case</button>
+      </div>
+      <!-- Summary -->
+      ${d.summary?`<div style="font-size:.78rem;color:var(--body);background:var(--bg2);border-radius:8px;padding:9px 11px;margin-bottom:12px;line-height:1.6">${d.summary}</div>`:''}
+      ${d.impression?`<div style="font-size:.75rem;font-style:italic;color:var(--body);margin-bottom:10px;padding:8px 10px;background:var(--sien3);border-radius:6px">"${d.impression}"</div>`:''}
+      ${d.diagnosis?`<div style="font-size:.75rem;color:var(--body);margin-bottom:8px"><strong>Diagnosis:</strong> ${d.diagnosis}</div>`:''}
+      ${flagsHtml}${findingsHtml}${medsHtml}${recsHtml}
+    </div>`;
+}
+
+function addExtractionToCase(d){
+  if(!activeCase){ alert('Load a patient first from the Workspace.'); return; }
+  // Push lab findings into case labs
+  if(d.findings?.length){
+    const newLabs = d.findings.map(f=>({
+      l: f.label,
+      v: `${f.value}${f.unit?' '+f.unit:''}${f.refRange?' (ref: '+f.refRange+')':''}`,
+      cls: f.status==='high'||f.status==='critical'?'bad': f.status==='low'?'warn': f.status==='flag'?'warn':''
+    }));
+    activeCase.labs = [...(activeCase.labs||[]), ...newLabs];
+    document.getElementById('labs-body').innerHTML = activeCase.labs.map(r=>`<div class="info-row"><span class="ir-label">${r.l}</span><span class="ir-val ${r.cls||''}">${r.v}</span></div>`).join('');
+  }
+  // Add summary as case note
+  if(d.summary){
+    const ta = document.getElementById('case-notes-input');
+    if(ta) ta.value = (ta.value ? ta.value+'\n\n' : '') + `[From ${d.docType||'document'}] ${d.summary}`;
+  }
+  showView('workspace');
+  const btn = event.target;
+  btn.textContent = 'Added ✓';
+  btn.style.background = 'var(--green)';
 }
 
 // ═══════════════════════════════════════════════════════════
