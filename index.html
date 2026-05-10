@@ -382,8 +382,17 @@ button,input,textarea,select{font-family:inherit}
 .ch-pill{font-size:.6rem;font-weight:600;background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);border-radius:100px;padding:3px 9px}
 .ch-pill.flag{background:rgba(122,26,26,.5);color:#F5BCBC}
 .info-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;flex-shrink:0}
-.ic-head{padding:9px 13px;background:var(--surface);border-bottom:1px solid var(--border2);font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap}
+.ic-head{padding:9px 13px;background:var(--surface);border-bottom:1px solid var(--border2);font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;justify-content:space-between;gap:6px;flex-wrap:wrap;cursor:pointer;user-select:none}
+.ic-head .ic-chevron{font-size:.7rem;transition:transform .2s;margin-left:auto}
+.info-card.collapsed .ic-body{display:none}
+.info-card.collapsed .ic-head{border-bottom:none}
+.info-card.collapsed .ic-chevron{transform:rotate(-90deg)}
 .ic-body{padding:11px 13px}
+/* Run Analysis sticky bar */
+.ws-run-bar{position:sticky;bottom:0;padding:10px 0 4px;background:linear-gradient(to bottom,transparent,var(--bg) 40%);margin-top:auto;z-index:10}
+.ws-run-bar-btn{width:100%;background:var(--sienna);color:#F8F6F3;border:none;border-radius:var(--r);padding:13px 14px;font-size:.88rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;letter-spacing:.03em;transition:opacity .15s;box-shadow:0 4px 14px rgba(122,73,35,.35)}
+.ws-run-bar-btn:hover{opacity:.88}
+.ws-run-bar-btn:disabled{opacity:.4;cursor:not-allowed}
 .case-notes-input{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:var(--r);padding:9px 12px;font-size:.8rem;color:var(--ink);resize:none;outline:none;min-height:56px;line-height:1.65;transition:border-color .15s}
 .case-notes-input:focus{border-color:var(--sienna);background:var(--card)}
 
@@ -397,6 +406,15 @@ button,input,textarea,select{font-family:inherit}
 .ddx-sec-title{font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:14px 0 8px;display:flex;align-items:center;gap:6px}
 .ddx-sec-title:first-child{margin-top:0}
 .ddx-sec-title::after{content:'';flex:1;height:1px;background:var(--border2)}
+/* NAVA collapsible sections */
+.nv-section{border:1px solid var(--border2);border-radius:var(--r);margin-bottom:8px;overflow:hidden;background:var(--card)}
+.nv-sec-head{padding:9px 13px;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:space-between;background:var(--surface);user-select:none;transition:background .12s}
+.nv-sec-head:hover{background:var(--bg2)}
+.nv-sec-chev{font-size:.7rem;transition:transform .2s;margin-left:4px}
+.nv-sec-body{padding:12px}
+.nv-sec-collapsed .nv-sec-body{display:none}
+.nv-sec-collapsed .nv-sec-head{border-bottom:none}
+.nv-sec-collapsed .nv-sec-chev{transform:rotate(-90deg)}
 
 /* ═════ NEW FEATURES ═════ */
 
@@ -1000,12 +1018,12 @@ button,input,textarea,select{font-family:inherit}
     <button class="nav-item opd-item" data-opd="paediatrics" onclick="switchOPD('paediatrics',this)"><span class="ni-icon">·</span>Paediatrics<span class="nav-badge" id="opd-badge-paediatrics">4</span></button>
     <button class="nav-item opd-item" data-opd="gynaecology" onclick="switchOPD('gynaecology',this)"><span class="ni-icon">·</span>Gynaecology<span class="nav-badge" id="opd-badge-gynaecology">3</span></button>
     <button class="nav-item opd-item" data-opd="fertility" onclick="switchOPD('fertility',this)"><span class="ni-icon">·</span>Fertility<span class="nav-badge" id="opd-badge-fertility">2</span></button>
-    <div class="sb-section" style="margin-top:6px">Current Context</div>
+    <div class="sb-section" style="margin-top:6px">Current Patient</div>
     <button class="nav-item" onclick="showView('workspace',this)"><span class="ni-icon">·</span>Active Case<span class="nav-badge amber" id="active-flag-badge">3</span></button>
     <div class="sb-section" style="margin-top:6px">Tools</div>
     <button class="nav-item" onclick="showView('rx',this)"><span class="ni-icon">·</span>Prescriptions</button>
-    <button class="nav-item" onclick="showView('scribe',this)"><span class="ni-icon">·</span>Scribe</button>
-    <button class="nav-item" onclick="showView('upload',this)"><span class="ni-icon">·</span>Documents<span class="nav-badge gold">New</span></button>
+    <button class="nav-item" onclick="showView('scribe',this)"><span class="ni-icon">·</span>Record Consult</button>
+    <button class="nav-item" onclick="showView('upload',this)"><span class="ni-icon">·</span>Patient Files</button>
     <div class="sb-section" style="margin-top:6px">Review</div>
     <button class="nav-item" onclick="showView('insights',this)"><span class="ni-icon">·</span>My Insights</button>
     <button class="nav-item" onclick="showView('history',this)"><span class="ni-icon">·</span>Case History</button>
@@ -1030,36 +1048,44 @@ button,input,textarea,select{font-family:inherit}
       <input type="text" id="topbar-search-input" placeholder="Search patient or condition…" oninput="doTopbarSearch(this.value)" onkeydown="onSearchKey(event)" autocomplete="off">
       <div id="search-dropdown"></div>
     </div>
-    <button class="tb-btn ghost" onclick="showView('scribe')">Start Scribe</button>
-    <button class="tb-btn ghost" onclick="showView('upload')">Upload Doc</button>
-    <button class="tb-btn primary" onclick="openNewCasePicker()">+ New Case</button>
+    <button class="tb-btn ghost" onclick="showView('scribe')">Record</button>
+    <button class="tb-btn ghost" onclick="showView('upload')">Files</button>
+    <button class="tb-btn primary" onclick="startBlankCase()">+ New Patient</button>
   </div>
 
   <div class="views">
 
     <!-- ═══ TODAY ═══ -->
     <div class="view active" id="view-today">
-      <!-- Specialty context banner -->
-      <div class="opd-context-banner" id="opd-context-banner"></div>
 
-      <!-- Metrics -->
-      <div id="opd-metrics-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;margin-bottom:18px"></div>
+      <!-- Top bar: specialty label + quick stats + New Patient -->
+      <div id="opd-context-banner" style="display:flex;align-items:center;gap:14px;margin-bottom:18px;padding:14px 18px;background:var(--card);border:1px solid var(--border2);border-radius:var(--r2)"></div>
 
-      <!-- Active flags -->
-      <div style="font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Active NAVA Flags — Needs Your Attention</div>
-      <div id="opd-flags-list"></div>
+      <!-- Flags (compact, only shown when present) -->
+      <div id="opd-flags-wrap">
+        <div style="font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:7px" id="opd-flags-heading" style="display:none">⚠ Needs your attention</div>
+        <div id="opd-flags-list"></div>
+      </div>
 
-      <!-- Queue + Quick actions -->
-      <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:14px;margin-top:6px">
-        <div class="panel-card">
-          <div class="panel-header"><div class="panel-title" id="opd-queue-title">Patient Queue</div><button class="panel-action">View all →</button></div>
+      <!-- Patient list — dominant element -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px">
+        <div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+            <div style="font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)" id="opd-queue-title">Today's Patients</div>
+          </div>
           <div id="opd-queue-list"></div>
+          <!-- Big New Patient CTA -->
+          <button onclick="startBlankCase()" style="margin-top:10px;width:100%;background:var(--sienna);color:#F8F6F3;border:none;border-radius:var(--r);padding:13px 16px;font-size:.85rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;letter-spacing:.03em;transition:opacity .15s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+            <span style="font-size:1.1rem;line-height:1">+</span> New Patient
+          </button>
         </div>
-        <div class="panel-card">
-          <div class="panel-header"><div class="panel-title">Quick Actions</div><span class="panel-sub" id="opd-qa-context">Context: General OPD</span></div>
+        <div>
+          <div style="font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px" id="opd-qa-context">Quick Actions</div>
           <div class="qa-grid" id="opd-qa-grid"></div>
         </div>
       </div>
+      <!-- hidden metrics grid (kept for JS compat, not displayed) -->
+      <div id="opd-metrics-grid" style="display:none"></div>
     </div>
 
     <!-- ═══ WORKSPACE ═══ -->
@@ -1197,6 +1223,13 @@ button,input,textarea,select{font-family:inherit}
             </div>
             <div class="demo-case-grid" id="demo-case-grid"></div>
           </div>
+
+          <!-- STICKY RUN ANALYSIS BAR -->
+          <div class="ws-run-bar">
+            <button class="ws-run-bar-btn" id="run-nava-btn" onclick="runNava()">
+              <span id="run-btn-txt">Run Analysis →</span>
+            </button>
+          </div>
         </div>
 
         <!-- RIGHT PANEL -->
@@ -1204,7 +1237,6 @@ button,input,textarea,select{font-family:inherit}
           <div class="nava-panel">
             <div class="np-header">
               <div class="np-title">NAVA Analysis</div>
-              <button class="np-run-btn" id="run-nava-btn" onclick="runNava()"><span id="run-btn-txt">Run Analysis →</span></button>
             </div>
             <div class="np-body" id="nava-output">
               <div style="text-align:center;padding:36px 20px">
@@ -1780,40 +1812,32 @@ function renderTodayView(){
   };
   const m = metricsByOpd[activeOPD];
 
-  // Context banner
+  // Context banner — compact: icon + name + 3 pills
   document.getElementById('opd-context-banner').innerHTML = `
-    <div class="opd-ctx-ring" style="background:${bannerBg(activeOPD)}">${cfg.icon}</div>
-    <div class="opd-ctx-info">
-      <div class="opd-ctx-name">${cfg.label} <span class="opd-ctx-specialist-pill ${cfg.colorClass}">${cfg.label === 'General OPD' ? 'General Medicine' : cfg.label}</span></div>
-      <div class="opd-ctx-desc">${cfg.desc}</div>
+    <div style="width:36px;height:36px;border-radius:10px;background:${bannerBg(activeOPD)};display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0">${cfg.icon}</div>
+    <div style="flex:1;min-width:0">
+      <div style="font-size:.9rem;font-weight:700;color:var(--ink)">${cfg.label}</div>
+      <div style="font-size:.72rem;color:var(--muted);margin-top:1px">${cfg.desc}</div>
     </div>
-    <div class="opd-ctx-stats">
-      <div class="opd-ctx-stat"><div class="opd-ctx-stat-val">${m.patients}</div><div class="opd-ctx-stat-lbl">Today</div></div>
-      <div class="opd-ctx-stat"><div class="opd-ctx-stat-val" style="color:${flagTotal?'var(--red)':'var(--green)'}">${flagTotal}</div><div class="opd-ctx-stat-lbl">Flags</div></div>
-      <div class="opd-ctx-stat"><div class="opd-ctx-stat-val" style="color:var(--green)">${m.revenue}</div><div class="opd-ctx-stat-lbl">Revenue</div></div>
+    <div style="display:flex;gap:10px;flex-shrink:0">
+      <div style="text-align:center"><div style="font-size:1.1rem;font-weight:700;color:var(--ink);font-family:var(--serif)">${m.patients}</div><div style="font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Patients</div></div>
+      <div style="text-align:center"><div style="font-size:1.1rem;font-weight:700;font-family:var(--serif);color:${flagTotal?'var(--red)':'var(--green)'}">${flagTotal}</div><div style="font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Flags</div></div>
+      <div style="text-align:center"><div style="font-size:1.1rem;font-weight:700;font-family:var(--serif);color:var(--green)">${m.revenue}</div><div style="font-size:.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em">Revenue</div></div>
     </div>
   `;
 
-  // Metrics grid
-  document.getElementById('opd-metrics-grid').innerHTML = `
-    <div class="metric-card"><div class="mc-icon">Pts</div><div class="mc-val">${m.patients}</div><div class="mc-lbl">Patients Today</div><div class="mc-sub">${m.seen} seen · ${m.waiting} waiting</div><div class="mc-delta d-neu">Target: ${m.target}</div></div>
-    <div class="metric-card"><div class="mc-icon">⚠</div><div class="mc-val" style="color:${flagTotal?'var(--red)':'var(--green)'}">${flagTotal}</div><div class="mc-lbl">NAVA Flags Active</div><div class="mc-sub">${flagCounts.crit} critical · ${flagCounts.warn} warning</div><div class="mc-delta ${flagTotal?'d-neg':'d-pos'}">${flagTotal?'Review before discharge':'All clear'}</div></div>
-    <div class="metric-card"><div class="mc-icon">℞</div><div class="mc-val">${m.rx}</div><div class="mc-lbl">Prescriptions Sent</div><div class="mc-sub">${m.rxChannel}</div><div class="mc-delta d-pos">${activeOPD==='fertility'?'Workup-heavy':'↑ vs yesterday'}</div></div>
-    <div class="metric-card"><div class="mc-icon">₹</div><div class="mc-val" style="color:var(--green)">${m.revenue}</div><div class="mc-lbl">Est. Revenue Today</div><div class="mc-sub">From NAVA-recommended tests</div><div class="mc-delta d-pos">${m.revenueDelta}</div></div>
-  `;
-
-  // Flags list
+  // Flags list — only show heading when flags exist
   const flagItems = myCases.filter(c=>c.flagLevel==='crit' || c.flagLevel==='warn');
+  const flagsHeading = document.getElementById('opd-flags-heading');
+  if(flagsHeading) flagsHeading.style.display = flagItems.length ? 'block' : 'none';
   if(flagItems.length){
     document.getElementById('opd-flags-list').innerHTML = flagItems.map(c=>{
       const cls = c.flagLevel==='crit'?'crit':'warn';
-      const dot = c.flagLevel==='crit'?'r':'g';
-      const summary = (c.cantmiss && c.cantmiss[0]) || (c.ddx && c.ddx[0] && c.ddx[0].w) || 'NAVA flagged — review in Active Case';
-      const icon = c.flagLevel==='crit'?'▲':'△';
-      return `<div class="alert-item ${cls}" onclick="loadCase(${c._idx})"><div class="ai-dot ${dot}"></div><div><div class="ai-patient">${c.name} · ${(c.meta||'').split(' · ').slice(0,2).join('·')} · ${c.room||''}</div><div class="ai-msg">${icon} ${summary}</div></div><div class="ai-time">${['10 mins','25 mins','1 hr','2 hr'][Math.floor(Math.random()*4)]} ago</div></div>`;
+      const summary = (c.cantmiss && c.cantmiss[0]) || (c.ddx && c.ddx[0] && c.ddx[0].w) || 'NAVA flagged — tap to review';
+      return `<div class="alert-item ${cls}" onclick="loadCase(${c._idx})" style="margin-bottom:7px"><div class="ai-dot ${c.flagLevel==='crit'?'r':'g'}"></div><div style="flex:1;min-width:0"><div class="ai-patient">${c.name} <span style="font-weight:400;color:var(--muted)">· ${(c.meta||'').split(' · ')[0]}</span></div><div class="ai-msg" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${summary}</div></div><div style="flex-shrink:0;font-size:.7rem;color:var(--muted);padding-left:8px">Tap →</div></div>`;
     }).join('');
   } else {
-    document.getElementById('opd-flags-list').innerHTML = `<div style="padding:18px;text-align:center;color:var(--muted);font-style:italic;font-size:.75rem;background:var(--card);border:1px solid var(--border2);border-radius:var(--r);margin-bottom:10px">✓ No active NAVA flags in ${cfg.label} today — all cases reviewed</div>`;
+    document.getElementById('opd-flags-list').innerHTML = '';
   }
 
   // Queue
@@ -2915,8 +2939,20 @@ function loadCase(i){
   // specialty-specific panels
   applySpecialtyLayout(d);
 
+  // Make secondary sections collapsible; collapse by default to reduce noise
+  setTimeout(()=>{
+    makeCardCollapsible('info-history',    true);   // collapsed
+    makeCardCollapsible('info-fh',         true);   // collapsed
+    makeCardCollapsible('info-hosp',       true);   // collapsed
+    makeCardCollapsible('info-paeds',      false);  // expanded (specialty-critical)
+    makeCardCollapsible('info-gynae',      false);  // expanded
+    makeCardCollapsible('info-art',        false);  // expanded
+    makeCardCollapsible('info-vitals',     false);  // expanded
+    makeCardCollapsible('info-labs',       false);  // expanded
+    makeCardCollapsible('info-meds',       true);   // collapsed
+  }, 50);
+
   showView('workspace');
-  // refresh the demo picker so the active case shows highlighted
   renderDemoCasePicker();
 }
 
@@ -3184,9 +3220,8 @@ function renderDemoCasePicker(){
 let newCaseModalOpd = null;
 
 function openNewCasePicker(){
-  newCaseModalOpd = activeOPD;
-  renderNewCaseModal();
-  document.getElementById('newcase-modal').classList.add('open');
+  // Go straight to blank form — no modal
+  startBlankCase();
 }
 
 function renderNewCaseModal(){
@@ -3304,6 +3339,26 @@ function taStyle(){
   return `background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);padding:8px 10px;font-size:.75rem;color:var(--bark);outline:none;width:100%;resize:none;font-family:var(--sans);line-height:1.6`;
 }
 function storeBlankVitals(el, key){ window._blankVitals = window._blankVitals||{}; window._blankVitals[key] = el.value; }
+
+// ─── COLLAPSIBLE INFO-CARDS ───
+function toggleCard(id){
+  const card = document.getElementById(id);
+  if(card) card.classList.toggle('collapsed');
+}
+function makeCardCollapsible(id, startCollapsed){
+  const card = document.getElementById(id);
+  if(!card) return;
+  const head = card.querySelector('.ic-head');
+  if(!head || head.dataset.collapsible) return;
+  head.dataset.collapsible = '1';
+  // Add chevron
+  const chev = document.createElement('span');
+  chev.className = 'ic-chevron';
+  chev.innerHTML = '▾';
+  head.appendChild(chev);
+  head.onclick = () => card.classList.toggle('collapsed');
+  if(startCollapsed) card.classList.add('collapsed');
+}
 
 function handleReportUpload(input){
   window._blankFiles = window._blankFiles || [];
@@ -3714,20 +3769,25 @@ function renderNavaOutput(d){
     </div>
   </div>`;
 
+  // Helper: collapsible section wrapper
+  const sec = (id, title, content, startOpen=false) => `
+    <div class="nv-section" id="nvsec-${id}">
+      <div class="nv-sec-head" onclick="toggleNvSection('${id}')">
+        <span>${title}</span><span class="nv-sec-chev">▾</span>
+      </div>
+      <div class="nv-sec-body">${content}</div>
+    </div>`;
+
   document.getElementById('nava-output').innerHTML = `
     ${verdictH}
     ${actionH}
-    <div class="ddx-sec-title">Differential Diagnosis — Ranked by Probability</div>
-    ${ddxH}
-    ${d.cantmiss && d.cantmiss.length ? `<div class="ddx-sec-title" style="color:var(--red)">Can't Miss</div>${cantH}` : ''}
-    ${txH}
-    <div class="ddx-sec-title">Care Path & Next Schedule</div>
-    <div class="panel-card" style="margin-bottom:12px">${cpH}</div>
-    <div class="ddx-sec-title">Global & Indian Research Evidence</div>
-    ${resH}
-    <div class="ddx-sec-title">Cost Estimation</div>
-    <div class="panel-card" style="margin-bottom:12px"><div class="np-body" style="padding:14px">${finH}</div></div>
-    <div class="advisory-row" style="margin-top:4px">⚕ <span><strong>Advisory only.</strong> NAVA supports — does not replace — clinical judgment. All decisions with the treating physician.</span></div>
+    ${d.cantmiss && d.cantmiss.length ? `<div class="ddx-sec-title" style="color:var(--red);margin-bottom:6px">⚠ Can't Miss</div>${cantH}` : ''}
+    ${sec('ddx',      'Differential Diagnosis',      ddxH,   true)}
+    ${sec('tx',       'Treatment Plan',               txH,    true)}
+    ${sec('carepath', 'Care Path & Next Steps',       `<div class="panel-card" style="margin:0">${cpH}</div>`, false)}
+    ${sec('research', 'Research Evidence',            resH,   false)}
+    ${sec('cost',     'Cost Estimate',                `<div class="np-body" style="padding:14px">${finH}</div>`, false)}
+    <div class="advisory-row" style="margin-top:8px">⚕ <span><strong>Advisory only.</strong> NAVA supports — does not replace — clinical judgment.</span></div>
     <div class="tools-row">
       <button class="tool-btn primary" onclick="openSummaryDirect()">Patient Summary</button>
       <button class="tool-btn gold" onclick="openAlt()">℞ Alt. Medications</button>
@@ -3735,6 +3795,16 @@ function renderNavaOutput(d){
       <button class="tool-btn" onclick="copyReport()"> Copy Report</button>
       <button class="tool-btn" onclick="window.print()">Print</button>
     </div>`;
+  // Collapse sections that start closed
+  ['carepath','research','cost'].forEach(id=>{
+    const s = document.getElementById('nvsec-'+id);
+    if(s) s.classList.add('nv-sec-collapsed');
+  });
+}
+
+function toggleNvSection(id){
+  const s = document.getElementById('nvsec-'+id);
+  if(s) s.classList.toggle('nv-sec-collapsed');
 }
 
 // ─── HEADLINE HELPERS ───
