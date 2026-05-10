@@ -1121,6 +1121,28 @@ button,input,textarea,select{font-family:inherit}
             <div class="ic-body" id="hosp-body"></div>
           </div>
 
+          <!-- PAEDIATRICS: Growth & Vaccination -->
+          <div class="info-card" id="info-paeds" style="display:none">
+            <div class="ic-head">Growth & Vaccination
+              <span style="font-size:.6rem;font-weight:500;text-transform:none;letter-spacing:0;color:#1A3A5C;background:#DDE8F5;padding:2px 7px;border-radius:100px">IAP Schedule</span>
+            </div>
+            <div class="ic-body" id="paeds-body"></div>
+          </div>
+
+          <!-- GYNAECOLOGY / FERTILITY: Obs & Gynae History -->
+          <div class="info-card" id="info-gynae" style="display:none">
+            <div class="ic-head" id="gynae-head">Obs & Gynaecology History</div>
+            <div class="ic-body" id="gynae-body"></div>
+          </div>
+
+          <!-- FERTILITY: Ovarian Reserve & ART -->
+          <div class="info-card" id="info-art" style="display:none">
+            <div class="ic-head">Ovarian Reserve & ART History
+              <span style="font-size:.6rem;font-weight:500;text-transform:none;letter-spacing:0;color:#1A5A28;background:#D8EADF;padding:2px 7px;border-radius:100px">ESHRE</span>
+            </div>
+            <div class="ic-body" id="art-body"></div>
+          </div>
+
           <div class="info-card" id="info-vitals"><div class="ic-head">Vitals & Exam <span class="patient-label" id="vitals-label"></span></div><div class="ic-body" id="vitals-body"><span style="font-size:.75rem;color:var(--muted)">Load a patient.</span></div></div>
           <div class="info-card" id="info-labs"><div class="ic-head">Investigations <span class="patient-label" id="labs-label"></span></div><div class="ic-body" id="labs-body"><span style="font-size:.75rem;color:var(--muted)">Load a patient.</span></div></div>
           <div class="info-card" id="info-meds"><div class="ic-head">Current Medications <span class="patient-label" id="meds-label"></span></div><div class="ic-body" id="meds-body"><span style="font-size:.75rem;color:var(--muted)">Load a patient.</span></div></div>
@@ -1637,7 +1659,7 @@ const OPD_CONFIG = {
     label:'General OPD', icon:'G', colorClass:'general',
     desc:"Adult medicine · chronic disease management · multi-system presentations",
     queueTitle:'General OPD — Patient Queue',
-    quickActions:['nava','rx','scribe','upload','summary','insights'],
+    quickActions:['nava','rx','drug-safety','scribe','upload','summary','insights','cost'],
     extraQueue:[
       {name:'Suresh Pillai', meta:'67yr · M · Follow-up HTN', avatar:'SP', bg:'#E8F5E8', flag:'Routine', flagCls:'qf-ok'}
     ]
@@ -1646,7 +1668,7 @@ const OPD_CONFIG = {
     label:'Paediatrics', icon:'P', colorClass:'paediatrics',
     desc:"0–18 yrs · growth, development, infections, weight-based dosing · paediatric red flags",
     queueTitle:'Paediatrics OPD — Patient Queue',
-    quickActions:['nava','rx-paed','scribe','upload','summary','growth'],
+    quickActions:['nava','rx-paed','dosing-calc','growth','vax-check','scribe','upload','summary'],
     extraQueue:[
       {name:'Ishaan Mehta', meta:'3yr · M · Recurrent wheeze', avatar:'IM', bg:'#DDE8F5', flag:'Asthma?', flagCls:'qf-warn'},
       {name:'Ananya Rao', meta:'11yr · F · Short stature', avatar:'AR', bg:'#F5E6EC', flag:'Growth', flagCls:'qf-new'}
@@ -1656,7 +1678,7 @@ const OPD_CONFIG = {
     label:'Gynaecology', icon:'Gy', colorClass:'gynaecology',
     desc:"Menstrual disorders · pelvic pain · PCOS · menopause · contraception · screening",
     queueTitle:'Gynaecology OPD — Patient Queue',
-    quickActions:['nava','rx','scribe','upload','summary','screening'],
+    quickActions:['nava','rx','screening','obs-history','scribe','upload','summary','referral'],
     extraQueue:[
       {name:'Lakshmi Iyer', meta:'34yr · F · Heavy bleeding', avatar:'LI', bg:'#F5D8E0', flag:'Fibroid?', flagCls:'qf-warn'}
     ]
@@ -1665,7 +1687,7 @@ const OPD_CONFIG = {
     label:'Fertility', icon:'F', colorClass:'fertility',
     desc:"Infertility evaluation · couple-focused · ovulation · semen analysis · IUI / IVF workup",
     queueTitle:'Fertility OPD — Couples Queue',
-    quickActions:['nava','rx-couple','scribe','upload','summary','timeline'],
+    quickActions:['nava','art-pathway','rx-couple','ovarian-reserve','male-factor','scribe','upload','summary'],
     extraQueue:[]
   }
 };
@@ -1772,17 +1794,30 @@ function bannerBg(opd){
 }
 
 const QUICK_ACTIONS = {
-  nava:      `<div class="qa-btn" onclick="qaLoadAndRun()"><div class="qa-icon">NAVA</div><div class="qa-label">Run NAVA DDx</div><div class="qa-sub">Differential + drug safety</div></div>`,
-  rx:        `<div class="qa-btn" onclick="qaOpenRx()"><div class="qa-icon">℞</div><div class="qa-label">Generate Rx</div><div class="qa-sub">Indian brands + dosing</div></div>`,
-  'rx-paed': `<div class="qa-btn" onclick="qaOpenRx()"><div class="qa-icon">℞</div><div class="qa-label">Paediatric Rx</div><div class="qa-sub">Weight-based · dispersibles</div></div>`,
-  'rx-couple': `<div class="qa-btn" onclick="qaOpenRx()"><div class="qa-icon">℞</div><div class="qa-label">Couple Rx</div><div class="qa-sub">His + her regimens</div></div>`,
-  scribe:    `<div class="qa-btn" onclick="showView('scribe');initApiKeyBanner()"><div class="qa-icon">◉</div><div class="qa-label">Ambient Scribe</div><div class="qa-sub">Hindi/English SOAP notes</div></div>`,
-  upload:    `<div class="qa-btn" onclick="showView('upload')"><div class="qa-icon">Doc</div><div class="qa-label">Upload & Scan</div><div class="qa-sub">Reports, scans, lab PDFs</div></div>`,
-  summary:   `<div class="qa-btn" onclick="qaOpenSummary()"><div class="qa-icon">→</div><div class="qa-label">Patient Summary</div><div class="qa-sub">WhatsApp · Hindi + English</div></div>`,
-  insights:  `<div class="qa-btn" onclick="showView('insights')"><div class="qa-icon">≈</div><div class="qa-label">View Insights</div><div class="qa-sub">Accuracy, revenue, trends</div></div>`,
-  growth:    `<div class="qa-btn" onclick="qaLoadAndRun('growth')"><div class="qa-icon">↗</div><div class="qa-label">Growth Chart</div><div class="qa-sub">WHO + IAP percentiles</div></div>`,
-  screening: `<div class="qa-btn" onclick="showView('insights')"><div class="qa-icon">◎</div><div class="qa-label">Screening Due</div><div class="qa-sub">Pap · HPV · mammography</div></div>`,
-  timeline:  `<div class="qa-btn" onclick="qaLoadAndRun()"><div class="qa-icon">—</div><div class="qa-label">Couple Timeline</div><div class="qa-sub">Cycles · workup · IUI/IVF</div></div>`
+  // ── COMMON ──
+  nava:           `<div class="qa-btn" onclick="qaLoadAndRun()"><div class="qa-icon">NAVA</div><div class="qa-label">Run Analysis</div><div class="qa-sub">Differential · DDx · flags</div></div>`,
+  scribe:         `<div class="qa-btn" onclick="showView('scribe');initApiKeyBanner()"><div class="qa-icon">◉</div><div class="qa-label">Ambient Scribe</div><div class="qa-sub">Hindi/English · SOAP notes</div></div>`,
+  upload:         `<div class="qa-btn" onclick="showView('upload')"><div class="qa-icon">↑</div><div class="qa-label">Upload & Scan</div><div class="qa-sub">Lab PDFs · scans · reports</div></div>`,
+  summary:        `<div class="qa-btn" onclick="qaOpenSummary()"><div class="qa-icon">→</div><div class="qa-label">Patient Summary</div><div class="qa-sub">WhatsApp · Hindi + English</div></div>`,
+  // ── GENERAL OPD ──
+  rx:             `<div class="qa-btn" onclick="qaOpenRx()"><div class="qa-icon">℞</div><div class="qa-label">Generate Rx</div><div class="qa-sub">Indian brands + adult dosing</div></div>`,
+  'drug-safety':  `<div class="qa-btn" onclick="qaLoadAndRun()"><div class="qa-icon">⚠</div><div class="qa-label">Drug Safety Check</div><div class="qa-sub">Interactions · CKD · liver</div></div>`,
+  insights:       `<div class="qa-btn" onclick="showView('insights')"><div class="qa-icon">≈</div><div class="qa-label">My Insights</div><div class="qa-sub">Accuracy · revenue · trends</div></div>`,
+  cost:           `<div class="qa-btn" onclick="qaLoadAndRun()"><div class="qa-icon">₹</div><div class="qa-label">Cost Estimate</div><div class="qa-sub">Patient spend · insurance</div></div>`,
+  // ── PAEDIATRICS ──
+  'rx-paed':      `<div class="qa-btn" onclick="qaOpenRx()"><div class="qa-icon">℞</div><div class="qa-label">Paediatric Rx</div><div class="qa-sub">Weight-based · dispersible tabs</div></div>`,
+  'dosing-calc':  `<div class="qa-btn" onclick="showView('rx')"><div class="qa-icon">kg</div><div class="qa-label">Dosing Calculator</div><div class="qa-sub">mg/kg · safe dose range</div></div>`,
+  growth:         `<div class="qa-btn" onclick="qaLoadAndRun()"><div class="qa-icon">↗</div><div class="qa-label">Growth & Nutrition</div><div class="qa-sub">Percentiles · SAM risk · BMI</div></div>`,
+  'vax-check':    `<div class="qa-btn" onclick="qaLoadAndRun()"><div class="qa-icon">◎</div><div class="qa-label">Vaccination Status</div><div class="qa-sub">IAP schedule · missed doses</div></div>`,
+  // ── GYNAECOLOGY ──
+  screening:      `<div class="qa-btn" onclick="qaLoadAndRun()"><div class="qa-icon">◎</div><div class="qa-label">Screening Tracker</div><div class="qa-sub">Pap · HPV · mammography due</div></div>`,
+  'obs-history':  `<div class="qa-btn" onclick="qaLoadAndRun()"><div class="qa-icon">G·P</div><div class="qa-label">Obs/Gynae History</div><div class="qa-sub">G/P/A · LMP · cycle · TVS</div></div>`,
+  referral:       `<div class="qa-btn" onclick="qaOpenSummary()"><div class="qa-icon">↗</div><div class="qa-label">Specialist Referral</div><div class="qa-sub">Oncology · colposcopy · endo</div></div>`,
+  // ── FERTILITY ──
+  'art-pathway':  `<div class="qa-btn" onclick="qaLoadAndRun()"><div class="qa-icon">IVF</div><div class="qa-label">ART Pathway</div><div class="qa-sub">IUI vs IVF vs ICSI · ESHRE</div></div>`,
+  'rx-couple':    `<div class="qa-btn" onclick="qaOpenRx()"><div class="qa-icon">℞</div><div class="qa-label">Couple Medications</div><div class="qa-sub">His + her regimens</div></div>`,
+  'ovarian-reserve': `<div class="qa-btn" onclick="qaLoadAndRun()"><div class="qa-icon">AMH</div><div class="qa-label">Ovarian Reserve</div><div class="qa-sub">AMH · AFC · FSH · urgency</div></div>`,
+  'male-factor':  `<div class="qa-btn" onclick="qaLoadAndRun()"><div class="qa-icon">♂</div><div class="qa-label">Male Factor Check</div><div class="qa-sub">Semen · DFI · lifestyle gaps</div></div>`,
 };
 
 function updateOpdBadges(){
@@ -1812,6 +1847,14 @@ const CASES_DATA = [
     {relation:'Mother',condition:'Vitamin D Deficiency',impact:'Shared genetic/environmental susceptibility. Patient Vit D 18 ng/mL.',impact_level:'med'},
     {relation:'No family',condition:'No migraines, no neurological disease',impact:'Reduces migraine probability in differential',impact_level:'low'}
   ],
+  growth:{weight:'31 kg',weightPct:'25th',height:'128 cm',heightPct:'30th',bmi:'19.0 — Normal for age',bmiPct:'50th',note:'Growth trajectory normal. No catch-up needed.',
+    vaccinations:[
+      {name:'BCG',status:'done'},{name:'DTP (5 doses)',status:'done'},{name:'OPV',status:'done'},
+      {name:'MMR (2 doses)',status:'done'},{name:'Typhoid',status:'done'},
+      {name:'Varicella (2nd dose)',status:'pending',note:'Due at 9 yrs'},
+      {name:'Td booster',status:'pending',note:'Due at 10 yrs'}
+    ]
+  },
   bodyMap:{
     svg:`<svg viewBox="0 0 80 180" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="40" cy="18" r="14" fill="#DDE8F5" stroke="#AAB8CC" stroke-width="1.5"/>
@@ -2142,6 +2185,14 @@ const CASES_DATA = [
     {relation:'Brother (14yr)',condition:'Pulmonary TB — completed DOTS last year',impact:'HIGHEST risk factor for paediatric TB. Household transmission most common route in India. Should have triggered automatic family screening.',impact_level:'high'},
     {relation:'Household',condition:'Overcrowding — 8 people, 2 rooms',impact:'High-density living significantly amplifies TB transmission risk.',impact_level:'high'}
   ],
+  growth:{weight:'18 kg',weightPct:'3rd',height:'104 cm',heightPct:'5th',bmi:'16.6 — Underweight (SAM risk)',bmiPct:'<3rd',note:'Lost 2 kg over 4 months — failure to thrive. Weight loss + chronic fever = TB until proven otherwise.',
+    vaccinations:[
+      {name:'BCG (birth)',status:'done'},{name:'DTP (3 doses)',status:'done'},{name:'OPV',status:'done'},
+      {name:'Measles (1st dose)',status:'done'},
+      {name:'MMR (2nd dose)',status:'missed',note:'9 months overdue — immunocompromise concern if TB confirmed'},
+      {name:'Typhoid',status:'missed',note:'Not given. Relevant given hygiene context.'}
+    ]
+  },
   bodyMap:{
     svg:`<svg viewBox="0 0 80 180" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="40" cy="18" r="14" fill="#F5E6EC" stroke="#C8A0B0" stroke-width="1.5"/>
@@ -2250,6 +2301,7 @@ const CASES_DATA = [
     {relation:'Mother',condition:'Breast cancer at 62 (died 67)',impact:'First-degree relative with BRCA-spectrum cancer. Patient never tested for BRCA. Increases endometrial cancer risk.',impact_level:'high'},
     {relation:'Sister',condition:'Type 2 Diabetes',impact:'Insulin resistance + obesity = endometrial cancer risk factor cluster (Lynch-like metabolic syndrome).',impact_level:'med'}
   ],
+  obsGynae:{lmp:'3 weeks ago (PMB — 1st episode)',cycles:'Post-menopausal — no periods for 4 years prior to bleed',gravida:3,para:2,abortions:1,deliveries:'LSCS × 1, Normal × 1',lastPap:'2019 — Normal (5 yrs ago)',lastMammo:'Never — overdue',lastTVS:'Not done this episode — URGENT',endoThx:'Norethisterone (current — NAVA: STOP immediately, masks diagnosis)',note:'PMB in post-menopausal woman = cancer until proven otherwise. No endometrial biopsy done.'},
   bodyMap:{
     svg:`<svg viewBox="0 0 80 180" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="40" cy="18" r="14" fill="#F5D8E0" stroke="#C8A0B0" stroke-width="1.5"/>
@@ -2352,6 +2404,7 @@ const CASES_DATA = [
     {relation:'Sister (31F)',condition:'PCOS + infertility (2 IVF cycles)',impact:'Familial PCOS pattern. Suggests shared metabolic-endocrine susceptibility.',impact_level:'high'},
     {relation:'Father',condition:'Hypertension + dyslipidaemia',impact:'Adds to cardiometabolic cluster. Long-term CV risk for patient.',impact_level:'med'}
   ],
+  obsGynae:{lmp:'6 weeks ago (irregular)',cycles:'28–90 day cycles, often heavy and painful',gravida:0,para:0,abortions:0,deliveries:'Nulliparous — actively trying to conceive',lastPap:'Never done — arrange urgently',lastMammo:'N/A (age 28)',lastTVS:'2 years ago — polycystic ovaries, thickened endometrium',endoThx:'Diane-35 OCP × 2 years — NAVA: STOP (contraceptive in a woman trying to conceive)',note:'Metabolic PCOS: insulin resistance not checked. Correct Dx is PCOS + conception goal — not cycle regulation alone.'},
   bodyMap:{
     svg:`<svg viewBox="0 0 80 180" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="40" cy="18" r="14" fill="#F5D8E0" stroke="#C8A0B0" stroke-width="1.5"/>
@@ -2481,6 +2534,8 @@ const CASES_DATA = [
     {relation:'Rohit — Father',condition:'Infertility workup at age 35 (reportedly "low count")',impact:'Possible familial Y-chromosome microdeletion or genetic contribution to male subfertility. Not previously disclosed.',impact_level:'high'},
     {relation:'Priya — Sister',condition:'IVF after 2 years TTC (conceived 2022)',impact:'Familial pattern of subfertility on her side — worth noting but does not change individual workup.',impact_level:'med'}
   ],
+  obsGynae:{lmp:'28 days ago (regular)',cycles:'28–30 day cycles, regular, mild dysmenorrhoea',gravida:1,para:0,abortions:1,deliveries:'No live births — 1 early miscarriage at 7 wks (2022)',lastTVS:'3 months ago — follicular tracking × 2 cycles, ovulation documented',lastHSG:'Never done — NAVA recommends before IUI',endoThx:'None currently. Previously: Folic acid 5mg',note:'Endometriosis not worked up despite maternal history + dysmenorrhoea. HSG not done before IUI recommendation.'},
+  ovReserve:{amh:'2.1 ng/mL — Normal for age',afc:14,fsh:'7.8 mIU/mL — Normal',e2:'38 pg/mL — Normal',antralCount:'14 follicles total (7 each side)',artHistory:'No ART cycles yet. IUI proposed but husband semen analysis never done. 1 early miscarriage investigated.',recommendation:'IUI not yet indicated — complete male factor workup first. If normal, proceed to IUI. If abnormal (which NAVA predicts likely), direct to IVF-ICSI.',note:'3 years of workup focused on her. Rohit has never had a semen analysis.'},
   bodyMap:{
     svg:`<svg viewBox="0 0 80 180" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="40" cy="18" r="14" fill="#D8EADF" stroke="#90B89A" stroke-width="1.5"/>
@@ -2812,9 +2867,134 @@ function loadCase(i){
   // insurance / ABHA
   renderInsurancePanel(d);
 
+  // specialty-specific panels
+  applySpecialtyLayout(d);
+
   showView('workspace');
   // refresh the demo picker so the active case shows highlighted
   renderDemoCasePicker();
+}
+
+// ─── SPECIALTY LAYOUT ───
+function applySpecialtyLayout(d){
+  const sp = d.specialty || 'general';
+  const isPaeds = sp === 'paediatrics';
+  const isGynae = sp === 'gynaecology';
+  const isFertility = sp === 'fertility';
+  const isGeneral = sp === 'general';
+
+  // Show/hide body map — General and Paeds only
+  const bm = document.getElementById('body-map-area');
+  if(bm) bm.style.display = (isGeneral || isPaeds) ? 'block' : 'none';
+
+  // History heading per specialty
+  const hi = document.getElementById('info-history');
+  if(hi){
+    const heads = {paediatrics:'Paediatric History',gynaecology:'Surgical & Gynaecological History',fertility:'Her — Reproductive History',general:'Medical & Surgical History'};
+    hi.querySelector('.ic-head').innerHTML = (heads[sp]||'Medical History') + (d.partner?` <span class="patient-label visible" style="background:#F5D8E0;color:#7A1A4A"> Her</span>`:'');
+  }
+
+  // Family history — hide for fertility (already covered in partner panel)
+  const fi = document.getElementById('info-fh');
+  if(fi) fi.style.display = isFertility ? 'none' : 'block';
+
+  // Partner card — fertility only
+  document.getElementById('info-partner').style.display = isFertility && d.partner ? 'block' : 'none';
+
+  // Hospitalisations — not shown for fertility
+  const hospEl = document.getElementById('info-hosp');
+  if(hospEl) hospEl.style.display = (isFertility || !d.hospitalisations || !d.hospitalisations.length) ? 'none' : 'block';
+
+  // PAEDS: growth & vaccination
+  const paedEl = document.getElementById('info-paeds');
+  if(paedEl){
+    paedEl.style.display = isPaeds && d.growth ? 'block' : 'none';
+    if(isPaeds && d.growth){
+      const g = d.growth;
+      const vacH = g.vaccinations.map(v=>`
+        <div style="display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid var(--border2)">
+          <span style="width:14px;height:14px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.55rem;font-weight:800;flex-shrink:0;background:${v.status==='done'?'var(--glt)':v.status==='missed'?'var(--rlt)':'var(--alt)'};color:${v.status==='done'?'var(--green)':v.status==='missed'?'var(--red)':'var(--amber)'}">
+            ${v.status==='done'?'✓':v.status==='missed'?'!':'○'}
+          </span>
+          <span style="font-size:.73rem;color:var(--bark);flex:1">${v.name}</span>
+          <span style="font-size:.65rem;color:${v.status==='done'?'var(--muted)':v.status==='missed'?'var(--red)':'var(--amber)'};font-weight:${v.status!=='done'?'600':'400'}">${v.status==='pending'?v.note||'Pending':v.status==='missed'?v.note||'Missed':'Done'}</span>
+        </div>`).join('');
+      document.getElementById('paeds-body').innerHTML = `
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:0">
+          <div style="padding:10px 12px;border-bottom:1px solid var(--border2);border-right:1px solid var(--border2)">
+            <div class="section-label" style="margin-bottom:5px">Weight</div>
+            <div style="font-family:var(--serif);font-size:1.1rem;color:var(--bark)">${g.weight}</div>
+            <div style="font-size:.67rem;color:var(--muted)">${g.weightPct} percentile</div>
+          </div>
+          <div style="padding:10px 12px;border-bottom:1px solid var(--border2)">
+            <div class="section-label" style="margin-bottom:5px">Height</div>
+            <div style="font-family:var(--serif);font-size:1.1rem;color:var(--bark)">${g.height}</div>
+            <div style="font-size:.67rem;color:var(--muted)">${g.heightPct} percentile</div>
+          </div>
+          <div style="padding:10px 12px;border-right:1px solid var(--border2)">
+            <div class="section-label" style="margin-bottom:5px">BMI</div>
+            <div style="font-size:.77rem;font-weight:600;color:var(--bark)">${g.bmi}</div>
+            <div style="font-size:.67rem;color:var(--muted)">${g.bmiPct} percentile</div>
+          </div>
+          <div style="padding:10px 12px">
+            <div class="section-label" style="margin-bottom:5px">NAVA Note</div>
+            <div style="font-size:.72rem;color:var(--body);line-height:1.5">${g.note}</div>
+          </div>
+        </div>
+        <div style="padding:8px 12px">
+          <div class="section-label" style="margin-bottom:6px">Vaccination Status (IAP)</div>
+          ${vacH}
+        </div>`;
+    }
+  }
+
+  // GYNAE / FERTILITY: Obs & Gynae history
+  const gynaeEl = document.getElementById('info-gynae');
+  if(gynaeEl){
+    gynaeEl.style.display = (isGynae || isFertility) && d.obsGynae ? 'block' : 'none';
+    const gh = document.getElementById('gynae-head');
+    if(gh) gh.textContent = isFertility ? 'Her — Obs & Gynaecological History' : 'Obs & Gynaecological History';
+    if((isGynae || isFertility) && d.obsGynae){
+      const og = d.obsGynae;
+      const rows = [
+        {l:'LMP',v:og.lmp},{l:'Cycle pattern',v:og.cycles},
+        {l:'Obstetric',v:`G${og.gravida} P${og.para} A${og.abortions}`},
+        {l:'Deliveries',v:og.deliveries},
+        og.lastPap ? {l:'Last Pap smear',v:og.lastPap,cls:og.lastPap.includes('Never')?'bad':''} : null,
+        og.lastMammo ? {l:'Last mammogram',v:og.lastMammo,cls:og.lastMammo.includes('Never')?'warn':''} : null,
+        og.lastTVS ? {l:'Last TVS',v:og.lastTVS} : null,
+        og.lastHSG ? {l:'HSG',v:og.lastHSG,cls:og.lastHSG.includes('Never')?'warn':''} : null,
+        og.endoThx ? {l:'Current hormone Rx',v:og.endoThx,cls:'bad'} : null,
+      ].filter(Boolean);
+      document.getElementById('gynae-body').innerHTML =
+        rows.map(r=>`<div class="info-row"><span class="ir-label">${r.l}</span><span class="ir-val ${r.cls||''}">${r.v}</span></div>`).join('') +
+        (og.note ? `<div style="padding:8px 12px;background:var(--rlt);border-top:1px solid var(--border2);font-size:.72rem;color:var(--red);line-height:1.5;font-weight:500">${og.note}</div>` : '');
+    }
+  }
+
+  // FERTILITY: Ovarian reserve & ART
+  const artEl = document.getElementById('info-art');
+  if(artEl){
+    artEl.style.display = isFertility && d.ovReserve ? 'block' : 'none';
+    if(isFertility && d.ovReserve){
+      const ov = d.ovReserve;
+      const rows = [
+        {l:'AMH',v:ov.amh},{l:'Antral follicle count',v:`${ov.afc} follicles`},
+        {l:'FSH (Day 2–3)',v:ov.fsh},{l:'Estradiol',v:ov.e2},
+        {l:'ART history',v:ov.artHistory},
+      ];
+      document.getElementById('art-body').innerHTML =
+        rows.map(r=>`<div class="info-row"><span class="ir-label">${r.l}</span><span class="ir-val">${r.v}</span></div>`).join('') +
+        `<div style="padding:8px 12px;background:var(--glt);border-top:1px solid var(--border2);font-size:.72rem;color:var(--green);line-height:1.5;font-weight:500">${ov.recommendation}</div>`;
+    }
+  }
+
+  // Rename Run Analysis button per specialty
+  const runTxt = document.getElementById('run-btn-txt');
+  if(runTxt){
+    const btnLabels = {paediatrics:'Run Paeds Analysis →',gynaecology:'Run Gynae Analysis →',fertility:'Run Couple Analysis →',general:'Run Analysis →'};
+    runTxt.textContent = btnLabels[sp] || 'Run Analysis →';
+  }
 }
 
 // ─── VISUAL TEMPORAL TIMELINE ───
