@@ -261,23 +261,39 @@ button,input,textarea,select{font-family:inherit}
 .nava-headline-evidence{font-size:.75rem;color:var(--muted);line-height:1.5;padding-top:6px;border-top:1px dashed var(--border2);font-style:italic}
 .nhe-geo{font-size:.75rem;background:var(--sien3);color:var(--sienna);border-radius:100px;padding:1px 7px;margin-right:4px;font-style:normal}
 
-/* ═══ BEFORE / AFTER COMPARISON ═══ */
-.ba-compare{display:grid;grid-template-columns:1fr 30px 1fr;gap:8px;align-items:stretch;margin-bottom:10px;animation:fadeIn .5s .15s ease both}
-.ba-col{background:var(--card);border:1px solid var(--border2);border-radius:var(--r);padding:12px 14px;position:relative}
-.ba-col.ba-before{background:linear-gradient(180deg,rgba(140,117,96,.08) 0%,var(--card) 70%);border-color:rgba(140,117,96,.25)}
-.ba-col.ba-after{background:linear-gradient(180deg,rgba(139,109,69,.1) 0%,var(--card) 70%);border-color:rgba(139,109,69,.3)}
-.ba-col-label{font-size:.65rem;font-weight:700;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
-.ba-col.ba-after .ba-col-label{color:var(--sienna)}
-.ba-col-title{font-size:.82rem;font-weight:700;color:var(--bark);margin-bottom:4px;line-height:1.35}
-.ba-col-detail{font-size:.75rem;color:var(--muted);line-height:1.55}
-.ba-arrow{display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
-.ba-arrow-line{flex:1;width:2px;background:linear-gradient(180deg,transparent,var(--sienna),transparent)}
-.ba-arrow-head{font-size:1.1rem;color:var(--sienna);font-weight:700;line-height:1;transform:rotate(0deg);margin:4px 0}
-.ba-delta{background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);padding:10px 13px;margin-bottom:12px;animation:fadeIn .5s .3s ease both}
-.ba-delta-title{font-size:.65rem;font-weight:700;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:7px}
-.ba-delta-items{display:flex;flex-direction:column;gap:5px}
-.ba-delta-item{display:flex;align-items:flex-start;gap:8px;font-size:.75rem;color:var(--body);line-height:1.5}
-.ba-delta-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:5px}
+/* ═══ NAVA VERDICT CARD ═══ */
+.nv-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--r2);padding:14px 16px;margin-bottom:10px;display:flex;align-items:flex-start;gap:16px;box-shadow:var(--shadow2);animation:headlineIn .4s var(--ease)}
+.nv-card.crit{border-left:5px solid var(--red)}
+.nv-card.warn{border-left:5px solid var(--amber)}
+.nv-left{flex:1;min-width:0}
+.nv-prev{font-size:.68rem;color:var(--muted);margin-bottom:5px;display:flex;align-items:center;gap:6px}
+.nv-prev-val{text-decoration:line-through;opacity:.7}
+.nv-dx{font-family:var(--serif);font-size:1.08rem;font-weight:600;color:var(--bark);line-height:1.3;margin-bottom:8px}
+.nv-consequence{font-size:.74rem;color:var(--body);background:rgba(0,0,0,.03);border:1px solid var(--border2);border-radius:6px;padding:7px 10px;line-height:1.5}
+.nv-right{flex-shrink:0;text-align:center;min-width:66px}
+.nv-pct{font-family:var(--serif);font-size:2rem;font-weight:600;line-height:1}
+.nv-pct.hi{color:var(--red)}.nv-pct.md{color:var(--amber)}.nv-pct.lo{color:var(--muted)}
+.nv-pct-label{font-size:.57rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.nv-pct-bar{height:4px;background:var(--border2);border-radius:4px;margin-top:6px;overflow:hidden}
+.nv-pct-bar-fill{height:100%;border-radius:4px;transition:width .9s var(--ease)}
+
+/* ═══ ACTION STRIP ═══ */
+.action-strip{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;animation:fadeIn .5s .2s ease both}
+.action-col{border-radius:var(--r);padding:11px 12px}
+.action-col-order{background:var(--rlt);border:1px solid rgba(122,26,26,.18)}
+.action-col-start{background:var(--glt);border:1px solid var(--status-optimal-border,#C8DFD0)}
+.action-col-stop{background:var(--gpale);border:1px solid rgba(168,124,48,.25)}
+.ac-label{font-size:.57rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:5px}
+.action-col-order .ac-label{color:var(--red)}
+.action-col-start .ac-label{color:var(--green)}
+.action-col-stop .ac-label{color:var(--amber)}
+.ac-item{font-size:.72rem;color:var(--bark);line-height:1.45;padding:4px 0;border-bottom:1px solid rgba(0,0,0,.06);display:flex;align-items:flex-start;gap:5px}
+.ac-item:last-child{border-bottom:none;padding-bottom:0}
+.ac-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.action-col-order .ac-dot{background:var(--red)}
+.action-col-start .ac-dot{background:var(--green)}
+.action-col-stop .ac-dot{background:var(--amber)}
+.ac-empty{font-size:.7rem;color:var(--muted);font-style:italic}
 
 /* loading */
 .think-bar{display:flex;align-items:center;gap:10px;padding:13px;background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);margin-bottom:10px;font-size:.79rem;color:var(--muted)}
@@ -3190,69 +3206,59 @@ async function runNava(){
 }
 
 function renderNavaOutput(d){
-  // === HEADLINE CRITICAL FINDING ===
-  // The most important clinical insight, derived from cantmiss[0] if available, else from top DDx
   const topDdx = d.ddx && d.ddx[0];
-  const hasCritMiss = d.cantmiss && d.cantmiss.length > 0;
-  const headlineText = hasCritMiss ? d.cantmiss[0] : (topDdx ? `${topDdx.n} — ${topDdx.w}` : 'See full analysis below');
-  const headlineIsCritical = /CONTRAINDICATED|URGENT|MANDATORY|immediately|mandatory|today|48 HOUR|lactic acidosis|cancer until proven|medico-legal/i.test(headlineText);
   const confidencePct = topDdx ? topDdx.p : 85;
-  const confidenceColor = confidencePct >= 80 ? 'var(--red)' : confidencePct >= 60 ? 'var(--gold)' : 'var(--muted)';
-  const urgencyBadge = headlineIsCritical ? 'CRITICAL' : 'HIGH PRIORITY';
-  const urgencyBg = headlineIsCritical ? 'var(--red)' : 'var(--amber)';
-
-  // Find the highest-quality evidence citation for this headline
-  const topEvidence = d.research && d.research[0];
+  const isCrit = confidencePct >= 80;
+  const pctCls = confidencePct >= 75 ? 'hi' : confidencePct >= 55 ? 'md' : 'lo';
+  const pctColor = confidencePct >= 75 ? 'var(--red)' : confidencePct >= 55 ? 'var(--amber)' : 'var(--muted)';
+  const treatingDx = TREATING_DX_MAP[d.name] || {label:'Per referring note', detail:''};
   const consequence = deriveConsequence(d);
-
-  // === BEFORE / AFTER COMPARISON ===
-  const treatingDx = TREATING_DX_MAP[d.name] || {label:'Per referring note', detail:'As documented at time of visit'};
-  const navaAssessment = {
-    label: topDdx ? topDdx.n : 'See differential',
-    detail: topDdx ? topDdx.w.substring(0, 200) + (topDdx.w.length > 200 ? '…' : '') : 'See full NAVA analysis.'
-  };
   const deltaItems = deriveDelta(d);
+  const topEvidence = d.research && d.research[0];
 
-  const headlineH = `
-    <div class="nava-headline ${headlineIsCritical ? 'critical' : 'warning'}">
-      <div class="nava-headline-top">
-        <span class="nava-headline-urgency" style="background:${urgencyBg}">${urgencyBadge}</span>
-        <div class="nava-headline-confidence">
-          <span class="nhc-label">NAVA confidence</span>
-          <div class="nhc-bar"><div class="nhc-fill" style="width:${confidencePct}%;background:${confidenceColor}"></div></div>
-          <span class="nhc-pct" style="color:${confidenceColor}">${confidencePct}%</span>
+  // Categorise delta items into ORDER / START / STOP
+  function stripHtml(s){ return s.replace(/<[^>]*>/g,''); }
+  const orderItems = deltaItems.filter(i=>{ const t=stripHtml(i.text); return /^Urgent|^Same-day|^2D|^Mantoux|^Refer|refer|^fundoscopy|^semen|^HSG|^biopsy|^lavage|today|same.day|48h|24h|workup/i.test(t) && !/^Start|^Stop|^STOP/i.test(t); });
+  const startItems = deltaItems.filter(i=>{ const t=stripHtml(i.text); return /^Start:|^Dose fix:/i.test(t) || (/^Month|^Letrozole|^3-month|^Rohit:|^Vikram:/i.test(t)); });
+  const stopItems  = deltaItems.filter(i=>{ const t=stripHtml(i.text); return /^Stop:|^STOP /i.test(t); });
+
+  // Verdict card
+  const verdictH = `
+    <div class="nv-card ${isCrit?'crit':'warn'}">
+      <div class="nv-left">
+        <div class="nv-prev">
+          <span>Previously called:</span>
+          <span class="nv-prev-val">${treatingDx.label}</span>
+          <span style="color:var(--sienna);font-weight:700">→ NAVA disagrees</span>
         </div>
+        <div class="nv-dx">${topDdx ? topDdx.n : 'See differential below'}</div>
+        ${consequence ? `<div class="nv-consequence">${consequence}</div>` : ''}
+        ${topEvidence ? `<div style="font-size:.68rem;color:var(--muted);margin-top:6px;font-style:italic"><span class="nhe-geo">${topEvidence.geo}</span> ${topEvidence.source} · ${topEvidence.finding}</div>` : ''}
       </div>
-      <div class="nava-headline-finding">${headlineText}</div>
-      ${consequence ? `<div class="nava-headline-consequence"><span class="nhc-ico"></span> ${consequence}</div>` : ''}
-      ${topEvidence ? `<div class="nava-headline-evidence"><span class="nhe-geo">${topEvidence.geo}</span> <strong>${topEvidence.source}</strong> · ${topEvidence.finding}</div>` : ''}
-    </div>
-  `;
+      <div class="nv-right">
+        <div class="nv-pct ${pctCls}">${confidencePct}<span style="font-size:.9rem">%</span></div>
+        <div class="nv-pct-label">confident</div>
+        <div class="nv-pct-bar"><div class="nv-pct-bar-fill" style="width:${confidencePct}%;background:${pctColor}"></div></div>
+      </div>
+    </div>`;
 
-  const beforeAfterH = `
-    <div class="ba-compare">
-      <div class="ba-col ba-before">
-        <div class="ba-col-label">⚕ Treating Dx (referring)</div>
-        <div class="ba-col-title">${treatingDx.label}</div>
-        <div class="ba-col-detail">${treatingDx.detail}</div>
+  // Action strip
+  const acItem = (txt) => `<div class="ac-item"><span class="ac-dot"></span><span>${txt}</span></div>`;
+  const actionH = `
+    <div class="action-strip">
+      <div class="action-col action-col-order">
+        <div class="ac-label">⚡ Order now</div>
+        ${orderItems.length ? orderItems.map(i=>acItem(i.text)).join('') : '<div class="ac-empty">No urgent tests</div>'}
       </div>
-      <div class="ba-arrow">
-        <div class="ba-arrow-line"></div>
-        <div class="ba-arrow-head">→</div>
+      <div class="action-col action-col-start">
+        <div class="ac-label">+ Start</div>
+        ${startItems.length ? startItems.map(i=>acItem(i.text)).join('') : '<div class="ac-empty">No new meds</div>'}
       </div>
-      <div class="ba-col ba-after">
-        <div class="ba-col-label">NAVA Assessment</div>
-        <div class="ba-col-title">${navaAssessment.label}</div>
-        <div class="ba-col-detail">${navaAssessment.detail}</div>
+      <div class="action-col action-col-stop">
+        <div class="ac-label">✕ Stop</div>
+        ${stopItems.length ? stopItems.map(i=>acItem(i.text)).join('') : '<div class="ac-empty">Nothing to stop</div>'}
       </div>
-    </div>
-    ${deltaItems.length ? `<div class="ba-delta">
-      <div class="ba-delta-title">What's different</div>
-      <div class="ba-delta-items">
-        ${deltaItems.map(i=>`<div class="ba-delta-item"><span class="ba-delta-dot" style="background:${i.color}"></span><span>${i.text}</span></div>`).join('')}
-      </div>
-    </div>` : ''}
-  `;
+    </div>`;
 
   const ddxH = d.ddx.map(x=>`
     <div class="ddx-entry">
@@ -3314,13 +3320,11 @@ function renderNavaOutput(d){
   </div>`;
 
   document.getElementById('nava-output').innerHTML = `
-    ${headlineH}
-    ${beforeAfterH}
-    <div class="advisory-row">⚕ <span><strong>Advisory only.</strong> NAVA supports — does not replace — clinical judgment. All decisions with the treating physician.</span></div>
+    ${verdictH}
+    ${actionH}
     <div class="ddx-sec-title">Differential Diagnosis — Ranked by Probability</div>
     ${ddxH}
-    <div class="ddx-sec-title" style="color:var(--red)">Can't Miss</div>
-    ${cantH}
+    ${d.cantmiss && d.cantmiss.length ? `<div class="ddx-sec-title" style="color:var(--red)">Can't Miss</div>${cantH}` : ''}
     ${txH}
     <div class="ddx-sec-title">Care Path & Next Schedule</div>
     <div class="panel-card" style="margin-bottom:12px">${cpH}</div>
@@ -3328,6 +3332,7 @@ function renderNavaOutput(d){
     ${resH}
     <div class="ddx-sec-title">Cost Estimation</div>
     <div class="panel-card" style="margin-bottom:12px"><div class="np-body" style="padding:14px">${finH}</div></div>
+    <div class="advisory-row" style="margin-top:4px">⚕ <span><strong>Advisory only.</strong> NAVA supports — does not replace — clinical judgment. All decisions with the treating physician.</span></div>
     <div class="tools-row">
       <button class="tool-btn primary" onclick="openSummaryDirect()">Patient Summary</button>
       <button class="tool-btn gold" onclick="openAlt()">℞ Alt. Medications</button>
