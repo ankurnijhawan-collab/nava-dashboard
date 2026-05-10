@@ -3889,6 +3889,47 @@ function openSummaryDirect(){
   document.getElementById('summary-modal').classList.add('open');
 }
 function closeSummary(){document.getElementById('summary-modal').classList.remove('open')}
+
+function showCriticalAckModal(d, onConfirm){
+  let modal = document.getElementById('crit-ack-modal');
+  if(!modal){
+    modal = document.createElement('div');
+    modal.id = 'crit-ack-modal';
+    modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9000;display:flex;align-items:center;justify-content:center;padding:20px;animation:backdropFade .2s ease';
+    modal.innerHTML = `
+      <div style="background:var(--card);border-radius:var(--r2);max-width:460px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.3);overflow:hidden">
+        <div style="background:#7A1A1A;padding:16px 20px;display:flex;align-items:center;gap:10px">
+          <span style="font-size:1.2rem">⚠</span>
+          <div>
+            <div style="font-size:.85rem;font-weight:700;color:#F8F6F3;letter-spacing:.04em">CRITICAL CASE — REVIEW BEFORE PROCEEDING</div>
+            <div style="font-size:.7rem;color:rgba(248,246,243,.7);margin-top:2px" id="cam-patient-name"></div>
+          </div>
+        </div>
+        <div style="padding:18px 20px">
+          <div style="font-size:.75rem;font-weight:600;color:var(--red);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px">Can't-Miss Diagnoses</div>
+          <div id="cam-flags" style="display:flex;flex-direction:column;gap:7px;margin-bottom:16px"></div>
+          <div style="font-size:.72rem;color:var(--muted);line-height:1.6;padding:10px 12px;background:var(--rlt);border-radius:var(--r);border-left:3px solid var(--red);margin-bottom:16px">
+            NAVA has flagged time-critical conditions. Please review these before seeing the full analysis.
+          </div>
+          <button id="cam-confirm-btn" style="width:100%;background:#7A1A1A;color:#F8F6F3;border:none;border-radius:var(--r);padding:11px 14px;font-size:.8rem;font-weight:700;cursor:pointer;letter-spacing:.03em">
+            I have reviewed — Show Full Analysis →
+          </button>
+        </div>
+      </div>`;
+    document.body.appendChild(modal);
+  }
+  document.getElementById('cam-patient-name').textContent = d.name + ' · ' + (d.meta||'') + ' · ' + (d.chief||'');
+  document.getElementById('cam-flags').innerHTML = (d.cantmiss||[]).map(c=>`
+    <div style="display:flex;gap:9px;align-items:flex-start;padding:9px 11px;background:var(--surface);border:1px solid rgba(122,26,26,.2);border-radius:var(--r)">
+      <span style="color:var(--red);font-size:.85rem;flex-shrink:0;margin-top:1px">▲</span>
+      <span style="font-size:.75rem;color:var(--ink);line-height:1.5">${c}</span>
+    </div>`).join('');
+  modal.style.display = 'flex';
+  const btn = document.getElementById('cam-confirm-btn');
+  const newBtn = btn.cloneNode(true);
+  btn.parentNode.replaceChild(newBtn, btn);
+  newBtn.onclick = () => { modal.style.display = 'none'; onConfirm(); };
+}
 function setLang(lang,btn){summaryLang=lang;document.querySelectorAll('.lt-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');const d=activeCase||CASES_DATA[1];document.getElementById('sum-text').textContent=lang==='en'?d.en:d.hi;}
 function copySummary(){navigator.clipboard.writeText(document.getElementById('sum-text').textContent).then(()=>{const b=document.querySelector('.ma-copy');b.textContent='✓ Copied';setTimeout(()=>b.textContent='Copy',2000)})}
 function waSummary(){window.open('https://wa.me/?text='+encodeURIComponent(document.getElementById('sum-text').textContent))}
