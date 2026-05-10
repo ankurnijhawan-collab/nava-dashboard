@@ -390,9 +390,11 @@ button,input,textarea,select{font-family:inherit}
 .ic-body{padding:11px 13px}
 /* Run Analysis sticky bar */
 .ws-run-bar{position:sticky;bottom:0;padding:10px 0 4px;background:linear-gradient(to bottom,transparent,var(--bg) 40%);margin-top:auto;z-index:10}
-.ws-run-bar-btn{width:100%;background:var(--sienna);color:#F8F6F3;border:none;border-radius:var(--r);padding:13px 14px;font-size:.88rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;letter-spacing:.03em;transition:opacity .15s;box-shadow:0 4px 14px rgba(122,73,35,.35)}
+.ws-run-bar-btn{width:100%;background:var(--sienna);color:#F8F6F3;border:none;border-radius:var(--r);padding:13px 14px;font-size:.88rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;letter-spacing:.03em;transition:opacity .15s,box-shadow .3s;box-shadow:0 4px 14px rgba(122,73,35,.35)}
 .ws-run-bar-btn:hover{opacity:.88}
 .ws-run-bar-btn:disabled{opacity:.4;cursor:not-allowed}
+.ws-run-bar-btn.pulse{animation:btnPulse 1.8s ease-in-out 3}
+@keyframes btnPulse{0%,100%{box-shadow:0 4px 14px rgba(122,73,35,.35)}50%{box-shadow:0 0 0 8px rgba(139,109,69,.22),0 4px 22px rgba(122,73,35,.5)}}
 .case-notes-input{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:var(--r);padding:9px 12px;font-size:.8rem;color:var(--ink);resize:none;outline:none;min-height:56px;line-height:1.65;transition:border-color .15s}
 .case-notes-input:focus{border-color:var(--sienna);background:var(--card)}
 
@@ -633,13 +635,28 @@ button,input,textarea,select{font-family:inherit}
 /* Mobile sidebar overlay */
 .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200}
 .sidebar-overlay.open{display:block}
-/* Mobile responsive */
+/* Tablet responsive — 769px–1100px */
+@media (max-width:1100px) and (min-width:769px){
+  .app{grid-template-columns:200px 1fr}
+  .role-switcher{gap:1px}
+  .role-btn{padding:5px 9px;font-size:.68rem}
+  .topbar-search{width:180px}
+  .ws-panels{flex-direction:column;overflow-y:auto}
+  .ws-left{min-width:unset;width:100%;max-height:none}
+  .ws-right{min-width:unset;width:100%}
+  .nava-panel{min-height:unset}
+  .rx-workspace{flex-direction:column}
+  .rx-form-panel,.rx-output-panel{min-width:unset;width:100%}
+  #view-today > div[style*="grid-template-columns"]{grid-template-columns:1fr !important}
+}
+/* Mobile responsive — ≤768px */
 @media (max-width:768px){
   .app{grid-template-columns:1fr}
   .sidebar{position:fixed;left:0;top:0;bottom:0;width:240px;z-index:250;transform:translateX(-100%);transition:transform .3s var(--ease)}
   .sidebar.mob-open{transform:translateX(0)}
   .mob-ham{display:flex}
-  .topbar-search{width:160px}
+  .topbar-search{width:140px}
+  .role-btn{padding:4px 8px;font-size:.66rem}
   .ws-panels{flex-direction:column}
   .ws-left,.ws-right{min-width:unset;width:100%}
   .ws-run-bar{position:sticky;bottom:0;z-index:10}
@@ -648,7 +665,22 @@ button,input,textarea,select{font-family:inherit}
   .rx-workspace{flex-direction:column}
   .rx-form-panel,.rx-output-panel{min-width:unset;width:100%}
   .tb-btn.ghost{display:none}
+  .impact-strip{grid-template-columns:1fr 1fr}
+  .role-switcher{overflow-x:auto;border-radius:8px}
 }
+/* Jargon tooltip */
+.jargon{border-bottom:1px dashed var(--muted);cursor:help;position:relative}
+.jargon-tip{display:none;position:absolute;bottom:calc(100% + 4px);left:50%;transform:translateX(-50%);background:var(--bark);color:#F8F6F3;font-size:.7rem;padding:5px 9px;border-radius:6px;white-space:nowrap;z-index:100;pointer-events:none;font-style:normal;line-height:1.4}
+.jargon-tip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:var(--bark)}
+.jargon:hover .jargon-tip{display:block}
+/* Confidence explanation row */
+.conf-explain{font-size:.7rem;color:var(--muted);margin-top:6px;padding:5px 8px;background:var(--bg2);border-radius:6px;line-height:1.5}
+/* Based-on data row */
+.nv-based-on{font-size:.68rem;color:var(--muted);margin-top:8px;padding:7px 10px;background:var(--surface);border-radius:6px;border:1px solid var(--border2);line-height:1.6}
+.nv-based-on strong{color:var(--bark)}
+/* First-load hint */
+.run-hint{font-size:.72rem;color:var(--sienna);text-align:center;margin-bottom:4px;opacity:0;animation:hintFade 4s ease 1s forwards}
+@keyframes hintFade{0%{opacity:0}15%{opacity:1}80%{opacity:1}100%{opacity:0}}
 /* ═══ ROLE SWITCHER ═══ */
 .role-switcher{display:flex;gap:2px;background:var(--bg2);border-radius:100px;padding:3px;flex-shrink:0}
 .role-btn{background:none;border:none;border-radius:100px;padding:5px 13px;font-size:.72rem;font-weight:500;cursor:pointer;color:var(--muted);transition:all .15s;font-family:var(--sans);white-space:nowrap}
@@ -1435,6 +1467,7 @@ button,input,textarea,select{font-family:inherit}
 
           <!-- STICKY RUN ANALYSIS BAR -->
           <div class="ws-run-bar">
+            <div class="run-hint" id="run-hint">Patient loaded — run analysis to get NAVA's assessment ↓</div>
             <button class="ws-run-bar-btn" id="run-nava-btn" onclick="runNava()">
               <span id="run-btn-txt">Run Analysis →</span>
             </button>
@@ -3141,6 +3174,12 @@ function loadCase(i){
   // reset output
   document.getElementById('nava-output').innerHTML = `<div style="text-align:center;padding:28px"><div style="font-size:.86rem;color:var(--muted);font-style:italic">${d.name} loaded — click <strong style="color:var(--bark)">Run Analysis →</strong></div></div>`;
 
+  // pulse run button + refresh hint animation
+  const runBtn = document.getElementById('run-nava-btn');
+  if(runBtn){ runBtn.classList.remove('pulse'); void runBtn.offsetWidth; runBtn.classList.add('pulse'); }
+  const hint = document.getElementById('run-hint');
+  if(hint){ hint.style.animation='none'; void hint.offsetWidth; hint.style.animation=''; }
+
   // Update sticky patient ID bar
   const bar = document.getElementById('ws-patient-id-bar');
   bar.style.display = 'flex';
@@ -3195,8 +3234,8 @@ function loadCase(i){
     makeCardCollapsible('info-paeds',      false);  // expanded (specialty-critical)
     makeCardCollapsible('info-gynae',      false);  // expanded
     makeCardCollapsible('info-art',        false);  // expanded
-    makeCardCollapsible('info-vitals',     false);  // expanded
-    makeCardCollapsible('info-labs',       false);  // expanded
+    makeCardCollapsible('info-vitals',     true);   // collapsed
+    makeCardCollapsible('info-labs',       true);   // collapsed
     makeCardCollapsible('info-meds',       true);   // collapsed
   }, 50);
 
@@ -3952,6 +3991,42 @@ async function runNava(){
   }
 }
 
+const JARGON_MAP = [
+  ['IIH','Raised brain pressure (IIH)','Idiopathic Intracranial Hypertension — fluid pressure around the brain is too high'],
+  ['HTN','High blood pressure (HTN)','Hypertension — consistently elevated blood pressure'],
+  ['DM2','Type 2 diabetes (DM2)','Type 2 Diabetes Mellitus — blood sugar is too high due to insulin resistance'],
+  ['HbA1c','3-month blood sugar average (HbA1c)','Glycated haemoglobin — reflects average blood glucose over the past 2–3 months'],
+  ['TSH','Thyroid test (TSH)','Thyroid-Stimulating Hormone — measures how well the thyroid is working'],
+  ['ESR','Inflammation marker (ESR)','Erythrocyte Sedimentation Rate — a blood test for general inflammation'],
+  ['CRP','Inflammation marker (CRP)','C-Reactive Protein — rises when there is significant inflammation or infection'],
+  ['PCOD','Polycystic ovaries (PCOD)','Polycystic Ovarian Disease — hormonal disorder affecting ovulation'],
+  ['PCOS','Polycystic ovaries (PCOS)','Polycystic Ovarian Syndrome — hormonal imbalance causing irregular periods and other symptoms'],
+  ['DVT','Blood clot in leg vein (DVT)','Deep Vein Thrombosis — a clot in a deep vein, usually in the leg'],
+  ['PE','Blood clot in lungs (PE)','Pulmonary Embolism — a blood clot that has travelled to the lungs'],
+  ['MI','Heart attack (MI)','Myocardial Infarction — blockage of blood supply to the heart muscle'],
+  ['CVA','Stroke (CVA)','Cerebrovascular Accident — stroke caused by a blocked or burst blood vessel in the brain'],
+  ['MRI','Brain/body scan (MRI)','Magnetic Resonance Imaging — detailed scan using magnets, no radiation'],
+  ['LP','Spinal tap (LP)','Lumbar Puncture — a needle is inserted into the lower spine to sample spinal fluid'],
+  ['IOP','Eye pressure (IOP)','Intraocular Pressure — the fluid pressure inside the eye'],
+  ['CSF','Spinal fluid (CSF)','Cerebrospinal Fluid — the clear fluid surrounding the brain and spinal cord'],
+  ['BMI','Body mass index (BMI)','BMI — a number calculated from height and weight to assess healthy weight range'],
+  ['Hb','Haemoglobin (Hb)','Haemoglobin — the protein in red blood cells that carries oxygen'],
+  ['Rx','Prescription (Rx)','The treatment or medication being recommended'],
+  ['OPD','Outpatient visit (OPD)','Outpatient Department — the patient is seen without being admitted to hospital'],
+  ['IPD','Hospital admission (IPD)','Inpatient Department — the patient is admitted and stays in hospital'],
+  ['s/c','Under the skin (subcutaneous)','Subcutaneous injection — given under the skin, not into a vein'],
+  ['i/v','Into a vein (IV)','Intravenous — medication or fluid delivered directly into a vein'],
+];
+function deJargon(text){
+  if(!text) return text;
+  let out = text;
+  JARGON_MAP.forEach(([abbr, plain, tip]) => {
+    const re = new RegExp(`\\b(${abbr})\\b`, 'g');
+    out = out.replace(re, `<span class="jargon">${abbr}<span class="jargon-tip">${tip}</span></span>`);
+  });
+  return out;
+}
+
 function renderNavaOutput(d){
   const topDdx = d.ddx && d.ddx[0];
   const confidencePct = topDdx ? topDdx.p : 85;
@@ -3969,6 +4044,22 @@ function renderNavaOutput(d){
   const startItems = deltaItems.filter(i=>{ const t=stripHtml(i.text); return /^Start:|^Dose fix:/i.test(t) || (/^Month|^Letrozole|^3-month|^Rohit:|^Vikram:/i.test(t)); });
   const stopItems  = deltaItems.filter(i=>{ const t=stripHtml(i.text); return /^Stop:|^STOP /i.test(t); });
 
+  // Confidence explanation text
+  const confText = confidencePct >= 80
+    ? `NAVA is <strong>highly confident</strong>. Multiple clinical indicators align strongly with this diagnosis.`
+    : confidencePct >= 65
+    ? `NAVA is <strong>fairly confident</strong>. Most indicators match — one or two are ambiguous.`
+    : `<strong>Moderate confidence</strong>. The clinical picture is still forming. Close follow-up is recommended.`;
+
+  // "Based on" — which data signals NAVA used
+  const basedOnParts = [];
+  if(d.vitals && d.vitals.length) basedOnParts.push(`${d.vitals.length} vitals`);
+  if(d.labs && d.labs.length) basedOnParts.push(`${d.labs.length} lab values`);
+  if(d.meds && d.meds.length) basedOnParts.push(`${d.meds.length} current meds`);
+  if(d.familyHistory && d.familyHistory.length) basedOnParts.push('family history');
+  if(d.research && d.research.length) basedOnParts.push(`${d.research.length} evidence sources`);
+  const basedOnStr = basedOnParts.join(' · ');
+
   // Verdict card
   const verdictH = `
     <div class="nv-card ${isCrit?'crit':'warn'}">
@@ -3978,14 +4069,16 @@ function renderNavaOutput(d){
           <span class="nv-prev-val">${treatingDx.label}</span>
           <span style="color:var(--sienna);font-weight:700">→ NAVA disagrees</span>
         </div>
-        <div class="nv-dx">${topDdx ? topDdx.n : 'See differential below'}</div>
-        ${consequence ? `<div class="nv-consequence">${consequence}</div>` : ''}
+        <div class="nv-dx">${topDdx ? deJargon(topDdx.n) : 'See differential below'}</div>
+        ${consequence ? `<div class="nv-consequence">${deJargon(consequence)}</div>` : ''}
         ${topEvidence ? `<div style="font-size:.68rem;color:var(--muted);margin-top:6px;font-style:italic"><span class="nhe-geo">${topEvidence.geo}</span> ${topEvidence.source} · ${topEvidence.finding}</div>` : ''}
+        ${basedOnStr ? `<div class="nv-based-on"><strong>Based on:</strong> ${basedOnStr}</div>` : ''}
       </div>
       <div class="nv-right">
         <div class="nv-pct ${pctCls}">${confidencePct}<span style="font-size:.9rem">%</span></div>
         <div class="nv-pct-label">confident</div>
         <div class="nv-pct-bar"><div class="nv-pct-bar-fill" style="width:${confidencePct}%;background:${pctColor}"></div></div>
+        <div class="conf-explain">${confText}</div>
       </div>
     </div>`;
 
@@ -4011,8 +4104,8 @@ function renderNavaOutput(d){
     <div class="ddx-entry">
       <div class="de-pct ${x.t==='likely'?'hi':x.t==='possible'?'md':'lo'}">${x.p}<sup style="font-size:.65rem">%</sup></div>
       <div class="de-info">
-        <div class="de-name">${x.n}</div>
-        <div class="de-why">${x.w}</div>
+        <div class="de-name">${deJargon(x.n)}</div>
+        <div class="de-why">${deJargon(x.w)}</div>
         <div class="de-bar"><div class="de-bar-fill" style="width:${x.b};background:${x.c}"></div></div>
       </div>
       <div class="de-right">
