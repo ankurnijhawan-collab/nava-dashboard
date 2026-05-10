@@ -2401,11 +2401,13 @@ const CASES_DATA = [
     {date:'Jul 2022',duration:'1 day',facility:'Local clinic, Delhi',reason:'Gastroenteritis + dehydration',summary:'IV fluids, oral ORS. Recovered fully.',discharge:'ORS + probiotics × 5 days',emergency:false}
   ],
   insurance:{
-    abha:'4782-1394-2201-5567', scheme:'CGHS (Central Govt)', status:'active',
-    covered:['MRI Brain (covered up to ₹12,000)','Paediatric Neurology OPD','LP procedure (covered up to ₹8,000)','Ophthalmology consultation'],
-    notCovered:['Phase-contrast CSF flow MRI (non-standard protocol — needs pre-auth)','Calcirol 60K (OTC — not reimbursed)'],
-    preAuthNeeded:['LP — submit CGHS pre-auth form 4 days in advance','MRI with special protocol — attach referral letter'],
-    annualLimit:'₹5,00,000',utilised:'₹38,200',remaining:'₹4,61,800'
+    policyType:'ayushman',
+    abha:'4782-1394-2201-5567', scheme:'Ayushman Bharat PM-JAY', insurer:'National Health Authority',
+    status:'active',
+    covered:['Paediatric Neurology OPD — empanelled specialist','LP procedure — covered as day procedure','MRI Brain (standard protocol) — covered','Ophthalmology consultation + fundoscopy'],
+    notCovered:['Phase-contrast CSF flow MRI — not in PMJAY package list','OTC medications (Calcirol 60K) — not reimbursed','Private ward charges — only general ward covered'],
+    preAuthNeeded:['LP — prior e-auth on NHA portal required','MRI — treating doctor to raise request on Ayushman app'],
+    claimTip:'Cashless only at PMJAY-empanelled hospitals. Collect Ayushman card copy and Aadhaar before procedure. Check empanelment status at beneficiary.nha.gov.in'
   },
   en:`*Health update — Aryan's headache*\n\nAfter careful review:\n\nThe current diagnosis (sinusitis) may not explain 14 weeks of constant headache that has not responded to three antibiotic and three ibuprofen courses.\n\nNAVA's concern: raised brain pressure (IIH) — where the brain scan looks completely normal but pressure is elevated.\n\n*What must happen immediately:*\nEye specialist — to check behind the eye (quick and painless)\nBrain specialist (Paediatric Neurologist)\n\n*Medicine changes:*\n✓ Paracetamol — dose corrected (was too low)\n✓ Vitamin D — switching to weekly high dose (Calcirol)\n✗ Stop all Ibuprofen — has not worked in 3 separate trials\n\nURGENT — Emergency if: sudden severe headache, any vision changes, vomiting with headache\n\n⚕ Advisory — Dr Priya Nair · NAVA Clinical Intelligence`,
   hi:`*Aryan ke sar dard ke baare mein update*\n\nPoori history dekh ke:\n\nAbhi jo diagnosis hai (sinusitis) — 14 hafte ke lagatar dard ko explain nahi karta jo teen antibiotic aur teen ibuprofen se bhi theek nahi hua.\n\nNAVA ki chinta: brain pressure badh sakta hai (IIH) — jisme brain ka scan normal dikhta hai.\n\n*Aaj hi karna hai:*\nAankh ke doctor — aankhon ke peeche check (jaldi aur dard nahi)\nDimag ke specialist\n\n*Dawai mein badlav:*\n✓ Paracetamol — sahi dose (pehle kam thi)\n✓ Vitamin D — weekly high dose (Calcirol)\n✗ Ibuprofen bilkul band karo\n\nURGENT — Emergency: achanak tez dard, aankhon mein dikkat, ulti ke saath dard\n\n⚕ Advisory — Dr Priya Nair`
@@ -2514,12 +2516,16 @@ const CASES_DATA = [
     {date:'Mar 2019',duration:'2 days',facility:'MIOT International, Chennai',reason:'Chest pain — ruled out MI',summary:'Troponin negative × 2. Resting ECG normal. Diagnosed as musculoskeletal. Discharged without stress test or lipid management.',discharge:'Ibuprofen PRN, follow-up advised (not attended)',emergency:true}
   ],
   insurance:{
-    abha:'3391-8820-4410-7723', scheme:'Aarogya Karnataka (State)', status:'active',
-    covered:['2D Echocardiogram (covered ₹4,000)','Cardiology OPD × 2 per year','Stress test TMT (covered ₹2,500)','Basic labs (lipids, HbA1c, CBC — covered)','Atorvastatin (Jan Aushadhi equivalent — reimbursed)'],
-    notCovered:['Coronary angiography — requires PMJAY (not enrolled)','PTCA/stenting — not covered under state scheme','Private hospital room charges above ward rate'],
-    preAuthNeeded:['Cardiology referral letter required for Echo + TMT reimbursement'],
-    annualLimit:'₹1,50,000',utilised:'₹12,400',remaining:'₹1,37,600',
-    pmjayEligible:false, pmjayNote:'Income above threshold. Consider ESI if employed.'
+    policyType:'group-health',
+    abha:'3391-8820-4410-7723', scheme:'Group Mediclaim — ICICI Lombard GHI', insurer:'ICICI Lombard General Insurance',
+    policyNo:'GLHI/GRP/2024/7741823', tpa:'Medi Assist India TPA',
+    status:'active',
+    networkType:'Cashless at 10,000+ hospitals pan-India (incl. this hospital)',
+    annualLimit:'₹5,00,000', utilised:'₹38,000', remaining:'₹4,62,000',
+    covered:['Cardiologist consultation — cashless','2D Echocardiogram — cashless','TMT / Stress test — cashless','Lipid panel + HbA1c + CBC labs','Atorvastatin (formulary brand) — reimbursable','Hospitalisation if angiography needed'],
+    notCovered:['OPD medications above ₹1,500/month — reimbursement only','Cosmetic or elective procedures','Pre-existing HTN — waiting period completed (2yr policy)'],
+    preAuthNeeded:['Any hospitalisation — call Medi Assist 24hr helpline before admission','Angiography / PTCA — prior auth mandatory'],
+    claimTip:'Carry ICICI Lombard e-card (on iHealth app) for cashless. OPD bills: collect all receipts + prescriptions for quarterly reimbursement via employer HR portal.'
   },
   en:`*Health update — Meena Iyer*\n\nAfter careful review:\n\nYour chest tightness on stairs needs your heart checked first. This pattern does not fit acid reflux.\n\nYou have a strong family history (father's heart attack at 55) and high cholesterol. Both must be addressed now.\n\n*What must happen this week:*\nHeart specialist (Cardiologist) — urgent\n Heart scan (2D Echo) + Exercise stress test (TMT)\n\n*Medicine changes:*\n✓ Amlodipine — continue\n✓ Atorvastatin 40mg (Storvas/Atorva) — start tonight for cholesterol\n✓ Iron tablets — for mild anaemia\n✗ Stop Pan-D — it is not helping and is treating the wrong problem\n\nURGENT — Emergency: chest pain at rest, arm or jaw pain, sudden breathlessness\n\n⚕ Advisory — Dr Priya Nair · NAVA Clinical Intelligence`,
   hi:`*Meena Iyer ke liye update*\n\nSeedhi pe chest mein tightness — pehle dil check karna zaroori hai. Yeh acidity nahi lagta.\n\nPapa ko 55 mein heart attack tha. Cholesterol bhi zyada hai. Dono abhi theek karne hain.\n\n*Is hafte karna hai:*\nDil ke doctor — urgent\n 2D Echo + TMT\n\n*Dawai:*\n✓ Amlodipine — jaari\n✓ Atorvastatin 40mg — aaj raat se shuru\n✓ Iron tablets — khoon ke liye\n✗ Pan-D band karo\n\nURGENT — Emergency: aaaram mein dard, haath/jaad mein dard, sans ki takleef\n\n⚕ Advisory — Dr Priya Nair`
@@ -2628,7 +2634,16 @@ const CASES_DATA = [
     {type:'adjunct',name:'Dapagliflozin 10mg (Forxiga / Oxra)',salt:'Dapagliflozin 10mg',class:'SGLT2 Inhibitor',dose:'10mg OD — reassess if eGFR <25',price:'₹250–420 / 10 tabs',reason:'Different class adjunct — primary benefit here is NOT glucose lowering (which is minimal at eGFR <30) but proven renoprotection and reduced CKD progression. Initiation must be under nephrology supervision in Stage 4.',switchNote:'Not a Sitagliptin replacement — layered on top. Monitor for volume depletion, euglycaemic DKA. Discontinue if eGFR falls below 20–25.',evidence:'DAPA-CKD trial: reduced renal/CV events in CKD patients with and without T2DM. 2022 KDIGO: SGLT2i recommended in T2DM with CKD and UACR >200 (this patient UACR 840).'}
   ],
   en:`*Important health update — please read carefully*\n\nOne of your medicines (Metformin — the diabetes tablet) must stop immediately. Your kidneys are not strong enough to clear it safely.\n\n*Today:*\n⚠ Stop Metformin NOW — doctor will prescribe safe alternative\nKidney specialist this week — urgent, not routine\nAvoid: banana, tomato, coconut water, potato (potassium high)\nBlood test in 48 hours\n\n*Coming soon:*\nEye test — 4 years overdue\n\nURGENT — Emergency: chest pain, irregular heartbeat, breathlessness\n\n⚕ Advisory — Dr Priya Nair · NAVA`,
-  hi:`*Zaroori sehat ki jaankari*\n\nEk dawai (Metformin) turant band karni hai. Kidney safe nahi rakh sakti isse.\n\n*Aaj:*\n⚠ Metformin ABHI band karo\nKidney specialist — urgent\nAvoid: kela, tamatar, nariyal paani, aloo\n48 ghante mein blood test\n\n*Jald:*\nAankhon ka test — 4 saal se nahi hua\n\nURGENT — Emergency: seene mein dard, dil ki dharkan, sans ki takleef\n\n⚕ Advisory — Dr Priya Nair`
+  hi:`*Zaroori sehat ki jaankari*\n\nEk dawai (Metformin) turant band karni hai. Kidney safe nahi rakh sakti isse.\n\n*Aaj:*\n⚠ Metformin ABHI band karo\nKidney specialist — urgent\nAvoid: kela, tamatar, nariyal paani, aloo\n48 ghante mein blood test\n\n*Jald:*\nAankhon ka test — 4 saal se nahi hua\n\nURGENT — Emergency: seene mein dard, dil ki dharkan, sans ki takleef\n\n⚕ Advisory — Dr Priya Nair`,
+  insurance:{
+    policyType:'ayushman',
+    abha:'6612-4490-3387-0011', scheme:'Ayushman Bharat PM-JAY', insurer:'National Health Authority',
+    status:'active',
+    covered:['Nephrology OPD at empanelled hospital','Haemodialysis — if required (PMJAY package)','Hospitalisation for CKD complications','Basic labs (RFT, CBC, urine) — covered','Diabetic foot care — empanelled facility'],
+    notCovered:['Kidney transplant — not yet covered under PMJAY','Home-based peritoneal dialysis consumables','Monthly insulin pens — only Jan Aushadhi generic covered'],
+    preAuthNeeded:['Dialysis initiation — e-auth on NHA portal','Any hospitalisation — prior authorisation via Ayushman app'],
+    claimTip:'Family listed on Jan Arogya card. Confirm beneficiary status at nearest CSC or Ayushman Mitra at hospital. RNTCP covers TB-related costs separately — free DOTS from nearest PHC.'
+  },
 },
 // ──────── 3: FATIMA ────────
 {
@@ -2743,9 +2758,20 @@ const CASES_DATA = [
     {type:'adjunct',name:'Iron + Folic Acid syrup (Tonoferon Paed)',salt:'Ferrous ascorbate + Folic acid',class:'Haematinic adjunct',dose:'3mg/kg/day elemental iron × 3 months',price:'₹80–140 / 150mL bottle',reason:'Addresses documented anaemia (Hb 9.2 g/dL). Not a TB drug, but critical supportive care — anaemic TB patients have poorer treatment outcomes. Always co-prescribed.',switchNote:'Give between meals, not with milk or Ca-containing foods — absorption issue. Does not interact with first-line TB drugs.',evidence:'WHO: anaemia correction improves TB treatment response and growth recovery.'}
   ],
   en:`*Important health update*\n\nYour child's recurring fever may be due to TB (tuberculosis) — not tonsillitis. Her brother had TB last year. A TB test has not been done yet — this must happen today.\n\n*Today:*\nTB skin test (Mantoux) — ask at the clinic today\nInfectious disease specialist — same day or tomorrow\n\n*Medicines:*\n✓ Paracetamol for fever — continue\n✓ Iron syrup — for anaemia\n✗ Stop all antibiotics — not treating the real problem\n\nGood food: eggs, dal, milk, roti, vegetables — daily\n\nURGENT — Emergency: breathing difficulty, neck stiffness, weight dropping fast\n\n⚕ Advisory — Dr Priya Nair · NAVA Clinical Intelligence`,
-  hi:`*Zaroori sehat ki jaankari*\n\nBachi ki baar baar bukhar TB ki wajah se ho sakti hai. Bhai ko TB tha pichle saal. TB test abhi tak nahi hua — aaj hi karna zaroori hai.\n\n*Aaj:*\nTB test (Mantoux) — aaj clinic mein maango\nInfectious disease specialist — same day\n\n*Dawai:*\n✓ Bukhar ke liye Paracetamol — jaari\n✓ Iron syrup — naya\n✗ Antibiotics BAND KARO\n\nAchcha khana: ande, dal, doodh, roti — roz\n\nURGENT — Emergency: sans mein takleef, gardan akad jaaye\n\n⚕ Advisory — Dr Priya Nair`
-}
-,
+  hi:`*Zaroori sehat ki jaankari*\n\nBachi ki baar baar bukhar TB ki wajah se ho sakti hai. Bhai ko TB tha pichle saal. TB test abhi tak nahi hua — aaj hi karna zaroori hai.\n\n*Aaj:*\nTB test (Mantoux) — aaj clinic mein maango\nInfectious disease specialist — same day\n\n*Dawai:*\n✓ Bukhar ke liye Paracetamol — jaari\n✓ Iron syrup — naya\n✗ Antibiotics BAND KARO\n\nAchcha khana: ande, dal, doodh, roti — roz\n\nURGENT — Emergency: sans mein takleef, gardan akad jaaye\n\n⚕ Advisory — Dr Priya Nair`,
+  insurance:{
+    policyType:'retail',
+    scheme:'Individual Mediclaim — New India Assurance', insurer:'New India Assurance Co. Ltd.',
+    policyNo:'NIA/IND/2024/MED/44821', tpa:'Health India TPA Services',
+    status:'active',
+    networkType:'Cashless at 7,500+ hospitals; this hospital is in-network',
+    annualLimit:'₹3,00,000', utilised:'₹0', remaining:'₹3,00,000',
+    covered:['Mantoux test + follow-up lab work','Hospitalisation if TB treatment requires admission','Paediatric OPD consultations (2/year cashless)','CBC, ESR, chest X-ray — covered under diagnostics rider'],
+    notCovered:['DOTS / RNTCP TB medications — govt-supplied free, no claim needed','Nutritional supplements (Complan, Pediasure) — OTC, not covered','Pre-existing illness within 2-year waiting period'],
+    preAuthNeeded:['Hospitalisation > 24 hrs — inform TPA within 24 hours of admission'],
+    claimTip:'TB medication under RNTCP is free from government DOTS centres — do not attempt insurance claim for it. Use policy for diagnostics and specialist consultations. Keep all prescriptions and lab reports for reimbursement.'
+  },
+},
 // ──────── 4: SUNITA (GYNAE) ────────
 {
   name:'Sunita Verma', specialty:'gynaecology', room:'Rm 5', chief:'Post-menopausal bleed × 3 wks', flagLevel:'crit', flagText:'URGENT',
@@ -2845,9 +2871,20 @@ const CASES_DATA = [
     {type:'adjunct',name:'Metformin 500mg BD',salt:'Metformin HCl',class:'Biguanide — metabolic adjunct',dose:'500mg BD, titrate to 1g BD',price:'₹45–90 / 10 tabs',reason:'Addresses underlying insulin resistance (HbA1c 6.3% + BMI 29). Emerging evidence that metformin has antiproliferative effect on endometrium in at-risk women. Not a cancer treatment — risk-factor modification.',switchNote:'Use alongside definitive therapy, not instead of it. Recheck eGFR at start.',evidence:'Meta-analysis 2020: metformin associated with reduced endometrial cancer incidence in women with T2DM. Emerging trials in high-risk PMB.'}
   ],
   en:`*Urgent health update — please read carefully*\n\nBleeding after menopause is never normal and must be properly investigated.\n\nThe tablet you were given (Norethisterone) can hide a serious cause. We need to stop it today and do two quick tests:\n\n*This week:*\nUltrasound of the uterus (TVS) — painless, 20 minutes\nSmall sample from the uterus (biopsy) — office procedure, no anaesthesia\nMammography — overdue by 3 years\n\n*Medicine changes:*\n✗ STOP Norethisterone immediately — do not take any more tablets\n✓ Blood pressure and sugar: continue current medicines, recheck today\n\n*Why this is important:*\nMost cases turn out to be benign — but in women your age with these risk factors, 1 in 6 cases of bleeding after menopause is due to a cancer of the uterus. Catching it early means simple surgery; delaying can change the options significantly.\n\n⚕ Advisory — Dr Priya Nair · NAVA Clinical Intelligence`,
-  hi:`*Zaroori sehat ki jaankari*\n\nMenopause ke baad bleeding kabhi bhi normal nahi hoti — iski proper jaanch honi chahiye.\n\nJo tablet di gayi thi (Norethisterone), woh asli wajah ko chhupa sakti hai. Aaj isse band karna hai aur do jaldi test karvane hain:\n\n*Is hafte:*\nUterus ka ultrasound (TVS) — 20 minute, dard nahi\nUterus se chota sample (biopsy) — clinic mein, anaesthesia nahi\nMammography — 3 saal se nahi hui\n\n*Dawai:*\n✗ Norethisterone ABHI band karo\n✓ BP aur sugar ki dawai jaari\n\n*Kyun zaroori:*\n85% cases mein koi serious baat nahi hoti. Lekin aap ki age + family history dekhte hue — 6 mein se 1 case uterus ke cancer ka hota hai. Jaldi pakadne pe chhoti si surgery se theek; der hone pe ilaaj mushkil.\n\n⚕ Advisory — Dr Priya Nair`
-}
-,
+  hi:`*Zaroori sehat ki jaankari*\n\nMenopause ke baad bleeding kabhi bhi normal nahi hoti — iski proper jaanch honi chahiye.\n\nJo tablet di gayi thi (Norethisterone), woh asli wajah ko chhupa sakti hai. Aaj isse band karna hai aur do jaldi test karvane hain:\n\n*Is hafte:*\nUterus ka ultrasound (TVS) — 20 minute, dard nahi\nUterus se chota sample (biopsy) — clinic mein, anaesthesia nahi\nMammography — 3 saal se nahi hui\n\n*Dawai:*\n✗ Norethisterone ABHI band karo\n✓ BP aur sugar ki dawai jaari\n\n*Kyun zaroori:*\n85% cases mein koi serious baat nahi hoti. Lekin aap ki age + family history dekhte hue — 6 mein se 1 case uterus ke cancer ka hota hai. Jaldi pakadne pe chhoti si surgery se theek; der hone pe ilaaj mushkil.\n\n⚕ Advisory — Dr Priya Nair`,
+  insurance:{
+    policyType:'group-health',
+    scheme:'Group Health Insurance — Star Health', insurer:'Star Health & Allied Insurance Co. Ltd.',
+    policyNo:'STAR/GRP/2024/JBP/992341', tpa:'In-house (Star Health direct)',
+    status:'active',
+    networkType:'Cashless at 14,000+ network hospitals (Star Health direct settlement)',
+    annualLimit:'₹4,00,000', utilised:'₹22,500', remaining:'₹3,77,500',
+    covered:['Gynaecology OPD — cashless at network hospitals','TVS (pelvic ultrasound) — cashless','Endometrial biopsy / pipelle — cashless','Hysteroscopy if required — cashless','Hospitalisation for surgery (hysterectomy if indicated)','Mammography — covered under preventive benefit'],
+    notCovered:['HRT medications — excluded as maintenance drugs','Pre-existing HTN/DM co-pays apply (20% co-payment)','Cosmetic gynae procedures'],
+    preAuthNeeded:['Any planned surgery — pre-auth mandatory via Star Health portal','Day-care procedures (hysteroscopy) — 48-hr prior intimation'],
+    claimTip:'Star Health has direct settlement — no TPA. Call Star cashless helpline (1800-425-2255) before admission. Pre-auth for hysteroscopy can be raised online at starhealth.in.'
+  },
+},
 // ──────── 5: NEHA (GYNAE) ────────
 {
   name:'Neha Kapoor', specialty:'gynaecology', room:'Rm 7', chief:'Irregular periods, weight gain, hair loss', flagLevel:'warn', flagText:'PCOS+',
@@ -2953,9 +2990,20 @@ const CASES_DATA = [
     {type:'adjunct',name:'Dietitian + structured exercise programme',salt:'Lifestyle intervention',class:'Non-pharmacological',dose:'Individualised; 150 min moderate exercise/wk',price:'₹1,000–2,000 per dietitian visit',reason:'Most important long-term intervention. 5–10% weight loss alone restores ovulation in 40–50% of obese PCOS. Should be paired with every pharmacological intervention — not an alternative to medication.',switchNote:'Always co-prescribed. Regular dietitian follow-ups improve adherence. Consider referral to a structured PCOS programme if available.',evidence:'ESHRE 2023: lifestyle intervention first-line in all PCOS regardless of BMI; stronger effect in obese patients.'}
   ],
   en:`*Health update — Neha Kapoor*\n\nAfter a careful review of your notes:\n\nYour PCOS is real, but the medicine you were on (Diane-35 / birth control) was the wrong choice for someone wanting to conceive. We need to shift treatment now.\n\n*Why your periods are irregular:*\nYour body has insulin resistance — this drives the PCOS. Simply getting periods back with hormones is not enough if the goal is to have a baby.\n\n*New plan (starts this week):*\n✓ Metformin — addresses the root cause\n✓ Weight loss: 5–10% over 6 months (we will give you a dietitian plan)\n✓ TSH, AMH, insulin levels — all tested this week\n✓ Husband needs a semen test — this is mandatory for couples trying to conceive\n\n*After 3 months:*\n℞ Letrozole tablets to help ovulation (better than older Clomid)\n\n*Longer term:*\nBlood sugar and cholesterol monitoring every 6 months — your family history of diabetes is a strong risk.\n\n⚕ Advisory — Dr Priya Nair · NAVA Clinical Intelligence`,
-  hi:`*Neha Kapoor ke liye update*\n\nPoori history dekh ke:\n\nAap ka PCOS genuine hai, lekin jo dawai di gayi thi (Diane-35) woh baby plan karne ke liye sahi nahi thi. Ab ilaaj badalna hai.\n\n*Irregular periods ki asli wajah:*\nInsulin resistance — yehi PCOS ka root cause hai.\n\n*Naya plan (is hafte):*\n✓ Metformin shuru\n✓ Weight loss — 6 mahine mein 5–10% (dietitian help karegi)\n✓ AMH, insulin, TSH test karwao\n✓ Pati ka semen test — bahut zaroori\n\n*3 mahine baad:*\n℞ Letrozole — ovulation ke liye\n\n*Lambe samay ke liye:*\n6 mahine mein BP aur sugar check — mummy ka diabetes hai, risk zyada.\n\n⚕ Advisory — Dr Priya Nair`
-}
-,
+  hi:`*Neha Kapoor ke liye update*\n\nPoori history dekh ke:\n\nAap ka PCOS genuine hai, lekin jo dawai di gayi thi (Diane-35) woh baby plan karne ke liye sahi nahi thi. Ab ilaaj badalna hai.\n\n*Irregular periods ki asli wajah:*\nInsulin resistance — yehi PCOS ka root cause hai.\n\n*Naya plan (is hafte):*\n✓ Metformin shuru\n✓ Weight loss — 6 mahine mein 5–10% (dietitian help karegi)\n✓ AMH, insulin, TSH test karwao\n✓ Pati ka semen test — bahut zaroori\n\n*3 mahine baad:*\n℞ Letrozole — ovulation ke liye\n\n*Lambe samay ke liye:*\n6 mahine mein BP aur sugar check — mummy ka diabetes hai, risk zyada.\n\n⚕ Advisory — Dr Priya Nair`,
+  insurance:{
+    policyType:'retail',
+    scheme:'Individual Health Insurance — Oriental Insurance', insurer:'The Oriental Insurance Company Ltd.',
+    policyNo:'OIC/IND/2023/HLT/338872', tpa:'Raksha Health Insurance TPA',
+    status:'active',
+    networkType:'Cashless at 4,200+ network hospitals',
+    annualLimit:'₹2,00,000', utilised:'₹8,400', remaining:'₹1,91,600',
+    covered:['Gynaecology OPD consultations (2/year cashless)','TVS / pelvic ultrasound — covered','Lab investigations (AMH, TSH, insulin, CBC) — covered','Hospitalisation if laparoscopy needed for PCOS/endometriosis'],
+    notCovered:['Fertility treatments (IUI, IVF, ICSI) — excluded in standard retail policies','Letrozole / Clomiphene for ovulation induction — OPD medication, reimbursement only','Husband\'s fertility workup — not covered under wife\'s individual policy'],
+    preAuthNeeded:['Any planned procedure or hospitalisation — inform Raksha TPA 48 hrs prior'],
+    claimTip:'OPD bills: collect all prescriptions and receipts for quarterly reimbursement. Fertility treatment is almost never covered under standard Indian retail policies — plan as out-of-pocket spend.'
+  },
+},
 // ──────── 6: PRIYA & ROHIT SHARMA (FERTILITY) ────────
 {
   name:'Priya & Rohit Sharma', specialty:'fertility', room:'Rm 1', chief:'Primary infertility × 3 yrs', flagLevel:'warn', flagText:'Male factor?',
@@ -3089,9 +3137,15 @@ const CASES_DATA = [
     {type:'adjunct',name:'Folate 5mg + Vit D + Omega-3 (both partners)',salt:'Nutritional adjunct',class:'Pre-conception supplementation',dose:'Folate 5mg OD (her), 1mg OD (him); Vit D + Omega-3 both',price:'₹200–500 / month per person',reason:'Pre-conception nutrition proven to improve conception rates and reduce pregnancy complications. Male folate deficiency also linked to sperm DNA damage.',switchNote:'Mandatory baseline — both partners. Continue throughout workup and treatment.',evidence:'Cochrane: preconception folate reduces neural tube defects. Small RCTs: male folate + zinc improve semen parameters modestly.'}
   ],
   en:`*Update for Priya & Rohit*\n\nThank you for sharing your full history as a couple — this changes our approach.\n\n*The key gap:*\nThree years of trying, and we have done extensive tests on Priya but not yet on Rohit. Nearly half of all couple infertility involves a male factor — we must complete that workup this week before any treatment.\n\n*This week — both of you:*\nRohit — semen analysis (2 samples, 4 weeks apart)\nRohit — scrotal ultrasound + hormones\nPriya — HSG (tubal patency) in your next cycle\nKaryotype for both (given the miscarriage)\n\n*Lifestyle — starting today (impacts semen in 3 months):*\nRohit: Stop smoking · no laptop on lap · loose underwear · structured exercise\nPriya: Continue folate + vitamin D · pre-conception nutrition\n\n*Decision point — 4 weeks from now:*\nWe will review all results together as a couple and choose the most cost-effective path — expectant, IUI (3 cycles), or directly to IVF. We will NOT recommend IUI without knowing Rohit's results.\n\n⚕ Advisory — Dr Priya Nair · NAVA Clinical Intelligence`,
-  hi:`*Priya aur Rohit ke liye update*\n\nPoori history dekh ke:\n\n*Sabse badi kami:*\n3 saal se try kar rahe ho — Priya ke bahut tests hue, par Rohit ke nahi. Couple infertility ka 40% male factor hota hai. Iska workup is hafte pura karna hai.\n\n*Is hafte — dono:*\nRohit — semen test (2 samples, 4 hafte gap)\nRohit — scrotal USG + hormones\nPriya — HSG (tubes ka test) — cycle ke early din\nDono ka karyotype\n\n*Lifestyle — aaj se (semen par 3 mahine mein asar):*\nRohit: smoking BAND · laptop lap pe nahi · loose underwear · exercise\nPriya: folate + Vit D jaari\n\n*4 hafte baad:*\nDono ke result dekh ke decide karenge — IUI ya IVF. Rohit ka result jaane bina IUI recommend nahi karenge.\n\n⚕ Advisory — Dr Priya Nair`
-}
-,
+  hi:`*Priya aur Rohit ke liye update*\n\nPoori history dekh ke:\n\n*Sabse badi kami:*\n3 saal se try kar rahe ho — Priya ke bahut tests hue, par Rohit ke nahi. Couple infertility ka 40% male factor hota hai. Iska workup is hafte pura karna hai.\n\n*Is hafte — dono:*\nRohit — semen test (2 samples, 4 hafte gap)\nRohit — scrotal USG + hormones\nPriya — HSG (tubes ka test) — cycle ke early din\nDono ka karyotype\n\n*Lifestyle — aaj se (semen par 3 mahine mein asar):*\nRohit: smoking BAND · laptop lap pe nahi · loose underwear · exercise\nPriya: folate + Vit D jaari\n\n*4 hafte baad:*\nDono ke result dekh ke decide karenge — IUI ya IVF. Rohit ka result jaane bina IUI recommend nahi karenge.\n\n⚕ Advisory — Dr Priya Nair`,
+  insurance:{
+    policyType:'self-pay',
+    scheme:'Self-pay (No active policy)', status:'uninsured',
+    covered:[],
+    notCovered:['IUI — ₹8,000–15,000 per cycle, fully out-of-pocket','IVF — ₹1.2L–1.8L per cycle, not covered by any standard Indian policy','Semen analysis + male workup — ₹2,500–6,000, self-pay','HSG (tubal patency) — ₹3,000–5,000, self-pay','Karyotyping (couple) — ₹6,000–10,000, self-pay'],
+    claimTip:'Fertility treatment is excluded from virtually all Indian health insurance policies. Recommend staged, cost-optimised workup — complete male factor before committing to female-side diagnostics. Some employers offer fertility benefits — check HR policy.'
+  },
+},
 // ──────── 7: ANJALI & VIKRAM PATEL (FERTILITY) ────────
 {
   name:'Anjali & Vikram Patel', specialty:'fertility', room:'Rm 8', chief:'Secondary infertility × 4.5 yrs', flagLevel:'warn', flagText:'Low AMH + endo',
@@ -3226,7 +3280,19 @@ const CASES_DATA = [
     {type:'adjunct',name:'PGT-A (Pre-implantation Genetic Testing for Aneuploidy)',salt:'Embryo biopsy + genetic screen',class:'Lab procedure',dose:'Day 5 blastocyst biopsy',price:'₹50,000–90,000 per cycle',reason:'At age 38, aneuploidy rate in embryos is ~40–50%. PGT-A selects euploid embryos preferentially — reduces miscarriage + time to live birth. Strong indication here given age + DFI.',switchNote:'Not a replacement for IVF — a testing adjunct within IVF. Requires blastocyst-stage embryos (not all cycles produce these).',evidence:'ESHRE 2023: PGT-A reduces miscarriage and increases live birth per transfer in women >35. STAR trial + Indian data confirm benefit.'}
   ],
   en:`*Update for Anjali & Vikram*\n\nAfter reviewing 4.5 years of workup:\n\n*The honest picture:*\n- Anjali's ovarian reserve (AMH 0.9 at age 38) is low — we don't have time for more IUI cycles.\n- Vikram's DFI (sperm DNA damage) at 34% explains why the 3 IUI cycles failed.\n- Another surgery for endometriosis would further reduce Anjali's egg count.\n\n*The right path — IVF-ICSI with some prep:*\n\n*For Vikram (next 3 months):*\nVaricocele repair (day-care procedure)\n℞ Antioxidant capsules (L-Carnitine + CoQ10 + Vit E + Zinc)\nSleep 7+ hrs nightly · limit travel if possible\n\n*For Anjali (month 1–3):*\nSTOP: Stop Dienogest (4 weeks before stims)\nPre-IVF labs (thrombophilia, APL, thyroid)\n\n*IVF cycle — month 3–4:*\n℞ DuoStim protocol (double stimulation, more eggs)\nFreeze all embryos, test for chromosomes (PGT-A)\nTransfer best embryo in prepared cycle\n\n*Realistic expectations:*\nAt age 38 with AMH 0.9, our cumulative live-birth chance over 2 IVF cycles is 40–50%. Honest numbers — but materially better than continued IUI, which would likely fail again.\n\n⚕ Advisory — Dr Priya Nair · NAVA Clinical Intelligence`,
-  hi:`*Anjali aur Vikram ke liye update*\n\n4.5 saal ki history dekh ke seedhi baat:\n\n*Asli picture:*\n- Anjali ki AMH 0.9 at 38 — eggs kam ho rahe hain, time kam hai.\n- Vikram ki DFI 34% (sperm DNA damage) — isi wajah se 3 IUI fail hue.\n- Endometriosis ki ek aur surgery karne se aur eggs kam ho jayenge.\n\n*Sahi raasta — IVF-ICSI (kuch preparation ke saath):*\n\n*Vikram ke liye (3 mahine):*\nVaricocele ki surgery (day-care)\n℞ Antioxidant capsules\n7+ ghante ki neend · kam travel\n\n*Anjali ke liye (1–3 mahine):*\nSTOP: Dienogest band (4 hafte pehle)\nPre-IVF tests\n\n*IVF cycle — 3–4 mahine mein:*\n℞ DuoStim protocol (zyada eggs)\nSabhi embryos freeze, genetic test (PGT-A)\nSabse accha embryo transfer\n\n*Sachchi expectation:*\nAap ki age aur AMH dekhte hue, 2 IVF cycles mein baby hone ka chance 40–50%. IUI jaari rakhne se zyada acha.\n\n⚕ Advisory — Dr Priya Nair`
+  hi:`*Anjali aur Vikram ke liye update*\n\n4.5 saal ki history dekh ke seedhi baat:\n\n*Asli picture:*\n- Anjali ki AMH 0.9 at 38 — eggs kam ho rahe hain, time kam hai.\n- Vikram ki DFI 34% (sperm DNA damage) — isi wajah se 3 IUI fail hue.\n- Endometriosis ki ek aur surgery karne se aur eggs kam ho jayenge.\n\n*Sahi raasta — IVF-ICSI (kuch preparation ke saath):*\n\n*Vikram ke liye (3 mahine):*\nVaricocele ki surgery (day-care)\n℞ Antioxidant capsules\n7+ ghante ki neend · kam travel\n\n*Anjali ke liye (1–3 mahine):*\nSTOP: Dienogest band (4 hafte pehle)\nPre-IVF tests\n\n*IVF cycle — 3–4 mahine mein:*\n℞ DuoStim protocol (zyada eggs)\nSabhi embryos freeze, genetic test (PGT-A)\nSabse accha embryo transfer\n\n*Sachchi expectation:*\nAap ki age aur AMH dekhte hue, 2 IVF cycles mein baby hone ka chance 40–50%. IUI jaari rakhne se zyada acha.\n\n⚕ Advisory — Dr Priya Nair`,
+  insurance:{
+    policyType:'retail',
+    scheme:'Family Floater — New India Assurance', insurer:'New India Assurance Co. Ltd.',
+    policyNo:'NIA/FAM/2024/MED/88340', tpa:'Park Mediclaim TPA',
+    status:'active',
+    networkType:'Cashless at 7,500+ hospitals',
+    annualLimit:'₹5,00,000', utilised:'₹55,000', remaining:'₹4,45,000',
+    covered:['Laparoscopy / endometriosis surgery — covered under hospitalisation','Varicocelectomy (day-care) — cashless','Pre-IVF investigations (thrombophilia, TSH, karyotype) — covered','Hospitalisation for ovarian hyperstimulation (OHSS) if it occurs'],
+    notCovered:['IVF / ICSI / IUI — fertility treatment universally excluded','Embryo freezing and storage charges — not covered','PGT-A (embryo genetic testing) — not covered','DHEA, CoQ10, fertility supplements — OTC, not reimbursed'],
+    preAuthNeeded:['Laparoscopy / varicocelectomy — pre-auth 72 hrs before procedure','OHSS hospitalisation — emergency pre-auth within 24 hrs'],
+    claimTip:'IVF and fertility treatment are excluded from all standard Indian retail policies including this one. Use the policy for surgical procedures and hospitalisation. Budget ₹1.5L–2L per IVF cycle as out-of-pocket. Some NBFCs offer fertility EMI products — discuss at counselling.'
+  },
 }
 
 ];
@@ -3531,44 +3597,70 @@ function renderVisualTimeline(d){
 // ─── INSURANCE / ABHA PANEL ───
 function renderInsurancePanel(d){
   const panel = document.getElementById('insurance-panel');
-  const body = document.getElementById('insurance-body');
+  const body  = document.getElementById('insurance-body');
   if(!d || !d.insurance){ panel.style.display='none'; return; }
   panel.style.display='block';
   const ins = d.insurance;
+
+  // Policy type metadata
+  const typeMap = {
+    'govt-scheme':  { label:'Govt Scheme',  color:'var(--blue)',  bg:'var(--blt)' },
+    'ayushman':     { label:'Ayushman Bharat / PMJAY', color:'#1A6B35', bg:'#D4F0DE' },
+    'retail':       { label:'Retail Policy', color:'var(--sienna)', bg:'var(--sien3)' },
+    'group-health': { label:'Group Health',  color:'var(--purple)', bg:'var(--plt)' },
+    'self-pay':     { label:'Self-pay',      color:'var(--muted)',  bg:'var(--bg2)' },
+  };
+  const pt = typeMap[ins.policyType] || typeMap['retail'];
+
+  // ABHA badge
   const badge = document.getElementById('ins-abha-badge');
-  if(badge){ badge.textContent = ins.abha ? 'ABHA: '+ins.abha : 'No ABHA'; badge.style.background = ins.abha?'var(--glt)':'var(--alt)'; badge.style.color = ins.abha?'var(--green)':'var(--amber)'; }
-  const utilPct = ins.annualLimit ? Math.round(parseInt((ins.utilised||'0').replace(/[^\d]/g,'')) / parseInt(ins.annualLimit.replace(/[^\d]/g,'')) * 100) : 0;
+  if(badge){ badge.textContent = ins.abha ? 'ABHA Linked' : 'No ABHA'; badge.style.background = ins.abha?'var(--glt)':'var(--bg2)'; badge.style.color = ins.abha?'var(--green)':'var(--muted)'; }
+
+  const utilPct = ins.annualLimit && ins.utilised
+    ? Math.min(100, Math.round(parseInt((ins.utilised).replace(/[^\d]/g,'')) / parseInt((ins.annualLimit).replace(/[^\d]/g,'')) * 100))
+    : 0;
+
   body.innerHTML = `
     <div style="padding:12px 14px;border-bottom:1px solid var(--border2)">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-        <div style="font-size:.8rem;font-weight:600;color:var(--ink)">${ins.scheme}</div>
-        <span style="font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:4px;background:${ins.status==='active'?'var(--glt)':'var(--rlt)'};color:${ins.status==='active'?'var(--green)':'var(--red)'};text-transform:uppercase;letter-spacing:.06em">${ins.status}</span>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:8px">
+        <div>
+          <div style="font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:${pt.color};background:${pt.bg};padding:2px 8px;border-radius:4px;display:inline-block;margin-bottom:5px">${pt.label}</div>
+          <div style="font-size:.82rem;font-weight:700;color:var(--ink)">${ins.scheme}</div>
+          ${ins.insurer?`<div style="font-size:.72rem;color:var(--muted);margin-top:1px">${ins.insurer}</div>`:''}
+          ${ins.policyNo?`<div style="font-size:.68rem;color:var(--muted);margin-top:2px;font-family:monospace">Policy: ${ins.policyNo}</div>`:''}
+        </div>
+        <span style="flex-shrink:0;font-size:.65rem;font-weight:700;padding:3px 9px;border-radius:100px;background:${ins.status==='active'?'var(--glt)':'var(--rlt)'};color:${ins.status==='active'?'var(--green)':'var(--red)'};text-transform:uppercase;letter-spacing:.06em">${ins.status||'unknown'}</span>
       </div>
-      <div style="font-size:.7rem;color:var(--muted);margin-bottom:8px">Annual limit: <strong style="color:var(--ink)">${ins.annualLimit}</strong> &nbsp;·&nbsp; Used: <strong style="color:var(--amber)">${ins.utilised}</strong> &nbsp;·&nbsp; Remaining: <strong style="color:var(--green)">${ins.remaining}</strong></div>
-      <div style="background:var(--bg2);border-radius:100px;height:5px;overflow:hidden"><div style="height:100%;background:var(--sienna);border-radius:100px;width:${utilPct}%"></div></div>
+      ${ins.policyType!=='self-pay'&&ins.policyType!=='ayushman'?`
+      <div style="font-size:.7rem;color:var(--muted);margin-bottom:6px">
+        Annual limit: <strong style="color:var(--ink)">${ins.annualLimit||'—'}</strong>
+        &nbsp;·&nbsp; Used: <strong style="color:var(--amber)">${ins.utilised||'₹0'}</strong>
+        &nbsp;·&nbsp; Remaining: <strong style="color:var(--green)">${ins.remaining||'—'}</strong>
+      </div>
+      <div style="background:var(--bg2);border-radius:100px;height:5px;overflow:hidden"><div style="height:100%;background:${utilPct>75?'var(--red)':'var(--sienna)'};border-radius:100px;width:${utilPct}%;transition:width .6s"></div></div>`:''}
+      ${ins.policyType==='ayushman'?`<div style="font-size:.75rem;color:#1A6B35;margin-top:4px;font-weight:500">Hospitalisation cover up to ₹5,00,000 per family per year — cashless at empanelled hospitals</div>`:''}
+      ${ins.policyType==='self-pay'?`<div style="font-size:.75rem;color:var(--muted);margin-top:4px">Patient is paying out-of-pocket. Check PMJAY eligibility and Jan Aushadhi for medications.</div>`:''}
+      ${ins.networkType?`<div style="font-size:.68rem;color:var(--muted);margin-top:6px">Network: ${ins.networkType}</div>`:''}
+      ${ins.tpa?`<div style="font-size:.68rem;color:var(--muted);margin-top:2px">TPA: ${ins.tpa}</div>`:''}
     </div>
     ${ins.covered&&ins.covered.length?`
     <div style="padding:10px 14px;border-bottom:1px solid var(--border2)">
-      <div style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:6px">Covered for this patient</div>
+      <div style="font-size:.63rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:6px">Covered for this visit</div>
       ${ins.covered.map(c=>`<div style="font-size:.75rem;color:var(--body);padding:3px 0;display:flex;gap:6px"><span style="color:var(--green);flex-shrink:0">✓</span>${c}</div>`).join('')}
     </div>`:''}
     ${ins.notCovered&&ins.notCovered.length?`
     <div style="padding:10px 14px;border-bottom:1px solid var(--border2)">
-      <div style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:6px">Not covered / exclusions</div>
+      <div style="font-size:.63rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:6px">Not covered / exclusions</div>
       ${ins.notCovered.map(c=>`<div style="font-size:.75rem;color:var(--body);padding:3px 0;display:flex;gap:6px"><span style="color:var(--red);flex-shrink:0">✗</span>${c}</div>`).join('')}
     </div>`:''}
     ${ins.preAuthNeeded&&ins.preAuthNeeded.length?`
     <div style="padding:10px 14px;border-bottom:1px solid var(--border2)">
-      <div style="font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);margin-bottom:6px">Pre-authorisation required</div>
+      <div style="font-size:.63rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);margin-bottom:6px">Pre-auth required</div>
       ${ins.preAuthNeeded.map(c=>`<div style="font-size:.75rem;color:var(--body);padding:3px 0;display:flex;gap:6px"><span style="color:var(--amber);flex-shrink:0">!</span>${c}</div>`).join('')}
     </div>`:''}
-    ${ins.pmjayEligible===false&&ins.pmjayNote?`
-    <div style="padding:8px 14px;background:var(--alt)">
-      <div style="font-size:.72rem;color:var(--amber)">PMJAY: Not enrolled — ${ins.pmjayNote}</div>
-    </div>`:''}
-    ${ins.pmjayEligible===true?`
-    <div style="padding:8px 14px;background:var(--glt)">
-      <div style="font-size:.72rem;font-weight:600;color:var(--green)">PMJAY / Ayushman Bharat eligible — up to ₹5,00,000 cover for hospitalisation</div>
+    ${ins.claimTip?`
+    <div style="padding:8px 14px;background:var(--bg2);border-radius:0 0 var(--r) var(--r)">
+      <div style="font-size:.72rem;color:var(--muted);line-height:1.5">Tip: ${ins.claimTip}</div>
     </div>`:''}`;
 }
 
