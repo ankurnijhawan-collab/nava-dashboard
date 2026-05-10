@@ -6506,38 +6506,48 @@ renderClaudeNavaOutput = function(json, d) {
 };
 
 function patchNavaOutputButtons(d) {
-  // Add "Send to Patient" to tools row
+  // Add "Send to Patient" + "Send to Pharmacy" to tools row
   const toolsRow = document.querySelector('#nava-output .tools-row');
   if (toolsRow && !toolsRow.querySelector('.wa-tool-btn')) {
     const waBtn = document.createElement('button');
     waBtn.className = 'tool-btn wa-tool-btn';
-    waBtn.style.background = '#128C7E';
-    waBtn.style.color = '#fff';
-    waBtn.style.borderColor = '#128C7E';
+    waBtn.style.cssText = 'background:#128C7E;color:#fff;border-color:#128C7E';
     waBtn.textContent = '📲 Send to Patient';
     waBtn.onclick = openWaPatientSummary;
     toolsRow.insertBefore(waBtn, toolsRow.firstChild);
-    // Add Send to Pharmacy button
     const rxBtn = document.createElement('button');
     rxBtn.className = 'tool-btn';
     rxBtn.textContent = '→ Send to Pharmacy';
     rxBtn.onclick = sendToPharmacy;
     toolsRow.appendChild(rxBtn);
   }
-  // Add "Order Now" buttons to order items in delta card
-  const deltaRows = document.querySelectorAll('#nava-output .delta-row');
-  deltaRows.forEach(row => {
+  // Demo mode: .action-col-order .ac-item
+  document.querySelectorAll('#nava-output .action-col-order .ac-item').forEach(item => {
+    if (item.querySelector('.order-now-btn')) return;
+    const textSpan = item.querySelector('span:last-child');
+    const rawText = textSpan?.textContent || '';
+    // Extract test name: "Urgent test: fundoscopy today" → "fundoscopy"
+    const match = rawText.match(/:\s*<?\/?strong?>?([A-Za-z0-9 ]+)/i) || rawText.match(/\b([A-Z][a-z]+(?:\s[a-z]+)?)\b/);
+    const testName = rawText.replace(/<[^>]*>/g,'').replace(/^Urgent test:\s*/i,'').replace(/^Same-day:\s*/i,'').split(' ').slice(0,3).join(' ') || 'Investigation';
+    const btn = document.createElement('button');
+    btn.className = 'order-now-btn';
+    btn.style.cssText = 'background:var(--bark);color:#F8F6F3;border:none;border-radius:5px;padding:2px 8px;font-size:.65rem;font-weight:600;cursor:pointer;white-space:nowrap;margin-left:4px;flex-shrink:0';
+    btn.textContent = 'Order';
+    btn.onclick = () => orderDiagnostic(testName, btn);
+    item.appendChild(btn);
+  });
+  // Claude mode: .delta-row with .delta-badge.order
+  document.querySelectorAll('#nava-output .delta-row').forEach(row => {
     const badge = row.querySelector('.delta-badge.order');
-    if (badge && !row.querySelector('.order-now-btn')) {
-      const btn = document.createElement('button');
-      btn.className = 'order-now-btn';
-      btn.style.cssText = 'background:var(--bark);color:#F8F6F3;border:none;border-radius:6px;padding:3px 9px;font-size:.68rem;font-weight:600;cursor:pointer;white-space:nowrap;margin-left:auto';
-      btn.textContent = 'Order Now';
-      const textSpan = row.querySelector('span:last-child');
-      const testName = textSpan?.textContent?.trim().split(' ')[0] || 'Investigation';
-      btn.onclick = () => orderDiagnostic(testName, btn);
-      row.appendChild(btn);
-    }
+    if (!badge || row.querySelector('.order-now-btn')) return;
+    const textSpan = row.querySelector('span:last-child');
+    const testName = textSpan?.textContent?.trim().split(' ').slice(0,3).join(' ') || 'Investigation';
+    const btn = document.createElement('button');
+    btn.className = 'order-now-btn';
+    btn.style.cssText = 'background:var(--bark);color:#F8F6F3;border:none;border-radius:5px;padding:3px 9px;font-size:.68rem;font-weight:600;cursor:pointer;white-space:nowrap;margin-left:auto';
+    btn.textContent = 'Order Now';
+    btn.onclick = () => orderDiagnostic(testName, btn);
+    row.appendChild(btn);
   });
 }
 
