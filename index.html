@@ -395,9 +395,19 @@ button,input,textarea,select{font-family:inherit}
 .agent-waiting{color:var(--muted);font-weight:500;opacity:.7}
 
 /* ═══ WORKSPACE ═══ */
-.workspace{display:grid;grid-template-columns:290px 1fr;gap:14px;flex:1;overflow:hidden;padding:12px 14px}
+/* Default: patient profile takes the full content width */
+.workspace{display:grid;grid-template-columns:1fr;gap:14px;flex:1;overflow:hidden;padding:12px 14px}
+/* Once analysis runs, split into patient-data column + analysis column */
+.workspace.has-analysis{grid-template-columns:380px 1fr}
 .ws-left{overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding-bottom:16px}
-.ws-right{overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding-bottom:16px}
+/* Right panel hidden until analysis is running */
+.ws-right{display:none;overflow-y:auto;flex-direction:column;gap:10px;padding-bottom:16px}
+.workspace.has-analysis .ws-right{display:flex}
+/* In full-width mode, lay data cards in 2 columns */
+.ws-cards-grid{display:flex;flex-direction:column;gap:10px}
+.workspace:not(.has-analysis) .ws-cards-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-content:start}
+/* Body map spans full width in 2-col grid */
+.workspace:not(.has-analysis) .ws-cards-grid .body-map-wrap{grid-column:1/-1}
 .case-header-card{background:var(--bark);border-radius:var(--r2);padding:18px;position:relative;overflow:hidden;flex-shrink:0}
 .case-header-card::before{content:'';position:absolute;top:-25px;right:-25px;width:110px;height:110px;border-radius:50%;background:rgba(139,109,69,.2)}
 .ch-name{font-family:var(--serif);font-size:1.2rem;font-weight:600;color:#F8F6F3;margin-bottom:3px;position:relative}
@@ -665,9 +675,10 @@ button,input,textarea,select{font-family:inherit}
   .role-switcher{gap:1px}
   .role-btn{padding:5px 9px;font-size:.68rem}
   .topbar-search{width:180px}
-  .ws-panels{flex-direction:column;overflow-y:auto}
-  .ws-left{min-width:unset;width:100%;max-height:none}
-  .ws-right{min-width:unset;width:100%}
+  /* On tablet, force single-column workspace even with analysis open */
+  .workspace,.workspace.has-analysis{grid-template-columns:1fr}
+  .workspace.has-analysis .ws-right{display:flex}
+  .ws-cards-grid{grid-template-columns:1fr 1fr!important}
   .nava-panel{min-height:unset}
   .rx-workspace{flex-direction:column}
   .rx-form-panel,.rx-output-panel{min-width:unset;width:100%}
@@ -681,8 +692,10 @@ button,input,textarea,select{font-family:inherit}
   .mob-ham{display:flex}
   .topbar-search{width:140px}
   .role-btn{padding:4px 8px;font-size:.66rem}
-  .ws-panels{flex-direction:column}
-  .ws-left,.ws-right{min-width:unset;width:100%}
+  /* On mobile, always single column */
+  .workspace,.workspace.has-analysis{grid-template-columns:1fr}
+  .workspace.has-analysis .ws-right{display:flex}
+  .ws-cards-grid,.workspace:not(.has-analysis) .ws-cards-grid{display:flex!important;flex-direction:column}
   .ws-run-bar{position:sticky;bottom:0;z-index:10}
   .views{overflow-y:auto}
   #view-today > div:last-of-type{grid-template-columns:1fr}
@@ -721,8 +734,10 @@ button,input,textarea,select{font-family:inherit}
   .app{display:block;height:auto}
   .views{overflow:visible!important;height:auto}
   .view{display:block!important}
-  .ws-panels{flex-direction:column;overflow:visible}
+  .workspace,.workspace.has-analysis{display:block}
+  .ws-right{display:block!important}
   .ws-left,.ws-right{width:100%;min-width:unset;max-height:unset}
+  .ws-cards-grid{display:block!important}
   .nava-panel,.nv-section{break-inside:avoid}
   .nv-sec-body{display:block!important;max-height:none!important}
   body{background:#fff!important;color:#111!important;font-size:11pt}
@@ -1483,6 +1498,9 @@ button,input,textarea,select{font-family:inherit}
             <div class="ch-pills"><span class="ch-pill">— · —</span></div>
           </div>
 
+          <!-- DATA CARDS GRID — 2-col when full-width, 1-col when analysis panel open -->
+          <div class="ws-cards-grid">
+
           <!-- SAVE BAR — visible only in blank-case mode -->
           <div id="blank-case-bar" style="display:none;padding:4px 0 2px">
             <button onclick="saveBlankPatient()" style="width:100%;background:var(--sienna);color:#F8F6F3;border:none;border-radius:var(--r);padding:11px 14px;font-size:.82rem;font-weight:700;cursor:pointer;letter-spacing:.04em;transition:opacity .15s;display:flex;align-items:center;justify-content:center;gap:7px" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
@@ -1586,6 +1604,8 @@ button,input,textarea,select{font-family:inherit}
               <div style="font-size:.6rem;color:var(--muted);margin-top:5px;line-height:1.5">Transcribed text is appended to your notes. Review before running NAVA Analysis.</div>
             </div>
           </div>
+
+          </div><!-- /ws-cards-grid -->
 
           <div class="demo-case-picker">
             <div class="demo-case-picker-head">
@@ -3375,11 +3395,17 @@ let summaryLang = 'en';
 
 // ─── LOAD CASE ───
 function loadCase(i){
+  // Reset to full-width patient profile view (analysis panel collapses until Run Analysis)
+  document.querySelector('.workspace')?.classList.remove('has-analysis');
   activeCase = CASES_DATA[i];
   const d = activeCase;
   const isCouple = !!d.partner;
   document.getElementById('blank-case-bar').style.display = 'none';
   document.getElementById('blank-upload-card').style.display = 'none';
+  // Reset analysis output so the placeholder shows (panel hidden anyway until Run Analysis)
+  const _naOut = document.getElementById('nava-output');
+  if(_naOut) _naOut.innerHTML = `<div style="text-align:center;padding:36px 20px"><div style="font-family:var(--serif);font-size:1.1rem;font-weight:600;margin-bottom:10px;opacity:.2;letter-spacing:.08em">NAVA</div><div style="font-family:var(--serif);font-size:1rem;color:var(--muted);font-style:italic">Patient loaded — run analysis to see NAVA's assessment</div></div>`;
+  document.getElementById('insurance-panel').style.display = 'none';
 
   // header — with specialty accent bar and pill
   const coupleIcon = isCouple ? `<span style="font-size:.65rem;font-weight:700;background:rgba(255,255,255,.15);color:#F8F6F3;padding:3px 8px;border-radius:100px;letter-spacing:.06em;text-transform:uppercase;margin-left:8px;vertical-align:middle">Couple</span>` : '';
@@ -4195,6 +4221,9 @@ async function runNava(){
       {key:'summary',  icon:'N', name:'Summary Agent', role:'Synthesising plan', detail:'Writing the integrated differential, care path, and prescription plan.'}
     ];
   }
+
+  // Open the analysis panel (splits workspace into patient + analysis columns)
+  document.querySelector('.workspace')?.classList.add('has-analysis');
 
   // Render the agent stream UI
   const hasNotes = !!(d._notes && d._notes.trim());
