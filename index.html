@@ -7332,11 +7332,14 @@ const _origLoadCase = loadCase;
 loadCase = function(idx) {
   const d = CASES_DATA[idx];
   if (d && activeRole === 'doctor') {
-    showEhrPull(d.name, () => {
-      _origLoadCase(idx);
-      if (activeRole === 'nurse') renderNurseOverlay();
-      else if (activeRole === 'admin') renderAdminOverlay();
-    });
+    // Brief pause before overlay appears — feels like the system is initiating a connection
+    setTimeout(() => {
+      showEhrPull(d.name, () => {
+        _origLoadCase(idx);
+        if (activeRole === 'nurse') renderNurseOverlay();
+        else if (activeRole === 'admin') renderAdminOverlay();
+      });
+    }, 2200);
   } else {
     _origLoadCase(idx);
   }
