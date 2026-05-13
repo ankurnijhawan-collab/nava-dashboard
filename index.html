@@ -4265,15 +4265,63 @@ async function runNava(){
   // If notes present, pause briefly so the doctor sees them being "read"
   if(hasNotes) await new Promise(r=>setTimeout(r, 1200));
 
-  // Stream the agents — each one lights up, works for ~400ms, completes
+  // Per-agent: what actual patient data does it read?
+  const agentLiveData = {
+    intake:   () => [d.chief ? `Chief complaint: "${d.chief}"` : null,
+                     d.meta || null,
+                     d.history && d.history.length ? `${d.history.length} history entries` : null]
+                    .filter(Boolean).join(' · '),
+    redflag:  () => {
+      const bads = [...(d.vitals||[]), ...(d.labs||[])].filter(v=>v.cls==='bad'||v.cls==='warn');
+      return bads.length
+        ? 'Flagged: ' + bads.slice(0,3).map(v=>`${v.l} ${v.v.split(' ')[0]}`).join(' · ') + (bads.length>3?` +${bads.length-3} more`:'')
+        : 'No critical flags in vitals or labs';
+    },
+    hormonal: () => (d.labs||[]).filter(l=>/(FSH|LH|AMH|TSH|insulin|testosterone|E2|progesterone)/i.test(l.l))
+                    .map(l=>`${l.l}: ${l.v.split(' ')[0]}`).join(' · ') || 'Parsing hormonal axis…',
+    drug:     () => {
+      const warns = (d.meds||[]).filter(m=>m.cls==='bad'||m.cls==='warn');
+      return warns.length
+        ? 'Flagged meds: ' + warns.slice(0,2).map(m=>m.v.split('—')[0].trim()).join(' · ')
+        : (d.meds||[]).length ? `${d.meds.length} medications — checking interactions` : 'No medications on record';
+    },
+    dosing:   () => {
+      const wt = (d.meta||'').match(/(\d+)\s*kg/)?.[1];
+      const warns = (d.meds||[]).filter(m=>m.cls==='bad'||m.cls==='warn');
+      return [wt ? `Weight: ${wt} kg` : null, `${(d.meds||[]).length} prescriptions`, warns.length ? `${warns.length} dosing flags` : null].filter(Boolean).join(' · ');
+    },
+    evidence: () => d.research && d.research.length
+      ? d.research.slice(0,2).map(r=>r.source.split(' ').slice(0,4).join(' ')).join(' · ')
+      : `Checking ICMR · WHO · local guidelines for ${d.specialty||'general'} OPD`,
+    family:   () => (d.familyHistory||[]).length
+      ? (d.familyHistory||[]).slice(0,2).map(f=>`${f.relation}: ${(f.condition||'').split(',')[0]}`).join(' · ')
+      : 'No significant family history recorded',
+    cost:     () => d.finance ? `Patient estimate: ${d.finance.patientEstimate} · Hospital: ${d.finance.hospitalRevenue}` : 'Calculating cost impact…',
+    summary:  () => `${(d.vitals||[]).length} vitals · ${(d.labs||[]).length} labs · ${(d.meds||[]).length} meds · ${(d.history||[]).length} history entries · ${(d.familyHistory||[]).length} family history items`,
+    pathway:  () => [d.chief ? `Chief: "${d.chief}"` : null, `${(d.labs||[]).length} labs`, `${(d.history||[]).length} history items`].filter(Boolean).join(' · '),
+    female:   () => (d.labs||[]).filter(l=>/(AMH|AFC|FSH|E2|antral)/i.test(l.l)).map(l=>`${l.l}: ${l.v.split(' ')[0]}`).join(' · ') || 'Reviewing ovarian reserve markers…',
+    male:     () => { if(!d.partner) return 'No partner data'; const s=d.partner.semen||{}; return Object.entries(s).slice(0,3).map(([k,v])=>`${k}: ${v}`).join(' · '); },
+  };
+
+  // Stream the agents — each lights up, shows actual patient data being read, then completes
   for(let i=0; i<agents.length; i++){
     const a = agents[i];
     const row = document.getElementById('agent-'+a.key);
     if(!row) continue;
     row.classList.remove('pending');
     row.classList.add('working');
-    row.querySelector('.agent-status').innerHTML = '<span class="agent-spin"></span> Thinking…';
-    await new Promise(r=>setTimeout(r, 700 + Math.random()*200));
+    row.querySelector('.agent-status').innerHTML = '<span class="agent-spin"></span> Reading…';
+    // Update detail to show actual patient data this agent is processing
+    const liveDetail = agentLiveData[a.key];
+    if(liveDetail) {
+      try {
+        const detailEl = row.querySelector('.agent-detail');
+        if(detailEl) detailEl.textContent = liveDetail();
+      } catch(e){}
+    }
+    await new Promise(r=>setTimeout(r, 800 + Math.random()*250));
+    row.querySelector('.agent-status').innerHTML = '<span class="agent-spin"></span> Analysing…';
+    await new Promise(r=>setTimeout(r, 400 + Math.random()*150));
     row.classList.remove('working');
     row.classList.add('done');
     row.querySelector('.agent-status').innerHTML = '<span class="agent-done-tick">✓</span>';
@@ -4503,11 +4551,17 @@ function renderNavaOutput(d){
     ? `NAVA is <strong>fairly confident</strong>. Most indicators match — one or two are ambiguous.`
     : `<strong>Moderate confidence</strong>. The clinical picture is still forming. Close follow-up is recommended.`;
 
-  // "Based on" — which data signals NAVA used
+  // "Based on" — actual flagged data values, not just counts
+  const _flaggedB = [...(d.vitals||[]), ...(d.labs||[]), ...(d.meds||[])].filter(v=>v.cls==='bad'||v.cls==='warn');
+  const flagSummary = _flaggedB.length
+    ? _flaggedB.slice(0,4).map(v=>`<span style="color:${v.cls==='bad'?'var(--red)':'var(--amber)'}; font-weight:600">${v.l}: ${v.v.split(' ').slice(0,2).join(' ')}</span>`).join(' · ') + (_flaggedB.length>4 ? ` · +${_flaggedB.length-4} more flags` : '')
+    : null;
   const basedOnParts = [];
+  if(d.chief) basedOnParts.push(`Chief: <em>${d.chief}</em>`);
   if(d.vitals && d.vitals.length) basedOnParts.push(`${d.vitals.length} vitals`);
-  if(d.labs && d.labs.length) basedOnParts.push(`${d.labs.length} lab values`);
-  if(d.meds && d.meds.length) basedOnParts.push(`${d.meds.length} current meds`);
+  if(d.labs && d.labs.length) basedOnParts.push(`${d.labs.length} labs`);
+  if(d.meds && d.meds.length) basedOnParts.push(`${d.meds.length} meds`);
+  if(d.history && d.history.length) basedOnParts.push(`${d.history.length} history entries`);
   if(d.familyHistory && d.familyHistory.length) basedOnParts.push('family history');
   if(d.research && d.research.length) basedOnParts.push(`${d.research.length} evidence sources`);
   if(d._notes) basedOnParts.push('doctor\'s notes');
@@ -4525,7 +4579,8 @@ function renderNavaOutput(d){
         <div class="nv-dx">${topDdx ? deJargon(topDdx.n) : 'See differential below'}</div>
         ${consequence ? `<div class="nv-consequence">${deJargon(consequence)}</div>` : ''}
         ${topEvidence ? `<div style="font-size:.68rem;color:var(--muted);margin-top:6px;font-style:italic"><span class="nhe-geo">${topEvidence.geo}</span> ${topEvidence.source} · ${topEvidence.finding}</div>` : ''}
-        ${basedOnStr ? `<div class="nv-based-on"><strong>Based on:</strong> ${basedOnStr}</div>` : ''}
+        ${flagSummary ? `<div class="nv-based-on" style="margin-top:6px"><strong>Key flags:</strong> ${flagSummary}</div>` : ''}
+        ${basedOnStr ? `<div class="nv-based-on"><strong>Data read:</strong> ${basedOnStr}</div>` : ''}
       </div>
       <div class="nv-right">
         <div class="nv-pct ${pctCls}">${confidencePct}<span style="font-size:.9rem">%</span></div>
@@ -4641,6 +4696,45 @@ function renderNavaOutput(d){
     </div>
   </div>`;
 
+  // ─── Clinical Signals — what NAVA actually read from this patient's record ───
+  const flagBadge = (label, val, cls) => {
+    const col = cls==='bad' ? 'var(--red)' : cls==='warn' ? 'var(--amber)' : 'var(--muted)';
+    const bg  = cls==='bad' ? 'var(--rlt)'  : cls==='warn' ? 'var(--alt)'   : 'var(--surface)';
+    const ico = cls==='bad' ? '▲' : cls==='warn' ? '⚠' : '·';
+    return `<div style="display:flex;align-items:flex-start;gap:7px;padding:6px 10px;background:${bg};border-radius:6px;border-left:3px solid ${col}">
+      <span style="font-size:.65rem;font-weight:800;color:${col};flex-shrink:0;margin-top:1px">${ico}</span>
+      <div style="min-width:0">
+        <div style="font-size:.65rem;font-weight:700;color:${col};text-transform:uppercase;letter-spacing:.05em;margin-bottom:1px">${label}</div>
+        <div style="font-size:.72rem;color:var(--ink);line-height:1.35;word-break:break-word">${val}</div>
+      </div>
+    </div>`;
+  };
+
+  const flaggedVitals = (d.vitals||[]).filter(v=>v.cls==='bad'||v.cls==='warn');
+  const flaggedLabs   = (d.labs||[]).filter(l=>l.cls==='bad'||l.cls==='warn');
+  const flaggedMeds   = (d.meds||[]).filter(m=>m.cls==='bad'||m.cls==='warn');
+  const allFlagged = [
+    ...flaggedVitals.map(v=>flagBadge(v.l, v.v, v.cls)),
+    ...flaggedLabs.map(l=>flagBadge(l.l, l.v, l.cls)),
+    ...flaggedMeds.map(m=>flagBadge('℞ '+m.l, m.v, m.cls))
+  ];
+
+  const dataFooter = `<div style="font-size:.68rem;color:var(--muted);margin-top:8px;padding:6px 10px;background:var(--surface);border-radius:5px;line-height:1.6">
+    Also reviewed (no flags): ${(d.vitals||[]).length} vitals · ${(d.labs||[]).length} labs · ${(d.meds||[]).length} medications · ${(d.history||[]).length} history items · ${(d.familyHistory||[]).length} family history entries · ${d.chief ? `Chief: <em>"${d.chief}"</em>` : ''}
+  </div>`;
+
+  const signalsH = `
+    <div class="nv-section nv-sec-collapsed" id="nvsec-signals">
+      <div class="nv-sec-head" onclick="toggleNvSection('signals')">
+        <span>⚡ Clinical Signals Read — ${allFlagged.length} flag${allFlagged.length!==1?'s':''} from patient's record</span><span class="nv-sec-chev">▾</span>
+      </div>
+      <div class="nv-sec-body">
+        ${allFlagged.length
+          ? `<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:4px">${allFlagged.join('')}</div>${dataFooter}`
+          : `<div style="font-size:.78rem;color:var(--muted);padding:10px 4px">No flagged values — normal range across vitals and labs.</div>${dataFooter}`}
+      </div>
+    </div>`;
+
   // Helper: collapsible section wrapper
   const sec = (id, title, content, startOpen=false) => `
     <div class="nv-section" id="nvsec-${id}">
@@ -4653,6 +4747,7 @@ function renderNavaOutput(d){
   document.getElementById('nava-output').innerHTML = `
     ${verdictH}
     ${actionH}
+    ${signalsH}
     ${d.cantmiss && d.cantmiss.length ? `<div class="ddx-sec-title" style="color:var(--red);margin-bottom:6px">⚠ Don't Miss These</div>${cantH}` : ''}
     ${sec('ddx',      'Most Likely Diagnoses',        ddxH,   true)}
     ${sec('tx',       'Treatment',                    txH,    true)}
@@ -4669,7 +4764,7 @@ function renderNavaOutput(d){
       <button class="tool-btn" onclick="window.print()">Print</button>
     </div>`;
   // Collapse sections that start closed
-  ['carepath','research','cost'].forEach(id=>{
+  ['signals','carepath','research','cost'].forEach(id=>{
     const s = document.getElementById('nvsec-'+id);
     if(s) s.classList.add('nv-sec-collapsed');
   });
