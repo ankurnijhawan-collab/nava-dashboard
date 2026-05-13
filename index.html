@@ -1423,7 +1423,31 @@ button,input,textarea,select{font-family:inherit}
     </div>
     <button class="tb-btn ghost" onclick="startGuidedTour()" title="Take a quick guided tour">Tour</button>
     <button class="tb-btn ghost" onclick="showView('scribe')">Record</button>
+    <button class="tb-btn ghost" id="topbar-ai-btn" onclick="openKeyModal()" style="border-color:var(--sienna);color:var(--sienna)" title="Add Claude API key for real-time AI analysis">🔑 Claude AI</button>
     <button class="tb-btn primary" id="new-patient-btn" onclick="startBlankCase()">+ New Patient</button>
+  </div>
+
+  <!-- CLAUDE KEY MODAL -->
+  <div id="key-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:900;align-items:center;justify-content:center">
+    <div style="background:var(--card);border:1px solid var(--border2);border-radius:var(--r2);padding:28px;width:min(420px,92vw);box-shadow:var(--shadow2)">
+      <div style="font-family:var(--serif);font-size:1.05rem;font-weight:600;margin-bottom:6px" id="key-modal-title">Add Claude API Key</div>
+      <div style="font-size:.78rem;color:var(--muted);line-height:1.6;margin-bottom:16px">
+        With a key, NAVA sends the patient's actual vitals, labs, meds, history and your case notes to Claude for real-time clinical reasoning — not pre-loaded demo output.
+      </div>
+      <input id="key-modal-input" type="password" placeholder="sk-ant-api03-…" autocomplete="off"
+        style="width:100%;border:1px solid var(--border2);border-radius:var(--r);padding:10px 12px;font-size:.82rem;font-family:monospace;background:var(--bg);color:var(--ink);outline:none;box-sizing:border-box;margin-bottom:10px"
+        onfocus="this.style.borderColor='var(--sienna)'" onblur="this.style.borderColor='var(--border2)'"
+        onkeydown="if(event.key==='Enter') saveKeyModal()">
+      <div style="display:flex;gap:8px;margin-bottom:14px">
+        <button onclick="saveKeyModal()" style="flex:1;background:var(--sienna);color:#F8F6F3;border:none;border-radius:var(--r);padding:10px;font-size:.82rem;font-weight:700;cursor:pointer">Save key</button>
+        <button onclick="closeKeyModal()" style="flex:1;background:var(--surface);color:var(--ink);border:1px solid var(--border2);border-radius:var(--r);padding:10px;font-size:.82rem;cursor:pointer">Cancel</button>
+      </div>
+      <div style="font-size:.68rem;color:var(--muted);line-height:1.65;border-top:1px solid var(--border2);padding-top:10px">
+        <strong>How to get a key:</strong> Go to <strong>console.anthropic.com</strong> → sign up → API Keys → Create Key → copy the key that starts with <code>sk-ant-</code><br>
+        New accounts get $5 free credit — enough for hundreds of analyses.<br>
+        Your key is stored only in this browser and never sent anywhere except Anthropic.
+      </div>
+    </div>
   </div>
 
   <div class="views">
@@ -5272,6 +5296,7 @@ function toggleClaudeKeyBar(){
 function initClaudeKeyBanner(){
   const key=getClaudeKey();
   updateKeyPanelUI(key);
+  updateTopbarAiBtn(!!key);
   if(!key) return;
   const inp=document.getElementById('ck-input');
   if(inp) inp.value='••••••••'+key.slice(-4);
@@ -5301,6 +5326,66 @@ function updateKeyPanelUI(key){
     statusEl.style.color = 'var(--muted)';
   }
 }
+
+function openKeyModal(){
+  const modal = document.getElementById('key-modal');
+  if(!modal) return;
+  modal.style.display = 'flex';
+  const existing = getClaudeKey();
+  const inp = document.getElementById('key-modal-input');
+  const title = document.getElementById('key-modal-title');
+  if(existing){
+    inp.value = '••••••••'+existing.slice(-4);
+    inp.placeholder = 'Enter new key to replace…';
+    title.textContent = '✓ Claude AI is active — update key';
+  } else {
+    inp.value = '';
+    inp.placeholder = 'sk-ant-api03-…';
+    title.textContent = 'Add Claude API Key';
+  }
+  setTimeout(()=>{ if(!existing) inp.focus(); }, 100);
+}
+function closeKeyModal(){
+  const modal = document.getElementById('key-modal');
+  if(modal) modal.style.display = 'none';
+}
+function saveKeyModal(){
+  const inp = document.getElementById('key-modal-input');
+  const val = (inp?.value||'').trim();
+  if(!val || val.startsWith('•')){ alert('Please paste your Claude API key (starts with sk-ant-…)'); return; }
+  if(!val.startsWith('sk-')){ alert('That doesn\'t look like a valid Anthropic key. It should start with sk-ant-…'); return; }
+  localStorage.setItem('nava_claude_key', val);
+  // Sync all key inputs
+  ['ck-input','ck-panel-input'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.value = '••••••••'+val.slice(-4);
+  });
+  const ok = document.getElementById('ck-ok');
+  if(ok) ok.style.display='inline';
+  const btn = document.getElementById('ck-toggle-btn');
+  if(btn){ btn.textContent='AI ready ✓'; btn.style.color='#6EE098'; }
+  updateTopbarAiBtn(true);
+  updateKeyPanelUI(val);
+  closeKeyModal();
+}
+function updateTopbarAiBtn(active){
+  const btn = document.getElementById('topbar-ai-btn');
+  if(!btn) return;
+  if(active){
+    btn.textContent = '✓ Claude AI';
+    btn.style.color = 'var(--green)';
+    btn.style.borderColor = 'var(--green)';
+  } else {
+    btn.textContent = '🔑 Claude AI';
+    btn.style.color = 'var(--sienna)';
+    btn.style.borderColor = 'var(--sienna)';
+  }
+}
+// Close modal on backdrop click
+document.addEventListener('click', function(e){
+  const modal = document.getElementById('key-modal');
+  if(modal && e.target === modal) closeKeyModal();
+});
 
 function savePanelKey(){
   const inp = document.getElementById('ck-panel-input');
