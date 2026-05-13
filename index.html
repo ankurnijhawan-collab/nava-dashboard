@@ -1619,6 +1619,25 @@ button,input,textarea,select{font-family:inherit}
             <div class="demo-case-grid" id="demo-case-grid"></div>
           </div>
 
+          <!-- CLAUDE AI KEY — always visible in left panel -->
+          <div id="claude-key-panel" style="background:var(--card);border:1px solid var(--border2);border-radius:var(--r);overflow:hidden">
+            <div style="padding:9px 13px;background:var(--surface);border-bottom:1px solid var(--border2);display:flex;align-items:center;justify-content:space-between;gap:8px">
+              <span style="font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Claude AI — Real-time Analysis</span>
+              <span id="ck-panel-status" style="font-size:.65rem;font-weight:600;color:var(--muted)">No key saved</span>
+            </div>
+            <div id="ck-panel-body" style="padding:10px 13px;display:flex;flex-direction:column;gap:7px">
+              <div style="font-size:.72rem;color:var(--muted);line-height:1.5">Add your Claude API key to run real-time AI analysis on any patient's data.</div>
+              <div style="display:flex;gap:6px;align-items:center">
+                <input id="ck-panel-input" type="password" placeholder="sk-ant-api03-…" autocomplete="off"
+                  style="flex:1;border:1px solid var(--border2);border-radius:var(--r);padding:7px 10px;font-size:.72rem;font-family:monospace;background:var(--bg);color:var(--ink);outline:none;min-width:0"
+                  onfocus="this.style.borderColor='var(--sienna)'" onblur="this.style.borderColor='var(--border2)'"
+                  onkeydown="if(event.key==='Enter') savePanelKey()">
+                <button onclick="savePanelKey()" style="background:var(--sienna);color:#F8F6F3;border:none;border-radius:var(--r);padding:7px 14px;font-size:.72rem;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0">Save</button>
+              </div>
+              <div style="font-size:.62rem;color:var(--muted);line-height:1.5">Get a free key at <strong>console.anthropic.com</strong> → API Keys → Create Key</div>
+            </div>
+          </div>
+
           <!-- STICKY RUN ANALYSIS BAR -->
           <div class="ws-run-bar">
             <div class="run-hint" id="run-hint">Patient loaded — run analysis to get NAVA's assessment ↓</div>
@@ -5252,6 +5271,7 @@ function toggleClaudeKeyBar(){
 }
 function initClaudeKeyBanner(){
   const key=getClaudeKey();
+  updateKeyPanelUI(key);
   if(!key) return;
   const inp=document.getElementById('ck-input');
   if(inp) inp.value='••••••••'+key.slice(-4);
@@ -5259,6 +5279,59 @@ function initClaudeKeyBanner(){
   if(ok) ok.style.display='inline';
   const btn=document.getElementById('ck-toggle-btn');
   if(btn){ btn.textContent='AI ready ✓'; btn.style.color='#6EE098'; }
+}
+
+function updateKeyPanelUI(key){
+  const statusEl = document.getElementById('ck-panel-status');
+  const bodyEl   = document.getElementById('ck-panel-body');
+  const inp      = document.getElementById('ck-panel-input');
+  if(!statusEl) return;
+  if(key){
+    statusEl.textContent = '✓ AI ready';
+    statusEl.style.color = 'var(--green)';
+    if(inp) inp.value = '••••••••'+key.slice(-4);
+    if(bodyEl) bodyEl.innerHTML = `
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:.78rem;color:var(--green);font-weight:600">✓ Claude AI is active</span>
+        <button onclick="clearPanelKey()" style="background:none;border:1px solid var(--border2);border-radius:100px;padding:3px 10px;font-size:.65rem;color:var(--muted);cursor:pointer">Change key</button>
+      </div>
+      <div style="font-size:.68rem;color:var(--muted)">Analysis will use real-time Claude reasoning on this patient's data.</div>`;
+  } else {
+    statusEl.textContent = 'No key saved';
+    statusEl.style.color = 'var(--muted)';
+  }
+}
+
+function savePanelKey(){
+  const inp = document.getElementById('ck-panel-input');
+  const val = (inp?.value||'').trim();
+  if(!val || val.startsWith('•')){ alert('Please enter your Claude API key (starts with sk-ant-…)'); return; }
+  if(!val.startsWith('sk-ant-') && !val.startsWith('sk-')){ alert('Enter a valid Anthropic API key (starts with sk-ant-…)'); return; }
+  localStorage.setItem('nava_claude_key', val);
+  // Also sync the hidden key bar input
+  const hiddenInp = document.getElementById('ck-input');
+  if(hiddenInp) hiddenInp.value = '••••••••'+val.slice(-4);
+  const ok = document.getElementById('ck-ok');
+  if(ok) ok.style.display='inline';
+  const btn = document.getElementById('ck-toggle-btn');
+  if(btn){ btn.textContent='AI ready ✓'; btn.style.color='#6EE098'; }
+  updateKeyPanelUI(val);
+}
+
+function clearPanelKey(){
+  localStorage.removeItem('nava_claude_key');
+  const bodyEl = document.getElementById('ck-panel-body');
+  if(bodyEl) bodyEl.innerHTML = `
+    <div style="font-size:.72rem;color:var(--muted);line-height:1.5">Add your Claude API key to run real-time AI analysis on any patient's data.</div>
+    <div style="display:flex;gap:6px;align-items:center">
+      <input id="ck-panel-input" type="password" placeholder="sk-ant-api03-…" autocomplete="off"
+        style="flex:1;border:1px solid var(--border2);border-radius:var(--r);padding:7px 10px;font-size:.72rem;font-family:monospace;background:var(--bg);color:var(--ink);outline:none;min-width:0"
+        onfocus="this.style.borderColor='var(--sienna)'" onblur="this.style.borderColor='var(--border2)'"
+        onkeydown="if(event.key==='Enter') savePanelKey()">
+      <button onclick="savePanelKey()" style="background:var(--sienna);color:#F8F6F3;border:none;border-radius:var(--r);padding:7px 14px;font-size:.72rem;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0">Save</button>
+    </div>
+    <div style="font-size:.62rem;color:var(--muted);line-height:1.5">Get a free key at <strong>console.anthropic.com</strong> → API Keys → Create Key</div>`;
+  updateKeyPanelUI('');
 }
 
 // ─── Build clinical prompt for Claude ───
