@@ -2454,21 +2454,13 @@ const CASES_DATA = [
     ]
   },
   bodyMap:{
-    svg:`<svg viewBox="0 0 80 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="40" cy="18" r="14" fill="#DDE8F5" stroke="#AAB8CC" stroke-width="1.5"/>
-      <rect x="27" y="33" width="26" height="34" rx="6" fill="#DDE8F5" stroke="#AAB8CC" stroke-width="1.5"/>
-      <rect x="10" y="34" width="16" height="26" rx="5" fill="#DDE8F5" stroke="#AAB8CC" stroke-width="1.5"/>
-      <rect x="54" y="34" width="16" height="26" rx="5" fill="#DDE8F5" stroke="#AAB8CC" stroke-width="1.5"/>
-      <rect x="29" y="68" width="10" height="38" rx="5" fill="#DDE8F5" stroke="#AAB8CC" stroke-width="1.5"/>
-      <rect x="41" y="68" width="10" height="38" rx="5" fill="#DDE8F5" stroke="#AAB8CC" stroke-width="1.5"/>
-      <rect x="29" y="107" width="10" height="34" rx="5" fill="#DDE8F5" stroke="#AAB8CC" stroke-width="1.5"/>
-      <rect x="41" y="107" width="10" height="34" rx="5" fill="#DDE8F5" stroke="#AAB8CC" stroke-width="1.5"/>
-      <!-- HEAD hotspot -->
-      <circle cx="40" cy="16" r="7" fill="rgba(122,26,26,.18)" stroke="#9E5040" stroke-width="1.5" class="hotspot-circle"/>
-    </svg>`,
+    fill:'#DDE8F5', stroke:'#AAB8CC',
+    highlights:`
+      <circle cx="50" cy="17" r="9" fill="rgba(122,26,26,.18)" stroke="#9E5040" stroke-width="1.5"/>
+      <ellipse cx="50" cy="80" rx="5" ry="10" fill="rgba(106,60,12,.12)" stroke="#8B6D45" stroke-width="1.2"/>`,
     hotspots:[
-      {x:'50%',y:'12%',type:'red',title:'Brain / Head — Primary Concern',detail:'IIH not excluded. Raised intracranial pressure. Fundoscopy not done in 14 weeks. Normal MRI does not rule out IIH.'},
-      {x:'50%',y:'30%',type:'amber',title:'Spine — Secondary watch',detail:'CSF flow study not done. Chiari I malformation cannot be excluded on current MRI protocol.'}
+      {x:'50%',y:'7%',type:'red',title:'Brain / Head — Primary Concern',detail:'IIH not excluded. Raised intracranial pressure. Fundoscopy not done in 14 weeks. Normal MRI does not rule out IIH.'},
+      {x:'50%',y:'33%',type:'amber',title:'Spine — Secondary watch',detail:'CSF flow study not done. Chiari I malformation cannot be excluded on current MRI protocol.'}
     ]
   },
   vitals:[{l:'BP',v:'92/58 mmHg',cls:''},{l:'HR',v:'88/min',cls:''},{l:'Temp',v:'37.1°C',cls:''},{l:'SpO₂',v:'99%',cls:'ok'},{l:'Fundoscopy',v:'NOT DONE — 14 weeks',cls:'bad'},{l:'MRI Brain',v:'Normal (no CSF flow study)',cls:''}],
@@ -2565,23 +2557,13 @@ const CASES_DATA = [
     {relation:'Mother',condition:'Hypertension',impact:'Shared hypertension predisposition. Genetic component confirmed.',impact_level:'med'}
   ],
   bodyMap:{
-    svg:`<svg viewBox="0 0 80 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="40" cy="18" r="14" fill="#F5E6EC" stroke="#C8A0B0" stroke-width="1.5"/>
-      <rect x="27" y="33" width="26" height="34" rx="6" fill="#F5E6EC" stroke="#C8A0B0" stroke-width="1.5"/>
-      <rect x="10" y="34" width="16" height="26" rx="5" fill="#F5E6EC" stroke="#C8A0B0" stroke-width="1.5"/>
-      <rect x="54" y="34" width="16" height="26" rx="5" fill="#F5E6EC" stroke="#C8A0B0" stroke-width="1.5"/>
-      <rect x="29" y="68" width="10" height="38" rx="5" fill="#F5E6EC" stroke="#C8A0B0" stroke-width="1.5"/>
-      <rect x="41" y="68" width="10" height="38" rx="5" fill="#F5E6EC" stroke="#C8A0B0" stroke-width="1.5"/>
-      <rect x="29" y="107" width="10" height="34" rx="5" fill="#F5E6EC" stroke="#C8A0B0" stroke-width="1.5"/>
-      <rect x="41" y="107" width="10" height="34" rx="5" fill="#F5E6EC" stroke="#C8A0B0" stroke-width="1.5"/>
-      <!-- HEART hotspot -->
-      <circle cx="37" cy="44" r="8" fill="rgba(122,26,26,.2)" stroke="#9E5040" stroke-width="1.5"/>
-      <!-- BLOOD VESSELS amber -->
-      <circle cx="40" cy="70" r="5" fill="rgba(106,60,12,.15)" stroke="#8B6D45" stroke-width="1.2"/>
-    </svg>`,
+    fill:'#F5E6EC', stroke:'#C8A0B0',
+    highlights:`
+      <circle cx="38" cy="62" r="10" fill="rgba(122,26,26,.2)" stroke="#9E5040" stroke-width="1.5"/>
+      <circle cx="50" cy="90" r="7" fill="rgba(106,60,12,.15)" stroke="#8B6D45" stroke-width="1.2"/>`,
     hotspots:[
-      {x:'46%',y:'28%',type:'red',title:'Heart — Primary Concern',detail:'Possible stable angina/CAD. Cardiomegaly on CXR. LDL 168. 2D Echo and TMT not done. Statin not prescribed.'},
-      {x:'50%',y:'44%',type:'amber',title:'Vascular System — At Risk',detail:'LDL 168, HDL 38, hypertension, pre-diabetic glucose — systemic atherosclerosis risk. No statin despite very high CV risk by ESC criteria.'}
+      {x:'38%',y:'26%',type:'red',title:'Heart — Primary Concern',detail:'Possible stable angina/CAD. Cardiomegaly on CXR. LDL 168. 2D Echo and TMT not done. Statin not prescribed.'},
+      {x:'50%',y:'38%',type:'amber',title:'Vascular System — At Risk',detail:'LDL 168, HDL 38, hypertension, pre-diabetic glucose — systemic atherosclerosis risk. No statin despite very high CV risk by ESC criteria.'}
     ]
   },
   vitals:[{l:'BP',v:'148/94 mmHg — POORLY CONTROLLED',cls:'bad'},{l:'HR',v:'92/min',cls:''},{l:'SpO₂',v:'97%',cls:''},{l:'2D Echo',v:'NOT DONE',cls:'bad'},{l:'TMT',v:'NOT DONE',cls:'bad'},{l:'CXR',v:'Mild cardiomegaly',cls:'warn'}],
@@ -2684,25 +2666,15 @@ const CASES_DATA = [
     {relation:'No family',condition:'No known renal disease, cardiac disease',impact:'Nephropathy appears primarily diabetic in origin',impact_level:'low'}
   ],
   bodyMap:{
-    svg:`<svg viewBox="0 0 80 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="40" cy="18" r="14" fill="#DDE8F5" stroke="#AAB8CC" stroke-width="1.5"/>
-      <rect x="27" y="33" width="26" height="34" rx="6" fill="#DDE8F5" stroke="#AAB8CC" stroke-width="1.5"/>
-      <rect x="10" y="34" width="16" height="26" rx="5" fill="#DDE8F5" stroke="#AAB8CC" stroke-width="1.5"/>
-      <rect x="54" y="34" width="16" height="26" rx="5" fill="#DDE8F5" stroke="#AAB8CC" stroke-width="1.5"/>
-      <rect x="29" y="68" width="10" height="38" rx="5" fill="#DDE8F5" stroke="#AAB8CC" stroke-width="1.5"/>
-      <rect x="41" y="68" width="10" height="38" rx="5" fill="#DDE8F5" stroke="#AAB8CC" stroke-width="1.5"/>
-      <rect x="29" y="107" width="10" height="34" rx="5" fill="#DDE8F5" stroke="#AAB8CC" stroke-width="1.5"/>
-      <rect x="41" y="107" width="10" height="34" rx="5" fill="#DDE8F5" stroke="#AAB8CC" stroke-width="1.5"/>
-      <!-- KIDNEYS -->
-      <ellipse cx="28" cy="72" rx="5" ry="7" fill="rgba(122,26,26,.22)" stroke="#9E5040" stroke-width="1.5"/>
-      <ellipse cx="52" cy="72" rx="5" ry="7" fill="rgba(122,26,26,.22)" stroke="#9E5040" stroke-width="1.5"/>
-      <!-- HEART amber -->
-      <circle cx="37" cy="44" r="6" fill="rgba(106,60,12,.18)" stroke="#8B6D45" stroke-width="1.2"/>
-    </svg>`,
+    fill:'#DDE8F5', stroke:'#AAB8CC',
+    highlights:`
+      <ellipse cx="34" cy="100" rx="6" ry="8" fill="rgba(122,26,26,.22)" stroke="#9E5040" stroke-width="1.5"/>
+      <ellipse cx="66" cy="100" rx="6" ry="8" fill="rgba(122,26,26,.22)" stroke="#9E5040" stroke-width="1.5"/>
+      <circle cx="38" cy="62" r="7" fill="rgba(106,60,12,.18)" stroke="#8B6D45" stroke-width="1.2"/>`,
     hotspots:[
       {x:'34%',y:'42%',type:'red',title:'Left Kidney — Stage 4 CKD',detail:'Creatinine 2.4 → eGFR ~28. Small echogenic kidney on USG. UACR 840 (macroalbuminuria). Metformin CONTRAINDICATED at this eGFR.'},
       {x:'66%',y:'42%',type:'red',title:'Right Kidney — Stage 4 CKD',detail:'Bilateral small echogenic kidneys on USG. Irreversible structural damage. Urgent nephrology co-management required.'},
-      {x:'46%',y:'28%',type:'amber',title:'Heart — LVH Risk',detail:'LVH pattern on ECG. Uncontrolled BP 164/98. Hyperkalaemia (K+ 5.6) on ARB — cardiac arrhythmia risk.'}
+      {x:'38%',y:'26%',type:'amber',title:'Heart — LVH Risk',detail:'LVH pattern on ECG. Uncontrolled BP 164/98. Hyperkalaemia (K+ 5.6) on ARB — cardiac arrhythmia risk.'}
     ]
   },
   vitals:[{l:'BP',v:'164/98 mmHg — SEVERELY UNCONTROLLED',cls:'bad'},{l:'HR',v:'78/min',cls:''},{l:'Oedema',v:'Bilateral pitting pedal ++',cls:'bad'},{l:'ECG',v:'LVH pattern',cls:'warn'},{l:'Fundoscopy',v:'NOT DONE in 4 years',cls:'bad'}],
@@ -2807,25 +2779,15 @@ const CASES_DATA = [
     ]
   },
   bodyMap:{
-    svg:`<svg viewBox="0 0 80 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="40" cy="18" r="14" fill="#F5E6EC" stroke="#C8A0B0" stroke-width="1.5"/>
-      <rect x="27" y="33" width="26" height="34" rx="6" fill="#F5E6EC" stroke="#C8A0B0" stroke-width="1.5"/>
-      <rect x="10" y="34" width="16" height="26" rx="5" fill="#F5E6EC" stroke="#C8A0B0" stroke-width="1.5"/>
-      <rect x="54" y="34" width="16" height="26" rx="5" fill="#F5E6EC" stroke="#C8A0B0" stroke-width="1.5"/>
-      <rect x="29" y="68" width="10" height="38" rx="5" fill="#F5E6EC" stroke="#C8A0B0" stroke-width="1.5"/>
-      <rect x="41" y="68" width="10" height="38" rx="5" fill="#F5E6EC" stroke="#C8A0B0" stroke-width="1.5"/>
-      <rect x="29" y="107" width="10" height="34" rx="5" fill="#F5E6EC" stroke="#C8A0B0" stroke-width="1.5"/>
-      <rect x="41" y="107" width="10" height="34" rx="5" fill="#F5E6EC" stroke="#C8A0B0" stroke-width="1.5"/>
-      <!-- LUNGS -->
-      <ellipse cx="33" cy="50" rx="8" ry="10" fill="rgba(122,26,26,.18)" stroke="#9E5040" stroke-width="1.5"/>
-      <ellipse cx="47" cy="50" rx="7" ry="9" fill="rgba(106,60,12,.18)" stroke="#8B6D45" stroke-width="1.2"/>
-      <!-- LYMPH NODES -->
-      <circle cx="40" cy="38" r="4" fill="rgba(122,26,26,.25)" stroke="#9E5040" stroke-width="1"/>
-    </svg>`,
+    fill:'#F5E6EC', stroke:'#C8A0B0',
+    highlights:`
+      <ellipse cx="36" cy="66" rx="9" ry="12" fill="rgba(122,26,26,.18)" stroke="#9E5040" stroke-width="1.5"/>
+      <ellipse cx="64" cy="66" rx="8" ry="11" fill="rgba(106,60,12,.18)" stroke="#8B6D45" stroke-width="1.2"/>
+      <circle cx="50" cy="54" r="6" fill="rgba(122,26,26,.25)" stroke="#9E5040" stroke-width="1"/>`,
     hotspots:[
-      {x:'41%',y:'30%',type:'red',title:'Hilar Lymph Nodes — ENLARGED',detail:'Bilateral hilar lymphadenopathy on CXR. Radiologist flagged "TB to be considered" 8 weeks ago. No action taken. Classic TB finding in children.'},
-      {x:'42%',y:'36%',type:'red',title:'Left Lung — Haziness',detail:'Right upper lobe haziness noted by radiologist. Subtle pulmonary infiltrate — consistent with early paediatric TB.'},
-      {x:'58%',y:'33%',type:'amber',title:'Right Lung — At Risk',detail:'Bilateral involvement possible given household exposure and duration of symptoms (4 months).'}
+      {x:'50%',y:'23%',type:'red',title:'Hilar Lymph Nodes — ENLARGED',detail:'Bilateral hilar lymphadenopathy on CXR. Radiologist flagged "TB to be considered" 8 weeks ago. No action taken. Classic TB finding in children.'},
+      {x:'36%',y:'28%',type:'red',title:'Left Lung — Haziness',detail:'Right upper lobe haziness noted by radiologist. Subtle pulmonary infiltrate — consistent with early paediatric TB.'},
+      {x:'64%',y:'28%',type:'amber',title:'Right Lung — At Risk',detail:'Bilateral involvement possible given household exposure and duration of symptoms (4 months).'}
     ]
   },
   vitals:[{l:'Temp',v:'38.4°C — febrile',cls:'bad'},{l:'HR',v:'102/min',cls:'warn'},{l:'Weight',v:'18 kg — down 2 kg in 4 months',cls:'bad'},{l:'SpO₂',v:'97%',cls:''},{l:'CXR (Wk 8)',v:'Hilar lymphadenopathy + RUL haziness',cls:'bad'}],
@@ -2927,21 +2889,13 @@ const CASES_DATA = [
   ],
   obsGynae:{lmp:'3 weeks ago (PMB — 1st episode)',cycles:'Post-menopausal — no periods for 4 years prior to bleed',gravida:3,para:2,abortions:1,deliveries:'LSCS × 1, Normal × 1',lastPap:'2019 — Normal (5 yrs ago)',lastMammo:'Never — overdue',lastTVS:'Not done this episode — URGENT',endoThx:'Norethisterone (current — NAVA: STOP immediately, masks diagnosis)',note:'PMB in post-menopausal woman = cancer until proven otherwise. No endometrial biopsy done.'},
   bodyMap:{
-    svg:`<svg viewBox="0 0 80 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="40" cy="18" r="14" fill="#F5D8E0" stroke="#C8A0B0" stroke-width="1.5"/>
-      <rect x="27" y="33" width="26" height="34" rx="6" fill="#F5D8E0" stroke="#C8A0B0" stroke-width="1.5"/>
-      <rect x="10" y="34" width="16" height="26" rx="5" fill="#F5D8E0" stroke="#C8A0B0" stroke-width="1.5"/>
-      <rect x="54" y="34" width="16" height="26" rx="5" fill="#F5D8E0" stroke="#C8A0B0" stroke-width="1.5"/>
-      <rect x="29" y="68" width="10" height="38" rx="5" fill="#F5D8E0" stroke="#C8A0B0" stroke-width="1.5"/>
-      <rect x="41" y="68" width="10" height="38" rx="5" fill="#F5D8E0" stroke="#C8A0B0" stroke-width="1.5"/>
-      <rect x="29" y="107" width="10" height="34" rx="5" fill="#F5D8E0" stroke="#C8A0B0" stroke-width="1.5"/>
-      <rect x="41" y="107" width="10" height="34" rx="5" fill="#F5D8E0" stroke="#C8A0B0" stroke-width="1.5"/>
-      <ellipse cx="40" cy="72" rx="7" ry="8" fill="rgba(122,26,26,.25)" stroke="#9E5040" stroke-width="1.5"/>
-      <circle cx="32" cy="45" r="4" fill="rgba(106,60,12,.18)" stroke="#8B6D45" stroke-width="1.2"/>
-      <circle cx="48" cy="45" r="4" fill="rgba(106,60,12,.18)" stroke="#8B6D45" stroke-width="1.2"/>
-    </svg>`,
+    fill:'#F5D8E0', stroke:'#C8A0B0',
+    highlights:`
+      <ellipse cx="50" cy="108" rx="8" ry="9" fill="rgba(122,26,26,.25)" stroke="#9E5040" stroke-width="1.5"/>
+      <circle cx="37" cy="62" r="6" fill="rgba(106,60,12,.18)" stroke="#8B6D45" stroke-width="1.2"/>
+      <circle cx="63" cy="62" r="6" fill="rgba(106,60,12,.18)" stroke="#8B6D45" stroke-width="1.2"/>`,
     hotspots:[
-      {x:'50%',y:'42%',type:'red',title:'Endometrium — PRIMARY CONCERN',detail:'Post-menopausal bleeding × 3 wks. 10–15% risk of endometrial cancer in any PMB episode. TVS + endometrial biopsy mandatory before ANY hormone therapy.'},
+      {x:'50%',y:'45%',type:'red',title:'Endometrium — PRIMARY CONCERN',detail:'Post-menopausal bleeding × 3 wks. 10–15% risk of endometrial cancer in any PMB episode. TVS + endometrial biopsy mandatory before ANY hormone therapy.'},
       {x:'50%',y:'26%',type:'amber',title:'Breast Tissue — Overdue Screen',detail:'Mammography overdue by 3 years. First-degree family history of breast Ca. Concurrent breast screen indicated at this workup.'}
     ]
   },
@@ -3041,23 +2995,15 @@ const CASES_DATA = [
   ],
   obsGynae:{lmp:'6 weeks ago (irregular)',cycles:'28–90 day cycles, often heavy and painful',gravida:0,para:0,abortions:0,deliveries:'Nulliparous — actively trying to conceive',lastPap:'Never done — arrange urgently',lastMammo:'N/A (age 28)',lastTVS:'2 years ago — polycystic ovaries, thickened endometrium',endoThx:'Diane-35 OCP × 2 years — NAVA: STOP (contraceptive in a woman trying to conceive)',note:'Metabolic PCOS: insulin resistance not checked. Correct Dx is PCOS + conception goal — not cycle regulation alone.'},
   bodyMap:{
-    svg:`<svg viewBox="0 0 80 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="40" cy="18" r="14" fill="#F5D8E0" stroke="#C8A0B0" stroke-width="1.5"/>
-      <rect x="27" y="33" width="26" height="34" rx="6" fill="#F5D8E0" stroke="#C8A0B0" stroke-width="1.5"/>
-      <rect x="10" y="34" width="16" height="26" rx="5" fill="#F5D8E0" stroke="#C8A0B0" stroke-width="1.5"/>
-      <rect x="54" y="34" width="16" height="26" rx="5" fill="#F5D8E0" stroke="#C8A0B0" stroke-width="1.5"/>
-      <rect x="29" y="68" width="10" height="38" rx="5" fill="#F5D8E0" stroke="#C8A0B0" stroke-width="1.5"/>
-      <rect x="41" y="68" width="10" height="38" rx="5" fill="#F5D8E0" stroke="#C8A0B0" stroke-width="1.5"/>
-      <rect x="29" y="107" width="10" height="34" rx="5" fill="#F5D8E0" stroke="#C8A0B0" stroke-width="1.5"/>
-      <rect x="41" y="107" width="10" height="34" rx="5" fill="#F5D8E0" stroke="#C8A0B0" stroke-width="1.5"/>
-      <ellipse cx="33" cy="74" rx="4" ry="6" fill="rgba(122,26,26,.22)" stroke="#9E5040" stroke-width="1.5"/>
-      <ellipse cx="47" cy="74" rx="4" ry="6" fill="rgba(122,26,26,.22)" stroke="#9E5040" stroke-width="1.5"/>
-      <ellipse cx="35" cy="54" rx="6" ry="4" fill="rgba(106,60,12,.18)" stroke="#8B6D45" stroke-width="1.2"/>
-    </svg>`,
+    fill:'#F5D8E0', stroke:'#C8A0B0',
+    highlights:`
+      <ellipse cx="36" cy="108" rx="5" ry="7" fill="rgba(122,26,26,.22)" stroke="#9E5040" stroke-width="1.5"/>
+      <ellipse cx="64" cy="108" rx="5" ry="7" fill="rgba(122,26,26,.22)" stroke="#9E5040" stroke-width="1.5"/>
+      <ellipse cx="38" cy="84" rx="8" ry="6" fill="rgba(106,60,12,.18)" stroke="#8B6D45" stroke-width="1.2"/>`,
     hotspots:[
-      {x:'42%',y:'43%',type:'red',title:'Polycystic Ovaries — Anovulation',detail:'Both ovaries affected. String-of-pearls pattern expected on TVS. Primary reason for infertility. Needs ovulation induction — NOT OCPs.'},
-      {x:'58%',y:'43%',type:'red',title:'Right Ovary — Polycystic',detail:'Same findings bilaterally.'},
-      {x:'44%',y:'31%',type:'amber',title:'Liver / Metabolic',detail:'Likely NAFLD given BMI 30 + insulin resistance. Ultrasound of abdomen needed — baseline LFT + fibroscan if positive.'}
+      {x:'36%',y:'45%',type:'red',title:'Polycystic Ovaries — Anovulation',detail:'Both ovaries affected. String-of-pearls pattern expected on TVS. Primary reason for infertility. Needs ovulation induction — NOT OCPs.'},
+      {x:'64%',y:'45%',type:'red',title:'Right Ovary — Polycystic',detail:'Same findings bilaterally.'},
+      {x:'38%',y:'35%',type:'amber',title:'Liver / Metabolic',detail:'Likely NAFLD given BMI 30 + insulin resistance. Ultrasound of abdomen needed — baseline LFT + fibroscan if positive.'}
     ]
   },
   vitals:[{l:'BMI',v:'30 — obese class I',cls:'bad'},{l:'Waist:Hip',v:'0.92 — central obesity',cls:'bad'},{l:'BP',v:'132/84 mmHg — elevated',cls:'warn'},{l:'Acanthosis nigricans',v:'Present (neck) — insulin resistance marker',cls:'bad'},{l:'Hirsutism (Ferriman-Gallwey)',v:'Score 14 — moderate',cls:'warn'},{l:'Acne',v:'Moderate facial + back',cls:'warn'}],
@@ -3183,21 +3129,13 @@ const CASES_DATA = [
   obsGynae:{lmp:'28 days ago (regular)',cycles:'28–30 day cycles, regular, mild dysmenorrhoea',gravida:1,para:0,abortions:1,deliveries:'No live births — 1 early miscarriage at 7 wks (2022)',lastTVS:'3 months ago — follicular tracking × 2 cycles, ovulation documented',lastHSG:'Never done — NAVA recommends before IUI',endoThx:'None currently. Previously: Folic acid 5mg',note:'Endometriosis not worked up despite maternal history + dysmenorrhoea. HSG not done before IUI recommendation.'},
   ovReserve:{amh:'2.1 ng/mL — Normal for age',afc:14,fsh:'7.8 mIU/mL — Normal',e2:'38 pg/mL — Normal',antralCount:'14 follicles total (7 each side)',artHistory:'No ART cycles yet. IUI proposed but husband semen analysis never done. 1 early miscarriage investigated.',recommendation:'IUI not yet indicated — complete male factor workup first. If normal, proceed to IUI. If abnormal (which NAVA predicts likely), direct to IVF-ICSI.',note:'3 years of workup focused on her. Rohit has never had a semen analysis.'},
   bodyMap:{
-    svg:`<svg viewBox="0 0 80 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="40" cy="18" r="14" fill="#D8EADF" stroke="#90B89A" stroke-width="1.5"/>
-      <rect x="27" y="33" width="26" height="34" rx="6" fill="#D8EADF" stroke="#90B89A" stroke-width="1.5"/>
-      <rect x="10" y="34" width="16" height="26" rx="5" fill="#D8EADF" stroke="#90B89A" stroke-width="1.5"/>
-      <rect x="54" y="34" width="16" height="26" rx="5" fill="#D8EADF" stroke="#90B89A" stroke-width="1.5"/>
-      <rect x="29" y="68" width="10" height="38" rx="5" fill="#D8EADF" stroke="#90B89A" stroke-width="1.5"/>
-      <rect x="41" y="68" width="10" height="38" rx="5" fill="#D8EADF" stroke="#90B89A" stroke-width="1.5"/>
-      <rect x="29" y="107" width="10" height="34" rx="5" fill="#D8EADF" stroke="#90B89A" stroke-width="1.5"/>
-      <rect x="41" y="107" width="10" height="34" rx="5" fill="#D8EADF" stroke="#90B89A" stroke-width="1.5"/>
-      <ellipse cx="40" cy="72" rx="6" ry="6" fill="rgba(106,60,12,.18)" stroke="#8B6D45" stroke-width="1.2"/>
-      <rect x="33" y="75" width="14" height="16" rx="3" fill="rgba(122,26,26,.28)" stroke="#9E5040" stroke-width="1.5" stroke-dasharray="2 2"/>
-    </svg>`,
+    fill:'#D8EADF', stroke:'#90B89A',
+    highlights:`
+      <ellipse cx="50" cy="106" rx="8" ry="7" fill="rgba(106,60,12,.18)" stroke="#8B6D45" stroke-width="1.2"/>
+      <rect x="44" y="112" width="12" height="9" rx="3" fill="rgba(122,26,26,.28)" stroke="#9E5040" stroke-width="1.5" stroke-dasharray="2 2"/>`,
     hotspots:[
-      {x:'50%',y:'41%',type:'red',title:'Male Partner — NEVER EVALUATED',detail:'Rohit: orchidopexy + post-pubertal mumps + smoking + laptop-on-lap × 10 yrs. NO semen analysis in 3 years of couple TTC. This is the biggest gap in their workup.'},
-      {x:'50%',y:'40%',type:'amber',title:'Priya — Tubes / Pelvis',detail:'Maternal endometriosis + Priya\'s intermittent dysmenorrhoea. HSG and/or diagnostic laparoscopy not yet done. Endometriosis screen pending.'}
+      {x:'50%',y:'47%',type:'red',title:'Male Partner — NEVER EVALUATED',detail:'Rohit: orchidopexy + post-pubertal mumps + smoking + laptop-on-lap × 10 yrs. NO semen analysis in 3 years of couple TTC. This is the biggest gap in their workup.'},
+      {x:'50%',y:'44%',type:'amber',title:'Priya — Tubes / Pelvis',detail:'Maternal endometriosis + Priya\'s intermittent dysmenorrhoea. HSG and/or diagnostic laparoscopy not yet done. Endometriosis screen pending.'}
     ]
   },
   vitals:[{l:'Priya BMI',v:'22 — normal',cls:'ok'},{l:'Priya cycle',v:'28–30 days, regular',cls:'ok'},{l:'Dysmenorrhoea',v:'Present, never investigated',cls:'warn'},{l:'Rohit BMI',v:'28 — overweight',cls:'warn'},{l:'Rohit smoking',v:'10 cigarettes/day × 10 yrs',cls:'bad'},{l:'Heat exposure',v:'Laptop-on-lap 4+ hrs/day',cls:'warn'}],
@@ -3325,23 +3263,15 @@ const CASES_DATA = [
     {relation:'Vikram — Father',condition:'Nil significant',impact:'No known familial infertility. Vikram\'s issues likely acquired (varicocele + lifestyle).',impact_level:'low'}
   ],
   bodyMap:{
-    svg:`<svg viewBox="0 0 80 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="40" cy="18" r="14" fill="#D8EADF" stroke="#90B89A" stroke-width="1.5"/>
-      <rect x="27" y="33" width="26" height="34" rx="6" fill="#D8EADF" stroke="#90B89A" stroke-width="1.5"/>
-      <rect x="10" y="34" width="16" height="26" rx="5" fill="#D8EADF" stroke="#90B89A" stroke-width="1.5"/>
-      <rect x="54" y="34" width="16" height="26" rx="5" fill="#D8EADF" stroke="#90B89A" stroke-width="1.5"/>
-      <rect x="29" y="68" width="10" height="38" rx="5" fill="#D8EADF" stroke="#90B89A" stroke-width="1.5"/>
-      <rect x="41" y="68" width="10" height="38" rx="5" fill="#D8EADF" stroke="#90B89A" stroke-width="1.5"/>
-      <rect x="29" y="107" width="10" height="34" rx="5" fill="#D8EADF" stroke="#90B89A" stroke-width="1.5"/>
-      <rect x="41" y="107" width="10" height="34" rx="5" fill="#D8EADF" stroke="#90B89A" stroke-width="1.5"/>
-      <ellipse cx="33" cy="74" rx="4" ry="6" fill="rgba(122,26,26,.25)" stroke="#9E5040" stroke-width="1.5"/>
-      <ellipse cx="47" cy="74" rx="4" ry="6" fill="rgba(122,26,26,.25)" stroke="#9E5040" stroke-width="1.5"/>
-      <rect x="33" y="88" width="14" height="10" rx="3" fill="rgba(106,60,12,.18)" stroke="#8B6D45" stroke-width="1.2"/>
-    </svg>`,
+    fill:'#D8EADF', stroke:'#90B89A',
+    highlights:`
+      <ellipse cx="36" cy="108" rx="5" ry="7" fill="rgba(122,26,26,.25)" stroke="#9E5040" stroke-width="1.5"/>
+      <ellipse cx="64" cy="108" rx="5" ry="7" fill="rgba(122,26,26,.25)" stroke="#9E5040" stroke-width="1.5"/>
+      <rect x="43" y="113" width="14" height="8" rx="3" fill="rgba(106,60,12,.18)" stroke="#8B6D45" stroke-width="1.2"/>`,
     hotspots:[
-      {x:'42%',y:'42%',type:'red',title:'L Ovary — Diminished Reserve',detail:'AMH 0.9 ng/mL at 38 — low for age. Repeated endometriosis surgeries (2 cystectomies) have damaged ovarian cortex. Time-sensitive.'},
-      {x:'58%',y:'42%',type:'red',title:'R Ovary — Recurrent Endometrioma',detail:'2 surgeries in 3 years on same side. High recurrence rate — further surgery NOT recommended. Affects ovarian reserve further.'},
-      {x:'50%',y:'53%',type:'amber',title:'Male Factor — Sperm DNA Damage',detail:'Vikram DFI 34% + morphology 2%. Contributes to 3 IUI failures. Varicocele repair + antioxidants pre-IVF can improve DFI by ~30–40%.'}
+      {x:'36%',y:'45%',type:'red',title:'L Ovary — Diminished Reserve',detail:'AMH 0.9 ng/mL at 38 — low for age. Repeated endometriosis surgeries (2 cystectomies) have damaged ovarian cortex. Time-sensitive.'},
+      {x:'64%',y:'45%',type:'red',title:'R Ovary — Recurrent Endometrioma',detail:'2 surgeries in 3 years on same side. High recurrence rate — further surgery NOT recommended. Affects ovarian reserve further.'},
+      {x:'50%',y:'48%',type:'amber',title:'Male Factor — Sperm DNA Damage',detail:'Vikram DFI 34% + morphology 2%. Contributes to 3 IUI failures. Varicocele repair + antioxidants pre-IVF can improve DFI by ~30–40%.'}
     ]
   },
   vitals:[{l:'Anjali age',v:'38 — advanced reproductive age',cls:'bad'},{l:'Anjali BMI',v:'23 — normal',cls:'ok'},{l:'Anjali cycle',v:'24–28 days, shortening (DOR sign)',cls:'warn'},{l:'Chronic pelvic pain',v:'Present, moderate',cls:'warn'},{l:'Vikram BMI',v:'27 — overweight',cls:'warn'},{l:'Vikram sleep',v:'5–6 hrs/night avg',cls:'bad'}],
@@ -4169,12 +4099,33 @@ function renderPartnerCard(p){
 }
 
 // ─── BODY MAP ───
+function buildBodySVG(fill, stroke, highlights){
+  return `<svg viewBox="0 0 100 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- HEAD -->
+    <ellipse cx="50" cy="17" rx="12" ry="14" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
+    <!-- NECK FILL (no side strokes — merges cleanly into torso) -->
+    <path d="M44 30 L43 39 L57 39 L56 30" fill="${fill}" stroke="none"/>
+    <!-- TORSO: wide shoulders → chest → waist → hips -->
+    <path d="M43 39 C36 40 24 45 19 54 C16 61 15 70 16 80 C17 88 19 96 22 102 C25 108 29 114 33 118 L67 118 C71 114 75 108 78 102 C81 96 83 88 84 80 C85 70 84 61 81 54 C76 45 64 40 57 39 Z" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
+    <!-- LEFT ARM -->
+    <path d="M21 54 C17 60 14 72 12 84 C11 94 11 104 13 110 C14 114 16 116 18 115 C20 114 21 109 21 101 C21 89 22 77 22 65 L23 52 Z" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
+    <!-- RIGHT ARM -->
+    <path d="M79 52 L78 65 C78 77 78 89 79 101 C79 109 80 114 82 115 C84 116 86 114 87 110 C89 104 89 94 88 84 C86 72 83 60 79 54 Z" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
+    <!-- LEFT LEG -->
+    <path d="M33 118 C30 128 28 144 28 160 C28 176 30 192 33 202 C35 210 38 214 41 213 C44 212 46 206 46 198 L46 118 Z" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
+    <!-- RIGHT LEG -->
+    <path d="M54 118 L54 198 C54 206 56 212 59 213 C62 214 65 210 67 202 C70 192 72 176 72 160 C72 144 70 128 67 118 Z" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
+    ${highlights||''}
+  </svg>`;
+}
+
 function renderBodyMap(d){
   const area = document.getElementById('body-map-area');
   if(!d.bodyMap){ area.style.display='none'; return; }
   area.style.display='block';
   const svgArea = document.getElementById('body-svg-area');
-  svgArea.innerHTML = `<div style="position:relative;display:inline-block">${d.bodyMap.svg}${d.bodyMap.hotspots.map(h=>`<div class="body-hotspot hs-${h.type}" style="left:${h.x};top:${h.y}"><div class="hs-tooltip" style="${h.x>'50%'?'right:120%;left:auto':'left:120%'};top:-10px;width:180px"><strong>${h.title}</strong><br><span style="font-weight:300;color:rgba(255,255,255,.7)">${h.detail}</span></div></div>`).join('')}</div>`;
+  const svg = buildBodySVG(d.bodyMap.fill||'#EDE8E3', d.bodyMap.stroke||'#C0B0A0', d.bodyMap.highlights||'');
+  svgArea.innerHTML = `<div style="position:relative;display:inline-block">${svg}${d.bodyMap.hotspots.map(h=>`<div class="body-hotspot hs-${h.type}" style="left:${h.x};top:${h.y}"><div class="hs-tooltip" style="${h.x>'50%'?'right:120%;left:auto':'left:120%'};top:-10px;width:180px"><strong>${h.title}</strong><br><span style="font-weight:300;color:rgba(255,255,255,.7)">${h.detail}</span></div></div>`).join('')}</div>`;
 }
 
 // ─── RUN NAVA ───
