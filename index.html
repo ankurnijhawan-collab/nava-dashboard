@@ -4576,13 +4576,35 @@ function renderNavaOutput(d){
 
   const cantH = d.cantmiss.map(c=>`<div class="cm-block"><div class="cm-dot"></div><div class="cm-text">${c}</div></div>`).join('');
 
+  // Notes integrated into treatment — each note line becomes a doctor's directive item
+  const noteDirectives = d._notes
+    ? d._notes.split('\n').filter(l=>l.trim()).map(l=>`
+        <div class="tx-item" style="background:var(--sien3);border-left:3px solid var(--sienna);border-radius:0 6px 6px 0;padding-left:10px;margin-bottom:2px">
+          <div class="tx-ic" style="color:var(--sienna);font-size:.85rem">✎</div>
+          <div>
+            <div class="tx-text" style="color:var(--sienna)">${l.trim().replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+            <div class="tx-reasoning" style="color:var(--sienna);opacity:.7">Doctor's directive — from case notes</div>
+          </div>
+        </div>`).join('')
+    : '';
+
   const txH = `<div class="tx-card">
-    <div class="tx-eyebrow">AI Treatment Suggestion</div>
+    <div class="tx-eyebrow">AI Treatment Suggestion${d._notes ? ` <span style="color:var(--sienna);font-size:.62rem;font-weight:600;background:var(--sien3);padding:2px 6px;border-radius:100px">✎ notes integrated</span>` : ''}</div>
     <div class="tx-title">${d.treatment.title}</div>
+    ${noteDirectives}
     ${d.treatment.lines.map(l=>`<div class="tx-item"><div class="tx-ic ${l.cls}">${l.icon}</div><div><div class="tx-text">${l.text}</div><div class="tx-reasoning">${l.reason}</div></div></div>`).join('')}
   </div>`;
 
-  const cpH = `<div class="care-path"><div class="section-label" style="margin-bottom:12px">Patient Care Path & Next Schedule</div><div class="cp-timeline">${d.carePath.map(s=>`<div class="cp-step"><div class="cp-dot ${s.cls}"></div><div class="cp-when">${s.when}</div><div class="cp-action">${s.action}</div><div class="cp-detail">${s.detail}</div></div>`).join('')}</div></div>`;
+  const noteCpStep = d._notes
+    ? `<div class="cp-step" style="background:var(--sien3);border-radius:6px;padding:6px 8px;margin-bottom:2px">
+        <div class="cp-dot warn"></div>
+        <div class="cp-when" style="color:var(--sienna)">Today</div>
+        <div class="cp-action" style="color:var(--sienna)">Clinician's note actioned</div>
+        <div class="cp-detail">${d._notes.trim().slice(0,120).replace(/</g,'&lt;').replace(/>/g,'&gt;')}${d._notes.trim().length>120?'…':''}</div>
+      </div>`
+    : '';
+
+  const cpH = `<div class="care-path"><div class="section-label" style="margin-bottom:12px">Patient Care Path & Next Schedule</div><div class="cp-timeline">${noteCpStep}${d.carePath.map(s=>`<div class="cp-step"><div class="cp-dot ${s.cls}"></div><div class="cp-when">${s.when}</div><div class="cp-action">${s.action}</div><div class="cp-detail">${s.detail}</div></div>`).join('')}</div></div>`;
 
   const resH = d.research.map(r=>`<div class="research-card"><div class="rc-source">${r.geo} ${r.source}<span class="rc-geo">Evidence</span></div><div class="rc-finding">${r.finding}</div><div class="rc-detail">${r.detail}</div><div class="rc-ddx">${r.ddx.map(dx=>`<span class="tag-pill tp-gold">${dx}</span>`).join('')}</div></div>`).join('');
 
@@ -4628,16 +4650,9 @@ function renderNavaOutput(d){
       <div class="nv-sec-body">${content}</div>
     </div>`;
 
-  const notesCallout = d._notes ? `
-    <div style="background:var(--sien3);border-left:3px solid var(--sienna);border-radius:6px;padding:10px 14px;margin-bottom:10px;font-size:.78rem;line-height:1.6">
-      <div style="font-weight:600;color:var(--sienna);margin-bottom:4px;letter-spacing:.03em">✎ Doctor's Notes — included in this analysis</div>
-      <div style="color:var(--ink);opacity:.85;white-space:pre-wrap">${d._notes.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
-    </div>` : '';
-
   document.getElementById('nava-output').innerHTML = `
     ${verdictH}
     ${actionH}
-    ${notesCallout}
     ${d.cantmiss && d.cantmiss.length ? `<div class="ddx-sec-title" style="color:var(--red);margin-bottom:6px">⚠ Don't Miss These</div>${cantH}` : ''}
     ${sec('ddx',      'Most Likely Diagnoses',        ddxH,   true)}
     ${sec('tx',       'Treatment',                    txH,    true)}
@@ -5203,25 +5218,31 @@ function renderClaudeNavaOutput(json, d){
     </div>`;
   }).join('');
 
-  // Treatment
-  const txH = (json.treatmentLines||[]).map(l=>`<div class="tx-step">${l}</div>`).join('');
+  // Treatment — prepend doctor's note directives if present
+  const claudeNoteDirectives = (d && d._notes)
+    ? d._notes.split('\n').filter(l=>l.trim()).map(l=>`
+        <div class="tx-step" style="background:var(--sien3);border-left:3px solid var(--sienna);border-radius:0 6px 6px 0;padding:7px 10px;margin-bottom:2px">
+          <span style="color:var(--sienna);font-weight:600">✎ Doctor:</span> ${l.trim().replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+        </div>`).join('')
+    : '';
 
-  // Next steps / care path
-  const cpH = (json.nextSteps||[]).map(s=>`<div class="cp-step">${s}</div>`).join('');
+  const txH = `<div style="margin-bottom:4px">${claudeNoteDirectives}</div>${(json.treatmentLines||[]).map(l=>`<div class="tx-step">${l}</div>`).join('')}`;
+
+  // Next steps — prepend note as first action if present
+  const claudeNoteCpStep = (d && d._notes)
+    ? `<div class="cp-step" style="background:var(--sien3);border-radius:6px;padding:6px 8px;margin-bottom:4px">
+        <span style="color:var(--sienna);font-weight:600">✎ Today — Clinician's directive:</span> ${d._notes.trim().slice(0,120).replace(/</g,'&lt;').replace(/>/g,'&gt;')}${d._notes.trim().length>120?'…':''}
+      </div>`
+    : '';
+
+  const cpH = claudeNoteCpStep + (json.nextSteps||[]).map(s=>`<div class="cp-step">${s}</div>`).join('');
 
   // Cost
   const costH = json.costNote ? `<div style="font-size:.82rem;color:var(--muted);padding:10px 4px">${json.costNote}</div>` : '<div style="color:var(--muted);font-size:.8rem;padding:10px 4px">Not estimated.</div>';
 
-  const claudeNotesCallout = (d && d._notes) ? `
-    <div style="background:var(--sien3);border-left:3px solid var(--sienna);border-radius:6px;padding:10px 14px;margin-bottom:10px;font-size:.78rem;line-height:1.6">
-      <div style="font-weight:600;color:var(--sienna);margin-bottom:4px;letter-spacing:.03em">✎ Doctor's Notes — included in this analysis</div>
-      <div style="color:var(--ink);opacity:.85;white-space:pre-wrap">${d._notes.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
-    </div>` : '';
-
   document.getElementById('nava-output').innerHTML = `
     ${verdictH}
     ${actionH}
-    ${claudeNotesCallout}
     ${cantH ? `<div class="ddx-sec-title" style="color:var(--red);margin-bottom:6px">⚠ Don't Miss These</div><div class="cant-wrap" style="margin-bottom:12px">${cantH}</div>` : ''}
     ${sec('ddx',      'Most Likely Diagnoses',  ddxH,   true)}
     ${sec('tx',       'Treatment',              txH,    true)}
