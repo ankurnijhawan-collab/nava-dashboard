@@ -4135,6 +4135,10 @@ async function runNava(){
       flagLevel:'warn', flagText:'New'
     };
     if(notes) activeCase._notes = notes;
+  } else {
+    // For CASES_DATA patients — capture any notes typed in the case-notes textarea
+    const notesVal = document.getElementById('case-notes-input')?.value?.trim();
+    if(notesVal) activeCase._notes = notesVal;
   }
   const btn=document.getElementById('run-nava-btn');
   const btxt=document.getElementById('run-btn-txt');
@@ -4193,13 +4197,26 @@ async function runNava(){
   }
 
   // Render the agent stream UI
+  const hasNotes = !!(d._notes && d._notes.trim());
+  const notesAgentRow = hasNotes ? `
+    <div class="agent-row done" id="agent-notes-prefetch" style="background:var(--sien3);border-radius:6px;margin-bottom:4px">
+      <div class="agent-icon">✎</div>
+      <div class="agent-main">
+        <div class="agent-name">Notes Agent <span class="agent-role">· Doctor's notes pre-loaded</span></div>
+        <div class="agent-detail" style="color:var(--sienna);opacity:.8">"${d._notes.trim().slice(0,90)}${d._notes.trim().length>90?'…':''}"</div>
+        <div class="agent-progress"><div class="agent-progress-fill" style="width:100%"></div></div>
+      </div>
+      <div class="agent-status"><span class="agent-done-tick">✓</span></div>
+    </div>` : '';
+
   out.innerHTML = `
     <div class="agent-stream">
       <div class="agent-stream-header">
         <div class="agent-stream-title">NAVA · Multi-Agent Clinical Reasoning</div>
-        <div class="agent-stream-sub">${agents.length} specialist agents analysing <strong>${d.name}</strong></div>
+        <div class="agent-stream-sub">${agents.length} specialist agents analysing <strong>${d.name}</strong>${hasNotes ? ' · <span style="color:var(--sienna)">doctor\'s notes included</span>' : ''}</div>
       </div>
       <div class="agent-list" id="agent-list">
+        ${notesAgentRow}
         ${agents.map(a=>`
           <div class="agent-row pending" id="agent-${a.key}">
             <div class="agent-icon">${a.icon}</div>
@@ -4216,6 +4233,9 @@ async function runNava(){
     </div>
   `;
 
+  // If notes present, pause briefly so the doctor sees them being "read"
+  if(hasNotes) await new Promise(r=>setTimeout(r, 1200));
+
   // Stream the agents — each one lights up, works for ~400ms, completes
   for(let i=0; i<agents.length; i++){
     const a = agents[i];
@@ -4228,6 +4248,20 @@ async function runNava(){
     row.classList.remove('working');
     row.classList.add('done');
     row.querySelector('.agent-status').innerHTML = '<span class="agent-done-tick">✓</span>';
+  }
+
+  // If notes present, show a brief "Integrating notes" step after all agents complete
+  if(hasNotes){
+    const notesRow = document.getElementById('agent-notes-prefetch');
+    if(notesRow){
+      notesRow.classList.remove('done');
+      notesRow.classList.add('working');
+      notesRow.querySelector('.agent-status').innerHTML = '<span class="agent-spin"></span> Integrating…';
+      await new Promise(r=>setTimeout(r, 900));
+      notesRow.classList.remove('working');
+      notesRow.classList.add('done');
+      notesRow.querySelector('.agent-status').innerHTML = '<span class="agent-done-tick">✓</span>';
+    }
   }
 
   // pause so the user sees all agents complete before result appears
@@ -4447,6 +4481,7 @@ function renderNavaOutput(d){
   if(d.meds && d.meds.length) basedOnParts.push(`${d.meds.length} current meds`);
   if(d.familyHistory && d.familyHistory.length) basedOnParts.push('family history');
   if(d.research && d.research.length) basedOnParts.push(`${d.research.length} evidence sources`);
+  if(d._notes) basedOnParts.push('doctor\'s notes');
   const basedOnStr = basedOnParts.join(' · ');
 
   // Verdict card
@@ -4564,9 +4599,16 @@ function renderNavaOutput(d){
       <div class="nv-sec-body">${content}</div>
     </div>`;
 
+  const notesCallout = d._notes ? `
+    <div style="background:var(--sien3);border-left:3px solid var(--sienna);border-radius:6px;padding:10px 14px;margin-bottom:10px;font-size:.78rem;line-height:1.6">
+      <div style="font-weight:600;color:var(--sienna);margin-bottom:4px;letter-spacing:.03em">✎ Doctor's Notes — included in this analysis</div>
+      <div style="color:var(--ink);opacity:.85;white-space:pre-wrap">${d._notes.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+    </div>` : '';
+
   document.getElementById('nava-output').innerHTML = `
     ${verdictH}
     ${actionH}
+    ${notesCallout}
     ${d.cantmiss && d.cantmiss.length ? `<div class="ddx-sec-title" style="color:var(--red);margin-bottom:6px">⚠ Don't Miss These</div>${cantH}` : ''}
     ${sec('ddx',      'Most Likely Diagnoses',        ddxH,   true)}
     ${sec('tx',       'Treatment',                    txH,    true)}
@@ -5141,9 +5183,16 @@ function renderClaudeNavaOutput(json, d){
   // Cost
   const costH = json.costNote ? `<div style="font-size:.82rem;color:var(--muted);padding:10px 4px">${json.costNote}</div>` : '<div style="color:var(--muted);font-size:.8rem;padding:10px 4px">Not estimated.</div>';
 
+  const claudeNotesCallout = (d && d._notes) ? `
+    <div style="background:var(--sien3);border-left:3px solid var(--sienna);border-radius:6px;padding:10px 14px;margin-bottom:10px;font-size:.78rem;line-height:1.6">
+      <div style="font-weight:600;color:var(--sienna);margin-bottom:4px;letter-spacing:.03em">✎ Doctor's Notes — included in this analysis</div>
+      <div style="color:var(--ink);opacity:.85;white-space:pre-wrap">${d._notes.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+    </div>` : '';
+
   document.getElementById('nava-output').innerHTML = `
     ${verdictH}
     ${actionH}
+    ${claudeNotesCallout}
     ${cantH ? `<div class="ddx-sec-title" style="color:var(--red);margin-bottom:6px">⚠ Don't Miss These</div><div class="cant-wrap" style="margin-bottom:12px">${cantH}</div>` : ''}
     ${sec('ddx',      'Most Likely Diagnoses',  ddxH,   true)}
     ${sec('tx',       'Treatment',              txH,    true)}
