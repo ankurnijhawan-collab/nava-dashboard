@@ -4224,14 +4224,14 @@ async function runNava(){
     row.classList.remove('pending');
     row.classList.add('working');
     row.querySelector('.agent-status').innerHTML = '<span class="agent-spin"></span> Thinking…';
-    await new Promise(r=>setTimeout(r, 380 + Math.random()*180));
+    await new Promise(r=>setTimeout(r, 700 + Math.random()*200));
     row.classList.remove('working');
     row.classList.add('done');
     row.querySelector('.agent-status').innerHTML = '<span class="agent-done-tick">✓</span>';
   }
 
-  // brief pause so the user sees the final ✓
-  await new Promise(r=>setTimeout(r, 240));
+  // pause so the user sees all agents complete before result appears
+  await new Promise(r=>setTimeout(r, 800));
 
   // If Claude key exists, call real API (streaming)
   const claudeKey = getClaudeKey();
@@ -4323,7 +4323,7 @@ async function runNava(){
 
   recordTimeSaved();
 
-  // Gate critical cases behind an acknowledgment modal
+  // Demo mode — render output directly (agent stream above already provided the loading experience)
   if(d.flagLevel === 'crit' && d.cantmiss && d.cantmiss.length){
     showCriticalAckModal(d, () => {
       renderNavaOutput(d);
@@ -6675,8 +6675,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
     if(firstCase && typeof _origLoadCase === 'function'){
       showView('workspace');
       _origLoadCase(CASES_DATA.indexOf(firstCase));
-      // Auto-run analysis after a short delay so the user arrives with a live result
-      setTimeout(()=>{ if(typeof runNava==='function') runNava(); }, 500);
+      // Delay auto-run so user has time to see patient data before analysis starts
+      setTimeout(()=>{ if(typeof runNava==='function') runNava(); }, 2500);
     }
   }, 50);
 });
@@ -7304,24 +7304,27 @@ function showEhrPull(patientName, callback) {
   const done = document.getElementById('ehr-pull-done');
   if (!ov) { callback(); return; }
   msg.textContent = `Pulling record for ${patientName}…`;
-  sub.textContent = 'Fetching from Apollo EHR';
+  sub.textContent = 'Connecting to Apollo HIS…';
   spinner.style.display = 'block';
   done.style.display = 'none';
   ov.classList.add('show');
-  // Step 1: fetching
-  setTimeout(() => { sub.textContent = 'Verifying ABHA ID · Decrypting records'; }, 600);
-  // Step 2: done
+  // Step through realistic EHR fetch stages — 5.5s total
+  setTimeout(() => { sub.textContent = 'Authenticating · Verifying ABHA ID'; }, 900);
+  setTimeout(() => { sub.textContent = 'Fetching clinical history · Labs · Medications'; }, 2000);
+  setTimeout(() => { sub.textContent = 'Decrypting records · Checking for alerts'; }, 3200);
+  setTimeout(() => { sub.textContent = 'Loading imaging reports · Previous visit notes'; }, 4100);
+  // Done state
   setTimeout(() => {
     spinner.style.display = 'none';
     done.style.display = 'block';
     msg.textContent = `${patientName} — record loaded`;
-    sub.textContent = 'Apollo HIS · 3 previous visits found';
-  }, 1300);
-  // Step 3: hide and continue
+    sub.textContent = 'Apollo HIS · 3 previous visits · ABHA verified';
+  }, 5000);
+  // Hide and proceed
   setTimeout(() => {
     ov.classList.remove('show');
     callback();
-  }, 2000);
+  }, 5800);
 }
 
 // Intercept loadCase to show EHR pull animation
