@@ -4608,16 +4608,29 @@ function renderNavaOutput(d){
       </div>
     </div>`;
 
+  // Build the DDx reasoning with actual current patient values + notes injected
+  const _flaggedAll = [...(d.vitals||[]), ...(d.labs||[]), ...(d.meds||[])].filter(v=>v.cls==='bad'||v.cls==='warn');
+
   const ddxH = d.ddx.map((x,i)=>{
     const rankCls = i===0?'r1':i===1?'r2':i===2?'r3':'r4';
     const explainId = `ddx-explain-${i}`;
+
+    // For the top diagnosis: append current flagged values + doctor notes to reasoning
+    let reasoning = x.w || '';
+    if(i === 0 && _flaggedAll.length){
+      const vals = _flaggedAll.slice(0,4).map(v=>`<strong>${v.l}:</strong> ${v.v.split('—')[0].trim()}`).join(' · ');
+      reasoning += `<div style="margin-top:6px;padding:6px 8px;background:var(--surface);border-radius:5px;font-size:.7rem;border-left:2px solid var(--border2)"><span style="font-weight:600;color:var(--muted);font-size:.65rem;text-transform:uppercase;letter-spacing:.06em">Current readings used</span><br>${vals}</div>`;
+    }
+    if(i === 0 && d._notes){
+      reasoning += `<div style="margin-top:5px;padding:6px 8px;background:var(--sien3);border-radius:5px;font-size:.72rem;border-left:2px solid var(--sienna)"><span style="font-weight:600;color:var(--sienna);font-size:.65rem;text-transform:uppercase;letter-spacing:.06em">Doctor's assessment</span><br><span style="color:var(--ink)">${d._notes.trim().replace(/</g,'&lt;').replace(/>/g,'&gt;').slice(0,200)}${d._notes.trim().length>200?'…':''}</span></div>`;
+    }
     return `
     <div class="ddx-entry">
       <div class="de-rank ${rankCls}">${i+1}</div>
       <div class="de-pct ${x.t==='likely'?'hi':x.t==='possible'?'md':'lo'}">${x.p}<sup style="font-size:.65rem">%</sup></div>
       <div class="de-info">
         <div class="de-name">${deJargon(x.n)}</div>
-        <div class="de-why">${deJargon(x.w)}</div>
+        <div class="de-why">${deJargon(reasoning)}</div>
         <div class="de-bar"><div class="de-bar-fill" style="width:${x.b};background:${x.c}"></div></div>
         <button class="de-explain-btn" onclick="explainDdx('${x.n}','${explainId}',this)">Explain this →</button>
         <div class="de-explain-box" id="${explainId}"></div>
@@ -4723,15 +4736,50 @@ function renderNavaOutput(d){
     Also reviewed (no flags): ${(d.vitals||[]).length} vitals · ${(d.labs||[]).length} labs · ${(d.meds||[]).length} medications · ${(d.history||[]).length} history items · ${(d.familyHistory||[]).length} family history entries · ${d.chief ? `Chief: <em>"${d.chief}"</em>` : ''}
   </div>`;
 
+  // ── Clinical Basis block — shown ABOVE verdict, always open ──
+  const basisChipStyle = (cls) => {
+    if(cls==='bad')  return 'background:var(--rlt);color:var(--red);border:1px solid rgba(158,80,64,.3)';
+    if(cls==='warn') return 'background:var(--alt);color:#8B6200;border:1px solid rgba(166,124,46,.3)';
+    if(cls==='ok')   return 'background:var(--glt);color:var(--green);border:1px solid rgba(74,122,90,.3)';
+    return 'background:var(--surface);color:var(--muted);border:1px solid var(--border2)';
+  };
+  const chip = (label, val, cls) =>
+    `<div style="${basisChipStyle(cls)};border-radius:6px;padding:5px 9px;font-size:.7rem;line-height:1.35">
+      <div style="font-weight:700;font-size:.6rem;text-transform:uppercase;letter-spacing:.05em;opacity:.7;margin-bottom:1px">${label}</div>
+      <div style="font-weight:500">${val}</div>
+    </div>`;
+
+  const basisChips = [
+    d.chief ? chip('Chief complaint', d.chief, '') : null,
+    ...flaggedVitals.map(v=>chip(v.l, v.v.split('—')[0].trim(), v.cls)),
+    ...flaggedLabs.map(l=>chip(l.l, l.v.split('—')[0].trim(), l.cls)),
+    ...flaggedMeds.map(m=>chip('℞ '+m.l, m.v.split('—')[0].trim().slice(0,40), m.cls)),
+    d._notes ? chip('Doctor\'s notes', `"${d._notes.trim().slice(0,60)}${d._notes.trim().length>60?'…':''}"`, '') : null
+  ].filter(Boolean);
+
+  const clinicalBasisH = `
+    <div style="background:var(--card);border:1px solid var(--border2);border-radius:var(--r);padding:10px 12px;margin-bottom:10px">
+      <div style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px">
+        Data NAVA analysed for ${d.name}
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        ${basisChips.join('')}
+      </div>
+      <div style="font-size:.62rem;color:var(--muted);margin-top:8px;line-height:1.5">
+        ${(d.vitals||[]).length} vitals · ${(d.labs||[]).length} labs · ${(d.meds||[]).length} meds · ${(d.history||[]).length} history entries · ${(d.familyHistory||[]).length} family history · ${d.research&&d.research.length?d.research.length+' evidence sources':''}
+        ${allFlagged.length ? ` · <strong style="color:var(--red)">${allFlagged.length} abnormal value${allFlagged.length!==1?'s':''} flagged</strong>` : ''}
+      </div>
+    </div>`;
+
   const signalsH = `
-    <div class="nv-section nv-sec-collapsed" id="nvsec-signals">
+    <div class="nv-section" id="nvsec-signals">
       <div class="nv-sec-head" onclick="toggleNvSection('signals')">
-        <span>⚡ Clinical Signals Read — ${allFlagged.length} flag${allFlagged.length!==1?'s':''} from patient's record</span><span class="nv-sec-chev">▾</span>
+        <span>⚡ Flagged Values — ${allFlagged.length} abnormal reading${allFlagged.length!==1?'s':''} driving this analysis</span><span class="nv-sec-chev">▾</span>
       </div>
       <div class="nv-sec-body">
         ${allFlagged.length
           ? `<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:4px">${allFlagged.join('')}</div>${dataFooter}`
-          : `<div style="font-size:.78rem;color:var(--muted);padding:10px 4px">No flagged values — normal range across vitals and labs.</div>${dataFooter}`}
+          : `<div style="font-size:.78rem;color:var(--muted);padding:10px 4px">No flagged values — all within normal range.</div>${dataFooter}`}
       </div>
     </div>`;
 
@@ -4745,6 +4793,7 @@ function renderNavaOutput(d){
     </div>`;
 
   document.getElementById('nava-output').innerHTML = `
+    ${clinicalBasisH}
     ${verdictH}
     ${actionH}
     ${signalsH}
@@ -4763,8 +4812,8 @@ function renderNavaOutput(d){
       <button class="tool-btn" onclick="copyReport()">Copy Report</button>
       <button class="tool-btn" onclick="window.print()">Print</button>
     </div>`;
-  // Collapse sections that start closed
-  ['signals','carepath','research','cost'].forEach(id=>{
+  // Collapse only these sections by default; signals stays open
+  ['carepath','research','cost'].forEach(id=>{
     const s = document.getElementById('nvsec-'+id);
     if(s) s.classList.add('nv-sec-collapsed');
   });
