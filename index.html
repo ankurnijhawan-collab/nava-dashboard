@@ -2454,10 +2454,10 @@ const CASES_DATA = [
     ]
   },
   bodyMap:{
-    fill:'#DDE8F5', stroke:'#AAB8CC',
+    fill:'#5AAAE0', stroke:'#3A88C0',
     highlights:`
-      <circle cx="50" cy="19" r="9" fill="rgba(122,26,26,.18)" stroke="#9E5040" stroke-width="1.5"/>
-      <ellipse cx="50" cy="92" rx="5" ry="10" fill="rgba(106,60,12,.12)" stroke="#8B6D45" stroke-width="1.2"/>`,
+      <circle cx="50" cy="19" r="9" fill="rgba(255,80,80,.5)" stroke="rgba(255,180,160,.95)" stroke-width="2"/>
+      <ellipse cx="50" cy="92" rx="5" ry="10" fill="rgba(255,210,50,.45)" stroke="rgba(255,230,80,.9)" stroke-width="1.8"/>`,
     hotspots:[
       {x:'50%',y:'7%',type:'red',title:'Brain / Head — Primary Concern',detail:'IIH not excluded. Raised intracranial pressure. Fundoscopy not done in 14 weeks. Normal MRI does not rule out IIH.'},
       {x:'50%',y:'35%',type:'amber',title:'Spine — Secondary watch',detail:'CSF flow study not done. Chiari I malformation cannot be excluded on current MRI protocol.'}
@@ -2557,10 +2557,10 @@ const CASES_DATA = [
     {relation:'Mother',condition:'Hypertension',impact:'Shared hypertension predisposition. Genetic component confirmed.',impact_level:'med'}
   ],
   bodyMap:{
-    fill:'#F5E6EC', stroke:'#C8A0B0',
+    fill:'#E8809C', stroke:'#C86080',
     highlights:`
-      <circle cx="38" cy="68" r="10" fill="rgba(122,26,26,.2)" stroke="#9E5040" stroke-width="1.5"/>
-      <circle cx="50" cy="98" r="7" fill="rgba(106,60,12,.15)" stroke="#8B6D45" stroke-width="1.2"/>`,
+      <circle cx="38" cy="68" r="10" fill="rgba(255,80,80,.5)" stroke="rgba(255,180,160,.95)" stroke-width="2"/>
+      <circle cx="50" cy="98" r="7" fill="rgba(255,210,50,.45)" stroke="rgba(255,230,80,.9)" stroke-width="1.8"/>`,
     hotspots:[
       {x:'38%',y:'26%',type:'red',title:'Heart — Primary Concern',detail:'Possible stable angina/CAD. Cardiomegaly on CXR. LDL 168. 2D Echo and TMT not done. Statin not prescribed.'},
       {x:'50%',y:'38%',type:'amber',title:'Vascular System — At Risk',detail:'LDL 168, HDL 38, hypertension, pre-diabetic glucose — systemic atherosclerosis risk. No statin despite very high CV risk by ESC criteria.'}
@@ -2666,11 +2666,11 @@ const CASES_DATA = [
     {relation:'No family',condition:'No known renal disease, cardiac disease',impact:'Nephropathy appears primarily diabetic in origin',impact_level:'low'}
   ],
   bodyMap:{
-    fill:'#DDE8F5', stroke:'#AAB8CC',
+    fill:'#5AAAE0', stroke:'#3A88C0',
     highlights:`
-      <ellipse cx="34" cy="110" rx="6" ry="8" fill="rgba(122,26,26,.22)" stroke="#9E5040" stroke-width="1.5"/>
-      <ellipse cx="66" cy="110" rx="6" ry="8" fill="rgba(122,26,26,.22)" stroke="#9E5040" stroke-width="1.5"/>
-      <circle cx="38" cy="68" r="7" fill="rgba(106,60,12,.18)" stroke="#8B6D45" stroke-width="1.2"/>`,
+      <ellipse cx="34" cy="110" rx="6" ry="8" fill="rgba(255,80,80,.5)" stroke="rgba(255,180,160,.95)" stroke-width="2"/>
+      <ellipse cx="66" cy="110" rx="6" ry="8" fill="rgba(255,80,80,.5)" stroke="rgba(255,180,160,.95)" stroke-width="2"/>
+      <circle cx="38" cy="68" r="7" fill="rgba(255,210,50,.45)" stroke="rgba(255,230,80,.9)" stroke-width="1.8"/>`,
     hotspots:[
       {x:'34%',y:'42%',type:'red',title:'Left Kidney — Stage 4 CKD',detail:'Creatinine 2.4 → eGFR ~28. Small echogenic kidney on USG. UACR 840 (macroalbuminuria). Metformin CONTRAINDICATED at this eGFR.'},
       {x:'66%',y:'42%',type:'red',title:'Right Kidney — Stage 4 CKD',detail:'Bilateral small echogenic kidneys on USG. Irreversible structural damage. Urgent nephrology co-management required.'},
@@ -2779,11 +2779,11 @@ const CASES_DATA = [
     ]
   },
   bodyMap:{
-    fill:'#F5E6EC', stroke:'#C8A0B0',
+    fill:'#E8809C', stroke:'#C86080',
     highlights:`
-      <ellipse cx="36" cy="73" rx="9" ry="12" fill="rgba(122,26,26,.18)" stroke="#9E5040" stroke-width="1.5"/>
-      <ellipse cx="64" cy="73" rx="8" ry="11" fill="rgba(106,60,12,.18)" stroke="#8B6D45" stroke-width="1.2"/>
-      <circle cx="50" cy="60" r="6" fill="rgba(122,26,26,.25)" stroke="#9E5040" stroke-width="1"/>`,
+      <ellipse cx="36" cy="73" rx="9" ry="12" fill="rgba(255,80,80,.5)" stroke="rgba(255,180,160,.95)" stroke-width="2"/>
+      <ellipse cx="64" cy="73" rx="8" ry="11" fill="rgba(255,210,50,.45)" stroke="rgba(255,230,80,.9)" stroke-width="1.8"/>
+      <circle cx="50" cy="60" r="6" fill="rgba(255,80,80,.5)" stroke="rgba(255,180,160,.95)" stroke-width="1.5"/>`,
     hotspots:[
       {x:'50%',y:'23%',type:'red',title:'Hilar Lymph Nodes — ENLARGED',detail:'Bilateral hilar lymphadenopathy on CXR. Radiologist flagged "TB to be considered" 8 weeks ago. No action taken. Classic TB finding in children.'},
       {x:'36%',y:'28%',type:'red',title:'Left Lung — Haziness',detail:'Right upper lobe haziness noted by radiologist. Subtle pulmonary infiltrate — consistent with early paediatric TB.'},
@@ -2889,11 +2889,11 @@ const CASES_DATA = [
   ],
   obsGynae:{lmp:'3 weeks ago (PMB — 1st episode)',cycles:'Post-menopausal — no periods for 4 years prior to bleed',gravida:3,para:2,abortions:1,deliveries:'LSCS × 1, Normal × 1',lastPap:'2019 — Normal (5 yrs ago)',lastMammo:'Never — overdue',lastTVS:'Not done this episode — URGENT',endoThx:'Norethisterone (current — NAVA: STOP immediately, masks diagnosis)',note:'PMB in post-menopausal woman = cancer until proven otherwise. No endometrial biopsy done.'},
   bodyMap:{
-    fill:'#F5D8E0', stroke:'#C8A0B0',
+    fill:'#D0608C', stroke:'#A84070',
     highlights:`
-      <ellipse cx="50" cy="119" rx="8" ry="9" fill="rgba(122,26,26,.25)" stroke="#9E5040" stroke-width="1.5"/>
-      <circle cx="37" cy="70" r="6" fill="rgba(106,60,12,.18)" stroke="#8B6D45" stroke-width="1.2"/>
-      <circle cx="63" cy="70" r="6" fill="rgba(106,60,12,.18)" stroke="#8B6D45" stroke-width="1.2"/>`,
+      <ellipse cx="50" cy="119" rx="8" ry="9" fill="rgba(255,80,80,.5)" stroke="rgba(255,180,160,.95)" stroke-width="2"/>
+      <circle cx="37" cy="70" r="6" fill="rgba(255,210,50,.45)" stroke="rgba(255,230,80,.9)" stroke-width="1.8"/>
+      <circle cx="63" cy="70" r="6" fill="rgba(255,210,50,.45)" stroke="rgba(255,230,80,.9)" stroke-width="1.8"/>`,
     hotspots:[
       {x:'50%',y:'45%',type:'red',title:'Endometrium — PRIMARY CONCERN',detail:'Post-menopausal bleeding × 3 wks. 10–15% risk of endometrial cancer in any PMB episode. TVS + endometrial biopsy mandatory before ANY hormone therapy.'},
       {x:'50%',y:'26%',type:'amber',title:'Breast Tissue — Overdue Screen',detail:'Mammography overdue by 3 years. First-degree family history of breast Ca. Concurrent breast screen indicated at this workup.'}
@@ -2995,11 +2995,11 @@ const CASES_DATA = [
   ],
   obsGynae:{lmp:'6 weeks ago (irregular)',cycles:'28–90 day cycles, often heavy and painful',gravida:0,para:0,abortions:0,deliveries:'Nulliparous — actively trying to conceive',lastPap:'Never done — arrange urgently',lastMammo:'N/A (age 28)',lastTVS:'2 years ago — polycystic ovaries, thickened endometrium',endoThx:'Diane-35 OCP × 2 years — NAVA: STOP (contraceptive in a woman trying to conceive)',note:'Metabolic PCOS: insulin resistance not checked. Correct Dx is PCOS + conception goal — not cycle regulation alone.'},
   bodyMap:{
-    fill:'#F5D8E0', stroke:'#C8A0B0',
+    fill:'#D0608C', stroke:'#A84070',
     highlights:`
-      <ellipse cx="36" cy="119" rx="5" ry="7" fill="rgba(122,26,26,.22)" stroke="#9E5040" stroke-width="1.5"/>
-      <ellipse cx="64" cy="119" rx="5" ry="7" fill="rgba(122,26,26,.22)" stroke="#9E5040" stroke-width="1.5"/>
-      <ellipse cx="38" cy="93" rx="8" ry="6" fill="rgba(106,60,12,.18)" stroke="#8B6D45" stroke-width="1.2"/>`,
+      <ellipse cx="36" cy="119" rx="5" ry="7" fill="rgba(255,80,80,.5)" stroke="rgba(255,180,160,.95)" stroke-width="2"/>
+      <ellipse cx="64" cy="119" rx="5" ry="7" fill="rgba(255,80,80,.5)" stroke="rgba(255,180,160,.95)" stroke-width="2"/>
+      <ellipse cx="38" cy="93" rx="8" ry="6" fill="rgba(255,210,50,.45)" stroke="rgba(255,230,80,.9)" stroke-width="1.8"/>`,
     hotspots:[
       {x:'36%',y:'45%',type:'red',title:'Polycystic Ovaries — Anovulation',detail:'Both ovaries affected. String-of-pearls pattern expected on TVS. Primary reason for infertility. Needs ovulation induction — NOT OCPs.'},
       {x:'64%',y:'45%',type:'red',title:'Right Ovary — Polycystic',detail:'Same findings bilaterally.'},
@@ -3129,10 +3129,10 @@ const CASES_DATA = [
   obsGynae:{lmp:'28 days ago (regular)',cycles:'28–30 day cycles, regular, mild dysmenorrhoea',gravida:1,para:0,abortions:1,deliveries:'No live births — 1 early miscarriage at 7 wks (2022)',lastTVS:'3 months ago — follicular tracking × 2 cycles, ovulation documented',lastHSG:'Never done — NAVA recommends before IUI',endoThx:'None currently. Previously: Folic acid 5mg',note:'Endometriosis not worked up despite maternal history + dysmenorrhoea. HSG not done before IUI recommendation.'},
   ovReserve:{amh:'2.1 ng/mL — Normal for age',afc:14,fsh:'7.8 mIU/mL — Normal',e2:'38 pg/mL — Normal',antralCount:'14 follicles total (7 each side)',artHistory:'No ART cycles yet. IUI proposed but husband semen analysis never done. 1 early miscarriage investigated.',recommendation:'IUI not yet indicated — complete male factor workup first. If normal, proceed to IUI. If abnormal (which NAVA predicts likely), direct to IVF-ICSI.',note:'3 years of workup focused on her. Rohit has never had a semen analysis.'},
   bodyMap:{
-    fill:'#D8EADF', stroke:'#90B89A',
+    fill:'#44AA7C', stroke:'#2A8860',
     highlights:`
-      <ellipse cx="50" cy="117" rx="8" ry="7" fill="rgba(106,60,12,.18)" stroke="#8B6D45" stroke-width="1.2"/>
-      <rect x="44" y="123" width="12" height="9" rx="3" fill="rgba(122,26,26,.28)" stroke="#9E5040" stroke-width="1.5" stroke-dasharray="2 2"/>`,
+      <ellipse cx="50" cy="117" rx="8" ry="7" fill="rgba(255,210,50,.45)" stroke="rgba(255,230,80,.9)" stroke-width="1.8"/>
+      <rect x="44" y="123" width="12" height="9" rx="3" fill="rgba(255,80,80,.5)" stroke="rgba(255,180,160,.95)" stroke-width="1.5" stroke-dasharray="2 2"/>`,
     hotspots:[
       {x:'50%',y:'47%',type:'red',title:'Male Partner — NEVER EVALUATED',detail:'Rohit: orchidopexy + post-pubertal mumps + smoking + laptop-on-lap × 10 yrs. NO semen analysis in 3 years of couple TTC. This is the biggest gap in their workup.'},
       {x:'50%',y:'44%',type:'amber',title:'Priya — Tubes / Pelvis',detail:'Maternal endometriosis + Priya\'s intermittent dysmenorrhoea. HSG and/or diagnostic laparoscopy not yet done. Endometriosis screen pending.'}
@@ -3263,11 +3263,11 @@ const CASES_DATA = [
     {relation:'Vikram — Father',condition:'Nil significant',impact:'No known familial infertility. Vikram\'s issues likely acquired (varicocele + lifestyle).',impact_level:'low'}
   ],
   bodyMap:{
-    fill:'#D8EADF', stroke:'#90B89A',
+    fill:'#44AA7C', stroke:'#2A8860',
     highlights:`
-      <ellipse cx="36" cy="119" rx="5" ry="7" fill="rgba(122,26,26,.25)" stroke="#9E5040" stroke-width="1.5"/>
-      <ellipse cx="64" cy="119" rx="5" ry="7" fill="rgba(122,26,26,.25)" stroke="#9E5040" stroke-width="1.5"/>
-      <rect x="43" y="124" width="14" height="8" rx="3" fill="rgba(106,60,12,.18)" stroke="#8B6D45" stroke-width="1.2"/>`,
+      <ellipse cx="36" cy="119" rx="5" ry="7" fill="rgba(255,80,80,.5)" stroke="rgba(255,180,160,.95)" stroke-width="2"/>
+      <ellipse cx="64" cy="119" rx="5" ry="7" fill="rgba(255,80,80,.5)" stroke="rgba(255,180,160,.95)" stroke-width="2"/>
+      <rect x="43" y="124" width="14" height="8" rx="3" fill="rgba(255,210,50,.45)" stroke="rgba(255,230,80,.9)" stroke-width="1.8"/>`,
     hotspots:[
       {x:'36%',y:'45%',type:'red',title:'L Ovary — Diminished Reserve',detail:'AMH 0.9 ng/mL at 38 — low for age. Repeated endometriosis surgeries (2 cystectomies) have damaged ovarian cortex. Time-sensitive.'},
       {x:'64%',y:'45%',type:'red',title:'R Ovary — Recurrent Endometrioma',detail:'2 surgeries in 3 years on same side. High recurrence rate — further surgery NOT recommended. Affects ovarian reserve further.'},
@@ -4101,20 +4101,28 @@ function renderPartnerCard(p){
 // ─── BODY MAP ───
 function buildBodySVG(fill, stroke, highlights){
   return `<svg viewBox="0 0 100 260" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- HEAD: slightly smaller, natural oval -->
-    <ellipse cx="50" cy="18" rx="12" ry="14" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
-    <!-- NECK -->
-    <path d="M45 31 L44 42 L56 42 L55 31 Z" fill="${fill}" stroke="none"/>
-    <!-- TORSO: narrower shoulders, pronounced waist, natural hip flare -->
-    <path d="M44 42 C38 42 25 45 21 51 C18 56 21 60 27 62 C25 72 25 86 28 97 C26 107 26 117 29 125 C35 131 43 134 48 134 L52 134 C57 134 65 131 71 125 C74 117 74 107 72 97 C75 86 75 72 73 62 C79 60 82 56 79 51 C75 45 62 42 56 42 Z" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
-    <!-- LEFT ARM: slim, barely widens at elbow, tapers to wrist -->
-    <path d="M21 52 C18 68 16 90 15 110 C14 120 15 128 17 132 C19 135 22 134 24 130 C25 124 25 112 25 98 C25 82 25 68 27 62 C25 57 23 52 21 52 Z" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
-    <!-- RIGHT ARM: mirror -->
-    <path d="M79 52 C77 52 75 57 73 62 C75 68 75 82 75 98 C75 112 75 124 76 130 C78 134 81 135 83 132 C85 128 86 120 85 110 C84 90 82 68 79 52 Z" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
-    <!-- LEFT LEG -->
-    <path d="M48 134 C47 144 47 160 47 176 C47 192 46 208 45 218 C44 224 41 228 37 228 C33 228 30 224 28 218 C26 208 25 192 25 176 C25 160 26 144 29 134 C35 130 43 130 48 134 Z" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
-    <!-- RIGHT LEG: mirror -->
-    <path d="M52 134 C57 130 65 130 71 134 C74 144 75 160 75 176 C75 192 75 208 72 218 C70 224 67 228 63 228 C59 228 56 224 55 218 C54 208 53 192 53 176 C53 160 53 144 52 134 Z" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
+    <defs>
+      <filter id="fg" x="-40%" y="-8%" width="180%" height="118%">
+        <feGaussianBlur stdDeviation="4.5" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </defs>
+    <g filter="url(#fg)">
+      <!-- HEAD -->
+      <ellipse cx="50" cy="18" rx="12" ry="14" fill="${fill}" stroke="${stroke}" stroke-width="1"/>
+      <!-- NECK -->
+      <path d="M45 31 L44 42 L56 42 L55 31 Z" fill="${fill}"/>
+      <!-- TORSO: shoulder peaks → armpit notch → waist indent → hip flare -->
+      <path d="M44 42 C38 42 26 45 22 51 C19 57 22 62 28 64 C26 74 26 88 29 98 C27 108 27 118 30 126 C36 132 44 135 49 135 L51 135 C56 135 64 132 70 126 C73 118 73 108 71 98 C74 88 74 74 72 64 C78 62 81 57 78 51 C74 45 62 42 56 42 Z" fill="${fill}" stroke="${stroke}" stroke-width="1"/>
+      <!-- LEFT ARM: hangs away from torso, gap visible at armpit -->
+      <path d="M16 53 C12 70 10 92 10 112 C10 122 11 130 13 134 C15 137 18 137 20 133 C21 126 21 110 21 94 C21 76 21 62 21 60 C19 56 17 53 16 53 Z" fill="${fill}" stroke="${stroke}" stroke-width="1"/>
+      <!-- RIGHT ARM: mirror -->
+      <path d="M84 53 C83 53 81 56 79 60 C79 62 79 76 79 94 C79 110 79 126 80 133 C82 137 85 137 87 134 C89 130 90 122 90 112 C90 92 88 70 84 53 Z" fill="${fill}" stroke="${stroke}" stroke-width="1"/>
+      <!-- LEFT LEG -->
+      <path d="M49 135 C48 145 48 162 48 178 C48 194 47 210 46 220 C45 226 42 230 38 230 C34 230 31 226 29 220 C27 210 26 194 26 178 C26 162 27 145 30 135 C36 131 44 131 49 135 Z" fill="${fill}" stroke="${stroke}" stroke-width="1"/>
+      <!-- RIGHT LEG -->
+      <path d="M51 135 C56 131 64 131 70 135 C73 145 74 162 74 178 C74 194 73 210 71 220 C69 226 66 230 62 230 C58 230 55 226 54 220 C53 210 52 194 52 178 C52 162 52 145 51 135 Z" fill="${fill}" stroke="${stroke}" stroke-width="1"/>
+    </g>
     ${highlights||''}
   </svg>`;
 }
