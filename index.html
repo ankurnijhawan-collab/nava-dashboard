@@ -456,7 +456,7 @@ button,input,textarea,select{font-family:inherit}
 
 /* — BODY MAP — */
 .body-map-wrap{position:relative;width:100%;background:var(--surface);border-radius:var(--r2);overflow:hidden;border:1px solid var(--border2)}
-.body-svg-container{position:relative;display:flex;justify-content:center;padding:24px 0;background:#fff}
+.body-svg-container{position:relative;display:flex;justify-content:center;padding:32px 0;background:#0a0d14;border-radius:var(--r2)}
 .body-svg-container svg{width:200px;height:auto}
 .body-hotspot{position:absolute;width:20px;height:20px;border-radius:50%;cursor:pointer;transform:translate(-50%,-50%);transition:all .2s;display:flex;align-items:center;justify-content:center}
 .hs-red{background:rgba(122,26,26,.25);border:2px solid var(--red)}
@@ -4101,7 +4101,7 @@ function renderPartnerCard(p){
 // ─── BODY MAP ───
 function buildBodySVG(fill, stroke, highlights){
   // CSS drop-shadow is far more reliable than SVG filters for the glow halo effect
-  const glowStyle = `filter:drop-shadow(0 0 8px ${fill})`;
+  const glowStyle = `filter:drop-shadow(0 0 18px ${fill}) drop-shadow(0 0 8px ${fill})`;
   return `<svg viewBox="0 0 100 260" fill="none" xmlns="http://www.w3.org/2000/svg" style="${glowStyle}">
     <defs>
       <radialGradient id="hi" cx="50%" cy="38%" r="60%">
