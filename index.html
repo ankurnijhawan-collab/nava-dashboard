@@ -457,7 +457,7 @@ button,input,textarea,select{font-family:inherit}
 /* — BODY MAP — */
 .body-map-wrap{position:relative;width:100%;background:var(--surface);border-radius:var(--r2);overflow:hidden;border:1px solid var(--border2)}
 .body-svg-container{position:relative;display:flex;justify-content:center;padding:16px 0}
-.body-svg-container svg{width:160px;height:auto}
+.body-svg-container svg{width:200px;height:auto}
 .body-hotspot{position:absolute;width:20px;height:20px;border-radius:50%;cursor:pointer;transform:translate(-50%,-50%);transition:all .2s;display:flex;align-items:center;justify-content:center}
 .hs-red{background:rgba(122,26,26,.25);border:2px solid var(--red)}
 .hs-amber{background:rgba(106,60,12,.2);border:2px solid var(--gold)}
@@ -4101,20 +4101,20 @@ function renderPartnerCard(p){
 // ─── BODY MAP ───
 function buildBodySVG(fill, stroke, highlights){
   return `<svg viewBox="0 0 100 260" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- HEAD -->
-    <ellipse cx="50" cy="19" rx="13" ry="15" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
+    <!-- HEAD: slightly smaller, natural oval -->
+    <ellipse cx="50" cy="18" rx="12" ry="14" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
     <!-- NECK -->
-    <path d="M45 33 L44 43 L56 43 L55 33 Z" fill="${fill}" stroke="none"/>
-    <!-- TORSO -->
-    <path d="M44 43 C36 43 22 46 18 52 C15 57 18 61 24 63 C22 73 22 86 26 96 C24 106 24 116 28 124 C34 130 42 133 48 133 L52 133 C58 133 66 130 72 124 C76 116 76 106 74 96 C78 86 78 73 76 63 C82 61 85 57 82 52 C78 46 64 43 56 43 Z" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
-    <!-- LEFT ARM -->
-    <path d="M18 52 C14 66 11 86 10 106 C9 118 10 126 12 132 C14 136 17 135 19 131 C21 125 22 114 22 100 C22 84 23 68 26 62 C24 57 22 52 18 52 Z" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
-    <!-- RIGHT ARM -->
-    <path d="M82 52 C78 52 76 57 74 62 C77 68 78 84 78 100 C78 114 79 125 81 131 C83 135 86 136 88 132 C90 126 91 118 90 106 C89 86 86 66 82 52 Z" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
+    <path d="M45 31 L44 42 L56 42 L55 31 Z" fill="${fill}" stroke="none"/>
+    <!-- TORSO: narrower shoulders, pronounced waist, natural hip flare -->
+    <path d="M44 42 C38 42 25 45 21 51 C18 56 21 60 27 62 C25 72 25 86 28 97 C26 107 26 117 29 125 C35 131 43 134 48 134 L52 134 C57 134 65 131 71 125 C74 117 74 107 72 97 C75 86 75 72 73 62 C79 60 82 56 79 51 C75 45 62 42 56 42 Z" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
+    <!-- LEFT ARM: slim, barely widens at elbow, tapers to wrist -->
+    <path d="M21 52 C18 68 16 90 15 110 C14 120 15 128 17 132 C19 135 22 134 24 130 C25 124 25 112 25 98 C25 82 25 68 27 62 C25 57 23 52 21 52 Z" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
+    <!-- RIGHT ARM: mirror -->
+    <path d="M79 52 C77 52 75 57 73 62 C75 68 75 82 75 98 C75 112 75 124 76 130 C78 134 81 135 83 132 C85 128 86 120 85 110 C84 90 82 68 79 52 Z" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
     <!-- LEFT LEG -->
-    <path d="M48 133 C47 143 47 157 47 173 C47 189 46 205 45 215 C44 222 41 226 37 226 C33 226 30 222 28 215 C26 205 25 189 25 173 C25 157 26 143 28 133 C34 129 42 129 48 133 Z" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
-    <!-- RIGHT LEG -->
-    <path d="M52 133 C58 129 66 129 72 133 C74 143 75 157 75 173 C75 189 75 205 72 215 C70 222 67 226 63 226 C59 226 56 222 55 215 C54 205 53 189 53 173 C53 157 53 143 52 133 Z" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
+    <path d="M48 134 C47 144 47 160 47 176 C47 192 46 208 45 218 C44 224 41 228 37 228 C33 228 30 224 28 218 C26 208 25 192 25 176 C25 160 26 144 29 134 C35 130 43 130 48 134 Z" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
+    <!-- RIGHT LEG: mirror -->
+    <path d="M52 134 C57 130 65 130 71 134 C74 144 75 160 75 176 C75 192 75 208 72 218 C70 224 67 228 63 228 C59 228 56 224 55 218 C54 208 53 192 53 176 C53 160 53 144 52 134 Z" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>
     ${highlights||''}
   </svg>`;
 }
