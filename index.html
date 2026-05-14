@@ -456,7 +456,7 @@ button,input,textarea,select{font-family:inherit}
 
 /* — BODY MAP — */
 .body-map-wrap{position:relative;width:100%;background:var(--surface);border-radius:var(--r2);overflow:hidden;border:1px solid var(--border2)}
-.body-svg-container{position:relative;display:flex;justify-content:center;padding:16px 0}
+.body-svg-container{position:relative;display:flex;justify-content:center;padding:24px 0;background:#fff}
 .body-svg-container svg{width:200px;height:auto}
 .body-hotspot{position:absolute;width:20px;height:20px;border-radius:50%;cursor:pointer;transform:translate(-50%,-50%);transition:all .2s;display:flex;align-items:center;justify-content:center}
 .hs-red{background:rgba(122,26,26,.25);border:2px solid var(--red)}
@@ -2454,7 +2454,7 @@ const CASES_DATA = [
     ]
   },
   bodyMap:{
-    fill:'#5AAAE0', stroke:'#3A88C0',
+    fill:'#2888E8', stroke:'#2888E8',
     highlights:`
       <circle cx="50" cy="19" r="9" fill="rgba(255,80,80,.5)" stroke="rgba(255,180,160,.95)" stroke-width="2"/>
       <ellipse cx="50" cy="92" rx="5" ry="10" fill="rgba(255,210,50,.45)" stroke="rgba(255,230,80,.9)" stroke-width="1.8"/>`,
@@ -2557,7 +2557,7 @@ const CASES_DATA = [
     {relation:'Mother',condition:'Hypertension',impact:'Shared hypertension predisposition. Genetic component confirmed.',impact_level:'med'}
   ],
   bodyMap:{
-    fill:'#E8809C', stroke:'#C86080',
+    fill:'#D84878', stroke:'#D84878',
     highlights:`
       <circle cx="38" cy="68" r="10" fill="rgba(255,80,80,.5)" stroke="rgba(255,180,160,.95)" stroke-width="2"/>
       <circle cx="50" cy="98" r="7" fill="rgba(255,210,50,.45)" stroke="rgba(255,230,80,.9)" stroke-width="1.8"/>`,
@@ -2666,7 +2666,7 @@ const CASES_DATA = [
     {relation:'No family',condition:'No known renal disease, cardiac disease',impact:'Nephropathy appears primarily diabetic in origin',impact_level:'low'}
   ],
   bodyMap:{
-    fill:'#5AAAE0', stroke:'#3A88C0',
+    fill:'#2888E8', stroke:'#2888E8',
     highlights:`
       <ellipse cx="34" cy="110" rx="6" ry="8" fill="rgba(255,80,80,.5)" stroke="rgba(255,180,160,.95)" stroke-width="2"/>
       <ellipse cx="66" cy="110" rx="6" ry="8" fill="rgba(255,80,80,.5)" stroke="rgba(255,180,160,.95)" stroke-width="2"/>
@@ -2779,7 +2779,7 @@ const CASES_DATA = [
     ]
   },
   bodyMap:{
-    fill:'#E8809C', stroke:'#C86080',
+    fill:'#D84878', stroke:'#D84878',
     highlights:`
       <ellipse cx="36" cy="73" rx="9" ry="12" fill="rgba(255,80,80,.5)" stroke="rgba(255,180,160,.95)" stroke-width="2"/>
       <ellipse cx="64" cy="73" rx="8" ry="11" fill="rgba(255,210,50,.45)" stroke="rgba(255,230,80,.9)" stroke-width="1.8"/>
@@ -2889,7 +2889,7 @@ const CASES_DATA = [
   ],
   obsGynae:{lmp:'3 weeks ago (PMB — 1st episode)',cycles:'Post-menopausal — no periods for 4 years prior to bleed',gravida:3,para:2,abortions:1,deliveries:'LSCS × 1, Normal × 1',lastPap:'2019 — Normal (5 yrs ago)',lastMammo:'Never — overdue',lastTVS:'Not done this episode — URGENT',endoThx:'Norethisterone (current — NAVA: STOP immediately, masks diagnosis)',note:'PMB in post-menopausal woman = cancer until proven otherwise. No endometrial biopsy done.'},
   bodyMap:{
-    fill:'#D0608C', stroke:'#A84070',
+    fill:'#B83468', stroke:'#B83468',
     highlights:`
       <ellipse cx="50" cy="119" rx="8" ry="9" fill="rgba(255,80,80,.5)" stroke="rgba(255,180,160,.95)" stroke-width="2"/>
       <circle cx="37" cy="70" r="6" fill="rgba(255,210,50,.45)" stroke="rgba(255,230,80,.9)" stroke-width="1.8"/>
@@ -2995,7 +2995,7 @@ const CASES_DATA = [
   ],
   obsGynae:{lmp:'6 weeks ago (irregular)',cycles:'28–90 day cycles, often heavy and painful',gravida:0,para:0,abortions:0,deliveries:'Nulliparous — actively trying to conceive',lastPap:'Never done — arrange urgently',lastMammo:'N/A (age 28)',lastTVS:'2 years ago — polycystic ovaries, thickened endometrium',endoThx:'Diane-35 OCP × 2 years — NAVA: STOP (contraceptive in a woman trying to conceive)',note:'Metabolic PCOS: insulin resistance not checked. Correct Dx is PCOS + conception goal — not cycle regulation alone.'},
   bodyMap:{
-    fill:'#D0608C', stroke:'#A84070',
+    fill:'#B83468', stroke:'#B83468',
     highlights:`
       <ellipse cx="36" cy="119" rx="5" ry="7" fill="rgba(255,80,80,.5)" stroke="rgba(255,180,160,.95)" stroke-width="2"/>
       <ellipse cx="64" cy="119" rx="5" ry="7" fill="rgba(255,80,80,.5)" stroke="rgba(255,180,160,.95)" stroke-width="2"/>
@@ -3129,7 +3129,7 @@ const CASES_DATA = [
   obsGynae:{lmp:'28 days ago (regular)',cycles:'28–30 day cycles, regular, mild dysmenorrhoea',gravida:1,para:0,abortions:1,deliveries:'No live births — 1 early miscarriage at 7 wks (2022)',lastTVS:'3 months ago — follicular tracking × 2 cycles, ovulation documented',lastHSG:'Never done — NAVA recommends before IUI',endoThx:'None currently. Previously: Folic acid 5mg',note:'Endometriosis not worked up despite maternal history + dysmenorrhoea. HSG not done before IUI recommendation.'},
   ovReserve:{amh:'2.1 ng/mL — Normal for age',afc:14,fsh:'7.8 mIU/mL — Normal',e2:'38 pg/mL — Normal',antralCount:'14 follicles total (7 each side)',artHistory:'No ART cycles yet. IUI proposed but husband semen analysis never done. 1 early miscarriage investigated.',recommendation:'IUI not yet indicated — complete male factor workup first. If normal, proceed to IUI. If abnormal (which NAVA predicts likely), direct to IVF-ICSI.',note:'3 years of workup focused on her. Rohit has never had a semen analysis.'},
   bodyMap:{
-    fill:'#44AA7C', stroke:'#2A8860',
+    fill:'#1A9E68', stroke:'#1A9E68',
     highlights:`
       <ellipse cx="50" cy="117" rx="8" ry="7" fill="rgba(255,210,50,.45)" stroke="rgba(255,230,80,.9)" stroke-width="1.8"/>
       <rect x="44" y="123" width="12" height="9" rx="3" fill="rgba(255,80,80,.5)" stroke="rgba(255,180,160,.95)" stroke-width="1.5" stroke-dasharray="2 2"/>`,
@@ -3263,7 +3263,7 @@ const CASES_DATA = [
     {relation:'Vikram — Father',condition:'Nil significant',impact:'No known familial infertility. Vikram\'s issues likely acquired (varicocele + lifestyle).',impact_level:'low'}
   ],
   bodyMap:{
-    fill:'#44AA7C', stroke:'#2A8860',
+    fill:'#1A9E68', stroke:'#1A9E68',
     highlights:`
       <ellipse cx="36" cy="119" rx="5" ry="7" fill="rgba(255,80,80,.5)" stroke="rgba(255,180,160,.95)" stroke-width="2"/>
       <ellipse cx="64" cy="119" rx="5" ry="7" fill="rgba(255,80,80,.5)" stroke="rgba(255,180,160,.95)" stroke-width="2"/>
@@ -4100,29 +4100,26 @@ function renderPartnerCard(p){
 
 // ─── BODY MAP ───
 function buildBodySVG(fill, stroke, highlights){
-  return `<svg viewBox="0 0 100 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+  // CSS drop-shadow is far more reliable than SVG filters for the glow halo effect
+  const glowStyle = `filter:drop-shadow(0 0 22px ${fill}) drop-shadow(0 0 12px ${fill}) drop-shadow(0 0 5px ${fill})`;
+  return `<svg viewBox="0 0 100 260" fill="none" xmlns="http://www.w3.org/2000/svg" style="${glowStyle}">
     <defs>
-      <filter id="fg" x="-40%" y="-8%" width="180%" height="118%">
-        <feGaussianBlur stdDeviation="4.5" result="b"/>
-        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-      </filter>
+      <radialGradient id="hi" cx="50%" cy="38%" r="60%">
+        <stop offset="0%" stop-color="#fff" stop-opacity="0.28"/>
+        <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+      </radialGradient>
     </defs>
-    <g filter="url(#fg)">
-      <!-- HEAD -->
-      <ellipse cx="50" cy="18" rx="12" ry="14" fill="${fill}" stroke="${stroke}" stroke-width="1"/>
-      <!-- NECK -->
-      <path d="M45 31 L44 42 L56 42 L55 31 Z" fill="${fill}"/>
-      <!-- TORSO: shoulder peaks → armpit notch → waist indent → hip flare -->
-      <path d="M44 42 C38 42 26 45 22 51 C19 57 22 62 28 64 C26 74 26 88 29 98 C27 108 27 118 30 126 C36 132 44 135 49 135 L51 135 C56 135 64 132 70 126 C73 118 73 108 71 98 C74 88 74 74 72 64 C78 62 81 57 78 51 C74 45 62 42 56 42 Z" fill="${fill}" stroke="${stroke}" stroke-width="1"/>
-      <!-- LEFT ARM: hangs away from torso, gap visible at armpit -->
-      <path d="M16 53 C12 70 10 92 10 112 C10 122 11 130 13 134 C15 137 18 137 20 133 C21 126 21 110 21 94 C21 76 21 62 21 60 C19 56 17 53 16 53 Z" fill="${fill}" stroke="${stroke}" stroke-width="1"/>
-      <!-- RIGHT ARM: mirror -->
-      <path d="M84 53 C83 53 81 56 79 60 C79 62 79 76 79 94 C79 110 79 126 80 133 C82 137 85 137 87 134 C89 130 90 122 90 112 C90 92 88 70 84 53 Z" fill="${fill}" stroke="${stroke}" stroke-width="1"/>
-      <!-- LEFT LEG -->
-      <path d="M49 135 C48 145 48 162 48 178 C48 194 47 210 46 220 C45 226 42 230 38 230 C34 230 31 226 29 220 C27 210 26 194 26 178 C26 162 27 145 30 135 C36 131 44 131 49 135 Z" fill="${fill}" stroke="${stroke}" stroke-width="1"/>
-      <!-- RIGHT LEG -->
-      <path d="M51 135 C56 131 64 131 70 135 C73 145 74 162 74 178 C74 194 73 210 71 220 C69 226 66 230 62 230 C58 230 55 226 54 220 C53 210 52 194 52 178 C52 162 52 145 51 135 Z" fill="${fill}" stroke="${stroke}" stroke-width="1"/>
-    </g>
+    <!-- SOLID BODY -->
+    <ellipse cx="50" cy="18" rx="12" ry="14" fill="${fill}"/>
+    <path d="M45 31 L44 42 L56 42 L55 31 Z" fill="${fill}"/>
+    <path d="M44 42 C38 42 26 45 22 51 C19 57 22 62 28 64 C26 74 26 88 29 98 C27 108 27 118 30 126 C36 132 44 135 49 135 L51 135 C56 135 64 132 70 126 C73 118 73 108 71 98 C74 88 74 74 72 64 C78 62 81 57 78 51 C74 45 62 42 56 42 Z" fill="${fill}"/>
+    <path d="M16 53 C12 70 10 92 10 112 C10 122 11 130 13 134 C15 137 18 137 20 133 C21 126 21 110 21 94 C21 76 21 62 21 60 C19 56 17 53 16 53 Z" fill="${fill}"/>
+    <path d="M84 53 C83 53 81 56 79 60 C79 62 79 76 79 94 C79 110 79 126 80 133 C82 137 85 137 87 134 C89 130 90 122 90 112 C90 92 88 70 84 53 Z" fill="${fill}"/>
+    <path d="M49 135 C48 145 48 162 48 178 C48 194 47 210 46 220 C45 226 42 230 38 230 C34 230 31 226 29 220 C27 210 26 194 26 178 C26 162 27 145 30 135 C36 131 44 131 49 135 Z" fill="${fill}"/>
+    <path d="M51 135 C56 131 64 131 70 135 C73 145 74 162 74 178 C74 194 73 210 71 220 C69 226 66 230 62 230 C58 230 55 226 54 220 C53 210 52 194 52 178 C52 162 52 145 51 135 Z" fill="${fill}"/>
+    <!-- INNER HIGHLIGHT for depth — bright centre fading out -->
+    <ellipse cx="50" cy="18" rx="12" ry="14" fill="url(#hi)"/>
+    <path d="M44 42 C38 42 26 45 22 51 C19 57 22 62 28 64 C26 74 26 88 29 98 C27 108 27 118 30 126 C36 132 44 135 49 135 L51 135 C56 135 64 132 70 126 C73 118 73 108 71 98 C74 88 74 74 72 64 C78 62 81 57 78 51 C74 45 62 42 56 42 Z" fill="url(#hi)"/>
     ${highlights||''}
   </svg>`;
 }
